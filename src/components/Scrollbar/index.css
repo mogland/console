@@ -1,0 +1,23 @@
+
+.scrollbar {
+  overflow: hidden;
+  position: relative;
+  z-index: auto;
+  height: 100%;
+  width: 100%;
+}
+
+.scrollbar-container {
+  font-family: Josefin Sans;
+  padding-left: 1rem;
+  width: 100%;
+  overflow: scroll;
+  height: 100%;
+  max-height: inherit;
+  scrollbar-width: none;
+}
+
+.scrollbar-content {
+  box-sizing: border-box;
+  min-width: 100%
+}

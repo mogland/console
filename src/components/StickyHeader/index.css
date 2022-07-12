@@ -1,0 +1,9 @@
+.sticky-header {
+  padding: 3rem 3rem 1.5rem;
+  position: -webkit-sticky;
+  position: sticky;
+  left: 0;
+  right: 0;
+  top: -2.5rem;
+  z-index: 20;
+}
