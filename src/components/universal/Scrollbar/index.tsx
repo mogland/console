@@ -10,7 +10,7 @@ import './index.css'
 
 export const Scrollbar = (props: any) => {
   return (
-    <div role={"none"} className="scrollbar">
+    <div role={"none"} className="scrollbar" style={{...props.style}}>
       <div className='scrollbar-container'>
         <div className='scrollbar-content'>
           {props.children}

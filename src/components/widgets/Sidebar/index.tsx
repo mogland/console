@@ -1,20 +1,20 @@
 /*
- * @FilePath: /nx-admin/src/components/Sidebar/index.tsx
+ * @FilePath: /nx-admin/src/components/widgets/Sidebar/index.tsx
  * @author: Wibus
  * @Date: 2022-07-12 16:31:24
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-12 18:13:45
+ * @LastEditTime: 2022-07-12 18:26:23
  * Coding With IU
  */
 import { Dashboard, DocDetail, FileTextOne, Folder, MaterialTwo, Link as Files, WeixinPeopleNearby } from '@icon-park/react'
 import { Link, useLocation } from 'react-router-dom'
 import { NxLayout } from '../../universal/Layout'
-import { Scrollbar } from '../Scrollbar'
+import { Scrollbar } from '../../universal/Scrollbar'
 import './index.css'
 
 const SidebarScrollbar = (props: any) => {
   return (
-    <Scrollbar>
+    <Scrollbar style={{paddingLeft: "1rem"}}>
       <SidebarItem title='仪表盘' icon={<Dashboard />} path="/" />
       <SidebarItem title="文章" icon={<DocDetail />} path="/posts" />
       <SidebarItem title="页面" icon={<FileTextOne />} path="/pages" />
@@ -52,7 +52,7 @@ export const Sidebar = () => {
             愛すべき
           </h1>
         </div>
-        <NxLayout>
+        <NxLayout rgba="255, 255, 255" >
           <SidebarScrollbar
             path={pathname}
           />
