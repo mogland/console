@@ -25,7 +25,7 @@
   padding-right: 100px;
 }
 
-.sidebarItem :hover {
+.sidebarItem:hover {
   color: rgb(33, 53, 71);
 }
 

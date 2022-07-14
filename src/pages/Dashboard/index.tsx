@@ -3,11 +3,12 @@
  * @author: Wibus
  * @Date: 2022-07-14 16:30:25
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-14 21:51:55
+ * @LastEditTime: 2022-07-14 22:04:44
  * Coding With IU
  */
 
 import { Page, Button, Text, Grid, Card, useClasses } from "@geist-ui/core"
+import { Timeline } from "../../components/widgets/Timeline"
 import styles from "./index.module.css"
 
 export const Dashboard = () => {
@@ -45,6 +46,14 @@ export const Dashboard = () => {
           </div>
         </section>
 
+        <section className={useClasses(styles.dashboardArea, styles.mixed)}>
+          <div className={useClasses(styles.dashboardContainer)}>
+            <div className={useClasses(styles.dashboardBox)}>
+              <h3>Latest changes</h3>
+              <Timeline />
+            </div>
+          </div>
+        </section>
       </div>
     </Page>
   )
