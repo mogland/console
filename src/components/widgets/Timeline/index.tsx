@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-14 21:59:20
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-14 22:21:17
+ * @LastEditTime: 2022-07-14 22:22:58
  * Coding With IU
  */
 
@@ -46,7 +46,7 @@ export const Timeline = (props) => {
         <TimelineItem 
           title={"Breaking Changes: New links module with crawling feeds"}
           day={"many hours ago"}
-          url={"https://github.com/nx-space/core/releases/tag/v1.4.0-alpha.2"}
+          url={"https://github.com/nx-space/core/pull/223"}
         />
 
         {/* }) : ""} */}
