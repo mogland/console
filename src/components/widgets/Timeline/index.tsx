@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-14 21:59:20
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-14 22:22:58
+ * @LastEditTime: 2022-07-14 22:50:57
  * Coding With IU
  */
 
@@ -38,15 +38,26 @@ export const Timeline = (props) => {
       <ul className={useClasses(styles.timelineList)}>
         {/* {props.data ? props.data.map((item, index) => { */}
 
-        <TimelineItem 
+        <TimelineItem
           title={"Release v1.4.0-alpha.2 is coming with nestjs@v9"}
           day={"many hours ago"}
           url={"https://github.com/nx-space/core/releases/tag/v1.4.0-alpha.2"}
         />
-        <TimelineItem 
+        <TimelineItem
           title={"Breaking Changes: New links module with crawling feeds"}
           day={"many hours ago"}
           url={"https://github.com/nx-space/core/pull/223"}
+        />
+        <TimelineItem
+          title={"Aggregate Service becomes a rss builder"}
+          day={"many hours ago"}
+        // url={"https://github.com/nx-space/core/pull/223"}
+        />
+
+        <TimelineItem
+          title={"Release v1.2.0 Beta: NEXT Core comes back with new features!"}
+          day={"many hours ago"}
+          url={"https://github.com/nx-space/core/releases/tag/v1.2.0"}
         />
 
         {/* }) : ""} */}

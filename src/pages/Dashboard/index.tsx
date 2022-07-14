@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-14 16:30:25
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-14 22:38:37
+ * @LastEditTime: 2022-07-14 22:51:40
  * Coding With IU
  */
 
@@ -52,18 +52,34 @@ export const Dashboard = () => {
         <section className={useClasses(styles.dashboardArea, styles.mixed)}>
           <div className={useClasses(styles.dashboardContainer)}>
             <div className={useClasses(styles.dashboardBox, styles.blogPost)}>
-              <h2>即刻灵感</h2>
+              <h3>即刻灵感</h3>
 
               <div className="flex flex-row">
-                <a href="" >
-                  {/* <span className={useClasses(styles.icon)}></span> */}
+                <a onClick={() => {
+                  fetch(url)
+                    .then(res => res.json())
+                    .then(res => {
+                      setHitokoto({
+                        hitokoto: res.hitokoto,
+                        from: res.from,
+                      })
+                    })
+                }}>
                   <div>
                     <h4>「{hitokoto.hitokoto}」</h4>
                     <p>From {hitokoto.from}</p>
                   </div>
                 </a>
-                <a href="" >
-                  {/* <span className={useClasses(styles.icon)}></span> */}
+                <a onClick={() => {
+                  fetch(`${url}&c=i`)
+                    .then(res => res.json())
+                    .then(res => {
+                      setPoem({
+                        title: res.from,
+                        content: res.hitokoto,
+                      })
+                    })
+                }}>
                   <div>
                     <h4>「{poem.content}」</h4>
                     <p>《{poem.title}》</p>
@@ -83,6 +99,8 @@ export const Dashboard = () => {
             </div>
           </div>
         </section>
+
+
       </div>
     </Page>
   )

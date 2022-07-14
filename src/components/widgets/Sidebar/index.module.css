@@ -24,7 +24,9 @@
   cursor: pointer;
   padding-right: 100px;
 }
-
+.active {
+  color: rgb(33, 53, 71);
+}
 .sidebarItem:hover {
   color: rgb(33, 53, 71);
 }

@@ -3,11 +3,12 @@
  * @author: Wibus
  * @Date: 2022-07-14 16:39:24
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-14 21:52:53
+ * @LastEditTime: 2022-07-14 22:45:21
  * Coding With IU
  */
 import { useClasses } from '@geist-ui/core'
 import { Home, List, File, Link, ChevronDown, Edit, Feather, Package, Trello, Settings } from '@geist-ui/icons'
+import { useLocation } from 'react-router-dom'
 import style from './index.module.css'
 
 export const SidebarGroup = (props) => {
@@ -57,8 +58,10 @@ export const SidebarList = (props) => {
 }
 
 export const SidebarItem = (props) => {
+  const location = useLocation()
+  const pathname = location.pathname
   return (
-    <div className={useClasses(style.sidebarItem, "w-full flex flex-row items-center py-2 left-0")}>
+    <div className={useClasses(style.sidebarItem, "w-full flex flex-row items-center py-2 left-0", pathname == props.path ? style.active : null)}>
       <div className={useClasses(style.sidebarItemIcon, "pr-4 justify-center")} style={{
         flexBasis: "1.2rem",
       }}>
@@ -79,7 +82,7 @@ export const Sidebar = () => {
       </div>
       <div className={useClasses("ml-20")}>
         <SidebarList>
-          <SidebarItem icon={<Home />} title='Dashboard' />
+          <SidebarItem icon={<Home />} title='Dashboard' path="/dashboard" />
           <SidebarItem icon={<Link />} title='Links' />
         </SidebarList>
         <SidebarGroup  icon={<Edit />} title='Posts'>
