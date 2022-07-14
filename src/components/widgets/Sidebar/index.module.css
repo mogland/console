@@ -1,0 +1,11 @@
+.sidebar {
+  background-color: rgb(249, 249, 249);
+  width: 400px;
+}
+
+.hasSidebar {
+  display: flex;
+  flex-direction: row; /* row 将子元素放在一行 */
+  flex: auto; /* auto 将子元素的大小自动计算 */
+  min-height: 0;
+}
