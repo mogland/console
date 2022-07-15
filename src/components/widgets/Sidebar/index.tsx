@@ -77,11 +77,11 @@ export const SidebarItem = (props) => {
 
 export const Sidebar = (props) => {
   return (
-    <div className={useClasses(style.sidebar, props.block ? "": "hidden md:block")}>
+    <div className={useClasses(style.sidebar, props.block ? "": "hidden lg:block")}>
       <div>
-        <h1 className={useClasses('py-6 text-3xl font-light md:pl-10 md:pt-12 hidden md:block')}>NEXT</h1>
+        <h1 className={useClasses('py-6 text-3xl font-light lg:pl-10 lg:pt-12 hidden lg:block')}>NEXT</h1>
       </div>
-      <div className={useClasses("md:ml-20 ml-10")}>
+      <div className={useClasses("lg:ml-20 ml-10")}>
         <SidebarList>
           <SidebarItem icon={<Home />} title='仪表盘' path="/dashboard" />
           <SidebarItem icon={<MessageCircle />} title='评论' path="/comments" />
@@ -107,7 +107,7 @@ export const SidebarBtn = () => {
   const [open, setOpen] = useState(false)
   return (
     <>
-      <div className={useClasses("pl-6 py-5 float-right absolute md:hidden cursor-pointer z-10")} onClick={() => { setOpen(!open) }}>
+      <div className={useClasses("pl-6 py-5 float-right absolute lg:hidden cursor-pointer z-10")} onClick={() => { setOpen(!open) }}>
         <div className={useClasses(style.sidebarBtnIcon)}>
           <AlignLeft />
         </div>

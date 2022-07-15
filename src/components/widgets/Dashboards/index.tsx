@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-15 15:26:54
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-15 16:00:56
+ * @LastEditTime: 2022-07-15 18:25:32
  * Coding With IU
  */
 
@@ -20,11 +20,11 @@ Dashboards.Container = (props: { children: string | number | boolean | ReactElem
     </div>
   )
 }
-Dashboards.Area = (props: { children: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | ReactFragment | ReactPortal | null | undefined }) => {
+Dashboards.Area = (props: { children: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | ReactFragment | ReactPortal | null | undefined, border?: boolean }) => {
   return (
     <section className={useClasses(styles.dashboardArea, styles.mixed)}>
       <div className={useClasses(styles.dashboardContainer)}>
-        <div className={useClasses(styles.dashboardBox, styles.blogPost)}>
+        <div className={useClasses(styles.dashboardBox, styles.blogPost, props.border ? "" : "border-none")}>
           {props.children}
         </div>
       </div>
