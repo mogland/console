@@ -3,26 +3,26 @@
  * @author: Wibus
  * @Date: 2022-07-14 16:30:25
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-14 22:56:15
+ * @LastEditTime: 2022-07-14 23:01:56
  * Coding With IU
  */
 
 import { Page, Button, Text, Grid, Card, useClasses } from "@geist-ui/core"
-import { useState } from "react"
+import { ReactElement, JSXElementConstructor, ReactFragment, ReactPortal, useState } from "react"
 import { useFirstMountState, useMount } from "react-use"
 import { Timeline } from "../../components/widgets/Timeline"
 import styles from "./index.module.css"
 
 const Dashboards = () => { }
 
-Dashboards.Container = (props) => {
+Dashboards.Container = (props: { children: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | ReactFragment | ReactPortal | null | undefined }) => {
   return (
     <div className={useClasses(styles.viewContainer)}>
       {props.children}
     </div>
   )
 }
-Dashboards.Area = (props) => {
+Dashboards.Area = (props: { children: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | ReactFragment | ReactPortal | null | undefined }) => {
   return (
     <section className={useClasses(styles.dashboardArea, styles.mixed)}>
       <div className={useClasses(styles.dashboardContainer)}>
