@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-14 16:39:24
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-15 16:16:50
+ * @LastEditTime: 2022-07-15 17:01:30
  * Coding With IU
  */
 import { Drawer, useClasses } from '@geist-ui/core'
@@ -106,7 +106,7 @@ export const SidebarBtn = () => {
   const [open, setOpen] = useState(false)
   return (
     <>
-      <div className={useClasses("pl-6 py-5 float-right absolute md:hidden cursor-pointer z-2")} onClick={() => { setOpen(!open) }}>
+      <div className={useClasses("pl-6 py-5 float-right absolute md:hidden cursor-pointer z-10")} onClick={() => { setOpen(!open) }}>
         <div className={useClasses(style.sidebarBtnIcon)}>
           <AlignLeft />
         </div>

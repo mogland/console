@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@geist-ui/core': ^2.3.8
   '@geist-ui/icons': ^1.0.2
+  '@headlessui/react': ^1.6.6
   '@icon-park/react': ^1.4.2
   '@types/react': ^18.0.0
   '@types/react-dom': ^18.0.0
@@ -21,6 +22,7 @@ specifiers:
 dependencies:
   '@geist-ui/core': 2.3.8_biqbaboplfbrettd7655fr4n2y
   '@geist-ui/icons': 1.0.2_zhza2kbnl2wkkf7vqdl3ton2f4
+  '@headlessui/react': 1.6.6_biqbaboplfbrettd7655fr4n2y
   '@icon-park/react': 1.4.2_biqbaboplfbrettd7655fr4n2y
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
@@ -327,6 +329,17 @@ packages:
     dependencies:
       '@geist-ui/core': 2.3.8_biqbaboplfbrettd7655fr4n2y
       react: 18.2.0
+    dev: false
+
+  /@headlessui/react/1.6.6_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-MFJtmj9Xh/hhBMhLccGbBoSk+sk61BlP6sJe4uQcVMtXZhCgGqd2GyIQzzmsdPdTEWGSF434CBi8mnhR6um46Q==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: ^16 || ^17 || ^18
+      react-dom: ^16 || ^17 || ^18
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /@icon-park/react/1.4.2_biqbaboplfbrettd7655fr4n2y:
