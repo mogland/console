@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-14 16:30:25
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-15 18:35:46
+ * @LastEditTime: 2022-07-15 19:50:34
  * Coding With IU
  */
 
@@ -12,7 +12,9 @@ import { ReactElement, JSXElementConstructor, ReactFragment, ReactPortal, useSta
 import { useFirstMountState, useMount } from "react-use"
 import Dashboards from "../../components/widgets/Dashboards"
 import { Lists } from "../../components/widgets/Lists"
+import { NxPage } from "../../components/widgets/Page"
 import { Timeline } from "../../components/widgets/Timeline"
+import { BasicPage } from "../../types/basic"
 import styles from "./index.module.css"
 
 const Hitokoto = () => {
@@ -121,9 +123,9 @@ const Hitokoto = () => {
           <div className="w-full">
             {/* <h4>「{hitokoto.hitokoto}」</h4>
             <p>From {hitokoto.from}</p> */}
-            {/* <Card type={"default"} width="100%"> */}
-              <Text h4 my={0} style={{ textTransform: 'capitalize' }} className="font-serif font-black">「{hitokoto.hitokoto}」</Text>
-              <Text className="font-serif">{hitokoto.from}</Text>
+            {/* <Card type={"cyan"} width="100%"> */}
+            <Text h4 my={0} style={{ textTransform: 'capitalize' }} className="font-serif font-black">「{hitokoto.hitokoto}」</Text>
+            <Text className="font-serif">{hitokoto.from}</Text>
             {/* </Card> */}
           </div>
         </a>
@@ -136,13 +138,13 @@ const Hitokoto = () => {
                 content: res.hitokoto,
               })
             })
-        }} className="w-full" style={{display: "none"}}>
+        }} className="w-full" style={{ display: "none" }}>
           <div className="w-full">
             {/* <h4>「{poem.content}」</h4>
             <p>《{poem.title}》</p> */}
             {/* <Card type={"default"} width="100%"> */}
-              <Text h4 my={0} style={{ textTransform: 'capitalize' }}>「{poem.content}」</Text>
-              <Text>《{poem.title}》</Text>
+            <Text h4 my={0} style={{ textTransform: 'capitalize' }}>「{poem.content}」</Text>
+            <Text>《{poem.title}》</Text>
             {/* </Card> */}
           </div>
         </a>
@@ -168,18 +170,15 @@ const Hitokoto = () => {
   )
 }
 
-export const Dashboard = () => {
+export const Dashboard: BasicPage = () => {
 
   return (
-    <Page className={useClasses(styles.page)}>
-      <div className={useClasses(styles.header)}>
-        <Text h2>Dashboard</Text>
-      </div>
+    <NxPage title={"Dashboard"}>
       <Dashboards.Container className="lg:grid flex flex-col">
 
         {/* <Dashboards.Area>
-          <Hitokoto />
-        </Dashboards.Area> */}
+  <Hitokoto />
+</Dashboards.Area> */}
 
         <div>
           <Dashboards.Area>
@@ -205,6 +204,6 @@ export const Dashboard = () => {
 
 
       </Dashboards.Container>
-    </Page>
+    </NxPage>
   )
 }

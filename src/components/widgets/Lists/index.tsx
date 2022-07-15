@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-15 17:06:10
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-15 18:17:47
+ * @LastEditTime: 2022-07-15 18:57:37
  * Coding With IU
  */
 import { Table, Tabs, useClasses } from '@geist-ui/core';
@@ -32,7 +32,7 @@ export const Lists = () => {
           <Table.Column prop="title" label='标题' />
           <Table.Column prop="summary" label='描述' />
           <Table.Column prop="slug" label='路径' />
-          <Table.Column prop="created" label='时间' />
+          {/* <Table.Column prop="created" label='时间' /> */}
         </Table>
       </Tabs.Item>
       <Tabs.Item label="未读评论" value='2'>
@@ -49,7 +49,6 @@ export const Lists = () => {
           <Table.Column prop="name" label='名称' />
           <Table.Column prop="description" label='描述' />
           <Table.Column prop="url" label='链接' />
-          <Table.Column prop="created" label='时间' />
         </Table>
       </Tabs.Item>
     </Tabs>
