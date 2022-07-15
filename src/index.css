@@ -16,6 +16,10 @@ code {
     monospace;
 }
 
-main {
-  padding: 10px;
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #242424 !important;
+    color: rgba(255, 255, 255, 0.927) !important;
+  }
 }

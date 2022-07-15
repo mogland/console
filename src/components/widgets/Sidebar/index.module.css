@@ -96,3 +96,29 @@
   padding: 8px;
   border-radius: 100%;
 }
+
+/* 暗黑模式时候 */
+@media (prefers-color-scheme: dark) {
+  .sidebar {
+    background-color: #000000 !important;
+    color: rgba(255, 255, 255, 0.7);
+  }
+  .sidebarItem {
+    color: rgba(255, 255, 255, 0.7);
+  }
+  .sidebarItem:hover {
+    color: rgb(255, 255, 255);
+  }
+  .sidebarItemIcon svg {
+    fill: rgba(255, 255, 255, 0.7);
+  }
+  .sidebarItemTitle>span {
+    color: rgba(255, 255, 255, 0.7);
+  }
+  .sidebarItemTitle>.action {
+    color: rgba(255, 255, 255, 0.7);
+  }
+  .sidebarItemTitle>.action>svg {
+    fill: rgba(255, 255, 255, 0.7);
+  }
+}

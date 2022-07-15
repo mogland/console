@@ -80,3 +80,9 @@
 .TimelineItemBadge {
   margin-left: -30.5px;
 }
+
+@media (prefers-color-scheme: dark) {
+  .LinkPrimary {
+    color: rgba(255, 255, 255, 0.927) !important;
+  }
+}
