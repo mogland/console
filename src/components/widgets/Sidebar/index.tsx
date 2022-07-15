@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-14 16:39:24
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-15 18:19:58
+ * @LastEditTime: 2022-07-15 18:21:08
  * Coding With IU
  */
 import { Drawer, useClasses } from '@geist-ui/core'
@@ -85,18 +85,18 @@ export const Sidebar = (props) => {
         <SidebarList>
           <SidebarItem icon={<Home />} title='仪表盘' path="/dashboard" />
           <SidebarItem icon={<MessageCircle />} title='评论' path="/comments" />
-          <SidebarItem icon={<Links />} title='Links' path="/links" />
+          <SidebarItem icon={<Links />} title='友链' path="/links" />
         </SidebarList>
-        <SidebarGroup icon={<Edit />} title='Posts' path="/posts">
-          <SidebarGroupItem icon={<List />} title='List' path="/posts/list" />
-          <SidebarGroupItem icon={<Feather />} title='Write' path="/posts/edit" />
+        <SidebarGroup icon={<Edit />} title='文章' path="/posts">
+          <SidebarGroupItem icon={<List />} title='全部列表' path="/posts/list" />
+          <SidebarGroupItem icon={<Feather />} title='书写新的一篇' path="/posts/edit" />
         </SidebarGroup>
 
         <SidebarList>
-          <SidebarItem icon={<File />} title='Files' path="/files" />
-          <SidebarItem icon={<Package />} title='Plugins' path="/plugins" />
-          <SidebarItem icon={<Trello />} title='Themes' path="/themes" />
-          <SidebarItem icon={<Settings />} title='Settings' path="/settings" />
+          <SidebarItem icon={<File />} title='文件' path="/files" />
+          <SidebarItem icon={<Package />} title='插件' path="/plugins" />
+          <SidebarItem icon={<Trello />} title='主题' path="/themes" />
+          <SidebarItem icon={<Settings />} title='系统设置' path="/settings" />
         </SidebarList>
       </div>
     </div>
