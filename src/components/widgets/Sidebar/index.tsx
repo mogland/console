@@ -3,11 +3,11 @@
  * @author: Wibus
  * @Date: 2022-07-14 16:39:24
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-15 17:01:30
+ * @LastEditTime: 2022-07-15 18:19:58
  * Coding With IU
  */
 import { Drawer, useClasses } from '@geist-ui/core'
-import { Home, List, File, Link as Links, ChevronDown, Edit, Feather, Package, Trello, Settings, AlignLeft } from '@geist-ui/icons'
+import { Home, List, File, Link as Links, ChevronDown, Edit, Feather, Package, Trello, Settings, AlignLeft, MessageCircle } from '@geist-ui/icons'
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import style from './index.module.css'
@@ -83,7 +83,8 @@ export const Sidebar = (props) => {
       </div>
       <div className={useClasses("md:ml-20 ml-10")}>
         <SidebarList>
-          <SidebarItem icon={<Home />} title='Dashboard' path="/dashboard" />
+          <SidebarItem icon={<Home />} title='仪表盘' path="/dashboard" />
+          <SidebarItem icon={<MessageCircle />} title='评论' path="/comments" />
           <SidebarItem icon={<Links />} title='Links' path="/links" />
         </SidebarList>
         <SidebarGroup icon={<Edit />} title='Posts' path="/posts">
