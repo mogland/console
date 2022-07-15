@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-14 16:39:24
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-15 15:50:17
+ * @LastEditTime: 2022-07-15 16:16:50
  * Coding With IU
  */
 import { Drawer, useClasses } from '@geist-ui/core'
@@ -79,9 +79,9 @@ export const Sidebar = (props) => {
   return (
     <div className={useClasses(style.sidebar, props.block ? "": "hidden md:block")}>
       <div>
-        <h1 className={useClasses('py-6 text-3xl font-light pl-10 pt-12')}>NEXT</h1>
+        <h1 className={useClasses('py-6 text-3xl font-light md:pl-10 md:pt-12 hidden md:block')}>NEXT</h1>
       </div>
-      <div className={useClasses("ml-20")}>
+      <div className={useClasses("md:ml-20 ml-10")}>
         <SidebarList>
           <SidebarItem icon={<Home />} title='Dashboard' path="/dashboard" />
           <SidebarItem icon={<Links />} title='Links' path="/links" />
@@ -106,13 +106,13 @@ export const SidebarBtn = () => {
   const [open, setOpen] = useState(false)
   return (
     <>
-      <div className={useClasses("pl-6 py-5 float-right absolute md:hidden cursor-pointer")} onClick={() => { setOpen(!open) }}>
-        <div className={useClasses(style.sidebarBtnIcon, "")}>
+      <div className={useClasses("pl-6 py-5 float-right absolute md:hidden cursor-pointer z-2")} onClick={() => { setOpen(!open) }}>
+        <div className={useClasses(style.sidebarBtnIcon)}>
           <AlignLeft />
         </div>
       </div>
       <Drawer visible={open} onClose={() => { setOpen(false) }} placement="left" wrapClassName={useClasses(style.sidebar, style.sidebarPhone)}>
-        <Sidebar block />
+        <Sidebar block id={"sidebar"} />
       </Drawer>
     </>
   )

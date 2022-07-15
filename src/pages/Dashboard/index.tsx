@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-14 16:30:25
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-15 15:34:06
+ * @LastEditTime: 2022-07-15 16:02:05
  * Coding With IU
  */
 
@@ -95,12 +95,13 @@ export const Dashboard = () => {
           <Hitokoto />
         </Dashboards.Area>
         
-
-
-        
         <Dashboards.Area>
           <h3>Latest changes</h3>
           <Timeline />
+        </Dashboards.Area>
+
+        <Dashboards.Area>
+          <Hitokoto />
         </Dashboards.Area>
 
                 

@@ -59,8 +59,6 @@ export const Timeline = (props) => {
           day={"many hours ago"}
           url={"https://github.com/nx-space/core/releases/tag/v1.2.0"}
         />
-
-        {/* }) : ""} */}
       </ul>
       <div className="ml-1 pt-2 pl-4 border-left">
         <a className={useClasses("text-small mt-2", styles.viewChanges)} href="https://github.blog/changelog">View changelog →</a>
