@@ -10,10 +10,10 @@
   "dependencies": {
     "@geist-ui/core": "^2.3.8",
     "@geist-ui/icons": "^1.0.2",
-    "@headlessui/react": "^1.6.6",
     "@icon-park/react": "^1.4.2",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
+    "react-message-popup": "1.0.0-alpha.2",
     "react-router-dom": "6",
     "react-use": "^17.4.0"
   },

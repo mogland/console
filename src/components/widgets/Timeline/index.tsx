@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-14 21:59:20
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-14 22:50:57
+ * @LastEditTime: 2022-07-15 20:08:19
  * Coding With IU
  */
 
@@ -15,7 +15,7 @@ const TimelineItem = (props) => {
     <li className={useClasses(styles.timelineItem, "ml-1 pt-0 pb-3")}>
       <div className={useClasses("mt-0", styles.TimelineItemBadge)}>
         <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" className="octicon octicon-dot-fill mb-2">
-          <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8z"></path>
+          <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8z"></path>
         </svg>
       </div>
 

@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-14 16:39:24
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-15 18:21:08
+ * @LastEditTime: 2022-07-15 19:52:03
  * Coding With IU
  */
 import { Drawer, useClasses } from '@geist-ui/core'
@@ -88,7 +88,7 @@ export const Sidebar = (props) => {
           <SidebarItem icon={<Links />} title='友链' path="/links" />
         </SidebarList>
         <SidebarGroup icon={<Edit />} title='文章' path="/posts">
-          <SidebarGroupItem icon={<List />} title='全部列表' path="/posts/list" />
+          <SidebarGroupItem icon={<List />} title='全部列表' path="/posts/" />
           <SidebarGroupItem icon={<Feather />} title='书写新的一篇' path="/posts/edit" />
         </SidebarGroup>
 

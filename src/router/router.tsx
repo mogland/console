@@ -3,14 +3,14 @@
  * @author: Wibus
  * @Date: 2022-07-12 16:25:35
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-15 19:03:21
+ * @LastEditTime: 2022-07-15 19:55:28
  * Coding With IU
  */
 
 import { Route, Routes } from "react-router-dom"
 import { Comments } from "../pages/Comments"
 import { Dashboard } from "../pages/Dashboard"
-import { Posts } from "../pages/Posts"
+import { Posts } from "../pages/Posts/list"
 
 const JumpToDashboard = () => {
   // 跳转到 Dashboard 页面
