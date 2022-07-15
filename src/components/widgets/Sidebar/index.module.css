@@ -1,6 +1,13 @@
 .sidebar {
-  background-color: rgb(249, 249, 249);
+  background-color: rgb(249, 249, 249) !important;
   width: 400px;
+}
+.sidebarPhone {
+  width: 300px !important;
+}
+.sidebarPhone > .sidebar > div > h1 {
+  width: 300px !important;
+  padding-left: 0 !important;
 }
 
 .sidebarList {
@@ -79,4 +86,10 @@
   flex: auto;
   /* auto 将子元素的大小自动计算 */
   min-height: 0;
+}
+
+.sidebarBtnIcon {
+  background-color: rgba(60, 60, 60, 0.166);
+  padding: 8px;
+  border-radius: 100%;
 }

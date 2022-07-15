@@ -1,7 +1,7 @@
 
 import { CssBaseline, GeistProvider } from '@geist-ui/core'
 import { AppRouter } from './router'
-import Sidebar from './components/widgets/Sidebar'
+import Sidebar, { SidebarBtn } from './components/widgets/Sidebar'
 import sidebarStyle from './components/widgets/Sidebar/index.module.css'
 function App() {
 
@@ -9,6 +9,7 @@ function App() {
     <GeistProvider>
       <CssBaseline />
       <div className={sidebarStyle.hasSidebar}>
+        <SidebarBtn />
         <Sidebar />
         <AppRouter />
       </div>

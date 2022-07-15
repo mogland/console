@@ -3,36 +3,16 @@
  * @author: Wibus
  * @Date: 2022-07-14 16:30:25
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-14 23:01:56
+ * @LastEditTime: 2022-07-15 15:34:06
  * Coding With IU
  */
 
 import { Page, Button, Text, Grid, Card, useClasses } from "@geist-ui/core"
 import { ReactElement, JSXElementConstructor, ReactFragment, ReactPortal, useState } from "react"
 import { useFirstMountState, useMount } from "react-use"
+import Dashboards from "../../components/widgets/Dashboards"
 import { Timeline } from "../../components/widgets/Timeline"
 import styles from "./index.module.css"
-
-const Dashboards = () => { }
-
-Dashboards.Container = (props: { children: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | ReactFragment | ReactPortal | null | undefined }) => {
-  return (
-    <div className={useClasses(styles.viewContainer)}>
-      {props.children}
-    </div>
-  )
-}
-Dashboards.Area = (props: { children: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | ReactFragment | ReactPortal | null | undefined }) => {
-  return (
-    <section className={useClasses(styles.dashboardArea, styles.mixed)}>
-      <div className={useClasses(styles.dashboardContainer)}>
-        <div className={useClasses(styles.dashboardBox, styles.blogPost)}>
-          {props.children}
-        </div>
-      </div>
-    </section>
-  )
-}
 
 const Hitokoto = () => {
   const url = `https://v1.hitokoto.cn/?encode=json`
@@ -109,16 +89,21 @@ export const Dashboard = () => {
       <div className={useClasses(styles.header)}>
         <Text h2>Dashboard</Text>
       </div>
-      <Dashboards.Container>
+      <Dashboards.Container className="md:grid flex flex-col">
         
         <Dashboards.Area>
           <Hitokoto />
         </Dashboards.Area>
         
+
+
+        
         <Dashboards.Area>
           <h3>Latest changes</h3>
           <Timeline />
         </Dashboards.Area>
+
+                
 
 
       </Dashboards.Container>
