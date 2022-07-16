@@ -9,7 +9,7 @@
 
 import { createContext, ReactNode, useContext } from "react";
 import { isDev } from "../utils/env";
-import { apiClent } from "../utils/request";
+import { apiClient } from "../utils/request";
 
 const StoreContext = createContext({});
 StoreContext.displayName = "StoreContext";
@@ -36,8 +36,8 @@ export const store = initStore()
 //   return <StoreContext.Provider value={store}>{children}</StoreContext.Provider>
 // }
 export async function initStore() {
-  const category = await apiClent.get("/category", null, [{ key: "type", value: "Category" }]);
-  const tag = await apiClent.get("/category", null, [{ key: "type", value: "Tag" }]);
+  const category = await apiClient.get("/category", null, [{ key: "type", value: "Category" }]);
+  const tag = await apiClient.get("/category", null, [{ key: "type", value: "Tag" }]);
   const store = {
     categoryStore: category.data,
     tagStore: tag.data

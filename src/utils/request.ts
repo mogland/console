@@ -3,45 +3,47 @@
  * @author: Wibus
  * @Date: 2022-07-15 17:33:03
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-15 20:17:46
+ * @LastEditTime: 2022-07-16 17:54:43
  * Coding With IU
  */
 
 import { message } from "react-message-popup"
-import { useNToast } from "../hooks/useNToast"
 
 // 封装 fetch 请求, 如 fetch(RESTful.GET.user.list, { params: { page: 1, limit: 10 } })
 
-export const apiClent = {
-  get: (path: string, params?: any, query?: any, options?: any) => {
+export const apiClient = {
+  get: (path: string, params?: any, query?: any, body?: any, options?: any) => {
     const url = `
     ${"http://127.0.0.1:3333"}${path}${params ? `/` + params.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}${query ? `?` + query.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}`
     return request(url, {
       method: 'GET',
-      params,
-      query,
       options
     })
   },
-  post: (url: string, params?: any, query?: any, options?: any) => {
+  post: (path: string, params?: any, query?: any, body?: any, options?: any) => {
+    const url = `
+    ${"http://127.0.0.1:3333"}${path}${params ? `/` + params.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}${query ? `?` + query.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}`
     return request(url, {
       method: 'POST',
-      params,
-      query,
+      body,
       options
     })
   },
-  put: (url: string, params?: any, query?: any, options?: any) => {
+  put: (path: string, params?: any, query?: any, body?: any, options?: any) => {
+    const url = `
+    ${"http://127.0.0.1:3333"}${path}${params ? `/` + params.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}${query ? `?` + query.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}`
     return request(url, {
       method: 'PUT',
-      params,
-      query,
+      body,
       options
     })
   },
-  delete: (url: string, params?: any, query?: any, options?: any) => {
+  delete: (path: string, params?: any, query?: any, body?: any, options?: any) => {
+    const url = `
+    ${"http://127.0.0.1:3333"}${path}${params ? `/` + params.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}${query ? `?` + query.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}`
     return request(url, {
       method: 'DELETE',
+      body,
       options
     })
   }

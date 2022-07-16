@@ -7,7 +7,7 @@
  * Coding With IU
  */
 
-import { apiClent } from "../utils/request";
+import { apiClient } from "../utils/request";
 
 
 enum SystemApi {
@@ -23,7 +23,7 @@ enum SystemApi {
 }
 
 async function fetchBasicApi(api: SystemApi) {
-  return await apiClent.get(api);
+  return await apiClient.get(api);
 }
 
 export function useSystem() {

@@ -3,14 +3,13 @@
  * @author: Wibus
  * @Date: 2022-07-15 17:06:10
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-15 18:57:37
+ * @LastEditTime: 2022-07-16 17:07:03
  * Coding With IU
  */
 import { Table, Tabs, useClasses } from '@geist-ui/core';
-import { Tab } from '@headlessui/react';
 import { useState } from 'react';
 import { useMount } from 'react-use';
-import { apiClent } from '../../../utils/request';
+import { apiClient } from '../../../utils/request';
 import style from './index.module.scss';
 
 
@@ -20,18 +19,26 @@ export const Lists = () => {
   const [comments, setComments] = useState<any>()
   const [friends, setFriends] = useState<any>()
   useMount(async () => {
-    setArticle(await apiClent.get('/posts', null, [{ key: "page", value: 1 }, { key: "size", value: 10 }]))
-    setComments(await apiClent.get('/comment', null, [{ key: "page", value: 1 }, { key: "size", value: 10 }, { key: "status", value: 0 }]))
-    setFriends(await apiClent.get('/links', null, [{ key: "page", value: 1 }, { key: "size", value: 10 }, { key: "status", value: 0 }]))
+    await apiClient.get('/posts', null, [{ key: "page", value: 1 }, { key: "size", value: 10 }]).then(res => {
+      setArticle({
+        title: res.data.title,
+        summary: res.data.summary,
+        slug: res.data.slug,
+        categoryName: res.data.category.name,
+      })
+    })
+    setComments(await apiClient.get('/comment', null, [{ key: "page", value: 1 }, { key: "size", value: 10 }, { key: "status", value: 0 }]))
+    setFriends(await apiClient.get('/links', null, [{ key: "page", value: 1 }, { key: "size", value: 10 }, { key: "status", value: 0 }]))
   })
 
   return (
     <Tabs initialValue='1'>
       <Tabs.Item label="最近文章" value='1'>
-        <Table data={article ? article.data : []}>
+        <Table data={article ? article : []}>
           <Table.Column prop="title" label='标题' />
           <Table.Column prop="summary" label='描述' />
           <Table.Column prop="slug" label='路径' />
+          <Table.Column prop="category" label='分类' />
           {/* <Table.Column prop="created" label='时间' /> */}
         </Table>
       </Tabs.Item>

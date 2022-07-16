@@ -1,0 +1,26 @@
+.bg {
+  position: fixed;
+  inset: 0;
+  --tw-bg-opacity: 1;
+  background-color: rgba(75, 85, 99, var(--tw-bg-opacity));
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: -1rem;
+  -webkit-transition-property: opacity;
+  -o-transition-property: opacity;
+  transition-property: opacity;
+  -webkit-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  -o-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  -webkit-transition-duration: .15s;
+  -o-transition-duration: .15s;
+  transition-duration: .15s;
+  -webkit-transition-timing-function: linear;
+  -o-transition-timing-function: linear;
+  transition-timing-function: linear;
+  -webkit-transition-duration: .7s;
+  -o-transition-duration: .7s;
+  transition-duration: .7s;
+  filter: blur(5px);
+}

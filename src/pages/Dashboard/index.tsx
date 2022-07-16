@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-14 16:30:25
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-15 19:50:34
+ * @LastEditTime: 2022-07-16 16:55:17
  * Coding With IU
  */
 
@@ -175,11 +175,6 @@ export const Dashboard: BasicPage = () => {
   return (
     <NxPage title={"Dashboard"}>
       <Dashboards.Container className="lg:grid flex flex-col">
-
-        {/* <Dashboards.Area>
-  <Hitokoto />
-</Dashboards.Area> */}
-
         <div>
           <Dashboards.Area>
             <Hitokoto />

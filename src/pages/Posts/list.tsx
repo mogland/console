@@ -14,7 +14,7 @@ import Dashboards from "../../components/widgets/Dashboards"
 import { NxPage } from "../../components/widgets/Page"
 import { useStore } from "../../hooks/use-store";
 import { BasicPage } from "../../types/basic"
-import { apiClent } from "../../utils/request"
+import { apiClient } from "../../utils/request"
 
 export const Posts: BasicPage = () => {
   const { search } = useLocation()
@@ -26,7 +26,7 @@ export const Posts: BasicPage = () => {
   
   
   useMount(async () => {
-    setList(await apiClent.get("/posts", null, [{ key: "page", value: query.get("page") || "1" }]).then(res => {setLoading(true); return res.data}))
+    setList(await apiClient.get("/posts", null, [{ key: "page", value: query.get("page") || "1" }]).then(res => {setLoading(true); return res.data}))
   })
   console.log(list)
   loading ? list.forEach(item => {
