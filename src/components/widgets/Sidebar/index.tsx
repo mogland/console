@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-14 16:39:24
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-15 19:52:03
+ * @LastEditTime: 2022-07-19 22:22:22
  * Coding With IU
  */
 import { Drawer, useClasses } from '@geist-ui/core'
@@ -23,9 +23,9 @@ export const SidebarGroup = (props) => {
         </div>
         <div className={style.sidebarItemTitle}>
           <span>{props.title}</span>
-          <div className={style.action}>
+          {/* <div className={style.action}>
             <ChevronDown />
-          </div>
+          </div> */}
         </div>
       </div>
       <div className={style.groupContent + " block"}>

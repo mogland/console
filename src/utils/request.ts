@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-15 17:33:03
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-16 17:54:43
+ * @LastEditTime: 2022-07-19 23:15:43
  * Coding With IU
  */
 
@@ -14,7 +14,7 @@ import { message } from "react-message-popup"
 export const apiClient = {
   get: (path: string, params?: any, query?: any, body?: any, options?: any) => {
     const url = `
-    ${"http://127.0.0.1:3333"}${path}${params ? `/` + params.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}${query ? `?` + query.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}`
+    ${"http://127.0.0.1:3333/api"}${path}${params ? `/` + params.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}${query ? `?` + query.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}`
     return request(url, {
       method: 'GET',
       options
@@ -22,7 +22,7 @@ export const apiClient = {
   },
   post: (path: string, params?: any, query?: any, body?: any, options?: any) => {
     const url = `
-    ${"http://127.0.0.1:3333"}${path}${params ? `/` + params.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}${query ? `?` + query.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}`
+    ${"http://127.0.0.1:3333/api"}${path}${params ? `/` + params.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}${query ? `?` + query.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}`
     return request(url, {
       method: 'POST',
       body,
@@ -31,7 +31,7 @@ export const apiClient = {
   },
   put: (path: string, params?: any, query?: any, body?: any, options?: any) => {
     const url = `
-    ${"http://127.0.0.1:3333"}${path}${params ? `/` + params.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}${query ? `?` + query.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}`
+    ${"http://127.0.0.1:3333/api"}${path}${params ? `/` + params.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}${query ? `?` + query.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}`
     return request(url, {
       method: 'PUT',
       body,
@@ -40,7 +40,7 @@ export const apiClient = {
   },
   delete: (path: string, params?: any, query?: any, body?: any, options?: any) => {
     const url = `
-    ${"http://127.0.0.1:3333"}${path}${params ? `/` + params.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}${query ? `?` + query.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}`
+    ${"http://127.0.0.1:3333/api"}${path}${params ? `/` + params.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}${query ? `?` + query.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}`
     return request(url, {
       method: 'DELETE',
       body,
