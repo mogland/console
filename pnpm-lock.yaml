@@ -4,11 +4,13 @@ specifiers:
   '@geist-ui/core': ^2.3.8
   '@geist-ui/icons': ^1.0.2
   '@icon-park/react': ^1.4.2
+  '@types/crypto-js': ^4.1.1
   '@types/node': ^18.0.4
   '@types/react': ^18.0.0
   '@types/react-dom': ^18.0.0
   '@vitejs/plugin-react': ^1.3.0
   autoprefixer: ^10.4.7
+  crypto-js: ^4.1.1
   postcss: ^8.4.14
   postcss-import: ^14.1.0
   react: ^18.0.0
@@ -24,6 +26,7 @@ dependencies:
   '@geist-ui/core': 2.3.8_biqbaboplfbrettd7655fr4n2y
   '@geist-ui/icons': 1.0.2_zhza2kbnl2wkkf7vqdl3ton2f4
   '@icon-park/react': 1.4.2_biqbaboplfbrettd7655fr4n2y
+  crypto-js: 4.1.1
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-message-popup: 1.0.0-alpha.2_biqbaboplfbrettd7655fr4n2y
@@ -31,6 +34,7 @@ dependencies:
   react-use: 17.4.0_biqbaboplfbrettd7655fr4n2y
 
 devDependencies:
+  '@types/crypto-js': 4.1.1
   '@types/node': 18.0.4
   '@types/react': 18.0.15
   '@types/react-dom': 18.0.6
@@ -411,6 +415,10 @@ packages:
       picomatch: 2.3.1
     dev: true
 
+  /@types/crypto-js/4.1.1:
+    resolution: {integrity: sha512-BG7fQKZ689HIoc5h+6D2Dgq1fABRa0RbBWKBd9SP/MVRVXROflpm5fhwyATX5duFmbStzyzyycPB8qUYKDH3NA==}
+    dev: true
+
   /@types/js-cookie/2.2.7:
     resolution: {integrity: sha512-aLkWa0C0vO5b4Sr798E26QgOkss68Un0bLjs7u9qxzPT5CG+8DuNTffWES58YzJs3hrVAOs1wonycqEBqNJubA==}
     dev: false
@@ -595,6 +603,10 @@ packages:
     resolution: {integrity: sha512-i13qo6kIHTTpCm8/Wup+0b1mVWETvu2kIMzKoK8FpkLkFxlt0znUAHcMzox+T8sPlqtZXq3CulEjQHsYiGFJUw==}
     dependencies:
       toggle-selection: 1.0.6
+    dev: false
+
+  /crypto-js/4.1.1:
+    resolution: {integrity: sha512-o2JlM7ydqd3Qk9CA0L4NL6mTzU2sdx96a+oOfPu8Mkl/PK51vSyoi8/rQ8NknZtk44vq15lmhAj9CIAGwgeWKw==}
     dev: false
 
   /css-in-js-utils/2.0.1:
