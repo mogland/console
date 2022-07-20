@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-16 17:09:06
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-20 22:38:08
+ * @LastEditTime: 2022-07-20 23:15:03
  * Coding With IU
  */
 
@@ -11,8 +11,10 @@ import { Button, Input, Modal, Spacer, Text, useClasses, useModal } from "@geist
 import { useState } from "react";
 import { message } from "react-message-popup";
 import { useMount } from "react-use";
+import { A_WEEK_S } from "../../constant/time.constant";
 import { BasicPage } from "../../types/basic";
 import { apiClient } from "../../utils/request";
+import { setStorage } from "../../utils/storage";
 import styles from "./index.module.css";
 
 export const InitSystem: BasicPage = () => {
@@ -30,6 +32,14 @@ export const InitSystem: BasicPage = () => {
             break;
         }
       }
+    }).catch(err => {
+      message.error(err.mes)
+      setStatus(err.reason)
+        switch (err.reason) {
+          case 1: // means performance has been initialized
+            window.location.href = "/dashboard"
+            break;
+        }
     })
   })
   console.log(status)
@@ -58,14 +68,17 @@ export const InitSystem: BasicPage = () => {
       name: e.target[0].value,
       username: e.target[1].value,
       password: e.target[2].value,
-      introduce: e.target[4].value,
-      mail: e.target[5].value,
-      avatar: e.target[6].value,
+      
+      introduce: e.target[4].value || "Just So So",
+      mail: e.target[5].value || "example@example.com",
+      avatar: e.target[6].value || "https://example.com/avatar.png",
       url: e.target[7].value,
     }
 
     apiClient.post('/user/register', null, null, JSON.stringify(body)).then(res => {
+      if (!res.ok) throw new Error(res.message)
       message.success("用户注册成功")
+      setStorage("token", res.token, A_WEEK_S)
       setVisible(false)
       setLoading(false)
       message.loading("正在刷新更新配置状态")
