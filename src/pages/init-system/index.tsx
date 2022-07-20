@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-16 17:09:06
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-19 23:26:43
+ * @LastEditTime: 2022-07-20 22:38:08
  * Coding With IU
  */
 
@@ -13,7 +13,6 @@ import { message } from "react-message-popup";
 import { useMount } from "react-use";
 import { BasicPage } from "../../types/basic";
 import { apiClient } from "../../utils/request";
-import { useStorage } from "../../utils/useStorage";
 import styles from "./index.module.css";
 
 export const InitSystem: BasicPage = () => {
