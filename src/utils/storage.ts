@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-15 17:35:08
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-21 13:06:54
+ * @LastEditTime: 2022-07-21 14:11:45
  * Coding With IU
  */
 
@@ -100,7 +100,7 @@ export const hasStorage = (key: any) => {
  */
 export const getStorageKeys = () => {
   let items = getAllStorage()
-  let keys = []
+  let keys = new Array()
   for (let index = 0; index < items.length; index++) {
       keys.push(items[index].key)
   }

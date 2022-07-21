@@ -2,6 +2,9 @@
   "compilerOptions": {
     "target": "ESNext",
     "useDefineForClassFields": true,
+    "strictNullChecks": true,
+    "removeComments": true,
+    "noImplicitAny": false,
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "allowJs": false,
     "skipLibCheck": true,

@@ -9,7 +9,6 @@ import { useMount } from 'react-use'
 import { apiClient } from './utils/request'
 import { A_MINUTE_MS } from './constant/time.constant'
 import { message } from 'react-message-popup'
-import { IGNORE_PATH } from './constant/ignore.constant'
 function App() {
   // initSystem()
   const [themeType, setThemeType] = useState('light')
