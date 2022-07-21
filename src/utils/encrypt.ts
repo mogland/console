@@ -3,10 +3,11 @@
  * @author: Wibus
  * @Date: 2022-07-20 22:31:17
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-20 22:32:33
+ * @LastEditTime: 2022-07-21 13:04:43
  * Coding With IU
  */
 import CryptoJS from 'crypto-js'
+import { message } from 'react-message-popup';
 
 const SECRET_KEY = CryptoJS.enc.Utf8.parse("3333e6e143439161");
 const SECRET_IV = CryptoJS.enc.Utf8.parse("e3bbe7e3ba84431a");
@@ -19,8 +20,9 @@ export function encrypt(data: any) {
   if (typeof data === "object") {
     try {
       data = JSON.stringify(data);
-    } catch (error) {
-      console.log("encrypt error:", error);
+    } catch (error: any) {
+      message.error("encrypt error:", error.message)
+      console.error("encrypt error:", error);
     }
   }
   const dataHex = CryptoJS.enc.Utf8.parse(data);

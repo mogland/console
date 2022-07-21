@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-14 16:30:25
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-16 16:55:17
+ * @LastEditTime: 2022-07-21 12:56:07
  * Coding With IU
  */
 
@@ -63,14 +63,14 @@ const Hitokoto = () => {
           from: res.from,
         })
       })
-    fetch(`${url}&c=i`)
-      .then(res => res.json())
-      .then(res => {
-        setPoem({
-          title: res.from,
-          content: res.hitokoto,
-        })
-      })
+    // fetch(`${url}&c=i`)
+    //   .then(res => res.json())
+    //   .then(res => {
+    //     setPoem({
+    //       title: res.from,
+    //       content: res.hitokoto,
+    //     })
+    //   })
     // fetch(shihuHot)
     //   .then(res => res.json())
     //   .then(res => {

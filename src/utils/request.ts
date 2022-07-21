@@ -3,14 +3,14 @@
  * @author: Wibus
  * @Date: 2022-07-15 17:33:03
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-20 23:09:27
+ * @LastEditTime: 2022-07-21 13:04:40
  * Coding With IU
  */
 
 import { message } from "react-message-popup"
 import { getStorage } from "./storage"
 
-const API = 'http://127.0.0.1:3333/api'
+const API = 'http://127.0.0.1:3333'
 
 
 export const apiClient = {
@@ -32,7 +32,7 @@ export const apiClient = {
       return res
     } catch (err: any) {
       message.error(err.message.toString())
-      console.log(err.message.toString())
+      console.error(err.message.toString())
       throw err
     }
   },

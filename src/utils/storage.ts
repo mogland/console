@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-15 17:35:08
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-20 23:15:38
+ * @LastEditTime: 2022-07-21 13:06:54
  * Coding With IU
  */
 
@@ -14,7 +14,7 @@ const config = {
   prefix: 'nx-admin',
   expire: 100000, // 过期时间, 单位: 秒
   isEncrypt: false, // 是否加密
-  renew: true // 是否每次获取都重新设置过期时间
+  renew: false, // 是否每次获取都重新设置过期时间
 }
 
 /**

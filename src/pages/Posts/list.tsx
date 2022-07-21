@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-15 18:45:35
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-15 21:02:24
+ * @LastEditTime: 2022-07-21 13:04:43
  * Coding With IU
  */
 import { Loading, Table } from "@geist-ui/core";
@@ -28,9 +28,9 @@ export const Posts: BasicPage = () => {
   useMount(async () => {
     setList(await apiClient.get("/posts", null, [{ key: "page", value: query.get("page") || "1" }]).then(res => {setLoading(true); return res.data}))
   })
-  console.log(list)
+  // console.log(list)
   loading ? list.forEach(item => {
-    console.log(item)
+    // console.log(item)
     item.created = item.created.split("T")[0]
   }) : ""
 

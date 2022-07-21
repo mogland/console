@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-16 17:09:06
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-20 23:15:03
+ * @LastEditTime: 2022-07-21 13:15:58
  * Coding With IU
  */
 
@@ -42,7 +42,7 @@ export const InitSystem: BasicPage = () => {
         }
     })
   })
-  console.log(status)
+  // console.log(status)
 
   function initUser(e: any) {
     setLoading(true)
@@ -96,6 +96,11 @@ export const InitSystem: BasicPage = () => {
       setLoading(false)
       setVisible(false)
       window.location.href = "/dashboard"
+    }).catch(err => {
+      if (err.code === 401) {
+        message.error("配置初始化失败,您尚未登录")
+        window.location.href = "/login"
+      }
     })
   }
 
