@@ -35,7 +35,6 @@ function App() {
   })
   setInterval(() => {
     apiClient.get('/master/check_logged').then(res => {
-      message.success("111")
     }).catch((err) => {
       message.error(err.message)
       console.log(err)
