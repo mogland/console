@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-15 15:26:54
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-15 18:25:32
+ * @LastEditTime: 2022-07-21 23:29:42
  * Coding With IU
  */
 
@@ -13,9 +13,11 @@ import styles from "./index.module.css"
 
 const Dashboards = () => { }
 
-Dashboards.Container = (props: { children: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | ReactFragment | ReactPortal | null | undefined, className: any }) => {
+Dashboards.Container = (props: { children: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | ReactFragment | ReactPortal | null | undefined, className: any, gridTemplateColumns: string }) => {
   return (
-    <div className={useClasses(styles.viewContainer, props.className)}>
+    <div className={useClasses(styles.viewContainer, props.className)} style={{
+      gridTemplateColumns: props.gridTemplateColumns
+    }}>
       {props.children}
     </div>
   )
