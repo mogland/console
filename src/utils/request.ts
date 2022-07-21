@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-15 17:33:03
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-21 13:04:40
+ * @LastEditTime: 2022-07-21 13:41:45
  * Coding With IU
  */
 
@@ -31,8 +31,7 @@ export const apiClient = {
       })
       return res
     } catch (err: any) {
-      message.error(err.message.toString())
-      console.error(err.message.toString())
+      console.error(err)
       throw err
     }
   },
@@ -61,15 +60,13 @@ export const apiClientManger = async (url: string, options: any) => {
     'Accept': 'application/json',
     'Authorization': `Bearer ${getStorage('token')}`,
   }
-  // 发起POST请求
-  const response = await fetch(API + url, {
+  const res = fetch(API + url, {
     headers,
     ...options,
+  }).then(res => { return res.json() }).catch(err => {
+    console.error(err)
+    message.error(err.message)
+    throw err
   })
-  const data = await response.json()
-  if (data.code !== 0) {
-    message.error(data.message)
-    return Promise.reject(data)
-  }
-  return data
+  return res
 }

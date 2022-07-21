@@ -9,6 +9,7 @@ import { useMount } from 'react-use'
 import { apiClient } from './utils/request'
 import { A_MINUTE_MS } from './constant/time.constant'
 import { message } from 'react-message-popup'
+import { IGNORE_PATH } from './constant/ignore.constant'
 function App() {
   // initSystem()
   const [themeType, setThemeType] = useState('light')
@@ -22,12 +23,13 @@ function App() {
       setThemeType('light')
     }
   }
+  const ignoreCondition = window.location.pathname === '/init-system' || window.location.pathname === '/login'
   useMount(() => {
     setThemeType(mediaQuery.matches ? 'dark' : 'light')
     apiClient.get('/master/check_logged').catch((err) => {
       message.error(err.message)
-      console.log(err)
-      if (window.location.pathname === '/init-system' || window.location.pathname === '/login') return
+      // console.log(err)
+      if (ignoreCondition) return
       window.location.href = '/login'
     })
   })
@@ -37,7 +39,7 @@ function App() {
     }).catch((err) => {
       message.error(err.message)
       console.log(err)
-      if (window.location.pathname === '/init-system' || window.location.pathname === '/login') return
+      if (ignoreCondition) return
       window.location.href = '/login'
     })
   }, A_MINUTE_MS)
@@ -51,7 +53,7 @@ function App() {
       <CssBaseline />
       <div className={sidebarStyle.hasSidebar}>
         {
-          location.pathname !== "/init-system" && <>
+          !ignoreCondition && <>
             <SidebarBtn />
             <Sidebar />
           </>
