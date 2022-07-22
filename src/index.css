@@ -17,6 +17,12 @@ code {
 }
 
 
+/* GeistUI */
+
+.thead-box {
+  min-width: 40px;
+}
+
 @media (prefers-color-scheme: dark) {
   body {
     background-color: #242424 !important;

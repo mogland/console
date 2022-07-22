@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-22 14:13:18
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-22 14:29:42
+ * @LastEditTime: 2022-07-22 21:50:48
  * Coding With IU
  */
 /*
@@ -14,7 +14,7 @@
  * @LastEditTime: 2022-07-22 14:11:51
  * Coding With IU
  */
-import { Button, Loading, Modal, Table, useClasses, useModal } from "@geist-ui/core";
+import { Button, Loading, Modal, Spacer, Table, useClasses, useModal } from "@geist-ui/core";
 import { useState } from "react";
 import { message } from "react-message-popup";
 import { Link, useLocation } from "react-router-dom"
@@ -68,7 +68,13 @@ export const Pages: BasicPage = () => {
 
   const renderAction = (value, rowData, index) => {
     return (
+      <>
+      <Button auto scale={1 / 3} font="12px">
+        <Link to={`/pages/edit/${article[index].id}`} style={{ padding: 0, color: "inherit" }}>Edit</Link>
+      </Button>
+      <Spacer />
       <Button type="error" auto scale={1 / 3} font="12px" onClick={() => { setVisible(true); setDeleteIndex(index) }}>Remove</Button>
+      </>
     )
   }
 
@@ -78,7 +84,6 @@ export const Pages: BasicPage = () => {
       style={{
         padding: 0
         }} 
-      onClick={() => { setVisible(true); setDeleteIndex(index); }}
       to={`/pages/edit/${article[index].id}`}
       >
         {value}
@@ -87,10 +92,10 @@ export const Pages: BasicPage = () => {
   }
 
   return (
-    <NxPage title={"Posts"}>
+    <NxPage title={"Pages"}>
       <Dashboards.Container className="lg:grid flex flex-col" gridTemplateColumns='1fr'>
-        <Dashboards.Area>
-          {!loading ? (<div className={useClasses("overflow-x-hidden")}>
+        <Dashboards.Area  className={useClasses("overflow-x-hidden")} style={{overflow: "auto"}}>
+          {!loading ? (<>
             <Table data={article}>
               <Table.Column label="标题" prop="title" render={renderTitle} />
               <Table.Column label="副标题" prop="subtitle" />
@@ -100,7 +105,7 @@ export const Pages: BasicPage = () => {
               <Table.Column label="操作" prop="action" render={renderAction} />
             </Table>
 
-          </div>) : (<Loading />)}
+          </>) : (<Loading />)}
           <Modal {...bindings}>
             <Modal.Title>删除文章</Modal.Title>
             <Modal.Subtitle>

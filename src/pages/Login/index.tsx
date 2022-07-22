@@ -1,9 +1,9 @@
 /*
- * @FilePath: /nx-admin/src/pages/Login.tsx/index.tsx
+ * @FilePath: /nx-admin/src/pages/Login/index.tsx
  * @author: Wibus
  * @Date: 2022-07-21 13:21:01
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-21 13:42:04
+ * @LastEditTime: 2022-07-22 22:03:11
  * Coding With IU
  */
 
@@ -18,7 +18,9 @@ export const Login: BasicPage = () => {
 
   useMount(async () => {
     apiClient.get('/master/check_logged').then(res => {
-      if (res.logged) {
+      if (res.code === 401) {
+        return
+      } else {
         window.location.href = "/dashboard"
       }
     }).catch(err => {
@@ -26,7 +28,7 @@ export const Login: BasicPage = () => {
     })
   })
 
-  function loginUser(e: any){
+  function loginUser(e: any) {
     e.preventDefault()
     if (!e.target[0].value) {
       message.error("请输入用户名")
@@ -41,9 +43,13 @@ export const Login: BasicPage = () => {
       password: e.target[1].value
     }
     apiClient.post('/master/login', null, null, JSON.stringify(body)).then(res => {
-      message.loading("登录成功，正在跳转")
-      setStorage("token", res.token)
-      window.location.href = "/dashboard"
+      if (!res.code) {
+        message.loading("登录成功，正在跳转")
+        setStorage("token", res.token)
+        window.location.href = "/dashboard"
+      } else {
+        message.error(res.message)
+      }
     }).catch(err => {
       console.error(err)
       message.error(err.message)

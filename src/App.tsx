@@ -29,7 +29,16 @@ function App() {
   }
   useMount(() => {
     setThemeType(mediaQuery.matches ? 'dark' : 'light')
-    apiClient.get('/master/check_logged').catch((err) => {
+    apiClient.get('/master/check_logged').then(res => {
+      if (ignoreCondition) {
+        message.error('请先登录')
+        return false
+      }
+      if (res.code === 401) {
+        window.location.href = '/login'
+        return false
+      }
+    }).catch((err) => {
       message.error(err.message)
       // console.log(err)
       if (ignoreCondition) return
@@ -38,6 +47,9 @@ function App() {
   })
   setInterval(() => {
     apiClient.get('/master/check_logged').then(res => {
+      if (res.code === 401) {
+        window.location.href = '/login'
+      }
     }).catch((err) => {
       message.error(err.message)
       console.log(err)

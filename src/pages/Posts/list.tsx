@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-15 18:45:35
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-22 14:29:11
+ * @LastEditTime: 2022-07-22 21:39:46
  * Coding With IU
  */
 import { Button, Loading, Modal, Table, useClasses, useModal } from "@geist-ui/core";
@@ -83,8 +83,8 @@ export const Posts: BasicPage = () => {
   return (
     <NxPage title={"Posts"}>
       <Dashboards.Container className="lg:grid flex flex-col" gridTemplateColumns='1fr'>
-        <Dashboards.Area>
-          {!loading ? (<div className={useClasses("overflow-x-hidden")}>
+        <Dashboards.Area className={useClasses("overflow-x-hidden")} style={{overflow: "auto"}}>
+          {!loading ? (<>
             <Table data={article}>
               <Table.Column label="标题" prop="title" render={renderTitle} />
               <Table.Column label="分类" prop="category" />
@@ -96,7 +96,7 @@ export const Posts: BasicPage = () => {
               <Table.Column label="操作" prop="action" render={renderAction} />
             </Table>
 
-          </div>) : (<Loading />)}
+          </>) : (<Loading />)}
           <Modal {...bindings}>
             <Modal.Title>删除文章</Modal.Title>
             <Modal.Subtitle>
