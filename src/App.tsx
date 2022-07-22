@@ -10,7 +10,12 @@ import { apiClient } from './utils/request'
 import { A_MINUTE_MS } from './constant/time.constant'
 import { message } from 'react-message-popup'
 function App() {
-  // initSystem()
+
+  const ignoreCondition = window.location.pathname === '/init-system' || 
+                          window.location.pathname === '/login' ||
+                          window.location.pathname === '/posts/edit' ||
+                          window.location.pathname === '/pages/edit'
+
   const [themeType, setThemeType] = useState('light')
   const [sidebar, setSidebar] = useState(true)
   const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
@@ -22,7 +27,6 @@ function App() {
       setThemeType('light')
     }
   }
-  const ignoreCondition = window.location.pathname === '/init-system' || window.location.pathname === '/login'
   useMount(() => {
     setThemeType(mediaQuery.matches ? 'dark' : 'light')
     apiClient.get('/master/check_logged').catch((err) => {

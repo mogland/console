@@ -3,11 +3,12 @@
  * @author: Wibus
  * @Date: 2022-07-14 16:39:24
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-19 22:22:22
+ * @LastEditTime: 2022-07-22 14:17:32
  * Coding With IU
  */
 import { Drawer, useClasses } from '@geist-ui/core'
-import { Home, List, File, Link as Links, ChevronDown, Edit, Feather, Package, Trello, Settings, AlignLeft, MessageCircle } from '@geist-ui/icons'
+import { Home, List, File, Link as Links, ChevronDown, Edit, Feather, Package, Trello, Settings, AlignLeft, MessageCircle, FileText } from '@geist-ui/icons'
+import { ListAlphabet, Newlybuild, Page } from '@icon-park/react'
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import style from './index.module.css'
@@ -90,6 +91,10 @@ export const Sidebar = (props) => {
         <SidebarGroup icon={<Edit />} title='文章' path="/posts">
           <SidebarGroupItem icon={<List />} title='全部列表' path="/posts/" />
           <SidebarGroupItem icon={<Feather />} title='书写新的一篇' path="/posts/edit" />
+        </SidebarGroup>
+        <SidebarGroup icon={<FileText />} title='页面' path="/pages/">
+          <SidebarGroupItem icon={<ListAlphabet />} title='全部列表' path="/pages/" />
+          <SidebarGroupItem icon={<Newlybuild />} title='新建新页面' path="/posts/edit" />
         </SidebarGroup>
 
         <SidebarList>

@@ -1,9 +1,17 @@
 /*
+ * @FilePath: /nx-admin/src/pages/Pages/list.tsx
+ * @author: Wibus
+ * @Date: 2022-07-22 14:13:18
+ * @LastEditors: Wibus
+ * @LastEditTime: 2022-07-22 14:19:49
+ * Coding With IU
+ */
+/*
  * @FilePath: /nx-admin/src/pages/Posts/list.tsx
  * @author: Wibus
  * @Date: 2022-07-15 18:45:35
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-22 14:25:38
+ * @LastEditTime: 2022-07-22 14:11:51
  * Coding With IU
  */
 import { Button, Loading, Modal, Table, useModal } from "@geist-ui/core";
@@ -17,7 +25,7 @@ import { useStore } from "../../hooks/use-store";
 import { BasicPage } from "../../types/basic"
 import { apiClient } from "../../utils/request"
 
-export const Posts: BasicPage = () => {
+export const Pages: BasicPage = () => {
   const { search } = useLocation()
   const query = new URLSearchParams(search)
 
@@ -28,7 +36,7 @@ export const Posts: BasicPage = () => {
   const [deleteIndex, setDeleteIndex] = useState<number>(-1)
 
   useMount(async () => {
-    await apiClient.get('/posts', null, [{ key: "page", value: 1 }, { key: "size", value: 10 }]).then(res => {
+    await apiClient.get('/page', null, [{ key: "page", value: 1 }, { key: "size", value: 10 }]).then(res => {
       console.log(res)
       const { data } = res as any
       const content = new Array()
@@ -36,10 +44,8 @@ export const Posts: BasicPage = () => {
         content.push({
           id: data[index].id,
           title: data[index].title,
-          category: data[index].category.name,
-          tags: data[index].tags.length ? data[index].tags.toString() : '',
-          read: data[index].count !== undefined && data[index].count.read !== undefined ? data[index].count.read : "0",
-          like: data[index].count !== undefined && data[index].count.like !== undefined ? data[index].count.like : "0",
+          subtitle: data[index].subtitle,
+          slug: data[index].slug,
           created: data[index].created.split('T')[0],
           modified: data[index].modified ? data[index].modified.split('T')[0] : '-',
         })
@@ -73,7 +79,7 @@ export const Posts: BasicPage = () => {
         padding: 0
         }} 
       onClick={() => { setVisible(true); setDeleteIndex(index); }}
-      to={`/posts/edit/${article[index].id}`}
+      to={`/pages/edit/${article[index].id}`}
       >
         {value}
       </Link>
@@ -87,10 +93,8 @@ export const Posts: BasicPage = () => {
           {!loading ? (<>
             <Table data={article}>
               <Table.Column label="标题" prop="title" render={renderTitle} />
-              <Table.Column label="分类" prop="category" />
-              <Table.Column label="标签" prop="tags" />
-              <Table.Column label="阅读数" prop="read" />
-              <Table.Column label="喜欢数" prop="like" />
+              <Table.Column label="副标题" prop="subtitle" />
+              <Table.Column label="路径" prop="slug" />
               <Table.Column label="创建于" prop="created" />
               <Table.Column label="修改于" prop="modified" />
               <Table.Column label="操作" prop="action" render={renderAction} />

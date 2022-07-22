@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-12 16:25:35
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-21 13:43:25
+ * @LastEditTime: 2022-07-22 14:13:43
  * Coding With IU
  */
 
@@ -13,6 +13,7 @@ import { Comments } from "../pages/Comments"
 import { Dashboard } from "../pages/Dashboard"
 import { InitSystem } from "../pages/init-system"
 import { Login } from "../pages/Login"
+import { Pages } from "../pages/Pages/list"
 import { Posts } from "../pages/Posts/list"
 
 const JumpToDashboard = () => {
@@ -34,7 +35,7 @@ export const AppRouter = () => {
       <Route path="/posts" element={<Posts />} />
       <Route path="/posts/edit/:id" />
       
-      <Route path="/pages" />
+      <Route path="/pages" element={<Pages />} />
       <Route path="/pages/edit/:id" />
       
       <Route path="/comments" element={<Comments />} />
