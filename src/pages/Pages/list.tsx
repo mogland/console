@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-22 14:13:18
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-22 14:19:49
+ * @LastEditTime: 2022-07-22 14:29:42
  * Coding With IU
  */
 /*
@@ -14,7 +14,7 @@
  * @LastEditTime: 2022-07-22 14:11:51
  * Coding With IU
  */
-import { Button, Loading, Modal, Table, useModal } from "@geist-ui/core";
+import { Button, Loading, Modal, Table, useClasses, useModal } from "@geist-ui/core";
 import { useState } from "react";
 import { message } from "react-message-popup";
 import { Link, useLocation } from "react-router-dom"
@@ -90,7 +90,7 @@ export const Pages: BasicPage = () => {
     <NxPage title={"Posts"}>
       <Dashboards.Container className="lg:grid flex flex-col" gridTemplateColumns='1fr'>
         <Dashboards.Area>
-          {!loading ? (<>
+          {!loading ? (<div className={useClasses("overflow-x-hidden")}>
             <Table data={article}>
               <Table.Column label="标题" prop="title" render={renderTitle} />
               <Table.Column label="副标题" prop="subtitle" />
@@ -100,7 +100,7 @@ export const Pages: BasicPage = () => {
               <Table.Column label="操作" prop="action" render={renderAction} />
             </Table>
 
-          </>) : (<Loading />)}
+          </div>) : (<Loading />)}
           <Modal {...bindings}>
             <Modal.Title>删除文章</Modal.Title>
             <Modal.Subtitle>
