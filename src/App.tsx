@@ -11,10 +11,12 @@ import { A_MINUTE_MS } from './constant/time.constant'
 import { message } from 'react-message-popup'
 function App() {
 
-  const ignoreCondition = window.location.pathname === '/init-system' || 
+  const ignoreCondition = window.location.pathname === '/init-system' ||
                           window.location.pathname === '/login' ||
-                          window.location.pathname === '/posts/edit' ||
-                          window.location.pathname === '/pages/edit'
+                          window.location.pathname.match(/\/posts\/edit\/\d+/) ||
+                          window.location.pathname.match(/\/pages\/edit\/\d+/)
+
+
 
   const [themeType, setThemeType] = useState('light')
   const [sidebar, setSidebar] = useState(true)
@@ -30,11 +32,11 @@ function App() {
   useMount(() => {
     setThemeType(mediaQuery.matches ? 'dark' : 'light')
     apiClient.get('/master/check_logged').then(res => {
-      if (ignoreCondition) {
-        message.error('请先登录')
-        return false
-      }
       if (res.code === 401) {
+        if (ignoreCondition) {
+          message.error('请先登录')
+          return false
+        }
         window.location.href = '/login'
         return false
       }
