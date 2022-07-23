@@ -68,9 +68,9 @@ function App() {
     <GeistProvider themeType={themeType}>
       <CssBaseline />
       <div className={sidebarStyle.hasSidebar}>
+      <SidebarBtn />
         {
           !ignoreCondition && <>
-            <SidebarBtn />
             <Sidebar />
           </>
         }
