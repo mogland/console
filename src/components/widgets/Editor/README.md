@@ -3,9 +3,9 @@ This is a simple editor that is used to write markdown files.
 
 ## About
 
-基于 React, Draft-js 封装，支持 Markdown 实时预览，基于 [brilliant-js/brilliant](https://github.com/brilliant-js/brilliant) 的编辑器，在此基础上修改适配于 NEXT Admin Dashboard
+基于 React, Draft-js 封装，支持 Markdown 实时预览，仅适于 NEXT Admin Dashboard
 
-> **warning**: 此组件仅用于 `NEXT Admin Dashboard` 的编辑器，如果需要在其他地方使用，请使用 `brilliant-js/brilliant` 的编辑器
+> **notes**: 此组件仅用于 `NEXT Admin Dashboard` 的编辑器，如果需要在其他地方使用，请使用 `brilliant-js/brilliant` 的编辑器
 
 ## 兼容性
 
