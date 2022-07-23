@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-14 21:59:20
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-15 20:08:19
+ * @LastEditTime: 2022-07-23 20:43:28
  * Coding With IU
  */
 
@@ -39,25 +39,24 @@ export const Timeline = (props) => {
         {/* {props.data ? props.data.map((item, index) => { */}
 
         <TimelineItem
-          title={"Release v1.4.0-alpha.2 is coming with nestjs@v9"}
+          title={"NEXT Core Release V1.5.1 has been released to the public"}
+          day={"many hours ago"}
+          url={"https://github.com/nx-space/core/releases/tag/v1.5.1"}
+        />
+        <TimelineItem
+          title={"NEXT Core Release v1.4.0-alpha.2 is coming with nestjs@v9"}
           day={"many hours ago"}
           url={"https://github.com/nx-space/core/releases/tag/v1.4.0-alpha.2"}
         />
         <TimelineItem
-          title={"Breaking Changes: New links module with crawling feeds"}
+          title={"Breaking Changes: New links module with crawling feeds in NEXT Core "}
           day={"many hours ago"}
           url={"https://github.com/nx-space/core/pull/223"}
         />
         <TimelineItem
-          title={"Aggregate Service becomes a rss builder"}
+          title={"NEXT Core Aggregate Service becomes a rss builder"}
           day={"many hours ago"}
         // url={"https://github.com/nx-space/core/pull/223"}
-        />
-
-        <TimelineItem
-          title={"Release v1.2.0 Beta: NEXT Core comes back with new features!"}
-          day={"many hours ago"}
-          url={"https://github.com/nx-space/core/releases/tag/v1.2.0"}
         />
       </ul>
       <div className="ml-1 pt-2 pl-4 border-left">

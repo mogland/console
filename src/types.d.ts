@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-15 15:19:08
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-15 20:55:22
+ * @LastEditTime: 2022-07-23 20:33:28
  * Coding With IU
  */
 
@@ -14,6 +14,10 @@ declare global {
   }
   export interface Window {
     [key: string]: any
+  }
+  export interface HTMLElement {
+    [key: string]: any
+    value: any
   }
 }
 
