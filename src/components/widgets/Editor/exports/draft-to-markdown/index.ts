@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-23 16:30:24
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-23 16:56:35
+ * @LastEditTime: 2022-07-23 20:11:21
  * Coding With IU
  */
 const TRAILING_WHITESPACE = /[ \u0020\t\n]*$/; // 匹配列表
@@ -268,7 +268,7 @@ function renderBlock(
       orderedListNumber[block.depth] = orderedListNumber[block.depth] || 1; // 有序列表序号
       markdownString += (
         customStyleItems[type] || (StyleItems as ItemsType)[type] // 自定义样式
-      ).open(block, orderedListNumber[block.depth]); // 打开样式
+      ).open(orderedListNumber[block.depth]); // 打开样式
       orderedListNumber[block.depth] += 1; // 有序列表序号
 
       if (previousOrderedListDepth > block.depth) { // 有序列表深度变化
