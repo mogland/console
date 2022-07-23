@@ -3,42 +3,41 @@
  * @author: Wibus
  * @Date: 2022-07-22 22:52:13
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-22 23:24:15
+ * @LastEditTime: 2022-07-23 15:49:51
  * Coding With IU
  */
 
 import { BasicPage } from "../../types/basic";
-import Vditor from 'vditor';
 import './edit.module.css';
-import "vditor/dist/index.css";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { apiClient } from "../../utils/request";
+import { useMount } from "react-use";
+import { NxPage } from "../../components/widgets/Page";
+import { NxEditor } from "../../components/widgets/Editor";
 
 export const PostEdit: BasicPage = () => {
 
-  const [vd, setVd] = useState<Vditor>();
-
   const postId = window.location.pathname.split('/').pop();
+  const [post, setPost] = useState<any>();
 
-  useEffect(() => {
-    const vditor = new Vditor("vditor", {
-      value: 'Feting the data from the server',
-      cache: {
-        enable: false,
-      },
-      // theme: 'dark',
-      height: '100vh',
-      width: '100%',
-      placeholder: '请输入文章内容',
-      after: () => {
-        apiClient.get(`/posts/${postId}`).then(res => {
-          vditor.setValue(res.text);
-          setVd(vditor);
-        })
-      }
-    });
-  }, []);
+  useMount(() => {
+    apiClient.get(`/posts/${postId}`).then(res => {
+      setPost(res);
+    })
+  })
 
 
-  return <div id="vditor" className="vditor" />;
+
+  return (
+    <NxPage>
+      <div id="editor">
+        {
+          post?.title && <NxEditor
+            title={post?.title}
+            text={post?.text}
+          />
+        }
+      </div>
+    </NxPage>
+  );
 }

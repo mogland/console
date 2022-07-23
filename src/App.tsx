@@ -14,7 +14,9 @@ function App() {
   const ignoreCondition = window.location.pathname === '/init-system' ||
                           window.location.pathname === '/login' ||
                           window.location.pathname.match(/\/posts\/edit\/\d+/) ||
-                          window.location.pathname.match(/\/pages\/edit\/\d+/)
+                          window.location.pathname.match(/\/pages\/edit\/\d+/) ||
+                          window.location.pathname === '/posts/edit' ||
+                          window.location.pathname === '/pages/edit'
 
 
 
