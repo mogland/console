@@ -3,6 +3,9 @@
  * @author: Wibus
  * @Date: 2022-07-23 16:03:29
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-23 16:03:30
+ * @LastEditTime: 2022-07-23 19:52:05
  * Coding With IU
  */
+
+
+export const NxEditor = () => {}
