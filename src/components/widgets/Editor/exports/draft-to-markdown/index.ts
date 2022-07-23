@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-23 16:30:24
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-23 16:51:36
+ * @LastEditTime: 2022-07-23 16:56:35
  * Coding With IU
  */
 const TRAILING_WHITESPACE = /[ \u0020\t\n]*$/; // 匹配列表
