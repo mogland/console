@@ -2,3 +2,7 @@
   color: inherit;
   background-color: inherit;
 }
+
+.cm-focused {
+  outline: none !important;
+}
