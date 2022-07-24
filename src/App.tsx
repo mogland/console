@@ -9,14 +9,21 @@ import { useMount } from 'react-use'
 import { apiClient } from './utils/request'
 import { A_MINUTE_MS } from './constant/time.constant'
 import { message } from 'react-message-popup'
+import { useLocation } from 'react-router-dom'
 function App() {
 
   const ignoreCondition = window.location.pathname === '/init-system' ||
                           window.location.pathname === '/login' ||
                           window.location.pathname.match(/\/posts\/edit\/\d+/) ||
-                          window.location.pathname.match(/\/pages\/edit\/\d+/)
+                          window.location.pathname.match(/\/pages\/edit\/\d+/) ||
+                          window.location.pathname === '/posts/edit' ||
+                          window.location.pathname === '/pages/edit' || false
 
+  const [ignoreConditionState, setIgnoreConditionState] = useState(ignoreCondition)
 
+  useEffect(() => { // 随时监听路由变化
+    setIgnoreConditionState(ignoreCondition)
+  }, [useLocation()])
 
   const [themeType, setThemeType] = useState('light')
   const [sidebar, setSidebar] = useState(true)
@@ -33,7 +40,7 @@ function App() {
     setThemeType(mediaQuery.matches ? 'dark' : 'light')
     apiClient.get('/master/check_logged').then(res => {
       if (res.code === 401) {
-        if (ignoreCondition) {
+        if (ignoreConditionState) {
           message.error('请先登录')
           return false
         }
@@ -43,7 +50,7 @@ function App() {
     }).catch((err) => {
       message.error(err.message)
       // console.log(err)
-      if (ignoreCondition) return
+      if (ignoreConditionState) return
       window.location.href = '/login'
     })
   })
@@ -55,10 +62,11 @@ function App() {
     }).catch((err) => {
       message.error(err.message)
       console.log(err)
-      if (ignoreCondition) return
+      if (ignoreConditionState) return
       window.location.href = '/login'
     })
   }, A_MINUTE_MS)
+
   useEffect(() => {
     setSidebar(location.pathname !== "/init" && location.pathname !== "/register")
   }, [location.pathname])
@@ -70,7 +78,7 @@ function App() {
       <div className={sidebarStyle.hasSidebar}>
       <SidebarBtn />
         {
-          !ignoreCondition && <>
+          !ignoreConditionState && <>
             <Sidebar />
           </>
         }
