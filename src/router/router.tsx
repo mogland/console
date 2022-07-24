@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-12 16:25:35
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-22 23:04:55
+ * @LastEditTime: 2022-07-24 21:49:13
  * Coding With IU
  */
 
@@ -34,9 +34,11 @@ export const AppRouter = () => {
       <Route path="/dashboard" element={<Dashboard />} />
       
       <Route path="/posts" element={<Posts />} />
+      <Route path="/posts/edit" element={<PostEdit />} />
       <Route path="/posts/edit/:id" element={<PostEdit />} />
       
       <Route path="/pages" element={<Pages />} />
+      <Route path="/pages/edit" />
       <Route path="/pages/edit/:id" />
       
       <Route path="/comments" element={<Comments />} />

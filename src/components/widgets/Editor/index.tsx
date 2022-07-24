@@ -3,12 +3,12 @@
  * @author: Wibus
  * @Date: 2022-07-23 23:47:19
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-24 09:49:21
+ * @LastEditTime: 2022-07-24 22:27:52
  * Coding With IU
  */
 
-import { useClasses } from "@geist-ui/core"
-import { ArrowLeft } from "@icon-park/react"
+import { Drawer, useClasses } from "@geist-ui/core"
+import { ArrowLeft, Save, SettingConfig } from "@icon-park/react"
 import { FC, useState } from "react"
 import CodeMirror from '@uiw/react-codemirror';
 import { xcodeLight, xcodeDark } from '@uiw/codemirror-theme-xcode';
@@ -24,12 +24,14 @@ import { bracketMatching, indentOnInput } from "@codemirror/language";
 import { oneDark } from "@codemirror/theme-one-dark";
 import { markdown, markdownKeymap, markdownLanguage } from "@codemirror/lang-markdown";
 import { githubLight } from '@ddietr/codemirror-themes/theme/github-light'
+import { githubDark } from '@ddietr/codemirror-themes/theme/github-dark'
 import { HighlightStyle, syntaxHighlighting } from '@codemirror/language'
 import type { Extension } from '@codemirror/state'
 import { EditorView } from '@codemirror/view'
 import { tags } from '@lezer/highlight'
 import { languages } from "@codemirror/language-data";
-
+import './index.css'
+import { Tags } from "../Tag";
 export const syntaxHighlightingStyle = HighlightStyle.define([
   {
     tag: tags.heading1,
@@ -84,21 +86,72 @@ export const BackBtn = (props) => {
           padding: "8px",
           borderRadius: "15%",
         }}>
-          <ArrowLeft /> Back
+          <ArrowLeft /> &nbsp;&nbsp;返回
         </div>
       </div>
     </>
   )
 }
 
-export const Editor: FC<any> = (props) => {
 
-  console.log(props.post)
-
-  const [post, setPost] = useState<any>(props.post);
-
+export const ConfigsBtn = (props) => {
+  const [state, setState] = useState(false)
   return (
     <>
+      <div
+        className={useClasses("pl-6 py-5 float-right absolute right-0 bottom-16 cursor-pointer z-10")}
+        onClick={() => {
+          setState(!state)
+        }}
+      >
+        <div style={{
+          // backgroundColor: "rgba(60, 60, 60, 0.6)",
+          padding: "8px",
+          borderRadius: "15%",
+        }}>
+          <SettingConfig /> &nbsp;&nbsp;配置
+        </div>
+      </div>
+
+      <Drawer visible={state} onClose={() => setState(false)} placement={'right'}>
+        <Drawer.Content>
+          <Tags />
+        </Drawer.Content>
+      </Drawer>
+    </>
+  )
+}
+
+export const SendBtn = (props) => {
+  return (
+    <>
+      <div
+        className={useClasses("pl-6 py-5 float-right absolute right-0 bottom-28 cursor-pointer z-10")}
+        onClick={() => props.onClick()}
+      >
+        <div style={{
+          // backgroundColor: "rgba(60, 60, 60, 0.6)",
+          padding: "8px",
+          borderRadius: "15%",
+        }}>
+          <Save /> &nbsp;&nbsp;{props.new ? "发布" : "更新"}
+        </div>
+      </div>
+    </>
+  )
+}
+
+
+export const Editor: FC<any> = (props) => {
+
+  const [post, setPost] = useState<any>(props.post);
+  return (
+    <>
+      <SendBtn
+        new={props.post.text ? false : true}
+        onClick={props.submit}
+      />
+      <ConfigsBtn />
       <BackBtn
         onClick={() => {
           // 如果 post 与 props.post 不相等，则弹窗提示
@@ -124,8 +177,11 @@ export const Editor: FC<any> = (props) => {
       </h1>
       <CodeMirror
         theme={
-          window.matchMedia("(prefers-color-scheme: light)").matches ? githubLight : oneDark
+          window.matchMedia("(prefers-color-scheme: light)").matches ? githubLight : githubDark
         }
+        style={{
+          fontSize: "1.2em",
+        }}
         value={post?.text}
         extensions={[
           highlightActiveLineGutter(),
