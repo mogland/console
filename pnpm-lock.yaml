@@ -10,31 +10,31 @@ specifiers:
   '@codemirror/theme-one-dark': 6.0.0
   '@codemirror/view': 6.1.1
   '@ddietr/codemirror-themes': https://github.com/Innei/codemirror-themes.git
-  '@geist-ui/core': ^2.3.8
-  '@geist-ui/icons': ^1.0.2
-  '@icon-park/react': ^1.4.2
-  '@lezer/highlight': ^1.0.0
-  '@originjs/vite-plugin-commonjs': ^1.0.3
-  '@types/crypto-js': ^4.1.1
-  '@types/node': ^18.0.4
-  '@types/react': ^18.0.0
-  '@types/react-dom': ^18.0.0
-  '@uiw/codemirror-theme-xcode': ^4.11.4
-  '@uiw/react-codemirror': ^4.11.4
+  '@geist-ui/core': 2.3.8
+  '@geist-ui/icons': 1.0.2
+  '@icon-park/react': 1.4.2
+  '@lezer/highlight': 1.0.0
+  '@originjs/vite-plugin-commonjs': 1.0.3
+  '@types/crypto-js': 4.1.1
+  '@types/node': 18.6.1
+  '@types/react': 18.0.15
+  '@types/react-dom': 18.0.6
+  '@uiw/codemirror-theme-xcode': 4.11.4
+  '@uiw/react-codemirror': 4.11.4
   '@vitejs/plugin-react': 2.0.0
-  autoprefixer: ^10.4.7
-  codemirror: ^6.0.1
-  crypto-js: ^4.1.1
-  less: ^4.1.3
-  postcss: ^8.4.14
-  postcss-import: ^14.1.0
-  react: ^18.0.0
-  react-dom: ^18.0.0
+  autoprefixer: 10.4.7
+  codemirror: 6.0.1
+  crypto-js: 4.1.1
+  less: 4.1.3
+  postcss: 8.4.14
+  postcss-import: 14.1.0
+  react: 18.2.0
+  react-dom: 18.2.0
   react-message-popup: 1.0.0-alpha.2
-  react-router-dom: '6'
-  react-use: ^17.4.0
-  tailwindcss: ^3.1.6
-  typescript: ^4.6.3
+  react-router-dom: 6.3.0
+  react-use: 17.4.0
+  tailwindcss: 3.1.6
+  typescript: 4.7.4
   vite: 3.0.3
 
 dependencies:
@@ -64,10 +64,10 @@ dependencies:
 devDependencies:
   '@originjs/vite-plugin-commonjs': 1.0.3
   '@types/crypto-js': 4.1.1
-  '@types/node': 18.0.4
+  '@types/node': 18.6.1
   '@types/react': 18.0.15
   '@types/react-dom': 18.0.6
-  '@vitejs/plugin-react': 2.0.0_vite@3.0.2
+  '@vitejs/plugin-react': 2.0.0_vite@3.0.3
   autoprefixer: 10.4.7_postcss@8.4.14
   less: 4.1.3
   postcss: 8.4.14
@@ -753,8 +753,8 @@ packages:
     resolution: {integrity: sha512-aLkWa0C0vO5b4Sr798E26QgOkss68Un0bLjs7u9qxzPT5CG+8DuNTffWES58YzJs3hrVAOs1wonycqEBqNJubA==}
     dev: false
 
-  /@types/node/18.0.4:
-    resolution: {integrity: sha512-M0+G6V0Y4YV8cqzHssZpaNCqvYwlCiulmm0PwpNLF55r/+cT8Ol42CHRU1SEaYFH2rTwiiE1aYg/2g2rrtGdPA==}
+  /@types/node/18.6.1:
+    resolution: {integrity: sha512-z+2vB6yDt1fNwKOeGbckpmirO+VBDuQqecXkgeIqDlaOtmKn6hPR/viQ8cxCfqLU4fTlvM3+YjM367TukWdxpg==}
     dev: true
 
   /@types/prop-types/15.7.5:
@@ -821,7 +821,7 @@ packages:
       react-dom: 18.2.0_react@18.2.0
     dev: false
 
-  /@vitejs/plugin-react/2.0.0_vite@3.0.2:
+  /@vitejs/plugin-react/2.0.0_vite@3.0.3:
     resolution: {integrity: sha512-zHkRR+X4zqEPNBbKV2FvWSxK7Q6crjMBVIAYroSU8Nbb4M3E5x4qOiLoqJBHtXgr27kfednXjkwr3lr8jS6Wrw==}
     engines: {node: '>=14.18.0'}
     peerDependencies:
@@ -834,7 +834,7 @@ packages:
       '@babel/plugin-transform-react-jsx-source': 7.18.6_@babel+core@7.18.6
       magic-string: 0.26.2
       react-refresh: 0.14.0
-      vite: 3.0.2_less@4.1.3
+      vite: 3.0.3_less@4.1.3
     transitivePeerDependencies:
       - supports-color
     dev: true
