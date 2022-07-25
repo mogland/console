@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-22 22:52:13
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-25 13:14:12
+ * @LastEditTime: 2022-07-25 21:16:58
  * Coding With IU
  */
 
@@ -14,13 +14,14 @@ import { NxPage } from "../../components/widgets/Page";
 import { useMount } from "react-use";
 import { BackBtn, Editor } from "../../components/widgets/Editor";
 import { message } from "react-message-popup";
+import { PostModel } from "./post.model";
 
 
 
 export const PostEdit: BasicPage = () => {
 
   const [originPost, setOriginPost] = useState<any>({});
-  const [post, setPost] = useState<any>({});
+  const [post, setPost] = useState<PostModel>(new PostModel());
   const [loading, setLoading] = useState<boolean>(true);
   const postId = window.location.pathname.split('/').pop();
   useMount(() => {
@@ -30,6 +31,7 @@ export const PostEdit: BasicPage = () => {
       setLoading(false);
     })
   })
+  console.log(post);
   // if (postId !== 'edit' && !loading) {
   //   console.log(post);
   // }

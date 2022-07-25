@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-23 23:47:19
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-25 19:17:25
+ * @LastEditTime: 2022-07-25 23:18:20
  * Coding With IU
  */
 
@@ -30,6 +30,7 @@ import './index.css'
 import tagStyles from '../Tag/index.module.css'
 import { Tags } from "../Tag";
 import { syntaxTheme } from "./syntaxTheme";
+import { PostModel } from "../../../pages/Posts/post.model";
 
 
 export const BackBtn = (props) => {
@@ -73,10 +74,11 @@ export const SendBtn = (props) => {
 
 export const Editor: FC<any> = (props) => {
   const [stateDrawer, setStateDrawer] = useState(false)
-  const [post, setPost] = useState<any>(props.post);
+  const [post, setPost] = useState<PostModel>(new PostModel() || props.post);
   useEffect(() => {
-    setPost(props.post)
+    setPost(props.post || new PostModel())
   }, [props.post])
+  console.log(post)
   return (
     <>
       <SendBtn
