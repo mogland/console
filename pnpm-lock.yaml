@@ -1,14 +1,14 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@codemirror/commands': ^6.0.1
-  '@codemirror/lang-javascript': ^6.0.2
-  '@codemirror/lang-markdown': ^6.0.0
-  '@codemirror/language': ^6.2.1
-  '@codemirror/language-data': ^6.1.0
-  '@codemirror/state': ^6.1.0
-  '@codemirror/theme-one-dark': ^6.0.0
-  '@codemirror/view': ^6.1.0
+  '@codemirror/commands': 6.0.1
+  '@codemirror/lang-javascript': 6.0.2
+  '@codemirror/lang-markdown': 6.0.1
+  '@codemirror/language': 6.2.1
+  '@codemirror/language-data': 6.1.0
+  '@codemirror/state': 6.1.0
+  '@codemirror/theme-one-dark': 6.0.0
+  '@codemirror/view': 6.1.1
   '@ddietr/codemirror-themes': https://github.com/Innei/codemirror-themes.git
   '@geist-ui/core': ^2.3.8
   '@geist-ui/icons': ^1.0.2
@@ -40,19 +40,19 @@ specifiers:
 dependencies:
   '@codemirror/commands': 6.0.1
   '@codemirror/lang-javascript': 6.0.2
-  '@codemirror/lang-markdown': 6.0.0
+  '@codemirror/lang-markdown': 6.0.1
   '@codemirror/language': 6.2.1
   '@codemirror/language-data': 6.1.0
   '@codemirror/state': 6.1.0
   '@codemirror/theme-one-dark': 6.0.0
-  '@codemirror/view': 6.1.0
+  '@codemirror/view': 6.1.1
   '@ddietr/codemirror-themes': github.com/Innei/codemirror-themes/d7dee7637d330d10cc6d0984c1b5720d3d8a60af
   '@geist-ui/core': 2.3.8_biqbaboplfbrettd7655fr4n2y
   '@geist-ui/icons': 1.0.2_zhza2kbnl2wkkf7vqdl3ton2f4
   '@icon-park/react': 1.4.2_biqbaboplfbrettd7655fr4n2y
   '@lezer/highlight': 1.0.0
   '@uiw/codemirror-theme-xcode': 4.11.4
-  '@uiw/react-codemirror': 4.11.4_qvvohrpe54jb4sawbo73zueuaa
+  '@uiw/react-codemirror': 4.11.4_37edggnoi2slqricbsrpmov4ay
   codemirror: 6.0.1
   crypto-js: 4.1.1
   react: 18.2.0
@@ -351,7 +351,7 @@ packages:
     dependencies:
       '@codemirror/language': 6.2.1
       '@codemirror/state': 6.1.0
-      '@codemirror/view': 6.1.0
+      '@codemirror/view': 6.1.1
       '@lezer/common': 1.0.0
     dev: false
 
@@ -360,7 +360,7 @@ packages:
     dependencies:
       '@codemirror/language': 6.2.1
       '@codemirror/state': 6.1.0
-      '@codemirror/view': 6.1.0
+      '@codemirror/view': 6.1.1
       '@lezer/common': 1.0.0
     dev: false
 
@@ -406,7 +406,7 @@ packages:
       '@codemirror/language': 6.2.1
       '@codemirror/lint': 6.0.0
       '@codemirror/state': 6.1.0
-      '@codemirror/view': 6.1.0
+      '@codemirror/view': 6.1.1
       '@lezer/common': 1.0.0
       '@lezer/javascript': 1.0.2
     dev: false
@@ -418,13 +418,13 @@ packages:
       '@lezer/json': 1.0.0
     dev: false
 
-  /@codemirror/lang-markdown/6.0.0:
-    resolution: {integrity: sha512-ozJaO1W4WgGlwWOoYCSYzbVhhM0YM/4lAWLrNsBbmhh5Ztpl0qm4CgEQRl3t8/YcylTZYBIXiskui8sHNGd4dg==}
+  /@codemirror/lang-markdown/6.0.1:
+    resolution: {integrity: sha512-pHPQuRwf9cUrmkmsTHRjtS9ZnGu3fA9YzAdh2++d+L9wbfnC2XbKh0Xvm/0YiUjdCnoCx9wDFEoCuAnkqKWLIw==}
     dependencies:
       '@codemirror/lang-html': 6.1.0
       '@codemirror/language': 6.2.1
       '@codemirror/state': 6.1.0
-      '@codemirror/view': 6.1.0
+      '@codemirror/view': 6.1.1
       '@lezer/common': 1.0.0
       '@lezer/markdown': 1.0.1
     dev: false
@@ -490,7 +490,7 @@ packages:
       '@codemirror/lang-java': 6.0.0
       '@codemirror/lang-javascript': 6.0.2
       '@codemirror/lang-json': 6.0.0
-      '@codemirror/lang-markdown': 6.0.0
+      '@codemirror/lang-markdown': 6.0.1
       '@codemirror/lang-php': 6.0.0
       '@codemirror/lang-python': 6.0.1
       '@codemirror/lang-rust': 6.0.0
@@ -505,7 +505,7 @@ packages:
     resolution: {integrity: sha512-MC3svxuvIj0MRpFlGHxLS6vPyIdbTr2KKPEW46kCoCXw2ktb4NTkpkPBI/lSP/FoNXLCBJ0mrnUi1OoZxtpW1Q==}
     dependencies:
       '@codemirror/state': 6.1.0
-      '@codemirror/view': 6.1.0
+      '@codemirror/view': 6.1.1
       '@lezer/common': 1.0.0
       '@lezer/highlight': 1.0.0
       '@lezer/lr': 1.2.0
@@ -522,7 +522,7 @@ packages:
     resolution: {integrity: sha512-nUUXcJW1Xp54kNs+a1ToPLK8MadO0rMTnJB8Zk4Z8gBdrN0kqV7uvUraU/T2yqg+grDNR38Vmy/MrhQN/RgwiA==}
     dependencies:
       '@codemirror/state': 6.1.0
-      '@codemirror/view': 6.1.0
+      '@codemirror/view': 6.1.1
       crelt: 1.0.5
     dev: false
 
@@ -530,7 +530,7 @@ packages:
     resolution: {integrity: sha512-uOinkOrM+daMduCgMPomDfKLr7drGHB4jHl3Vq6xY2WRlL7MkNsBE0b+XHYa/Mee2npsJOgwvkW4n1lMFeBW2Q==}
     dependencies:
       '@codemirror/state': 6.1.0
-      '@codemirror/view': 6.1.0
+      '@codemirror/view': 6.1.1
       crelt: 1.0.5
     dev: false
 
@@ -543,12 +543,12 @@ packages:
     dependencies:
       '@codemirror/language': 6.2.1
       '@codemirror/state': 6.1.0
-      '@codemirror/view': 6.1.0
+      '@codemirror/view': 6.1.1
       '@lezer/highlight': 1.0.0
     dev: false
 
-  /@codemirror/view/6.1.0:
-    resolution: {integrity: sha512-T5QTuzwxbQ+KnZzz1ef3e3QCNH2qMdTmQhA4tbsK62lJGyCMZHSaSAJpFAr67c6Wl34IBgx2M7ue6WxJpWPOPg==}
+  /@codemirror/view/6.1.1:
+    resolution: {integrity: sha512-ZBLsphk+Tbqxv7Z1vZ+rky7QbHV/ILoCN4rtdcboBmSbkDmVwsU0wmfqTGZyrOw5ulBPu2aE8esQf6cIUZbWqQ==}
     dependencies:
       '@codemirror/state': 6.1.0
       style-mod: 4.0.0
@@ -796,7 +796,7 @@ packages:
       '@codemirror/lint': 6.0.0
       '@codemirror/search': 6.0.1
       '@codemirror/state': 6.1.0
-      '@codemirror/view': 6.1.0
+      '@codemirror/view': 6.1.1
     dev: false
 
   /@uiw/codemirror-theme-xcode/4.11.4:
@@ -810,10 +810,10 @@ packages:
     dependencies:
       '@codemirror/language': 6.2.1
       '@codemirror/state': 6.1.0
-      '@codemirror/view': 6.1.0
+      '@codemirror/view': 6.1.1
     dev: false
 
-  /@uiw/react-codemirror/4.11.4_qvvohrpe54jb4sawbo73zueuaa:
+  /@uiw/react-codemirror/4.11.4_37edggnoi2slqricbsrpmov4ay:
     resolution: {integrity: sha512-p7DNBI6kj+DUzTe7MjBJwZ3qo0nSOav7T0MEGRpRNZA9ZO3RnzhPMie6swDA8e3dz1s59l9UdFB1fgyam1vFhQ==}
     peerDependencies:
       '@codemirror/view': '>=6.0.0'
@@ -822,7 +822,7 @@ packages:
     dependencies:
       '@babel/runtime': 7.18.6
       '@codemirror/theme-one-dark': 6.0.0
-      '@codemirror/view': 6.1.0
+      '@codemirror/view': 6.1.1
       '@uiw/codemirror-extensions-basic-setup': 4.11.4
       codemirror: 6.0.1
       react: 18.2.0
@@ -968,7 +968,7 @@ packages:
       '@codemirror/lint': 6.0.0
       '@codemirror/search': 6.0.1
       '@codemirror/state': 6.1.0
-      '@codemirror/view': 6.1.0
+      '@codemirror/view': 6.1.1
     dev: false
 
   /color-convert/1.9.3:
@@ -2121,7 +2121,7 @@ packages:
     dev: true
 
   github.com/Innei/codemirror-themes/d7dee7637d330d10cc6d0984c1b5720d3d8a60af:
-    resolution: {commit: d7dee7637d330d10cc6d0984c1b5720d3d8a60af, repo: git+ssh://git@github.com/Innei/codemirror-themes.git, type: git}
+    resolution: {tarball: https://codeload.github.com/Innei/codemirror-themes/tar.gz/d7dee7637d330d10cc6d0984c1b5720d3d8a60af}
     name: '@ddietr/codemirror-themes'
     version: 1.1.0
     prepare: true
@@ -2129,6 +2129,6 @@ packages:
     dependencies:
       '@codemirror/language': 6.2.1
       '@codemirror/state': 6.1.0
-      '@codemirror/view': 6.1.0
+      '@codemirror/view': 6.1.1
       '@lezer/highlight': 1.0.0
     dev: false
