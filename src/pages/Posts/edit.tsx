@@ -3,12 +3,11 @@
  * @author: Wibus
  * @Date: 2022-07-22 22:52:13
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-24 21:56:40
+ * @LastEditTime: 2022-07-25 12:55:39
  * Coding With IU
  */
 
 import { BasicPage } from "../../types/basic";
-import './edit.css';
 import { useEffect, useState } from "react";
 import { apiClient } from "../../utils/request";
 import { NxPage } from "../../components/widgets/Page";

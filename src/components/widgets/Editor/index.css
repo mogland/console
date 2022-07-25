@@ -1,3 +1,7 @@
-main * {
+.cm-theme {
   background: inherit !important;
+}
+
+.cm-editor.cm-focused {
+  outline: none !important;
 }
