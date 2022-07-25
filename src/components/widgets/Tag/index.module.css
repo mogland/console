@@ -42,6 +42,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.editTagAction > span > svg {
+/* .editTagAction > span > svg {
   display: inline-block;
-}
+} */

@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-22 22:52:13
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-25 12:55:39
+ * @LastEditTime: 2022-07-25 13:14:12
  * Coding With IU
  */
 
@@ -30,11 +30,14 @@ export const PostEdit: BasicPage = () => {
       setLoading(false);
     })
   })
+  // if (postId !== 'edit' && !loading) {
+  //   console.log(post);
+  // }
 
   return (
     <NxPage>
       {
-        (postId !== 'edit' && !loading) && (
+        postId !== 'edit' && !loading && (
           <Editor
             post={post}
             submit={(data: any) => {
@@ -50,7 +53,6 @@ export const PostEdit: BasicPage = () => {
           />
         ) || (
           <Editor
-            post={post}
             submit={(data: any) => {
               apiClient.post(`/posts/${postId}`, null, null, data).then(res => {
                 setPost(res);

@@ -3,13 +3,13 @@
  * @author: Wibus
  * @Date: 2022-07-23 23:47:19
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-24 22:27:52
+ * @LastEditTime: 2022-07-25 13:12:50
  * Coding With IU
  */
 
 import { Drawer, useClasses } from "@geist-ui/core"
 import { ArrowLeft, Save, SettingConfig } from "@icon-park/react"
-import { FC, useState } from "react"
+import { FC, useEffect, useState } from "react"
 import CodeMirror from '@uiw/react-codemirror';
 import { xcodeLight, xcodeDark } from '@uiw/codemirror-theme-xcode';
 import { javascript } from '@codemirror/lang-javascript';
@@ -113,7 +113,7 @@ export const ConfigsBtn = (props) => {
         </div>
       </div>
 
-      <Drawer visible={state} onClose={() => setState(false)} placement={'right'}>
+      <Drawer visible={state} onClose={() => setState(false)} placement={'right'} width={"20rem"}>
         <Drawer.Content>
           <Tags />
         </Drawer.Content>
@@ -145,10 +145,13 @@ export const SendBtn = (props) => {
 export const Editor: FC<any> = (props) => {
 
   const [post, setPost] = useState<any>(props.post);
+  useEffect(() => {
+    setPost(props.post)
+  }, [props.post])
   return (
     <>
       <SendBtn
-        new={props.post.text ? false : true}
+        new={props.post ? Object.keys(props.post).length === 0 ? true : false : true}
         onClick={props.submit}
       />
       <ConfigsBtn />
@@ -165,6 +168,9 @@ export const Editor: FC<any> = (props) => {
       <h1>
         <input
           id="postTitle"
+          style={{
+            width: "100%"
+          }}
           placeholder="文章标题"
           onChange={() => {
             setPost({
