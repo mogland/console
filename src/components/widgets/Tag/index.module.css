@@ -36,12 +36,12 @@
   line-height: 0;
   text-align: center;
   text-transform: none;
-  vertical-align: -0.125em;
   text-rendering: optimizelegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* .editTagAction > span > svg {
-  display: inline-block;
-} */
+.editTagPlus {
+  background: #fff;
+  border-style: dashed;
+}

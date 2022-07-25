@@ -3,12 +3,12 @@
  * @author: Wibus
  * @Date: 2022-07-23 23:47:19
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-25 13:12:50
+ * @LastEditTime: 2022-07-25 14:11:40
  * Coding With IU
  */
 
-import { Drawer, useClasses } from "@geist-ui/core"
-import { ArrowLeft, Save, SettingConfig } from "@icon-park/react"
+import { AutoComplete, Drawer, useClasses } from "@geist-ui/core"
+import { ArrowLeft, CloseSmall, Plus, Save, SettingConfig } from "@icon-park/react"
 import { FC, useEffect, useState } from "react"
 import CodeMirror from '@uiw/react-codemirror';
 import { xcodeLight, xcodeDark } from '@uiw/codemirror-theme-xcode';
@@ -31,6 +31,7 @@ import { EditorView } from '@codemirror/view'
 import { tags } from '@lezer/highlight'
 import { languages } from "@codemirror/language-data";
 import './index.css'
+import tagStyles from '../Tag/index.module.css'
 import { Tags } from "../Tag";
 export const syntaxHighlightingStyle = HighlightStyle.define([
   {
@@ -93,35 +94,6 @@ export const BackBtn = (props) => {
   )
 }
 
-
-export const ConfigsBtn = (props) => {
-  const [state, setState] = useState(false)
-  return (
-    <>
-      <div
-        className={useClasses("pl-6 py-5 float-right absolute right-0 bottom-16 cursor-pointer z-10")}
-        onClick={() => {
-          setState(!state)
-        }}
-      >
-        <div style={{
-          // backgroundColor: "rgba(60, 60, 60, 0.6)",
-          padding: "8px",
-          borderRadius: "15%",
-        }}>
-          <SettingConfig /> &nbsp;&nbsp;配置
-        </div>
-      </div>
-
-      <Drawer visible={state} onClose={() => setState(false)} placement={'right'} width={"20rem"}>
-        <Drawer.Content>
-          <Tags />
-        </Drawer.Content>
-      </Drawer>
-    </>
-  )
-}
-
 export const SendBtn = (props) => {
   return (
     <>
@@ -143,7 +115,7 @@ export const SendBtn = (props) => {
 
 
 export const Editor: FC<any> = (props) => {
-
+  const [stateDrawer, setStateDrawer] = useState(false)
   const [post, setPost] = useState<any>(props.post);
   useEffect(() => {
     setPost(props.post)
@@ -154,7 +126,85 @@ export const Editor: FC<any> = (props) => {
         new={props.post ? Object.keys(props.post).length === 0 ? true : false : true}
         onClick={props.submit}
       />
-      <ConfigsBtn />
+
+
+      <>
+        <div
+          className={useClasses("pl-6 py-5 float-right absolute right-0 bottom-16 cursor-pointer z-10")}
+          onClick={() => {
+            setStateDrawer(!stateDrawer)
+          }}
+        >
+          <div style={{
+            // backgroundColor: "rgba(60, 60, 60, 0.6)",
+            padding: "8px",
+            borderRadius: "15%",
+          }}>
+            <SettingConfig /> &nbsp;&nbsp;配置
+          </div>
+        </div>
+
+        <Drawer visible={stateDrawer} onClose={() => setStateDrawer(false)} placement={'right'} width={"20rem"}>
+          <Drawer.Content>
+            <div className="postTags">
+              {post && post.tags !== undefined && post.tags.length !== 0 && post.tags.map((tag, index) => {
+                return (
+                  <span className={useClasses(tagStyles.editTag)} key={"Tag" + index}>
+                    {tag}
+                    <span className={useClasses(tagStyles.editTagAction)} onClick={() => {
+                      setPost({
+                        ...post,
+                        tags: post.tags.filter((item, i) => i !== index)
+                      })
+                    }}>
+                      <CloseSmall />
+                    </span>
+                  </span>
+                )
+              }
+              )}
+              <input 
+              id="tagInput" 
+              hidden 
+              placeholder={"标签名字"} 
+              style={{
+                display: "none"
+              }}
+              // clearable
+              onKeyDown={
+                (e) => {
+                  if (e.keyCode === 13) {
+                    setPost({
+                      ...post,
+                      tags: [...post.tags, e.target.value]
+                    })
+                    e.target.value = ""
+                    // 恢复 hidden
+                    document.getElementById("tagInput")!.hidden = true
+                    document.getElementById("tagInput")!.style.display = "none"
+                  }
+                  if (e.keyCode === 27) {
+                    e.target.value = ""
+                    document.getElementById("tagInput")!.hidden = true
+                    document.getElementById("tagInput")!.style.display = "none"
+                  }
+                }
+              } />
+              <span className={useClasses(tagStyles.editTag, tagStyles.editTagPlus)} onClick={() => {
+                document.getElementById("tagInput")!.hidden = false
+                document.getElementById("tagInput")!.style.display = "inherit"
+              }}>
+                <span className={useClasses(tagStyles.editTagAction)}>
+                  <Plus />
+                </span>
+                New
+              </span>
+            </div>
+          </Drawer.Content>
+        </Drawer>
+      </>
+
+
       <BackBtn
         onClick={() => {
           // 如果 post 与 props.post 不相等，则弹窗提示

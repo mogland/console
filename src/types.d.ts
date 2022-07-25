@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-15 15:19:08
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-23 20:33:28
+ * @LastEditTime: 2022-07-25 14:13:56
  * Coding With IU
  */
 
@@ -18,6 +18,9 @@ declare global {
   export interface HTMLElement {
     [key: string]: any
     value: any
+  }
+  export interface Element {
+    [key: string]: any
   }
 }
 
