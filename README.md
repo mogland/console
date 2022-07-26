@@ -19,6 +19,10 @@ The powerful admin dashboard for NEXT, provide the latest features
 - [ ] ~~插件管理页面（因 Core 尚未实现，暂时延期）~~
 - [ ] ~~主题管理页面（因 Core 尚未实现，暂时延期）~~
 
+## Activity
+
+![Alt](https://repobeats.axiom.co/api/embed/af99a21e60aedbb0e3625145522f36d85c2e5ae5.svg "Repobeats analytics image")
+
 ## License
 
 此项目 AGPLv3 授权开源，使用此项目进行的二次创作或者衍生项目也必须开源。
