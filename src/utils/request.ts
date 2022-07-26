@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-15 17:33:03
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-26 13:50:05
+ * @LastEditTime: 2022-07-26 20:27:57
  * Coding With IU
  */
 
@@ -49,6 +49,21 @@ export const apiClient = {
     const url = `${path}${params ? `/` + params.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}${query ? `?` + query.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}`
     return apiClientManger(url, {
       method: 'PUT',
+      body,
+      options
+    }).then(res => {
+      if (res.ok === 0 || res.chMessage || false) throw new Error(res.chMessage)
+      return res
+    }).catch(err => {
+      message.error(err.message)
+      throw new Error(err.chMessage)
+
+    })
+  },
+  patch: (path: string, params?: any, query?: any, body?: any, options?: any) => {
+    const url = `${path}${params ? `/` + params.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}${query ? `?` + query.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}`
+    return apiClientManger(url, {
+      method: 'PATCH',
       body,
       options
     }).then(res => {
