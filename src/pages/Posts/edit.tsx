@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-22 22:52:13
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-26 13:10:50
+ * @LastEditTime: 2022-07-26 13:51:02
  * Coding With IU
  */
 
@@ -26,13 +26,13 @@ export const PostEdit: BasicPage = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const postId = window.location.pathname.split('/').pop();
   useMount(() => {
-     postId !== 'edit' && apiClient.get(`/posts/${postId}`).then(res => {
+    postId !== 'edit' && apiClient.get(`/posts/${postId}`).then(res => {
       setPost(res);
       setOriginPost(res);
       setLoading(false);
     })
   })
-  console.log(post);
+  // console.log(post);
   // if (postId !== 'edit' && !loading) {
   //   console.log(post);
   // }
@@ -43,19 +43,12 @@ export const PostEdit: BasicPage = () => {
         postId !== 'edit' && !loading && (
           <Editor
             post={post}
-            submit={(data: any) => {
-              // apiClient.put(`/posts/${postId}`, null, null, data).then(res => {
-              //   setPost(res);
-              //   setOriginPost(res);
-              //   message.success('保存成功');
-              // }).catch(err => {
-              //   message.error("保存失败");
-              //   console.log(err);
-              // })
-            }}
+            type="post"
           />
         ) || (
-          <Editor />
+          <Editor
+            type="post"
+          />
         )
       }
     </NxPage>
