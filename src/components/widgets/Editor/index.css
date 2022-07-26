@@ -1,7 +1,10 @@
 .cm-theme {
   background: inherit !important;
+  height: calc(100vh - 15rem) !important;
 }
-
+.cm-editor {
+  height: 100% !important;
+}
 .cm-editor.cm-focused {
   outline: none !important;
 }

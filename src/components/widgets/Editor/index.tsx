@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-23 23:47:19
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-26 13:53:40
+ * @LastEditTime: 2022-07-26 14:02:25
  * Coding With IU
  */
 
@@ -93,19 +93,20 @@ export const Editor: FC<any> = (props) => {
   })
   // console.log("post", post)
   return (
-    <>
+    <div>
       <SendBtn
         new={props.post ? Object.keys(props.post).length === 0 ? true : false : true}
         onClick={() => {
+          const data = JSON.stringify(post)
           if (props.post ? Object.keys(props.post).length === 0 ? true : false : true) {
-            apiClient.post("/posts", null, null, post).then(res => {
+            apiClient.post("/posts", null, null, data).then(res => {
               message.success("发布成功")
               // window.location.href = `/posts/${res.id}`
             }).catch(err => {
               message.error(err.message)
             })
           } else {
-            apiClient.put("/posts", null, null, post).then(res => {
+            apiClient.put("/posts", null, null, data).then(res => {
               message.success("更新成功")
               // window.location.href = `/posts/${res.id}`
             })
@@ -114,7 +115,7 @@ export const Editor: FC<any> = (props) => {
       />
 
 
-      <>
+      <div>
         <div
           className={useClasses("pl-6 py-5 float-right absolute right-0 bottom-16 cursor-pointer z-10")}
           onClick={() => {
@@ -332,7 +333,7 @@ export const Editor: FC<any> = (props) => {
 
           </Drawer.Content>
         </Drawer>
-      </>
+      </div>
 
 
       <BackBtn
@@ -407,6 +408,6 @@ export const Editor: FC<any> = (props) => {
           })
         }}
       />
-    </>
+    </div>
   )
 }
