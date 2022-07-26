@@ -10,9 +10,9 @@ The powerful admin dashboard for NEXT, provide the latest features
 - [X] 初始化+注册页面
 - [X] 检测 Token 是否过期
 - [X] 文章列表
-- [ ] 文章发布与更新
+- [X] 文章发布与更新
 - [X] 页面列表
-- [ ] 页面发布与更新
+- [X] 页面发布与更新
 - [ ] 评论管理页面
 - [ ] 友链管理页面
 - [ ] 系统设置页面
