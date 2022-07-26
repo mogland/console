@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-23 23:47:19
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-26 14:02:25
+ * @LastEditTime: 2022-07-26 16:53:41
  * Coding With IU
  */
 
@@ -75,6 +75,25 @@ export const SendBtn = (props) => {
   )
 }
 
+function postDataCheck(post: PostModel) {
+  if (post.title.length === 0) {
+    message.error("标题不能为空")
+    return false
+  }
+  if (post.text.length === 0) {
+    message.error("内容不能为空")
+    return false
+  }
+  // if (post.slug.length === 0) {
+  //   message.error("路径不能为空")
+  //   return false
+  // }
+  if (!post.category_id) {
+    message.error("请选择分类")
+    return false
+  }
+  return true
+}
 
 export const Editor: FC<any> = (props) => {
   const [stateDrawer, setStateDrawer] = useState(false)
@@ -91,7 +110,7 @@ export const Editor: FC<any> = (props) => {
       })
     }
   })
-  // console.log("post", post)
+  // console.log("category", category)
   return (
     <div>
       <SendBtn
@@ -99,18 +118,25 @@ export const Editor: FC<any> = (props) => {
         onClick={() => {
           const data = JSON.stringify(post)
           if (props.post ? Object.keys(props.post).length === 0 ? true : false : true) {
-            apiClient.post("/posts", null, null, data).then(res => {
-              message.success("发布成功")
+            postDataCheck(post) && (
+              apiClient.post("/posts", null, null, data).then(res => {
+                message.success("发布成功")
+                // window.location.href = `/posts/${res.id}`
+              }).catch(err => {
+                message.error(err.message)
+              })
+            )
+
+          } else {
+            postDataCheck(post) && (apiClient.put("/posts", null, null, data).then(res => {
+              message.success("更新成功")
               // window.location.href = `/posts/${res.id}`
             }).catch(err => {
               message.error(err.message)
             })
-          } else {
-            apiClient.put("/posts", null, null, data).then(res => {
-              message.success("更新成功")
-              // window.location.href = `/posts/${res.id}`
-            })
+            )
           }
+          console.log(post)
         }}
       />
 
@@ -141,12 +167,16 @@ export const Editor: FC<any> = (props) => {
                   <Text h4>分类</Text>
                   <Select
                     placeholder="选择分类"
-                    value={category ? post.category_id : undefined}
+                    value={category ? post ? post.category_id : category[0].id : undefined}
                     onChange={(val) => {
                       setPost({ ...post, category_id: val as string })
                     }}
                   >
-                    <Select.Option disabled value="0">Fetching..</Select.Option>
+                    {
+                      !category && (
+                        <Select.Option disabled value="0">Fetching..</Select.Option>
+                      )
+                    }
                     {
                       category && category.map((item: any) => {
                         return <Select.Option key={item.id} value={item.id}>{item.name}</Select.Option>
@@ -268,9 +298,8 @@ export const Editor: FC<any> = (props) => {
 
                   <Text h5>是否隐藏？</Text>
                   <Radio.Group
-                    value={post.hide === true || post.hide === false ? post.hide === true ? 1 : 0 : 0}
+                    defaultValue={post.hide === true || post.hide === false ? post.hide === true ? 1 : 0 : 0}
                     onChange={(e) => {
-                      // console.log(e === 1 ? true : false)
                       setPost({ ...post, hide: e === 1 ? true : false })
                     }}
                   >
