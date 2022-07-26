@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-22 22:52:13
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-26 11:31:36
+ * @LastEditTime: 2022-07-26 13:10:50
  * Coding With IU
  */
 
@@ -44,31 +44,18 @@ export const PostEdit: BasicPage = () => {
           <Editor
             post={post}
             submit={(data: any) => {
-              apiClient.put(`/posts/${postId}`, null, null, data).then(res => {
-                setPost(res);
-                setOriginPost(res);
-                message.success('保存成功');
-              }).catch(err => {
-                message.error("保存失败");
-                console.log(err);
-              })
+              // apiClient.put(`/posts/${postId}`, null, null, data).then(res => {
+              //   setPost(res);
+              //   setOriginPost(res);
+              //   message.success('保存成功');
+              // }).catch(err => {
+              //   message.error("保存失败");
+              //   console.log(err);
+              // })
             }}
           />
         ) || (
-          <Editor
-            submit={(data: any) => {
-              apiClient.post(`/posts/${postId}`, null, null, data).then(res => {
-                setPost(res);
-                setOriginPost(res);
-                message.success('发布成功');
-                window.location.href = `/posts/edit/${res.id}`;
-              }).catch(err => {
-                message.error("发布失败");
-                message.error(err.message);
-                console.log(err);
-              })
-            }}
-          />
+          <Editor />
         )
       }
     </NxPage>

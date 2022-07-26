@@ -5,3 +5,24 @@
 .cm-editor.cm-focused {
   outline: none !important;
 }
+
+.drawer-content div:not(:first-child) > h4 {
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+
+.drawer-content div:not(:first-child) > h5 {
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+
+.title h3 {
+  font-size: 0.9rem !important;
+  color: #363535 !important;
+}
+
+.collapse {
+  border: none !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+}
