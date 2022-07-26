@@ -12,17 +12,21 @@ import { message } from 'react-message-popup'
 import { useLocation } from 'react-router-dom'
 function App() {
 
-  const ignoreCondition = window.location.pathname === '/init-system' ||
-                          window.location.pathname === '/login' ||
-                          window.location.pathname.match(/\/posts\/edit\/\d+/) ||
-                          window.location.pathname.match(/\/pages\/edit\/\d+/) ||
-                          window.location.pathname === '/posts/edit' ||
-                          window.location.pathname === '/pages/edit' || false
+  const checkIgnoreCondition = window.location.pathname === '/init-system' ||
+    window.location.pathname === '/login'
+  const ignoreCondition = checkIgnoreCondition ||
+    window.location.pathname.match(/\/posts\/edit\/\d+/) ||
+    window.location.pathname.match(/\/pages\/edit\/\d+/) ||
+    window.location.pathname === '/posts/edit' ||
+    window.location.pathname === '/pages/edit' || false
 
   const [ignoreConditionState, setIgnoreConditionState] = useState(ignoreCondition)
+  const [checkIgnoreConditionState, setCheckIgnoreConditionState] = useState(checkIgnoreCondition)
+
 
   useEffect(() => { // 随时监听路由变化
     setIgnoreConditionState(ignoreCondition)
+    setCheckIgnoreConditionState(checkIgnoreCondition)
   }, [useLocation()])
 
   const [themeType, setThemeType] = useState('light')
@@ -39,30 +43,30 @@ function App() {
   useMount(() => {
     setThemeType(mediaQuery.matches ? 'dark' : 'light')
     apiClient.get('/master/check_logged').then(res => {
-      if (res.code === 401) {
-        if (ignoreConditionState) {
-          message.error('请先登录')
-          return false
-        }
-        window.location.href = '/login'
-        return false
-      }
+      // if (res.code === 401) {
+      //   if (ignoreConditionState) {
+      //     message.error('请先登录')
+      //     return false
+      //   }
+      //   window.location.href = '/login'
+      //   return false
+      // }
     }).catch((err) => {
       message.error(err.message)
       // console.log(err)
-      if (ignoreConditionState) return
+      if (checkIgnoreConditionState) return
       window.location.href = '/login'
     })
   })
   setInterval(() => {
     apiClient.get('/master/check_logged').then(res => {
-      if (res.code === 401) {
-        window.location.href = '/login'
-      }
+      // if (res.code === 401) {
+      //   window.location.href = '/login'
+      // }
     }).catch((err) => {
       message.error(err.message)
-      console.log(err)
-      if (ignoreConditionState) return
+      console.error(err)
+      if (checkIgnoreConditionState) return
       window.location.href = '/login'
     })
   }, A_MINUTE_MS)
@@ -76,7 +80,7 @@ function App() {
     <GeistProvider themeType={themeType}>
       <CssBaseline />
       <div className={sidebarStyle.hasSidebar}>
-      <SidebarBtn />
+        <SidebarBtn />
         {
           !ignoreConditionState && <>
             <Sidebar />

@@ -29,7 +29,7 @@ export const Posts: BasicPage = () => {
 
   useMount(async () => {
     await apiClient.get('/posts', null, [{ key: "page", value: 1 }, { key: "size", value: 10 }]).then(res => {
-      console.log(res)
+      // console.log(res)
       const { data } = res as any
       const content = new Array()
       for (let index of Object.keys(data)) {

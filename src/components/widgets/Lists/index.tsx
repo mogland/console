@@ -20,7 +20,7 @@ export const Lists = () => {
   const [friends, setFriends] = useState<any>()
   useMount(async () => {
     await apiClient.get('/posts', null, [{ key: "page", value: 1 }, { key: "size", value: 5 }]).then(res => {
-      console.log(res)
+      // console.log(res)
       const { data } = res as any
       const content = new Array()
       for (let index of Object.keys(data)) {
@@ -35,7 +35,7 @@ export const Lists = () => {
       setArticle(content)
     })
     await apiClient.get('/comment', null, [{ key: "page", value: 1 }, { key: "size", value: 5 }, { key: "status", value: 0 }]).then(res => {
-      console.log(res)
+      // console.log(res)
       const { data } = res as any
       const content = new Array()
       for (let index of Object.keys(data)) {
@@ -49,7 +49,7 @@ export const Lists = () => {
       setComments(content)
     })
     await apiClient.get('/links', null, [{ key: "page", value: 1 }, { key: "size", value: 5 }, { key: "status", value: 0 }]).then(res => {
-      console.log(res)
+      // console.log(res)
       const { data } = res as any
       const content = new Array()
       for (let index of Object.keys(data)) {
@@ -60,7 +60,7 @@ export const Lists = () => {
           created: data[index].created.split('T')[0],
         })
       }
-      console.log(content)
+      // console.log(content)
       setFriends(content)
     })
   })
