@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-22 22:52:13
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-26 13:51:02
+ * @LastEditTime: 2022-07-26 16:20:43
  * Coding With IU
  */
 
@@ -15,6 +15,7 @@ import { useMount } from "react-use";
 import { BackBtn, Editor } from "../../components/widgets/Editor";
 import { message } from "react-message-popup";
 import { PostModel } from "./post.model";
+import { useParams } from "react-router-dom";
 
 
 
@@ -24,9 +25,10 @@ export const PostEdit: BasicPage = () => {
   const [originPost, setOriginPost] = useState<any>({});
   const [post, setPost] = useState<PostModel>(new PostModel());
   const [loading, setLoading] = useState<boolean>(true);
-  const postId = window.location.pathname.split('/').pop();
+  const params = useParams()
+  const postId = params ? params.id : undefined
   useMount(() => {
-    postId !== 'edit' && apiClient.get(`/posts/${postId}`).then(res => {
+    postId && apiClient.get(`/posts/${postId}`).then(res => {
       setPost(res);
       setOriginPost(res);
       setLoading(false);

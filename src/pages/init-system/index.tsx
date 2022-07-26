@@ -3,13 +3,14 @@
  * @author: Wibus
  * @Date: 2022-07-16 17:09:06
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-21 13:15:58
+ * @LastEditTime: 2022-07-26 16:16:37
  * Coding With IU
  */
 
 import { Button, Input, Modal, Spacer, Text, useClasses, useModal } from "@geist-ui/core";
 import { useState } from "react";
 import { message } from "react-message-popup";
+import { useNavigate } from "react-router-dom";
 import { useMount } from "react-use";
 import { A_WEEK_S } from "../../constant/time.constant";
 import { BasicPage } from "../../types/basic";
@@ -18,6 +19,7 @@ import { setStorage } from "../../utils/storage";
 import styles from "./index.module.css";
 
 export const InitSystem: BasicPage = () => {
+  const AppNavigate = useNavigate()
   const [status, setStatus] = useState<any>();
   const { visible, setVisible, bindings } = useModal()
   const [loading, setLoading] = useState(false);
@@ -28,7 +30,7 @@ export const InitSystem: BasicPage = () => {
         setStatus(res.reason)
         switch (res.reason) {
           case 1: // means performance has been initialized
-            window.location.href = "/dashboard"
+            AppNavigate("/dashboard")
             break;
         }
       }
@@ -37,7 +39,7 @@ export const InitSystem: BasicPage = () => {
       setStatus(err.reason)
         switch (err.reason) {
           case 1: // means performance has been initialized
-            window.location.href = "/dashboard"
+            AppNavigate("/dashboard")
             break;
         }
     })
@@ -95,11 +97,11 @@ export const InitSystem: BasicPage = () => {
       message.success("配置初始化成功，正在跳转至仪表盘...")
       setLoading(false)
       setVisible(false)
-      window.location.href = "/dashboard"
+      AppNavigate("/dashboard")
     }).catch(err => {
       if (err.code === 401) {
         message.error("配置初始化失败,您尚未登录")
-        window.location.href = "/login"
+        AppNavigate("/login")
       }
     })
   }

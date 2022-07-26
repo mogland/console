@@ -9,7 +9,8 @@ import { useMount } from 'react-use'
 import { apiClient } from './utils/request'
 import { A_MINUTE_MS } from './constant/time.constant'
 import { message } from 'react-message-popup'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
+
 function App() {
 
   const checkIgnoreCondition = window.location.pathname === '/init-system' ||
@@ -22,7 +23,7 @@ function App() {
 
   const [ignoreConditionState, setIgnoreConditionState] = useState(ignoreCondition)
   const [checkIgnoreConditionState, setCheckIgnoreConditionState] = useState(checkIgnoreCondition)
-
+  const AppNavigate = useNavigate()
 
   useEffect(() => { // 随时监听路由变化
     setIgnoreConditionState(ignoreCondition)
@@ -55,7 +56,7 @@ function App() {
       message.error(err.message)
       // console.log(err)
       if (checkIgnoreConditionState) return
-      window.location.href = '/login'
+      AppNavigate('/login')
     })
   })
   setInterval(() => {
@@ -67,7 +68,7 @@ function App() {
       message.error(err.message)
       console.error(err)
       if (checkIgnoreConditionState) return
-      window.location.href = '/login'
+      AppNavigate('/login')
     })
   }, A_MINUTE_MS)
 
@@ -75,6 +76,7 @@ function App() {
     setSidebar(location.pathname !== "/init" && location.pathname !== "/register")
   }, [location.pathname])
   mediaQuery.addEventListener('change', handleChange)
+
 
   return (
     <GeistProvider themeType={themeType}>

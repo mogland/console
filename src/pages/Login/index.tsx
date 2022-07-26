@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-21 13:21:01
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-26 13:36:43
+ * @LastEditTime: 2022-07-26 16:18:29
  * Coding With IU
  */
 
@@ -13,15 +13,16 @@ import { BasicPage } from "../../types/basic";
 import { apiClient } from "../../utils/request";
 import { Button, Input, Spacer, Text, useClasses } from "@geist-ui/core";
 import { setStorage } from "../../utils/storage";
+import { useNavigate } from "react-router-dom";
 
 export const Login: BasicPage = () => {
-
+  const AppNavigate = useNavigate()
   useMount(async () => {
     apiClient.get('/master/check_logged').then(res => {
       // if (res.code === 401) {
       //   return
       // } else {
-        window.location.href = "/dashboard"
+        AppNavigate("/dashboard")
       // }
     }).catch(err => {
       return
@@ -46,7 +47,7 @@ export const Login: BasicPage = () => {
       // if (!res.code) {
         message.loading("登录成功，正在跳转")
         setStorage("token", res.token)
-        window.location.href = "/dashboard"
+        AppNavigate("/dashboard")
       // } else {
         // message.error(res.message)
       // }
