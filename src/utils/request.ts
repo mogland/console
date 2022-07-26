@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-15 17:33:03
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-21 13:41:45
+ * @LastEditTime: 2022-07-26 13:50:05
  * Coding With IU
  */
 
@@ -19,21 +19,31 @@ export const apiClient = {
     return apiClientManger(url, {
       method: 'GET',
       options
+    }).then(res => {
+      if (res.ok === 0 || res.chMessage || false) throw new Error(res.chMessage)
+      return res
+    }).catch(err => {
+      console.error(err)
+      message.error(err.message || err.chMessage || err)
+      throw new Error(err.message || err.chMessage || err)
+
     })
   },
   post: async (path: string, params?: any, query?: any, body?: any, options?: any) => {
     const url = `${path}${params ? `/` + params.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}${query ? `?` + query.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}`
-    try {
-      const res = await apiClientManger(url, {
-        method: 'POST',
-        body,
-        options
-      })
+    return apiClientManger(url, {
+      method: 'POST',
+      body,
+      options
+    }).then(res => {
+      if (res.ok === 0 || res.chMessage || false) throw new Error(res.chMessage)
       return res
-    } catch (err: any) {
+    }).catch(err => {
       console.error(err)
-      throw err
-    }
+      message.error(err.message || err.chMessage || err)
+      throw new Error(err.message || err.chMessage || err)
+
+    })
   },
   put: (path: string, params?: any, query?: any, body?: any, options?: any) => {
     const url = `${path}${params ? `/` + params.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}${query ? `?` + query.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}`
@@ -41,6 +51,13 @@ export const apiClient = {
       method: 'PUT',
       body,
       options
+    }).then(res => {
+      if (res.ok === 0 || res.chMessage || false) throw new Error(res.chMessage)
+      return res
+    }).catch(err => {
+      message.error(err.message)
+      throw new Error(err.chMessage)
+
     })
   },
   delete: (path: string, params?: any, query?: any, body?: any, options?: any) => {
@@ -49,6 +66,13 @@ export const apiClient = {
       method: 'DELETE',
       body,
       options
+    }).then(res => {
+      if (res.ok === 0 || res.chMessage || false) throw new Error(res.chMessage)
+      return res
+    }).catch(err => {
+      message.error(err.message)
+      throw new Error(err.chMessage)
+
     })
   }
 }
@@ -60,13 +84,14 @@ export const apiClientManger = async (url: string, options: any) => {
     'Accept': 'application/json',
     'Authorization': `Bearer ${getStorage('token')}`,
   }
-  const res = fetch(API + url, {
+  return fetch(API + url, {
     headers,
     ...options,
-  }).then(res => { return res.json() }).catch(err => {
+  }).then(res => { 
+    return res.json()
+  }).catch(err => {
     console.error(err)
     message.error(err.message)
-    throw err
+    // throw err
   })
-  return res
 }
