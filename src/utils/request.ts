@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-15 17:33:03
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-26 20:27:57
+ * @LastEditTime: 2022-07-26 21:18:01
  * Coding With IU
  */
 
@@ -20,7 +20,8 @@ export const apiClient = {
       method: 'GET',
       options
     }).then(res => {
-      if (res.ok === 0 || res.chMessage || false) throw new Error(res.chMessage)
+      console.log(res)
+      if (res && res.ok === 0 || res.chMessage || false) throw new Error(res.chMessage)
       return res
     }).catch(err => {
       console.error(err)
@@ -36,7 +37,7 @@ export const apiClient = {
       body,
       options
     }).then(res => {
-      if (res.ok === 0 || res.chMessage || false) throw new Error(res.chMessage)
+      if (res && res.ok === 0 || res.chMessage || false) throw new Error(res.chMessage)
       return res
     }).catch(err => {
       console.error(err)
@@ -52,7 +53,7 @@ export const apiClient = {
       body,
       options
     }).then(res => {
-      if (res.ok === 0 || res.chMessage || false) throw new Error(res.chMessage)
+      if (res && res.ok === 0 || res.chMessage || false) throw new Error(res.chMessage)
       return res
     }).catch(err => {
       message.error(err.message)
@@ -67,7 +68,7 @@ export const apiClient = {
       body,
       options
     }).then(res => {
-      if (res.ok === 0 || res.chMessage || false) throw new Error(res.chMessage)
+      if (res && res.ok === 0 || res.chMessage || false) throw new Error(res.chMessage)
       return res
     }).catch(err => {
       message.error(err.message)
@@ -82,7 +83,7 @@ export const apiClient = {
       body,
       options
     }).then(res => {
-      if (res.ok === 0 || res.chMessage || false) throw new Error(res.chMessage)
+      if (res && res.ok === 0 || res.chMessage || false) throw new Error(res.chMessage)
       return res
     }).catch(err => {
       message.error(err.message)
@@ -103,7 +104,7 @@ export const apiClientManger = async (url: string, options: any) => {
     headers,
     ...options,
   }).then(res => { 
-    return res.json()
+    return res ? res.json() : res
   }).catch(err => {
     console.error(err)
     message.error(err.message)

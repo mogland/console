@@ -25,6 +25,7 @@
     "@uiw/react-codemirror": "4.11.4",
     "codemirror": "6.0.1",
     "crypto-js": "4.1.1",
+    "mongoose": "^6.4.7",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-message-popup": "1.0.0-alpha.2",

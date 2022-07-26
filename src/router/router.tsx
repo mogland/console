@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-12 16:25:35
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-26 16:34:42
+ * @LastEditTime: 2022-07-26 20:44:28
  * Coding With IU
  */
 
@@ -13,6 +13,7 @@ import { Comments } from "../pages/Comments"
 import { Dashboard } from "../pages/Dashboard"
 import { InitSystem } from "../pages/init-system"
 import { Login } from "../pages/Login"
+import { PageEdit } from "../pages/Pages/edit"
 import { Pages } from "../pages/Pages/list"
 import { PostEdit } from "../pages/Posts/edit"
 import { Posts } from "../pages/Posts/list"
@@ -38,8 +39,8 @@ export const AppRouter = () => {
       <Route path="/posts/edit/:id" element={<PostEdit />} />
 
       <Route path="/pages" element={<Pages />} />
-      <Route path="/pages/edit" />
-      <Route path="/pages/edit/:id" />
+      <Route path="/pages/edit" element={<PageEdit />} />
+      <Route path="/pages/edit/:id" element={<PageEdit />} />
 
       <Route path="/comments" element={<Comments />} />
       <Route path="/links" />

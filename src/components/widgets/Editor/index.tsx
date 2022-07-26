@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-23 23:47:19
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-26 20:36:22
+ * @LastEditTime: 2022-07-26 21:12:45
  * Coding With IU
  */
 
@@ -35,6 +35,7 @@ import { apiClient } from "../../../utils/request";
 import { useMount } from "react-use";
 import { message } from "react-message-popup";
 import { useLocation, useNavigate } from "react-router-dom";
+import { PageModel } from "../../../pages/Pages/page.model";
 
 
 export const BackBtn = (props) => {
@@ -95,10 +96,26 @@ function postDataCheck(post: PostModel) {
   return true
 }
 
+function pageDataCheck(post: PageModel) {
+  if (post.title.length === 0) {
+    message.error("标题不能为空")
+    return false
+  }
+  if (post.text.length === 0) {
+    message.error("内容不能为空")
+    return false
+  }
+  if (post.slug.length === 0) {
+    message.error("路径不能为空")
+    return false
+  }
+  return true
+}
+
 export const Editor: FC<any> = (props) => {
   const [stateDrawer, setStateDrawer] = useState(false)
   const [category, setCategory] = useState<any>()
-  const [post, setPost] = useState<PostModel>(new PostModel() || props.post);
+  const [post, setPost] = useState<any>(props.post || props.type === "post" ? new PostModel() : new PageModel());
   useEffect(() => {
     setPost(props.post || new PostModel())
   }, [props.post])
@@ -116,31 +133,55 @@ export const Editor: FC<any> = (props) => {
       <SendBtn
         new={props.post ? Object.keys(props.post).length === 0 ? true : false : true}
         onClick={() => {
+          const newer = props.post ? Object.keys(props.post).length === 0 ? true : false : true
           setPost({
             ...post,
             categoryId: post.category_id,
           })
-          const data = JSON.stringify(post)
-          if (props.post ? Object.keys(props.post).length === 0 ? true : false : true) {
-            postDataCheck(post) && (
-              apiClient.post("/posts", null, null, data).then(res => {
-                message.success("发布成功")
-                AppNavigate(`/posts`)
+          const data = JSON.stringify(JSON.parse(JSON.stringify(post)))
+          if (props.type === "post") {
+            newer ? (
+              postDataCheck(post) && (
+                apiClient.post("/posts", null, null, data).then(res => {
+                  message.success("发布成功")
+                  AppNavigate(`/posts`)
+                }).catch(err => {
+                  message.error(err.message)
+                })
+              )
+            ) : (
+              postDataCheck(post) && (
+                apiClient.patch(`/posts/${post.id}`, null, null, data).then(res => {
+                  message.success("更新成功")
+                  AppNavigate(`/posts`)
+                }).catch(err => {
+                  message.error(err.message)
+                })
+              )
+            )
+
+          } else if (props.type === "page") {
+            !newer ? (
+              pageDataCheck(post) && (apiClient.patch(`/page/${post.id}`, null, null, data).then(res => {
+                message.success("更新成功")
+                AppNavigate(`/pages`)
               }).catch(err => {
                 message.error(err.message)
               })
+              )
+            ) : (
+              pageDataCheck(post) && (apiClient.post(`/page`, null, null, data).then(res => {
+                message.success("发布成功")
+                AppNavigate(`/pages`)
+              }).catch(err => {
+                message.error(err.message)
+              })
+              )
             )
-
           } else {
-            postDataCheck(post) && (apiClient.patch(`/posts/${post.id}`, null, null, data).then(res => {
-              message.success("更新成功")
-              AppNavigate(`/posts`)
-            }).catch(err => {
-              message.error(err.message)
-            })
-            )
+            message.error("类型错误")
           }
-          console.log(post)
+          console.log(data)
         }}
       />
 
@@ -173,7 +214,7 @@ export const Editor: FC<any> = (props) => {
                     placeholder="选择分类"
                     value={category ? post ? post.category_id : category[0].id : undefined}
                     onChange={(val) => {
-                      setPost({ ...post, categoryId: val as string})
+                      setPost({ ...post, categoryId: val as string })
                     }}
                   >
                     {
@@ -364,6 +405,21 @@ export const Editor: FC<any> = (props) => {
               )
             }
 
+            {
+              props.type === 'page' && (
+                <div>
+                  <Text h4>页面顺序？</Text>
+                  <Input
+                    placeholder={"可选"}
+                    defaultValue={post?.order === null ? undefined : post?.order}
+                    onChange={(e) => {
+                      setPost({ ...post, order: e.target.value })
+                    }}
+                  />
+                </div>
+              )
+            }
+
           </Drawer.Content>
         </Drawer>
       </div>
@@ -386,7 +442,7 @@ export const Editor: FC<any> = (props) => {
             width: "100%"
           }}
           autoComplete="off"
-          placeholder="文章标题"
+          placeholder={props.type === "post" ? "文章标题" : "页面标题"}
           onChange={() => {
             setPost({
               ...post,
@@ -396,6 +452,27 @@ export const Editor: FC<any> = (props) => {
           defaultValue={post?.title}
         />
       </h1>
+      {
+        props.type === 'page' && (
+          <h3>
+            <input
+              id="postSubTitle"
+              style={{
+                width: "100%"
+              }}
+              autoComplete="off"
+              placeholder={"页面副标题"}
+              onChange={() => {
+                setPost({
+                  ...post,
+                  subtitle: document.getElementById('postSubTitle')?.value
+                })
+              }}
+              defaultValue={post?.subtitle}
+            />
+          </h3>
+        )
+      }
       <CodeMirror
         theme={
           window.matchMedia("(prefers-color-scheme: light)").matches ? githubLight : githubDark
