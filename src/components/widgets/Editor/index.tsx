@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-23 23:47:19
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-26 16:53:41
+ * @LastEditTime: 2022-07-26 20:30:51
  * Coding With IU
  */
 
@@ -34,7 +34,7 @@ import { PostModel } from "../../../pages/Posts/post.model";
 import { apiClient } from "../../../utils/request";
 import { useMount } from "react-use";
 import { message } from "react-message-popup";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 
 export const BackBtn = (props) => {
@@ -88,7 +88,7 @@ function postDataCheck(post: PostModel) {
   //   message.error("路径不能为空")
   //   return false
   // }
-  if (!post.category_id) {
+  if (!post.categoryId) {
     message.error("请选择分类")
     return false
   }
@@ -110,7 +110,7 @@ export const Editor: FC<any> = (props) => {
       })
     }
   })
-  // console.log("category", category)
+  const AppNavigate = useNavigate()
   return (
     <div>
       <SendBtn
@@ -121,16 +121,16 @@ export const Editor: FC<any> = (props) => {
             postDataCheck(post) && (
               apiClient.post("/posts", null, null, data).then(res => {
                 message.success("发布成功")
-                // window.location.href = `/posts/${res.id}`
+                AppNavigate(`/posts`)
               }).catch(err => {
                 message.error(err.message)
               })
             )
 
           } else {
-            postDataCheck(post) && (apiClient.put("/posts", null, null, data).then(res => {
+            postDataCheck(post) && (apiClient.patch(`/posts/${post.id}`, null, null, data).then(res => {
               message.success("更新成功")
-              // window.location.href = `/posts/${res.id}`
+              AppNavigate(`/posts`)
             }).catch(err => {
               message.error(err.message)
             })
@@ -169,7 +169,7 @@ export const Editor: FC<any> = (props) => {
                     placeholder="选择分类"
                     value={category ? post ? post.category_id : category[0].id : undefined}
                     onChange={(val) => {
-                      setPost({ ...post, category_id: val as string })
+                      setPost({ ...post, categoryId: val as string, category_id: val as string })
                     }}
                   >
                     {
@@ -298,7 +298,7 @@ export const Editor: FC<any> = (props) => {
 
                   <Text h5>是否隐藏？</Text>
                   <Radio.Group
-                    defaultValue={post.hide === true || post.hide === false ? post.hide === true ? 1 : 0 : 0}
+                    value={post.hide === true || post.hide === false ? post.hide === true ? 1 : 0 : 0}
                     onChange={(e) => {
                       setPost({ ...post, hide: e === 1 ? true : false })
                     }}
