@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-23 23:47:19
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-26 13:37:32
+ * @LastEditTime: 2022-07-26 13:53:40
  * Coding With IU
  */
 
@@ -351,6 +351,7 @@ export const Editor: FC<any> = (props) => {
           style={{
             width: "100%"
           }}
+          autoComplete="off"
           placeholder="文章标题"
           onChange={() => {
             setPost({
