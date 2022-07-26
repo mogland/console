@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-25 19:17:33
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-26 20:29:47
+ * @LastEditTime: 2022-07-26 20:33:31
  * Coding With IU
  */
 
@@ -13,7 +13,7 @@ export class PostModel {
   slug: string = ""; // 博文 slug
   summary?: string = ""; // 博文摘要 
   category_id!: string; // 博文分类 id（获取）
-  categoryId!: string; // 博文分类 id（上传）
+  categoryId: string = this.category_id; // 博文分类 id（上传）
   copyright?: boolean = true; // 博文版权提示
   tags?: string[] = []; // 博文标签
   title: string = ""; // 博文标题

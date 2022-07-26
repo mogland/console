@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-23 23:47:19
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-26 20:30:51
+ * @LastEditTime: 2022-07-26 20:36:22
  * Coding With IU
  */
 
@@ -84,11 +84,11 @@ function postDataCheck(post: PostModel) {
     message.error("内容不能为空")
     return false
   }
-  // if (post.slug.length === 0) {
-  //   message.error("路径不能为空")
-  //   return false
-  // }
-  if (!post.categoryId) {
+  if (post.slug.length === 0) {
+    message.error("路径不能为空")
+    return false
+  }
+  if (post.categoryId.length === 0) {
     message.error("请选择分类")
     return false
   }
@@ -116,6 +116,10 @@ export const Editor: FC<any> = (props) => {
       <SendBtn
         new={props.post ? Object.keys(props.post).length === 0 ? true : false : true}
         onClick={() => {
+          setPost({
+            ...post,
+            categoryId: post.category_id,
+          })
           const data = JSON.stringify(post)
           if (props.post ? Object.keys(props.post).length === 0 ? true : false : true) {
             postDataCheck(post) && (
@@ -169,7 +173,7 @@ export const Editor: FC<any> = (props) => {
                     placeholder="选择分类"
                     value={category ? post ? post.category_id : category[0].id : undefined}
                     onChange={(val) => {
-                      setPost({ ...post, categoryId: val as string, category_id: val as string })
+                      setPost({ ...post, categoryId: val as string})
                     }}
                   >
                     {
