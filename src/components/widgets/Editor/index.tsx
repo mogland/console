@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-23 23:47:19
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-25 23:18:20
+ * @LastEditTime: 2022-07-26 11:39:58
  * Coding With IU
  */
 
@@ -113,7 +113,7 @@ export const Editor: FC<any> = (props) => {
                     <span className={useClasses(tagStyles.editTagAction)} onClick={() => {
                       setPost({
                         ...post,
-                        tags: post.tags.filter((item, i) => i !== index)
+                        tags: post.tags!.filter((item, i) => i !== index)
                       })
                     }}>
                       <CloseSmall />
@@ -122,38 +122,47 @@ export const Editor: FC<any> = (props) => {
                 )
               }
               )}
-              <AutoComplete 
-              id="tagInput" 
-              hidden 
-              clearable
-
-              placeholder={"标签名字"} 
-              style={{
-                display: "none"
-              }}
-              // clearable
-              onKeyDown={
-                (e) => {
-                  if (e.keyCode === 13) {
-                    setPost({
-                      ...post,
-                      tags: [...post.tags, e.target.value]
-                    })
-                    e.target.value = ""
-                    // 恢复 hidden
-                    document.getElementById("tagInput")!.hidden = true
-                    document.getElementById("tagInput")!.style.display = "none"
-                  }
-                  if (e.keyCode === 27) {
-                    e.target.value = ""
-                    document.getElementById("tagInput")!.hidden = true
-                    document.getElementById("tagInput")!.style.display = "none"
-                  }
+              <style>
+                {`
+                .auto-complete {
+                  display: none;
                 }
-              } />
+              `}
+              </style>
+              <AutoComplete
+                id="tagInput"
+                hidden
+                clearable
+                placeholder={"标签名字"}
+                style={{
+                  display: "none"
+                }}
+                // clearable
+                onKeyDown={
+                  (e) => {
+                    if (e.keyCode === 13) {
+                      setPost({
+                        ...post,
+                        tags: [...post.tags!, e.target.value]
+                      })
+                      e.target.value = ""
+                      // 恢复 hidden
+                      document.getElementById("tagInput")!.hidden = true
+                      document.getElementById("tagInput")!.style.display = "none"
+                      document.getElementsByClassName("auto-complete")[0]!.style.display = "none"
+                    }
+                    if (e.keyCode === 27) {
+                      e.target.value = ""
+                      document.getElementById("tagInput")!.hidden = true
+                      document.getElementById("tagInput")!.style.display = "none"
+                      document.getElementsByClassName("auto-complete")[0]!.style.display = "none"
+                    }
+                  }
+                } />
               <span className={useClasses(tagStyles.editTag, tagStyles.editTagPlus)} onClick={() => {
                 document.getElementById("tagInput")!.hidden = false
                 document.getElementById("tagInput")!.style.display = "inherit"
+                document.getElementsByClassName("auto-complete")[0]!.style.display = "inherit"
               }}>
                 <span className={useClasses(tagStyles.editTagAction)}>
                   <Plus />
