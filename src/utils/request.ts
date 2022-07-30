@@ -3,10 +3,11 @@
  * @author: Wibus
  * @Date: 2022-07-15 17:33:03
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-26 21:18:01
+ * @LastEditTime: 2022-07-30 19:17:11
  * Coding With IU
  */
 
+import { $fetch } from "ohmyfetch"
 import { message } from "react-message-popup"
 import { getStorage } from "./storage"
 
@@ -100,11 +101,11 @@ export const apiClientManger = async (url: string, options: any) => {
     'Accept': 'application/json',
     'Authorization': `Bearer ${getStorage('token')}`,
   }
-  return fetch(API + url, {
+  return $fetch(API + url, {
     headers,
     ...options,
   }).then(res => { 
-    return res ? res.json() : res
+    return res
   }).catch(err => {
     console.error(err)
     message.error(err.message)
