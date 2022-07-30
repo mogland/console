@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-14 16:39:24
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-22 14:17:32
+ * @LastEditTime: 2022-07-30 17:37:52
  * Coding With IU
  */
 import { Drawer, useClasses } from '@geist-ui/core'
@@ -94,7 +94,7 @@ export const Sidebar = (props) => {
         </SidebarGroup>
         <SidebarGroup icon={<FileText />} title='页面' path="/pages/">
           <SidebarGroupItem icon={<ListAlphabet />} title='全部列表' path="/pages/" />
-          <SidebarGroupItem icon={<Newlybuild />} title='新建新页面' path="/posts/edit" />
+          <SidebarGroupItem icon={<Newlybuild />} title='新建新页面' path="/pages/edit" />
         </SidebarGroup>
 
         <SidebarList>

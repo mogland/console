@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-23 23:47:19
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-26 21:12:45
+ * @LastEditTime: 2022-07-30 17:36:54
  * Coding With IU
  */
 
@@ -435,7 +435,7 @@ export const Editor: FC<any> = (props) => {
           }
         }}
       />
-      <h1>
+      <h2>
         <input
           id="postTitle"
           style={{
@@ -451,7 +451,7 @@ export const Editor: FC<any> = (props) => {
           }}
           defaultValue={post?.title}
         />
-      </h1>
+      </h2>
       {
         props.type === 'page' && (
           <h3>
@@ -478,7 +478,7 @@ export const Editor: FC<any> = (props) => {
           window.matchMedia("(prefers-color-scheme: light)").matches ? githubLight : githubDark
         }
         style={{
-          fontSize: "1.2em",
+          fontSize: "1em",
         }}
         value={post?.text}
         extensions={[

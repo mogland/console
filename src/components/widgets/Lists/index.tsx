@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-15 17:06:10
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-21 14:11:36
+ * @LastEditTime: 2022-07-30 17:35:06
  * Coding With IU
  */
 import { Table, Tabs, useClasses } from '@geist-ui/core';
@@ -26,8 +26,8 @@ export const Lists = () => {
       for (let index of Object.keys(data)) {
         content.push({
           title: data[index].title,
-          slug: data[index].slug,
-          summary: data[index].summary,
+          // slug: data[index].slug,
+          summary: data[index].summary.substring(0, 10),
           category: data[index].category.name,
           created: data[index].created.split('T')[0],
         })
@@ -71,16 +71,15 @@ export const Lists = () => {
         <Table data={article ? article : []}>
           <Table.Column prop="title" label='标题' />
           <Table.Column prop="summary" label='描述' />
-          <Table.Column prop="slug" label='路径' />
           <Table.Column prop="category" label='分类' />
           <Table.Column prop="created" label='时间' />
         </Table>
       </Tabs.Item>
       <Tabs.Item label="未读评论" value='2'>
         <Table data={comments ? comments : []}>
-          <Table.Column prop="ref_type" label='种类' />
           <Table.Column prop="author" label='评论者' />
           <Table.Column prop="text" label='内容' />
+          <Table.Column prop="ref_type" label='种类' />
           <Table.Column prop="created" label='时间' />
         </Table>
       </Tabs.Item>
