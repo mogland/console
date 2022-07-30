@@ -3,14 +3,14 @@
  * @author: Wibus
  * @Date: 2022-07-15 18:45:35
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-26 20:51:25
+ * @LastEditTime: 2022-07-30 17:54:06
  * Coding With IU
  */
-import { Button, Loading, Modal, Spacer, Table, useClasses, useModal } from "@geist-ui/core";
+import { Button, Loading, Modal, Pagination, Spacer, Table, useClasses, useModal } from "@geist-ui/core";
 import { useState } from "react";
 import { message } from "react-message-popup";
 import { Link, useLocation } from "react-router-dom"
-import { useMount } from "react-use"
+import { useMount, useQueue } from "react-use"
 import Dashboards from "../../components/widgets/Dashboards"
 import { NxPage } from "../../components/widgets/Page"
 import { useStore } from "../../hooks/use-store";
@@ -19,16 +19,18 @@ import { apiClient } from "../../utils/request"
 
 export const Posts: BasicPage = () => {
   const { search } = useLocation()
-  const query = new URLSearchParams(search)
+  const params = new URLSearchParams(search)
+  const nowPage = Number(params.get("page")) || 1
 
   const [article, setArticle] = useState<any[]>([])
   const [loading, setLoading] = useState(false)
+  const [totalPage, setTotalPage] = useState(1)
 
   const { visible, setVisible, bindings } = useModal()
   const [deleteIndex, setDeleteIndex] = useState<number>(-1)
 
   useMount(async () => {
-    await apiClient.get('/posts', null, [{ key: "page", value: 1 }, { key: "size", value: 10 }]).then(res => {
+    await apiClient.get('/posts', null, [{ key: "page", value: nowPage }, { key: "size", value: 10 }]).then(res => {
       // console.log(res)
       const { data } = res as any
       const content = new Array()
@@ -44,6 +46,7 @@ export const Posts: BasicPage = () => {
           modified: data[index].modified ? data[index].modified.split('T')[0] : '-',
         })
       }
+      setTotalPage(res.pagination.totalPages)
       setArticle(content)
       setLoading(false)
     })
@@ -113,6 +116,13 @@ export const Posts: BasicPage = () => {
           </Modal>
         </Dashboards.Area>
       </Dashboards.Container>
+      <Pagination 
+      count={totalPage}
+      initialPage={nowPage}
+      style={{
+        float: "right",
+      }}
+      />
     </NxPage>
   )
 }

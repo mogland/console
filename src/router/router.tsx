@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-12 16:25:35
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-26 20:44:28
+ * @LastEditTime: 2022-07-30 17:42:59
  * Coding With IU
  */
 
@@ -11,6 +11,7 @@ import { BrowserRouter, Route, Routes, useLocation, useNavigate } from "react-ro
 import { NotFound } from "../pages/404"
 import { Comments } from "../pages/Comments"
 import { Dashboard } from "../pages/Dashboard"
+import { Friends } from "../pages/Friends"
 import { InitSystem } from "../pages/init-system"
 import { Login } from "../pages/Login"
 import { PageEdit } from "../pages/Pages/edit"
@@ -43,7 +44,7 @@ export const AppRouter = () => {
       <Route path="/pages/edit/:id" element={<PageEdit />} />
 
       <Route path="/comments" element={<Comments />} />
-      <Route path="/links" />
+      <Route path="/friends" element={<Friends />} />
       <Route path="/settings" />
 
       {/* TODO: 404 页面 */}

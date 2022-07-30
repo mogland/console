@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-22 14:13:18
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-22 21:50:48
+ * @LastEditTime: 2022-07-30 17:53:05
  * Coding With IU
  */
 /*
@@ -14,7 +14,7 @@
  * @LastEditTime: 2022-07-22 14:11:51
  * Coding With IU
  */
-import { Button, Loading, Modal, Spacer, Table, useClasses, useModal } from "@geist-ui/core";
+import { Button, Loading, Modal, Pagination, Spacer, Table, useClasses, useModal } from "@geist-ui/core";
 import { useState } from "react";
 import { message } from "react-message-popup";
 import { Link, useLocation } from "react-router-dom"
@@ -27,10 +27,12 @@ import { apiClient } from "../../utils/request"
 
 export const Pages: BasicPage = () => {
   const { search } = useLocation()
-  const query = new URLSearchParams(search)
-
+  const params = new URLSearchParams(search)
+  const nowPage = Number(params.get("page")) || 1
+  
   const [article, setArticle] = useState<any[]>([])
   const [loading, setLoading] = useState(false)
+  const [totalPage, setTotalPage] = useState(1)
 
   const { visible, setVisible, bindings } = useModal()
   const [deleteIndex, setDeleteIndex] = useState<number>(-1)
@@ -50,6 +52,7 @@ export const Pages: BasicPage = () => {
           modified: data[index].modified ? data[index].modified.split('T')[0] : '-',
         })
       }
+      setTotalPage(res.pagination.totalPages)
       setArticle(content)
       setLoading(false)
     })
@@ -116,6 +119,13 @@ export const Pages: BasicPage = () => {
           </Modal>
         </Dashboards.Area>
       </Dashboards.Container>
+      <Pagination 
+      count={totalPage}
+      initialPage={nowPage}
+      style={{
+        float: "right",
+      }}
+      />
     </NxPage>
   )
 }
