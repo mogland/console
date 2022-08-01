@@ -20,6 +20,9 @@
 #comment-table th:last-child > .thead-box {
   width: 500px;
 }
+#comment-table .thead-box {
+  min-width: 100px;
+}
 #comment-table blockquote {
   width: 470px;
   border: none !important;

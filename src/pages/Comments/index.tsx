@@ -3,11 +3,11 @@
  * @author: Wibus
  * @Date: 2022-07-15 18:45:35
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-01 13:35:41
+ * @LastEditTime: 2022-08-01 14:18:08
  * Coding With IU
  */
 
-import { Button, Loading, Pagination, Popover, Spacer, Table, Text, useClasses } from "@geist-ui/core"
+import { Button, Loading, Modal, Pagination, Popover, Spacer, Table, Tabs, Text, Textarea, useClasses, useModal } from "@geist-ui/core"
 import { useEffect, useState } from "react"
 import { message } from "react-message-popup"
 import { useNavigate } from "react-router-dom"
@@ -25,13 +25,17 @@ export const Comments: BasicPage = () => {
   const { search } = useLocation()
   const params = new URLSearchParams(search)
 
+  const { visible, setVisible, bindings } = useModal()
+  const [reply, setReply] = useState<any>()
+
   const [comments, setComments] = useState<any[]>([])
   const [loading, setLoading] = useState(false)
   const [totalPage, setTotalPage] = useState(1)
   const [nowPage, setNowPage] = useState(Number(params.get("page")) || 1)
+  const [nowTab, setNowTab] = useState(params.get("tab") || "1")
 
   const request = async () => {
-    await apiClient.get('/comment', null, [{ key: "page", value: nowPage }, { key: "size", value: 5 }, { key: "status", value: 0 }]).then(res => {
+    await apiClient.get('/comment', null, [{ key: "page", value: nowPage }, { key: "size", value: 5 }, { key: "status", value: Number(nowTab) - 1 }]).then(res => {
       // console.log(res)
       const { data } = res as any
       const content = new Array()
@@ -59,10 +63,10 @@ export const Comments: BasicPage = () => {
     await request()
   })
 
-  // 实时监听 nowPage
+  // 实时监听
   useEffect(() => {
     request()
-  }, [nowPage])
+  }, [nowPage, nowTab])
 
   const avatarElement = (value, rowData, index) => {
     const comment = comments[index]
@@ -70,7 +74,7 @@ export const Comments: BasicPage = () => {
       <>
         <img
           className={"avatar"}
-          src={getAvatarUrl(comment.email)}
+          src={getAvatarUrl(comment.mail)}
           alt="avatar" />
       </>
     )
@@ -105,14 +109,15 @@ export const Comments: BasicPage = () => {
   const contentElement = (value, rowData, index) => {
     const comment = comments[index]
 
-    const [visible, setVisible] = useState(false)
+    const [deleteVisible, setDeleteVisible] = useState(false)
     const changeHandler = (next) => {
-      setVisible(next)
+      setDeleteVisible(next)
     }
     const content = () => {
       return (
         <div style={{ padding: 20, paddingBottom: 0 }}>
           <Text h5 b>是否要删除 {comment.author} 的留言？</Text>
+          <Text p>将会把评论与子评论一同删除</Text>
           <Button auto scale={1 / 3} font="12px" style={{ margin: 10 }}
             onClick={async () => {
               await apiClient.delete('/comment/' + comment.id).then(res => {
@@ -183,10 +188,16 @@ export const Comments: BasicPage = () => {
             >
               <span className="button-content">垃圾</span>
             </button>
-            <button className="info-btn" type="button">
+            <button className="info-btn" type="button" onClick={() => {
+              setVisible(true)
+              setReply({
+                data: comment,
+                reply_text: "",
+              })
+            }}>
               <span className="button-content">回复</span>
             </button>
-            <Popover content={content} visible={visible} onVisibleChange={changeHandler}>
+            <Popover content={content} visible={deleteVisible} onVisibleChange={changeHandler}>
               <button className="danger-btn" type="button" style={{ marginLeft: 0 }}>
                 <span className="button-content">删除</span>
               </button>
@@ -195,10 +206,6 @@ export const Comments: BasicPage = () => {
 
           </div>
         </div>
-
-
-
-
       </div>
     )
   }
@@ -210,16 +217,63 @@ export const Comments: BasicPage = () => {
           {
             !loading ? (<>
 
-              <Table data={comments} id="comment-table">
-                <Table.Column label="头像" prop="email" render={avatarElement} />
-                <Table.Column label="作者" prop="author" render={authorElement} />
-                <Table.Column label="内容" prop="text" render={contentElement} />
-              </Table>
+              <Tabs initialValue={nowTab} marginTop={1} onChange={(val) => {
+                setNowTab(val)
+                appNavigate(`/comments?page=${nowPage}&tab=${val}`)
+              }}>
+                <Tabs.Item label="未读" value="1">
+                  <Table data={comments} id="comment-table">
+                    <Table.Column label="头像" prop="email" render={avatarElement} />
+                    <Table.Column label="作者" prop="author" render={authorElement} />
+                    <Table.Column label="内容" prop="text" render={contentElement} />
+                  </Table>
+                </Tabs.Item>
+                <Tabs.Item label="已读" value="2">
+                  <Table data={comments} id="comment-table">
+                    <Table.Column label="头像" prop="email" render={avatarElement} />
+                    <Table.Column label="作者" prop="author" render={authorElement} />
+                    <Table.Column label="内容" prop="text" render={contentElement} />
+                  </Table>
+                </Tabs.Item>
+                <Tabs.Item label="垃圾" value="3">
+                  <Table data={comments} id="comment-table">
+                    <Table.Column label="头像" prop="email" render={avatarElement} />
+                    <Table.Column label="作者" prop="author" render={authorElement} />
+                    <Table.Column label="内容" prop="text" render={contentElement} />
+                  </Table>
+                </Tabs.Item>
+              </Tabs>
 
             </>) : <Loading />
           }
         </Dashboards.Area>
       </Dashboards.Container>
+      <Modal {...bindings}>
+        <Modal.Title>回复&nbsp;{reply && reply.data.author}&nbsp;的评论 </Modal.Title>
+        <Modal.Content>
+          <Textarea placeholder="请输入您的回复评论..." width={"100%"} height={"130px"} onChange={(text) => {
+            setReply({
+              ...reply,
+              reply_text: text.target.value,
+            })
+          }} />
+        </Modal.Content>
+        <Modal.Action passive onClick={() => {
+          setVisible(false)
+          setReply(null)
+        }}>取消</Modal.Action>
+        <Modal.Action onClick={async () => {
+          // console.log(reply.reply_text)
+          await apiClient.post(`/comment/master/reply/${reply.data.id}`, null, null, {text: reply.reply_text}).then(res => {
+            setVisible(false)
+            setReply(null)
+            message.success(`已回复 ${reply.data.author} 的评论`, )
+            request()
+          }).catch(err => {
+            message.error(`回复失败，请稍后再试`)
+          })
+        }}>提交</Modal.Action>
+      </Modal>
       <Pagination
         count={totalPage}
         initialPage={nowPage}
@@ -228,7 +282,7 @@ export const Comments: BasicPage = () => {
         }}
         onChange={(page) => {
           setNowPage(page)
-          appNavigate(`/comments?page=${page}`)
+          appNavigate(`/comments?page=${page}&tab=${nowTab}`)
         }}
       />
     </NxPage>
