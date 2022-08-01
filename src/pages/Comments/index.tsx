@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-15 18:45:35
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-01 14:20:09
+ * @LastEditTime: 2022-08-01 14:33:05
  * Coding With IU
  */
 
@@ -87,14 +87,14 @@ export const Comments: BasicPage = () => {
         flexFlow: 'column nowrap',
         justifyContent: 'flex-start',
       }}>
-        <div style={{ maxWidth: '100%', marginBottom: "2px" }}>
+        <div style={{ maxWidth: '100%', marginBottom: "2px", fontSize: '12px' }}>
           <a href={comment.url} target="_blank" rel="noreferrer">{comment.author}</a>
         </div>
 
-        <div style={{ maxWidth: '100%', marginBottom: "2px" }}>
+        <div style={{ maxWidth: '100%', marginBottom: "2px", fontSize: '12px' }}>
           <a href={`mailto:${comment.mail}`} target="_blank" rel="noreferrer">{comment.mail || "undefined@undefined.undefined"}</a>
         </div>
-        <div style={{ maxWidth: '100%', marginBottom: "2px" }}>
+        <div style={{ maxWidth: '100%', marginBottom: "2px", fontSize: '12px' }}>
           <span style={{
             color: 'rgb(118, 124, 130)',
             userSelect: 'all'
@@ -138,15 +138,15 @@ export const Comments: BasicPage = () => {
         flexFlow: 'column nowrap',
         justifyContent: 'flex-start',
       }}>
-        <div style={{ maxWidth: '100%', marginBottom: "8px" }}>
+        <div style={{ maxWidth: '100%', marginBottom: "8px", fontSize: '12px' }}>
           <span>在 {comment.created} 时发表了评论：</span>
         </div>
-        <div style={{ maxWidth: '100%', marginBottom: "2px" }}>
+        <div style={{ maxWidth: '100%', marginBottom: "2px", fontSize: '12px' }}>
           <span style={{ marginLeft: "15px" }}>{comment.text}</span>
         </div>
         {
           comment.parent && (
-            <div style={{ maxWidth: '100%', marginBottom: "2px" }}>
+            <div style={{ maxWidth: '100%', marginBottom: "2px", fontSize: '12px' }}>
               <blockquote
                 className="border-l-[3px] border-solid border-primary-default pl-[20px] my-2 ml-4"
                 style={{
@@ -155,7 +155,7 @@ export const Comments: BasicPage = () => {
               >
                 <div>
                   <div>
-                    <span>
+                    <span style={{fontSize: '12px'}}>
                       {comment.parent.author} 在 {comment.parent.created.split('T')[0]} 发表了评论： {comment.parent.text}
                     </span>
                   </div>
