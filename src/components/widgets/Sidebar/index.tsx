@@ -3,12 +3,12 @@
  * @author: Wibus
  * @Date: 2022-07-14 16:39:24
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-30 17:43:40
+ * @LastEditTime: 2022-08-01 14:22:14
  * Coding With IU
  */
 import { Drawer, useClasses } from '@geist-ui/core'
 import { Home, List, File, Link as Links, ChevronDown, Edit, Feather, Package, Trello, Settings, AlignLeft, MessageCircle, FileText } from '@geist-ui/icons'
-import { ListAlphabet, Newlybuild, Page } from '@icon-park/react'
+import { CategoryManagement, ListAlphabet, Newlybuild, Page } from '@icon-park/react'
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import style from './index.module.css'
@@ -78,7 +78,7 @@ export const SidebarItem = (props) => {
 
 export const Sidebar = (props) => {
   return (
-    <div className={useClasses(style.sidebar, props.block ? "": "hidden lg:block")}>
+    <div className={useClasses(style.sidebar, props.block ? "" : "hidden lg:block")}>
       <div>
         <h1 className={useClasses('py-6 text-3xl font-light lg:pl-10 lg:pt-12 hidden lg:block')}>NEXT</h1>
       </div>
@@ -89,7 +89,8 @@ export const Sidebar = (props) => {
           <SidebarItem icon={<Links />} title='友链' path="/friends" />
         </SidebarList>
         <SidebarGroup icon={<Edit />} title='文章' path="/posts">
-          <SidebarGroupItem icon={<List />} title='全部列表' path="/posts/" />
+          <SidebarGroupItem icon={<CategoryManagement />} title='分类与标签' path="/posts/" />
+          <SidebarGroupItem icon={<List />} title='全部文章列表' path="/posts/" />
           <SidebarGroupItem icon={<Feather />} title='书写新的一篇' path="/posts/edit" />
         </SidebarGroup>
         <SidebarGroup icon={<FileText />} title='页面' path="/pages/">
@@ -98,9 +99,9 @@ export const Sidebar = (props) => {
         </SidebarGroup>
 
         <SidebarList>
-          <SidebarItem icon={<File />} title='文件' path="/files" />
+          {/* <SidebarItem icon={<File />} title='文件' path="/files" />
           <SidebarItem icon={<Package />} title='插件' path="/plugins" />
-          <SidebarItem icon={<Trello />} title='主题' path="/themes" />
+          <SidebarItem icon={<Trello />} title='主题' path="/themes" /> */}
           <SidebarItem icon={<Settings />} title='系统设置' path="/settings" />
         </SidebarList>
       </div>
