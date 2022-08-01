@@ -41,39 +41,23 @@ function App() {
       setThemeType('light')
     }
   }
-  useMount(() => {
-    setThemeType(mediaQuery.matches ? 'dark' : 'light')
-    apiClient.get('/master/check_logged').then(res => {
-      // if (res.code === 401) {
-      //   if (ignoreConditionState) {
-      //     message.error('请先登录')
-      //     return false
-      //   }
-      //   window.location.href = '/login'
-      //   return false
-      // }
-    }).catch((err) => {
+  const checkToken = async () => {
+    await apiClient.get('/master/check_logged').catch((err) => {
       message.error(err.message)
       // console.log(err)
       if (checkIgnoreConditionState) return
       AppNavigate('/login')
     })
+  }
+  useMount(() => {
+    setThemeType(mediaQuery.matches ? 'dark' : 'light')
+    checkToken()
   })
-  setInterval(() => {
-    apiClient.get('/master/check_logged').then(res => {
-      // if (res.code === 401) {
-      //   window.location.href = '/login'
-      // }
-    }).catch((err) => {
-      message.error(err.message)
-      console.error(err)
-      if (checkIgnoreConditionState) return
-      AppNavigate('/login')
-    })
-  }, A_MINUTE_MS)
+
 
   useEffect(() => {
     setSidebar(location.pathname !== "/init" && location.pathname !== "/register")
+    checkToken()
   }, [location.pathname])
   mediaQuery.addEventListener('change', handleChange)
 
