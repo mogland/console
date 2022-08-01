@@ -1,26 +1,26 @@
-.avatar {
+#comment-table .avatar {
   border-radius: 100%;
   zoom: 20%;
 }
 
-table a {
+#comment-table a {
   padding: 0 !important;
   /* margin-top: 10px;
   margin-bottom: 10px; */
 }
 
-.cell {
+#comment-table .cell {
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
-td:first-child > .cell {
+#comment-table td:first-child > .cell {
   width: 100px !important;
 }
-th:last-child > .thead-box {
+#comment-table th:last-child > .thead-box {
   width: 500px;
 }
-blockquote {
+#comment-table blockquote {
   width: 470px;
   border: none !important;
 }

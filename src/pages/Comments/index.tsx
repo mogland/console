@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-15 18:45:35
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-30 23:16:49
+ * @LastEditTime: 2022-08-01 13:35:41
  * Coding With IU
  */
 
@@ -210,7 +210,7 @@ export const Comments: BasicPage = () => {
           {
             !loading ? (<>
 
-              <Table data={comments}>
+              <Table data={comments} id="comment-table">
                 <Table.Column label="头像" prop="email" render={avatarElement} />
                 <Table.Column label="作者" prop="author" render={authorElement} />
                 <Table.Column label="内容" prop="text" render={contentElement} />
