@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-15 18:45:35
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-01 14:18:08
+ * @LastEditTime: 2022-08-01 14:20:09
  * Coding With IU
  */
 
@@ -171,7 +171,7 @@ export const Comments: BasicPage = () => {
               onClick={async () => {
                 await apiClient.patch('/comment/' + comment.id, null, null, { status: 1 }).then(res => {
                   console.log(res)
-                  message.success(`已将 ${comment.text} 的评论标为已读`)
+                  message.success(`已将 ${comment.author} 的评论标为已读`)
                   setComments(comments.filter(item => item.id !== comment.id))
                 })
               }}
@@ -217,7 +217,7 @@ export const Comments: BasicPage = () => {
           {
             !loading ? (<>
 
-              <Tabs initialValue={nowTab} marginTop={1} onChange={(val) => {
+              <Tabs initialValue={nowTab} marginTop={1} width={"100%"} onChange={(val) => {
                 setNowTab(val)
                 appNavigate(`/comments?page=${nowPage}&tab=${val}`)
               }}>
