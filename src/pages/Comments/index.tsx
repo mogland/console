@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-15 18:45:35
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-01 14:33:05
+ * @LastEditTime: 2022-08-01 23:00:49
  * Coding With IU
  */
 
@@ -127,7 +127,7 @@ export const Comments: BasicPage = () => {
               })
             }}
           >确定</Button>
-          <Button auto type="error" scale={1 / 3} font="12px" style={{ margin: 10 }} onClick={() => setVisible(false)}>取消</Button>
+          <Button auto type="error" scale={1 / 3} font="12px" style={{ margin: 10 }} onClick={() => setDeleteVisible(false)}>取消</Button>
         </div>
       )
     }
