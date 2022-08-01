@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-12 16:25:35
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-30 17:42:59
+ * @LastEditTime: 2022-08-01 14:26:53
  * Coding With IU
  */
 
@@ -16,6 +16,7 @@ import { InitSystem } from "../pages/init-system"
 import { Login } from "../pages/Login"
 import { PageEdit } from "../pages/Pages/edit"
 import { Pages } from "../pages/Pages/list"
+import { Category } from "../pages/Posts/category"
 import { PostEdit } from "../pages/Posts/edit"
 import { Posts } from "../pages/Posts/list"
 const JumpToDashboard = () => {
@@ -36,6 +37,7 @@ export const AppRouter = () => {
       <Route path="/dashboard" element={<Dashboard />} />
 
       <Route path="/posts" element={<Posts />} />
+      <Route path="/posts/category" element={<Category />} />
       <Route path="/posts/edit" element={<PostEdit />} />
       <Route path="/posts/edit/:id" element={<PostEdit />} />
 
