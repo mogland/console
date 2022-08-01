@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-15 17:33:03
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-30 19:17:11
+ * @LastEditTime: 2022-08-01 13:32:52
  * Coding With IU
  */
 
@@ -22,7 +22,7 @@ export const apiClient = {
       options
     }).then(res => {
       console.log(res)
-      if (res && res.ok === 0 || res.chMessage || false) throw new Error(res.chMessage)
+      
       return res
     }).catch(err => {
       console.error(err)
@@ -38,7 +38,7 @@ export const apiClient = {
       body,
       options
     }).then(res => {
-      if (res && res.ok === 0 || res.chMessage || false) throw new Error(res.chMessage)
+      
       return res
     }).catch(err => {
       console.error(err)
@@ -54,7 +54,7 @@ export const apiClient = {
       body,
       options
     }).then(res => {
-      if (res && res.ok === 0 || res.chMessage || false) throw new Error(res.chMessage)
+      
       return res
     }).catch(err => {
       message.error(err.message)
@@ -69,7 +69,7 @@ export const apiClient = {
       body,
       options
     }).then(res => {
-      if (res && res.ok === 0 || res.chMessage || false) throw new Error(res.chMessage)
+      
       return res
     }).catch(err => {
       message.error(err.message)
@@ -84,7 +84,7 @@ export const apiClient = {
       body,
       options
     }).then(res => {
-      if (res && res.ok === 0 || res.chMessage || false) throw new Error(res.chMessage)
+      
       return res
     }).catch(err => {
       message.error(err.message)
@@ -109,6 +109,6 @@ export const apiClientManger = async (url: string, options: any) => {
   }).catch(err => {
     console.error(err)
     message.error(err.message)
-    // throw err
+    throw err
   })
 }
