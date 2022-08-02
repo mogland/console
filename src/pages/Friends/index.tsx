@@ -3,10 +3,11 @@
  * @author: Wibus
  * @Date: 2022-07-30 17:42:24
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-02 19:12:46
+ * @LastEditTime: 2022-08-02 20:44:41
  * Coding With IU
  */
 import { Button, Input, Modal, Popover, Radio, Select, Spacer, Table, Tabs, Text, useClasses, useModal } from "@geist-ui/core"
+import { Plus, UserCheck } from "@geist-ui/icons"
 import { useEffect, useState } from "react"
 import { message } from "react-message-popup"
 import { useLocation, useNavigate } from "react-router-dom"
@@ -25,7 +26,12 @@ export const Friends: BasicPage = () => {
   const params = new URLSearchParams(search)
 
   const { visible, setVisible, bindings } = useModal()
+  const { visible: addVisible, setVisible: setAddVisible, bindings: addBinds } = useModal()
+  
   const [moreMessage, setMoreMessage] = useState<any>()
+  const [addLink, setAddLink] = useState<any>({
+    data: {}
+  })
 
   const [links, setLinks] = useState<any[]>([])
   const [loading, setLoading] = useState(false)
@@ -138,7 +144,7 @@ export const Friends: BasicPage = () => {
             </button>
             <button className="warning-btn" type="button"
               onClick={async () => {
-                await apiClient.patch('/links/status/' + link.id, null, [{key: "status", value: 2}], {}).then(res => {
+                await apiClient.patch('/links/status/' + link.id, null, [{ key: "status", value: 2 }], {}).then(res => {
                   message.warning(`已将友链 ${link.name} 封禁`)
                   request()
                 })
@@ -168,6 +174,40 @@ export const Friends: BasicPage = () => {
 
   return (
     <NxPage title={"Friends"}>
+      <Button shadow type="secondary"
+        onClick={() => {
+          setAddVisible(true)
+        }}
+        style={{
+          borderRadius: "100%",
+          width: "50px",
+          height: "50px",
+          minHeight: "50px",
+          minWidth: "50px",
+          float: "right",
+          position: "fixed",
+          top: "62px",
+          right: 115,
+          padding: 0,
+          paddingTop: "13px",
+          paddingLeft: "1px",
+          marginLeft: 10
+        }}><Plus /></Button>
+      <Button shadow style={{
+        marginRight: 10,
+        borderRadius: "100%",
+        width: "50px",
+        height: "50px",
+        minHeight: "50px",
+        minWidth: "50px",
+        top: "62px",
+        float: "right",
+        position: "fixed",
+        right: 35,
+        padding: 0,
+        paddingTop: "13px",
+        paddingLeft: "1px",
+      }}><UserCheck /></Button>
       <Dashboards.Container className="lg:grid flex flex-col" gridTemplateColumns='1fr'>
         <Dashboards.Area className={useClasses("overflow-x-hidden")} style={{ overflow: "auto", width: "100%" }}>
           <Tabs initialValue={nowTab} marginTop={1} width={"100%"} onChange={(val) => {
@@ -331,6 +371,133 @@ export const Friends: BasicPage = () => {
           setVisible(false)
           setMoreMessage(null)
         }}>了解 (不修改数据) </Modal.Action>
+      </Modal>
+      <Modal {...addBinds}>
+        <Modal.Title>新增 &nbsp;{addLink && addLink.data.name}&nbsp; </Modal.Title>
+        <Modal.Content>
+          {
+            (
+              <>
+                <Select
+                  width={"100%"}
+                  placeholder="链接类型"
+                  initialValue={addLink.data.type ? String(addLink.data.type) : "0"}
+                  onChange={(v) => {
+                    setAddLink({
+                      ...addLink,
+                      data: {
+                        ...addLink.data,
+                        type: Number(v)
+                      }
+                    })
+                  }}
+                >
+                  <Select.Option value="0">好友</Select.Option>
+                  <Select.Option value="1">收藏</Select.Option>
+                  <Select.Option value="2">导航连接</Select.Option>
+                </Select>
+                <Spacer />
+                <Input width={"100%"} label="站点名称" placeholder="" initialValue={addLink.data.name && addLink.data.name} onChange={(e) => {
+                  setAddLink({
+                    ...addLink,
+                    data: {
+                      ...addLink.data,
+                      name: e.target.value,
+                    }
+                  })
+                }} />
+                <Spacer />
+                <Input width={"100%"} label="描述" placeholder="" initialValue={addLink.data.description && addLink.data.description} onChange={(e) => {
+                  setAddLink({
+                    ...addLink,
+                    data: {
+                      ...addLink.data,
+                      description: e.target.value,
+                    }
+                  })
+                }} />
+                <Spacer />
+                <Input width={"100%"} label="链接" placeholder="仅支持 HTTPS 链接" initialValue={addLink.data.url && addLink.data.url} onChange={(e) => {
+                  setAddLink({
+                    ...addLink,
+                    data: {
+                      ...addLink.data,
+                      url: e.target.value,
+                    }
+                  })
+                }} />
+                <Spacer />
+                <Input width={"100%"} label="站点图标" placeholder="仅支持 HTTPS 链接" initialValue={addLink.data.avatar && addLink.data.avatar} onChange={(e) => {
+                  setAddLink({
+                    ...addLink,
+                    data: {
+                      ...addLink.data,
+                      avatar: e.target.value,
+                    }
+                  })
+                }} />
+                <Spacer />
+
+                <Input width={"100%"} label="RSS 订阅情况" disabled initialValue={addLink.data.rss_status ? "成功" : "失败或未开始爬取"} />
+
+                <Spacer />
+                <Input width={"100%"} label="RSS 订阅类型" placeholder="应输入 rss 或 atom " initialValue={addLink.data.rss_type && addLink.data.rss_type} onChange={(e) => {
+                  setAddLink({
+                    ...addLink,
+                    data: {
+                      ...addLink.data,
+                      rss_type: e.target.value,
+                    }
+                  })
+                }} />
+                <Spacer />
+                <Input width={"100%"} label="RSS 订阅链接" placeholder="仅接受 HTTPS 链接" initialValue={addLink.data.rss && addLink.data.rss} onChange={(e) => {
+                  setAddLink({
+                    ...addLink,
+                    data: {
+                      ...addLink.data,
+                      rss: e.target.value,
+                    }
+                  })
+                }} />
+                <Spacer />
+                <Input width={"100%"} label="对方邮箱" initialValue={addLink.data.email && addLink.data.email} onChange={(e) => {
+                  setAddLink({
+                    ...addLink,
+                    data: {
+                      ...addLink.data,
+                      email: e.target.value,
+                    }
+                  })
+                }} />
+
+              </>
+            )
+          }
+        </Modal.Content>
+        <Modal.Action passive onClick={() => {
+          setAddVisible(false)
+          setAddLink({
+            data: {}
+          })
+        }}>取消</Modal.Action>
+
+        <Modal.Action onClick={async () => {
+          const data = addLink.data
+          data.types = data.type || 0
+          data.author = data.author || "admin"
+          console.log(data)
+          await apiClient.post(`/links/apply`, null, null, JSON.stringify(data)).then(res => {
+            message.success(`已新增友链 ${data.name}`)
+            setAddVisible(false)
+            setAddLink({
+              data: {}
+            })
+            request()
+          }).catch(err => {
+            message.error(`出现错误，无法更新`)
+          })
+        }}>添加</Modal.Action>
       </Modal>
     </NxPage>
   )
