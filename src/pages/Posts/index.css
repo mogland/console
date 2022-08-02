@@ -1,0 +1,3 @@
+#posts-table td:first-child > .cell {
+  width: 100px !important;
+}

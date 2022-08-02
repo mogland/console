@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-15 18:45:35
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-30 17:54:06
+ * @LastEditTime: 2022-08-02 19:16:33
  * Coding With IU
  */
 import { Button, Loading, Modal, Pagination, Spacer, Table, useClasses, useModal } from "@geist-ui/core";
@@ -16,6 +16,7 @@ import { NxPage } from "../../components/widgets/Page"
 import { useStore } from "../../hooks/use-store";
 import { BasicPage } from "../../types/basic"
 import { apiClient } from "../../utils/request"
+import './index.css'
 
 export const Posts: BasicPage = () => {
   const { search } = useLocation()
@@ -94,7 +95,7 @@ export const Posts: BasicPage = () => {
       <Dashboards.Container className="lg:grid flex flex-col" gridTemplateColumns='1fr'>
         <Dashboards.Area className={useClasses("overflow-x-hidden")} style={{ overflow: "auto" }}>
           {!loading ? (<>
-            <Table data={article}>
+            <Table data={article} id={"posts-table"}>
               <Table.Column label="标题" prop="title" render={renderTitle} />
               <Table.Column label="分类" prop="category" />
               <Table.Column label="标签" prop="tags" />
