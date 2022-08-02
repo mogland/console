@@ -30,4 +30,8 @@ td:last-child> .cell {width: 200px;}
     background-color: #242424 !important;
     color: rgba(255, 255, 255, 0.927) !important;
   }
+  #postTitle, #pageTitle, #postSubTitle {
+    background-color: #242424 !important;
+    color: rgba(255, 255, 255, 0.927) !important;
+  }
 }
