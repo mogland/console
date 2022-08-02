@@ -13,7 +13,7 @@ The powerful admin dashboard for NEXT, provide the latest features
 - [X] 文章发布与更新
 - [X] 页面列表
 - [X] 页面发布与更新
-- [ ] 评论管理页面
+- [X] 评论管理页面
 - [ ] 友链管理页面
 - [ ] 系统设置页面
 - [ ] ~~插件管理页面（因 Core 尚未实现，暂时延期）~~
