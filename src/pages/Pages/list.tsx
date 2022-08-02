@@ -19,7 +19,7 @@ import { useState } from "react";
 import { message } from "react-message-popup";
 import { Link, useLocation } from "react-router-dom"
 import { useMount } from "react-use"
-import Dashboards from "../../components/widgets/Dashboards"
+import Dashboards from "../../components/layouts/Dashboards"
 import { NxPage } from "../../components/widgets/Page"
 import { useStore } from "../../hooks/use-store";
 import { BasicPage } from "../../types/basic"
