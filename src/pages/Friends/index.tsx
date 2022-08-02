@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-30 17:42:24
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-02 12:37:35
+ * @LastEditTime: 2022-08-02 19:12:46
  * Coding With IU
  */
 import { Button, Input, Modal, Popover, Radio, Select, Spacer, Table, Tabs, Text, useClasses, useModal } from "@geist-ui/core"
@@ -83,6 +83,12 @@ export const Friends: BasicPage = () => {
     )
   }
 
+  const urlElement = (value, rowData, index) => {
+    return (
+      <a href={links[index].url} target="_blank">{links[index].url}</a>
+    )
+  }
+
 
   const actionElement = (value, rowData, index) => {
 
@@ -122,7 +128,7 @@ export const Friends: BasicPage = () => {
           <div className="space-x-3">
             <button className="success-btn" type="button"
               onClick={async () => {
-                await apiClient.patch('/links/status/' + link.id, null, [{key: "status", value: 1}]).then(res => {
+                await apiClient.patch('/links/status/' + link.id, null, null, {}).then(res => {
                   message.success(`已通过友链 ${link.name} `)
                   request()
                 })
@@ -132,8 +138,8 @@ export const Friends: BasicPage = () => {
             </button>
             <button className="warning-btn" type="button"
               onClick={async () => {
-                await apiClient.patch('/links/status/' + link.id, null, [{key: "status", value: 2}]).then(res => {
-                  message.success(`已将友链 ${link.name} 封禁`)
+                await apiClient.patch('/links/status/' + link.id, null, [{key: "status", value: 2}], {}).then(res => {
+                  message.warning(`已将友链 ${link.name} 封禁`)
                   request()
                 })
               }}
@@ -173,7 +179,7 @@ export const Friends: BasicPage = () => {
                 <Table.Column label="头像" prop="email" render={avatarElement} />
                 <Table.Column label="名称" prop="name" />
                 <Table.Column label="描述" prop="description" />
-                <Table.Column label="网址" prop="url" />
+                <Table.Column label="网址" prop="url" render={urlElement} />
                 <Table.Column label="种类" prop="types" />
                 <Table.Column label="对方邮箱" prop="email" />
                 <Table.Column label="提交时间" prop="created" />
@@ -185,7 +191,7 @@ export const Friends: BasicPage = () => {
                 <Table.Column label="头像" prop="email" render={avatarElement} />
                 <Table.Column label="名称" prop="name" />
                 <Table.Column label="描述" prop="description" />
-                <Table.Column label="网址" prop="url" />
+                <Table.Column label="网址" prop="url" render={urlElement} />
                 <Table.Column label="种类" prop="types" />
                 <Table.Column label="对方邮箱" prop="email" />
                 <Table.Column label="提交时间" prop="created" />
@@ -197,7 +203,7 @@ export const Friends: BasicPage = () => {
                 <Table.Column label="头像" prop="email" render={avatarElement} />
                 <Table.Column label="名称" prop="name" />
                 <Table.Column label="描述" prop="description" />
-                <Table.Column label="网址" prop="url" />
+                <Table.Column label="网址" prop="url" render={urlElement} />
                 <Table.Column label="种类" prop="types" />
                 <Table.Column label="对方邮箱" prop="email" />
                 <Table.Column label="提交时间" prop="created" />
@@ -258,6 +264,16 @@ export const Friends: BasicPage = () => {
                     data: {
                       ...moreMessage.data,
                       url: e.target.value,
+                    }
+                  })
+                }} />
+                <Spacer />
+                <Input width={"100%"} label="站点图标" placeholder="仅支持 HTTPS 链接" initialValue={moreMessage.data.avatar} onChange={(e) => {
+                  setMoreMessage({
+                    ...moreMessage,
+                    data: {
+                      ...moreMessage.data,
+                      avatar: e.target.value,
                     }
                   })
                 }} />

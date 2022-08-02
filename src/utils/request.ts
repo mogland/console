@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-15 17:33:03
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-01 13:32:52
+ * @LastEditTime: 2022-08-02 19:13:29
  * Coding With IU
  */
 
@@ -22,7 +22,7 @@ export const apiClient = {
       options
     }).then(res => {
       console.log(res)
-      
+
       return res
     }).catch(err => {
       console.error(err)
@@ -38,7 +38,7 @@ export const apiClient = {
       body,
       options
     }).then(res => {
-      
+
       return res
     }).catch(err => {
       console.error(err)
@@ -54,7 +54,7 @@ export const apiClient = {
       body,
       options
     }).then(res => {
-      
+
       return res
     }).catch(err => {
       message.error(err.message)
@@ -69,7 +69,6 @@ export const apiClient = {
       body,
       options
     }).then(res => {
-      
       return res
     }).catch(err => {
       message.error(err.message)
@@ -84,7 +83,7 @@ export const apiClient = {
       body,
       options
     }).then(res => {
-      
+
       return res
     }).catch(err => {
       message.error(err.message)
@@ -96,19 +95,17 @@ export const apiClient = {
 
 // 对 fetch restful 风格二次封装
 export const apiClientManger = async (url: string, options: any) => {
-  const headers = {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json',
-    'Authorization': `Bearer ${getStorage('token')}`,
-  }
   return $fetch(API + url, {
-    headers,
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${getStorage('token')}`,
+    },
     ...options,
-  }).then(res => { 
+  }).then(res => {
     return res
   }).catch(err => {
     console.error(err)
-    message.error(err.message)
     throw err
   })
 }
