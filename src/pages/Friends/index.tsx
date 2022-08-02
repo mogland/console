@@ -3,10 +3,10 @@
  * @author: Wibus
  * @Date: 2022-07-30 17:42:24
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-01 23:24:54
+ * @LastEditTime: 2022-08-02 12:37:35
  * Coding With IU
  */
-import { Button, Input, Modal, Popover, Spacer, Table, Tabs, Text, useClasses, useModal } from "@geist-ui/core"
+import { Button, Input, Modal, Popover, Radio, Select, Spacer, Table, Tabs, Text, useClasses, useModal } from "@geist-ui/core"
 import { useEffect, useState } from "react"
 import { message } from "react-message-popup"
 import { useLocation, useNavigate } from "react-router-dom"
@@ -15,6 +15,7 @@ import Dashboards from "../../components/widgets/Dashboards"
 import { NxPage } from "../../components/widgets/Page"
 import { BasicPage } from "../../types/basic"
 import { apiClient } from "../../utils/request"
+import "./index.css"
 
 export const Friends: BasicPage = () => {
 
@@ -37,8 +38,8 @@ export const Friends: BasicPage = () => {
       const { data } = res as any
       const result = new Array()
       for (let index of Object.keys(data)) {
-        const typeNum = data[index].type
-        const type = typeNum === 0 ? "好友" : typeNum === 1 ? "收藏" : "导航链接"
+        const typesNum = data[index].types
+        const types = typesNum === 0 ? "好友" : typesNum === 1 ? "收藏" : "导航链接"
         result.push({
           id: data[index].id,
           name: data[index].name,
@@ -50,7 +51,9 @@ export const Friends: BasicPage = () => {
           rss_status: data[index].rss_status,
           rss: data[index].rss,
           created: data[index].created.split("T")[0],
-          type,
+          types,
+          type: data[index].types,
+          status: data[index].status
         })
       }
       setLinks(result)
@@ -97,7 +100,7 @@ export const Friends: BasicPage = () => {
           <Button auto scale={1 / 3} font="12px" style={{ margin: 10 }}
             onClick={async () => {
               await apiClient.delete('/links/' + link.id).then(res => {
-                message.success(`已将友链 {link.name} 删除`)
+                message.success(`已将友链 ${link.name} 删除`)
                 request()
               })
             }}
@@ -119,8 +122,8 @@ export const Friends: BasicPage = () => {
           <div className="space-x-3">
             <button className="success-btn" type="button"
               onClick={async () => {
-                await apiClient.patch('/links/status' + link.id, null, null, { status: 1 }).then(res => {
-                  message.success(`已通过友链 {link.name} `)
+                await apiClient.patch('/links/status/' + link.id, null, [{key: "status", value: 1}]).then(res => {
+                  message.success(`已通过友链 ${link.name} `)
                   request()
                 })
               }}
@@ -129,8 +132,8 @@ export const Friends: BasicPage = () => {
             </button>
             <button className="warning-btn" type="button"
               onClick={async () => {
-                await apiClient.patch('/links/status' + link.id, null, null, { status: 2 }).then(res => {
-                  message.success(`已将友链 {link.name} 封禁`)
+                await apiClient.patch('/links/status/' + link.id, null, [{key: "status", value: 2}]).then(res => {
+                  message.success(`已将友链 ${link.name} 封禁`)
                   request()
                 })
               }}
@@ -160,24 +163,47 @@ export const Friends: BasicPage = () => {
   return (
     <NxPage title={"Friends"}>
       <Dashboards.Container className="lg:grid flex flex-col" gridTemplateColumns='1fr'>
-        <Dashboards.Area className={useClasses("overflow-x-hidden")} style={{ overflow: "auto" }}>
+        <Dashboards.Area className={useClasses("overflow-x-hidden")} style={{ overflow: "auto", width: "100%" }}>
           <Tabs initialValue={nowTab} marginTop={1} width={"100%"} onChange={(val) => {
             setNowTab(val)
             appNavigate(`/friends?page=${nowPage}&tab=${val}`)
           }}>
-            <Tabs.Item label="朋友们" value="1">
+            <Tabs.Item label="待审核" value="1">
               <Table data={links} id="links-table">
                 <Table.Column label="头像" prop="email" render={avatarElement} />
                 <Table.Column label="名称" prop="name" />
                 <Table.Column label="描述" prop="description" />
                 <Table.Column label="网址" prop="url" />
+                <Table.Column label="种类" prop="types" />
                 <Table.Column label="对方邮箱" prop="email" />
                 <Table.Column label="提交时间" prop="created" />
                 <Table.Column label="操作" prop="action" render={actionElement} />
               </Table>
             </Tabs.Item>
-            <Tabs.Item label="待审核" value="2"></Tabs.Item>
-            <Tabs.Item label="封禁的" value="3"></Tabs.Item>
+            <Tabs.Item label="朋友们" value="2">
+              <Table data={links} id="links-table">
+                <Table.Column label="头像" prop="email" render={avatarElement} />
+                <Table.Column label="名称" prop="name" />
+                <Table.Column label="描述" prop="description" />
+                <Table.Column label="网址" prop="url" />
+                <Table.Column label="种类" prop="types" />
+                <Table.Column label="对方邮箱" prop="email" />
+                <Table.Column label="提交时间" prop="created" />
+                <Table.Column label="操作" prop="action" render={actionElement} />
+              </Table>
+            </Tabs.Item>
+            <Tabs.Item label="封禁的" value="3">
+              <Table data={links} id="links-table">
+                <Table.Column label="头像" prop="email" render={avatarElement} />
+                <Table.Column label="名称" prop="name" />
+                <Table.Column label="描述" prop="description" />
+                <Table.Column label="网址" prop="url" />
+                <Table.Column label="种类" prop="types" />
+                <Table.Column label="对方邮箱" prop="email" />
+                <Table.Column label="提交时间" prop="created" />
+                <Table.Column label="操作" prop="action" render={actionElement} />
+              </Table>
+            </Tabs.Item>
           </Tabs>
         </Dashboards.Area>
       </Dashboards.Container>
@@ -187,9 +213,60 @@ export const Friends: BasicPage = () => {
           {
             moreMessage && (
               <>
-                <Input width={"100%"} label="RSS 订阅情况" disabled initialValue={moreMessage.data.rss_status ? "成功" : "失败或未开始爬取"} />
+                <Select
+                  width={"100%"}
+                  placeholder="链接类型"
+                  initialValue={String(moreMessage.data.type)}
+                  onChange={(v) => {
+                    setMoreMessage({
+                      ...moreMessage,
+                      data: {
+                        ...moreMessage.data,
+                        type: Number(v)
+                      }
+                    })
+                  }}
+                >
+                  <Select.Option value="0">好友</Select.Option>
+                  <Select.Option value="1">收藏</Select.Option>
+                  <Select.Option value="2">导航连接</Select.Option>
+                </Select>
                 <Spacer />
-                <Input width={"100%"} label="RSS 订阅类型" placeholder="应输入 rss 或 atom " initialValue={moreMessage.data.rss_type}  onChange={(e) => {
+                <Input width={"100%"} label="站点名称" placeholder="" initialValue={moreMessage.data.name} onChange={(e) => {
+                  setMoreMessage({
+                    ...moreMessage,
+                    data: {
+                      ...moreMessage.data,
+                      name: e.target.value,
+                    }
+                  })
+                }} />
+                <Spacer />
+                <Input width={"100%"} label="描述" placeholder="" initialValue={moreMessage.data.description} onChange={(e) => {
+                  setMoreMessage({
+                    ...moreMessage,
+                    data: {
+                      ...moreMessage.data,
+                      description: e.target.value,
+                    }
+                  })
+                }} />
+                <Spacer />
+                <Input width={"100%"} label="链接" placeholder="仅支持 HTTPS 链接" initialValue={moreMessage.data.url} onChange={(e) => {
+                  setMoreMessage({
+                    ...moreMessage,
+                    data: {
+                      ...moreMessage.data,
+                      url: e.target.value,
+                    }
+                  })
+                }} />
+                <Spacer />
+
+                <Input width={"100%"} label="RSS 订阅情况" disabled initialValue={moreMessage.data.rss_status ? "成功" : "失败或未开始爬取"} />
+
+                <Spacer />
+                <Input width={"100%"} label="RSS 订阅类型" placeholder="应输入 rss 或 atom " initialValue={moreMessage.data.rss_type} onChange={(e) => {
                   setMoreMessage({
                     ...moreMessage,
                     data: {
@@ -199,7 +276,7 @@ export const Friends: BasicPage = () => {
                   })
                 }} />
                 <Spacer />
-                <Input width={"100%"} label="RSS 订阅链接" placeholder="仅接受 HTTPS 链接" initialValue={moreMessage.data.rss}  onChange={(e) => {
+                <Input width={"100%"} label="RSS 订阅链接" placeholder="仅接受 HTTPS 链接" initialValue={moreMessage.data.rss} onChange={(e) => {
                   setMoreMessage({
                     ...moreMessage,
                     data: {
@@ -209,7 +286,7 @@ export const Friends: BasicPage = () => {
                   })
                 }} />
                 <Spacer />
-                <Input width={"100%"} label="对方邮箱" initialValue={moreMessage.data.email}  onChange={(e) => {
+                <Input width={"100%"} label="对方邮箱" initialValue={moreMessage.data.email} onChange={(e) => {
                   setMoreMessage({
                     ...moreMessage,
                     data: {
@@ -218,13 +295,16 @@ export const Friends: BasicPage = () => {
                     }
                   })
                 }} />
+
               </>
             )
           }
         </Modal.Content>
         <Modal.Action passive onClick={async () => {
-          await apiClient.patch(`/links/${moreMessage.data.id}`, null, null, JSON.stringify(moreMessage.data)).then(res => {
-            message.success(`已更新友链 ${moreMessage.data.name} 信息`)
+          const data = moreMessage.data
+          data.types = data.type
+          await apiClient.patch(`/links/${moreMessage.data.id}`, null, null, JSON.stringify(data)).then(res => {
+            message.success(`已更新友链 ${data.name} 信息`)
             setVisible(false)
             setMoreMessage(null)
           }).catch(err => {

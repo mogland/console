@@ -1,0 +1,71 @@
+#links-table .avatar {
+  border-radius: 100%;
+  zoom: 20%;
+}
+
+#links-table a {
+  padding: 0 !important;
+  /* margin-top: 10px;
+  margin-bottom: 10px; */
+}
+
+#links-table .cell {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#links-table td:first-child > .cell {
+  width: 100px !important;
+}
+#links-table th:last-child > .thead-box {
+  width: 500px;
+}
+#links-table .thead-box {
+  min-width: 100px;
+}
+#links-table blockquote {
+  width: 470px;
+  border: none !important;
+}
+
+.success-btn {
+  color: #18a058;
+  border: none;
+  /* padding: 10px; */
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-left: 15px;
+  margin-bottom: 10px;
+}
+.info-btn {
+  color: #2080f0;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-left: 15px;
+  margin-bottom: 10px;
+}
+.warning-btn {
+  color: #f0a020;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-left: 15px;
+  margin-bottom: 10px;
+}
+.danger-btn {
+  color: #d03050;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-left: 15px;
+  margin-bottom: 10px;
+}
