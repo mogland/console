@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-15 18:45:35
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-01 23:00:49
+ * @LastEditTime: 2022-08-02 19:14:37
  * Coding With IU
  */
 
@@ -122,7 +122,7 @@ export const Comments: BasicPage = () => {
             onClick={async () => {
               await apiClient.delete('/comment/' + comment.id).then(res => {
                 message.success(`已将 ${comment.text} 的评论及其子评论删除`)
-                setComments(comments.filter(item => item.id !== comment.id))
+                request()
 
               })
             }}
@@ -172,7 +172,7 @@ export const Comments: BasicPage = () => {
                 await apiClient.patch('/comment/' + comment.id, null, null, { status: 1 }).then(res => {
                   console.log(res)
                   message.success(`已将 ${comment.author} 的评论标为已读`)
-                  setComments(comments.filter(item => item.id !== comment.id))
+                  request()
                 })
               }}
             >
@@ -182,7 +182,7 @@ export const Comments: BasicPage = () => {
               onClick={async () => {
                 await apiClient.patch('/comment/' + comment.id, null, null, { status: 2 }).then(res => {
                   message.success(`已将 ${comment.text} 的评论标为垃圾评论`)
-                  setComments(comments.filter(item => item.id !== comment.id))
+                  request()
                 })
               }}
             >
