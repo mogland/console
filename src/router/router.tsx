@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-12 16:25:35
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-01 14:26:53
+ * @LastEditTime: 2022-08-02 20:51:59
  * Coding With IU
  */
 
@@ -19,6 +19,7 @@ import { Pages } from "../pages/Pages/list"
 import { Category } from "../pages/Posts/category"
 import { PostEdit } from "../pages/Posts/edit"
 import { Posts } from "../pages/Posts/list"
+import { Settings } from "../pages/Settings"
 const JumpToDashboard = () => {
   // 跳转到 Dashboard 页面
   const AppNavigate = useNavigate()
@@ -47,7 +48,7 @@ export const AppRouter = () => {
 
       <Route path="/comments" element={<Comments />} />
       <Route path="/friends" element={<Friends />} />
-      <Route path="/settings" />
+      <Route path="/settings" element={<Settings />} />
 
       {/* TODO: 404 页面 */}
       <Route path="*" element={<NotFound />} />
