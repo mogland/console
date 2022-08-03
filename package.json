@@ -1,7 +1,7 @@
 {
   "name": "nx-admin",
-  "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
+  "author": "wibus-wee <wibus@qq.com>",
   "scripts": {
     "dev": "vite --port 3000",
     "build": "tsc && vite build",
