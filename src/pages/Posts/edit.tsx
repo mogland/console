@@ -17,23 +17,20 @@ import { message } from "react-message-popup";
 import { PostModel } from "./post.model";
 import { useParams } from "react-router-dom";
 
-
-
-
 export const PostEdit: BasicPage = () => {
-
   const [originPost, setOriginPost] = useState<any>({});
   const [post, setPost] = useState<PostModel>(new PostModel());
   const [loading, setLoading] = useState<boolean>(true);
-  const params = useParams()
-  const postId = params ? params.id : undefined
+  const params = useParams();
+  const postId = params ? params.id : undefined;
   useMount(() => {
-    postId && apiClient.get(`/posts/${postId}`).then(res => {
-      setPost(res);
-      setOriginPost(res);
-      setLoading(false);
-    })
-  })
+    postId &&
+      apiClient.get(`/posts/${postId}`).then((res) => {
+        setPost(res);
+        setOriginPost(res);
+        setLoading(false);
+      });
+  });
   // console.log(post);
   // if (postId !== 'edit' && !loading) {
   //   console.log(post);
@@ -41,18 +38,9 @@ export const PostEdit: BasicPage = () => {
 
   return (
     <NxPage>
-      {
-        postId !== 'edit' && !loading && (
-          <Editor
-            post={post}
-            type="post"
-          />
-        ) || (
-          <Editor
-            type="post"
-          />
-        )
-      }
+      {(postId !== "edit" && !loading && (
+        <Editor post={post} type="post" />
+      )) || <Editor type="post" />}
     </NxPage>
-  )
-}
+  );
+};

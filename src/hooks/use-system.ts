@@ -9,7 +9,6 @@
 
 import { apiClient } from "../utils/request";
 
-
 enum SystemApi {
   posts = "/posts",
   pages = "/pages",
@@ -37,7 +36,7 @@ export function useSystem() {
     ...fetchBasicApi(SystemApi.aggregate),
     ...fetchBasicApi(SystemApi.links),
     ...fetchBasicApi(SystemApi.init),
-  }
+  };
 }
 
 /**
@@ -54,11 +53,11 @@ export async function initSystem() {
     ...fetchBasicApi(SystemApi.aggregate),
     ...fetchBasicApi(SystemApi.links),
     ...fetchBasicApi(SystemApi.init),
-  }
+  };
   // 挂载到window上
-  Object.defineProperty(window, 'nxStore', {
+  Object.defineProperty(window, "nxStore", {
     async get() {
-      return await basis
-    }
-  })
+      return await basis;
+    },
+  });
 }

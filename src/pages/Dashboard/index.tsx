@@ -7,22 +7,27 @@
  * Coding With IU
  */
 
-import { Page, Button, Text, Grid, Card, useClasses } from "@geist-ui/core"
-import { ReactElement, JSXElementConstructor, ReactFragment, ReactPortal, useState } from "react"
-import { useFirstMountState, useMount } from "react-use"
-import Dashboards from "../../components/layouts/Dashboards"
-import { Lists } from "../../components/widgets/Lists"
-import { NxPage } from "../../components/widgets/Page"
-import { Timeline } from "../../components/widgets/Timeline"
-import { BasicPage } from "../../types/basic"
-import styles from "./index.module.css"
+import { Page, Button, Text, Grid, Card, useClasses } from "@geist-ui/core";
+import {
+  ReactElement,
+  JSXElementConstructor,
+  ReactFragment,
+  ReactPortal,
+  useState,
+} from "react";
+import { useFirstMountState, useMount } from "react-use";
+import Dashboards from "../../components/layouts/Dashboards";
+import { Lists } from "../../components/widgets/Lists";
+import { NxPage } from "../../components/widgets/Page";
+import { Timeline } from "../../components/widgets/Timeline";
+import { BasicPage } from "../../types/basic";
+import styles from "./index.module.css";
 
 const Hitokoto = () => {
-
   const [hitokoto, setHitokoto] = useState({
     hitokoto: "书写中...",
     from: "猜想中...",
-  })
+  });
   // const [zhihuHot, setZhihuHot] = useState([
   //   {
   //     title: "",
@@ -38,7 +43,7 @@ const Hitokoto = () => {
   const [poem, setPoem] = useState({
     title: "编写中...",
     content: "创作中...",
-  })
+  });
   // const [weather, setWeather] = useState({
   //   city: "",
   //   date: "",
@@ -51,18 +56,18 @@ const Hitokoto = () => {
   //   tip: "",
   // })
 
-  const url = `https://v1.hitokoto.cn/?encode=json`
+  const url = `https://v1.hitokoto.cn/?encode=json`;
   // const shihuHot = `https://api.vvhan.com/api/hotlist?type=zhihuHot`
   // const weatherUrl = `https://api.vvhan.com/api/weather`
   useMount(() => {
     fetch(url)
-      .then(res => res.json())
-      .then(res => {
+      .then((res) => res.json())
+      .then((res) => {
         setHitokoto({
           hitokoto: res.hitokoto,
           from: res.from,
-        })
-      })
+        });
+      });
     // fetch(`${url}&c=i`)
     //   .then(res => res.json())
     //   .then(res => {
@@ -102,48 +107,63 @@ const Hitokoto = () => {
     //       tip: res.info.tip,
     //     })
     //   })
-  })
+  });
 
   return (
     <>
       {/* <h3>一言</h3> */}
 
       <div className="flex flex-row w-full">
-
-        <a onClick={() => {
-          fetch(url)
-            .then(res => res.json())
-            .then(res => {
-              setHitokoto({
-                hitokoto: res.hitokoto,
-                from: res.from,
-              })
-            })
-        }} className="w-full">
+        <a
+          onClick={() => {
+            fetch(url)
+              .then((res) => res.json())
+              .then((res) => {
+                setHitokoto({
+                  hitokoto: res.hitokoto,
+                  from: res.from,
+                });
+              });
+          }}
+          className="w-full"
+        >
           <div className="w-full">
             {/* <h4>「{hitokoto.hitokoto}」</h4>
             <p>From {hitokoto.from}</p> */}
             {/* <Card type={"cyan"} width="100%"> */}
-            <Text h4 my={0} style={{ textTransform: 'capitalize' }} className="font-serif font-black">「{hitokoto.hitokoto}」</Text>
+            <Text
+              h4
+              my={0}
+              style={{ textTransform: "capitalize" }}
+              className="font-serif font-black"
+            >
+              「{hitokoto.hitokoto}」
+            </Text>
             <Text className="font-serif">{hitokoto.from}</Text>
             {/* </Card> */}
           </div>
         </a>
-        <a onClick={() => {
-          fetch(`${url}&c=i`)
-            .then(res => res.json())
-            .then(res => {
-              setPoem({
-                title: res.from,
-                content: res.hitokoto,
-              })
-            })
-        }} className="w-full" style={{ display: "none" }}>
+        <a
+          onClick={() => {
+            fetch(`${url}&c=i`)
+              .then((res) => res.json())
+              .then((res) => {
+                setPoem({
+                  title: res.from,
+                  content: res.hitokoto,
+                });
+              });
+          }}
+          className="w-full"
+          style={{ display: "none" }}
+        >
           <div className="w-full">
             {/* <h4>「{poem.content}」</h4>
             <p>《{poem.title}》</p> */}
             {/* <Card type={"default"} width="100%"> */}
-            <Text h4 my={0} style={{ textTransform: 'capitalize' }}>「{poem.content}」</Text>
+            <Text h4 my={0} style={{ textTransform: "capitalize" }}>
+              「{poem.content}」
+            </Text>
             <Text>《{poem.title}》</Text>
             {/* </Card> */}
           </div>
@@ -167,11 +187,10 @@ const Hitokoto = () => {
       </div> */}
       {/* <Text b i className="mt-20">{weather.tip}</Text> */}
     </>
-  )
-}
+  );
+};
 
 export const Dashboard: BasicPage = () => {
-
   return (
     <NxPage title={"Dashboard"}>
       <Dashboards.Container className="lg:grid flex flex-col">
@@ -180,25 +199,18 @@ export const Dashboard: BasicPage = () => {
             <Hitokoto />
           </Dashboards.Area>
 
-          <Dashboards.Area >
+          <Dashboards.Area>
             <div className="w-full">
               <Lists />
             </div>
           </Dashboards.Area>
-
         </div>
 
         <Dashboards.Area border>
           <h3>Latest changes</h3>
           <Timeline />
         </Dashboards.Area>
-
-
-
-
-
-
       </Dashboards.Container>
     </NxPage>
-  )
-}
+  );
+};

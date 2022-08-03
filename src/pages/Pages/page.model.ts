@@ -10,7 +10,7 @@
 export class PageModel {
   slug!: string; // 页面 slug
   title!: string; // 页面标题
-  subtitle: string = ""; // 页面副标题
+  subtitle = ""; // 页面副标题
   text!: string; // 页面内容
   order?: number = 1; // 页面排序
 }

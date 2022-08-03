@@ -7,8 +7,8 @@
  * Coding With IU
  */
 
-import { Page, useClasses, Text } from "@geist-ui/core"
-import styles from "./index.module.css"
+import { Page, useClasses, Text } from "@geist-ui/core";
+import styles from "./index.module.css";
 export const NxPage = ({ title, children }: any) => (
   <Page className={useClasses(styles.page)}>
     <div className={useClasses(styles.header)}>
@@ -16,4 +16,4 @@ export const NxPage = ({ title, children }: any) => (
     </div>
     {children}
   </Page>
-)
+);

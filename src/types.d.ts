@@ -9,19 +9,19 @@
 
 declare global {
   export interface History {
-    backPath: string[]
-    push(path: string): void
+    backPath: string[];
+    push(path: string): void;
   }
   export interface Window {
-    [key: string]: any
+    [key: string]: any;
   }
   export interface HTMLElement {
-    [key: string]: any
-    value: any
+    [key: string]: any;
+    value: any;
   }
   export interface Element {
-    [key: string]: any
+    [key: string]: any;
   }
 }
 
-export {}
+export {};

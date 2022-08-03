@@ -7,10 +7,10 @@
  * Coding With IU
  */
 
-import md5 from "md5"
+import md5 from "md5";
 
 export function getAvatarUrl(mail: string) {
-  const template = `	https://cravatar.cn/avatar/`
-  const hash = (mail ? md5(mail) : "").toLowerCase()
-  return `${template}${hash}?s=200`
+  const template = `	https://cravatar.cn/avatar/`;
+  const hash = (mail ? md5(mail) : "").toLowerCase();
+  return `${template}${hash}?s=200`;
 }

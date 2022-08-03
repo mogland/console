@@ -7,23 +7,22 @@
  * Coding With IU
  */
 
-import { createContext, ReactNode, useContext } from "react";
-import { isDev } from "../utils/env";
+import { createContext, useContext } from "react";
 import { apiClient } from "../utils/request";
 
 const StoreContext = createContext({});
 StoreContext.displayName = "StoreContext";
 
 export function useStore() {
-  const context = useContext(StoreContext)
+  const context = useContext(StoreContext);
   if (context === undefined) {
-    throw new Error('useRootStore must be used within RootStoreProvider')
+    throw new Error("useRootStore must be used within RootStoreProvider");
   }
 
-  return context
+  return context;
 }
 
-export const store = initStore()
+export const store = initStore();
 // export function RootStoreProvider({ children }: { children: ReactNode }) {
 //   if (isDev && !window.store) {
 //     Object.defineProperty(window, 'store', {
@@ -36,11 +35,15 @@ export const store = initStore()
 //   return <StoreContext.Provider value={store}>{children}</StoreContext.Provider>
 // }
 export async function initStore() {
-  const category = await apiClient.get("/category", null, [{ key: "type", value: "Category" }]);
-  const tag = await apiClient.get("/category", null, [{ key: "type", value: "Tag" }]);
+  const category = await apiClient.get("/category", null, [
+    { key: "type", value: "Category" },
+  ]);
+  const tag = await apiClient.get("/category", null, [
+    { key: "type", value: "Tag" },
+  ]);
   const store = {
     categoryStore: category.data,
-    tagStore: tag.data
+    tagStore: tag.data,
   };
   return createContext(store);
 }

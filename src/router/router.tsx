@@ -7,25 +7,31 @@
  * Coding With IU
  */
 
-import { BrowserRouter, Route, Routes, useLocation, useNavigate } from "react-router-dom"
-import { NotFound } from "../pages/404"
-import { Comments } from "../pages/Comments"
-import { Dashboard } from "../pages/Dashboard"
-import { Friends } from "../pages/Friends"
-import { InitSystem } from "../pages/init-system"
-import { Login } from "../pages/Login"
-import { PageEdit } from "../pages/Pages/edit"
-import { Pages } from "../pages/Pages/list"
-import { Category } from "../pages/Posts/category"
-import { PostEdit } from "../pages/Posts/edit"
-import { Posts } from "../pages/Posts/list"
-import { Settings } from "../pages/Settings"
+import {
+  BrowserRouter,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
+import { NotFound } from "../pages/404";
+import { Comments } from "../pages/Comments";
+import { Dashboard } from "../pages/Dashboard";
+import { Friends } from "../pages/Friends";
+import { InitSystem } from "../pages/init-system";
+import { Login } from "../pages/Login";
+import { PageEdit } from "../pages/Pages/edit";
+import { Pages } from "../pages/Pages/list";
+import { Category } from "../pages/Posts/category";
+import { PostEdit } from "../pages/Posts/edit";
+import { Posts } from "../pages/Posts/list";
+import { Settings } from "../pages/Settings";
 const JumpToDashboard = () => {
   // 跳转到 Dashboard 页面
-  const AppNavigate = useNavigate()
-  AppNavigate("/dashboard")
-  return null
-}
+  const AppNavigate = useNavigate();
+  AppNavigate("/dashboard");
+  return null;
+};
 
 export const AppRouter = () => {
   return (
@@ -53,5 +59,5 @@ export const AppRouter = () => {
       {/* TODO: 404 页面 */}
       <Route path="*" element={<NotFound />} />
     </Routes>
-  )
-}
+  );
+};

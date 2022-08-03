@@ -26,25 +26,22 @@ import { useParams } from "react-router-dom";
 import { PageModel } from "./page.model";
 import { Types } from "mongoose";
 
-
-
-
 export const PageEdit: BasicPage = () => {
-
   const [originPost, setOriginPost] = useState<any>({});
   const [post, setPost] = useState<PageModel>(new PageModel());
   const [loading, setLoading] = useState<boolean>(true);
-  const params = useParams()
-  const pageId = params ? params.id : undefined
+  const params = useParams();
+  const pageId = params ? params.id : undefined;
   // pageId 转换成 MongoId
-  const mongoId = pageId ? new Types.ObjectId(pageId) : undefined
+  const mongoId = pageId ? new Types.ObjectId(pageId) : undefined;
   useMount(() => {
-    pageId && apiClient.get(`/page/${mongoId}`).then(res => {
-      setPost(res);
-      setOriginPost(res);
-      setLoading(false);
-    })
-  })
+    pageId &&
+      apiClient.get(`/page/${mongoId}`).then((res) => {
+        setPost(res);
+        setOriginPost(res);
+        setLoading(false);
+      });
+  });
   // console.log(post);
   // if (pageId !== 'edit' && !loading) {
   //   console.log(post);
@@ -52,18 +49,9 @@ export const PageEdit: BasicPage = () => {
 
   return (
     <NxPage>
-      {
-        pageId !== 'edit' && !loading && (
-          <Editor
-            post={post}
-            type="page"
-          />
-        ) || (
-          <Editor
-            type="page"
-          />
-        )
-      }
+      {(pageId !== "edit" && !loading && (
+        <Editor post={post} type="page" />
+      )) || <Editor type="page" />}
     </NxPage>
-  )
-}
+  );
+};
