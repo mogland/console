@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-30 17:42:24
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-02 20:44:41
+ * @LastEditTime: 2022-08-03 11:59:04
  * Coding With IU
  */
 import { Button, Input, Modal, Popover, Radio, Select, Spacer, Table, Tabs, Text, useClasses, useModal } from "@geist-ui/core"
@@ -174,7 +174,7 @@ export const Friends: BasicPage = () => {
 
   return (
     <NxPage title={"Friends"}>
-      <Button shadow type="secondary"
+      <Button type="secondary"
         onClick={() => {
           setAddVisible(true)
         }}
@@ -193,7 +193,7 @@ export const Friends: BasicPage = () => {
           paddingLeft: "1px",
           marginLeft: 10
         }}><Plus /></Button>
-      <Button shadow style={{
+      <Button style={{
         marginRight: 10,
         borderRadius: "100%",
         width: "50px",
