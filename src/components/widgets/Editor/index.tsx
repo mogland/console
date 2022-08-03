@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-23 23:47:19
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-30 17:36:54
+ * @LastEditTime: 2022-08-03 11:46:37
  * Coding With IU
  */
 
@@ -212,7 +212,7 @@ export const Editor: FC<any> = (props) => {
                   <Text h4>分类</Text>
                   <Select
                     placeholder="选择分类"
-                    value={category ? post ? post.category_id : category[0].id : undefined}
+                    initialValue={category ? post ? post.category_id : category[0].id : undefined}
                     onChange={(val) => {
                       setPost({ ...post, categoryId: val as string })
                     }}
@@ -235,7 +235,7 @@ export const Editor: FC<any> = (props) => {
               <Text h4>路径</Text>
               <Input
                 placeholder={"填写路径"}
-                value={post?.slug}
+                initialValue={post?.slug}
                 onChange={(e) => {
                   setPost({ ...post, slug: e.target.value })
                 }}
@@ -247,81 +247,11 @@ export const Editor: FC<any> = (props) => {
                   <Text h4>概要</Text>
                   <Input
                     placeholder={"填写概要"}
-                    value={post?.summary}
+                    initialValue={post?.summary}
                     onChange={(e) => {
                       setPost({ ...post, summary: e.target.value })
                     }}
                   />
-                </div>
-              )
-            }
-            {
-              props.type === "post" && (
-                <div className="postTags">
-                  <Text h4>标签</Text>
-                  {post && post.tags !== undefined && post.tags.length !== 0 && post.tags.map((tag, index) => {
-                    return (
-                      <span className={useClasses(tagStyles.editTag)} key={"Tag" + index}>
-                        {tag}
-                        <span className={useClasses(tagStyles.editTagAction)} onClick={() => {
-                          setPost({
-                            ...post,
-                            tags: post.tags!.filter((item, i) => i !== index)
-                          })
-                        }}>
-                          <CloseSmall />
-                        </span>
-                      </span>
-                    )
-                  }
-                  )}
-                  <style>
-                    {`
-                .auto-complete {
-                  display: none;
-                }
-              `}
-                  </style>
-                  <AutoComplete
-                    id="tagInput"
-                    hidden
-                    clearable
-                    placeholder={"标签名字"}
-                    style={{
-                      display: "none"
-                    }}
-                    // clearable
-                    onKeyDown={
-                      (e) => {
-                        if (e.keyCode === 13) {
-                          setPost({
-                            ...post,
-                            tags: [...post.tags!, e.target.value]
-                          })
-                          e.target.value = ""
-                          // 恢复 hidden
-                          document.getElementById("tagInput")!.hidden = true
-                          document.getElementById("tagInput")!.style.display = "none"
-                          document.getElementsByClassName("auto-complete")[0]!.style.display = "none"
-                        }
-                        if (e.keyCode === 27) {
-                          e.target.value = ""
-                          document.getElementById("tagInput")!.hidden = true
-                          document.getElementById("tagInput")!.style.display = "none"
-                          document.getElementsByClassName("auto-complete")[0]!.style.display = "none"
-                        }
-                      }
-                    } />
-                  <span className={useClasses(tagStyles.editTag, tagStyles.editTagPlus)} onClick={() => {
-                    document.getElementById("tagInput")!.hidden = false
-                    document.getElementById("tagInput")!.style.display = "inherit"
-                    document.getElementsByClassName("auto-complete")[0]!.style.display = "inherit"
-                  }}>
-                    <span className={useClasses(tagStyles.editTagAction)}>
-                      <Plus />
-                    </span>
-                    New
-                  </span>
                 </div>
               )
             }
@@ -343,7 +273,7 @@ export const Editor: FC<any> = (props) => {
 
                   <Text h5>是否隐藏？</Text>
                   <Radio.Group
-                    value={post.hide === true || post.hide === false ? post.hide === true ? 1 : 0 : 0}
+                    initialValue={post.hide === true || post.hide === false ? post.hide === true ? 1 : 0 : 0}
                     onChange={(e) => {
                       setPost({ ...post, hide: e === 1 ? true : false })
                     }}
@@ -383,7 +313,7 @@ export const Editor: FC<any> = (props) => {
                   </Collapse>
                   <Text h5>是否显示于RSS？</Text>
                   <Radio.Group
-                    value={post.rss === true || post.rss === false ? post.rss === true ? 1 : 0 : 0}
+                    initialValue={post.rss === true || post.rss === false ? post.rss === true ? 1 : 0 : 0}
                     onChange={(e) => {
                       setPost({ ...post, rss: e === 1 ? true : false })
                     }}
@@ -401,6 +331,73 @@ export const Editor: FC<any> = (props) => {
                       </Radio.Description>
                     </Radio>
                   </Radio.Group>
+
+                  <div className="postTags">
+                    <Text h4>标签</Text>
+                    {post && post.tags !== undefined && post.tags.length !== 0 && post.tags.map((tag, index) => {
+                      return (
+                        <span className={useClasses(tagStyles.editTag)} key={"Tag" + index}>
+                          {tag}
+                          <span className={useClasses(tagStyles.editTagAction)} onClick={() => {
+                            setPost({
+                              ...post,
+                              tags: post.tags!.filter((item, i) => i !== index)
+                            })
+                          }}>
+                            <CloseSmall />
+                          </span>
+                        </span>
+                      )
+                    }
+                    )}
+                    <style>
+                      {`
+                .auto-complete {
+                  display: none;
+                }
+              `}
+                    </style>
+                    <AutoComplete
+                      id="tagInput"
+                      hidden
+                      clearable
+                      placeholder={"标签名字"}
+                      style={{
+                        display: "none"
+                      }}
+                      // clearable
+                      onKeyDown={
+                        (e) => {
+                          if (e.keyCode === 13) {
+                            setPost({
+                              ...post,
+                              tags: [...post.tags!, e.target.value]
+                            })
+                            e.target.value = ""
+                            // 恢复 hidden
+                            document.getElementById("tagInput")!.hidden = true
+                            document.getElementById("tagInput")!.style.display = "none"
+                            document.getElementsByClassName("auto-complete")[0]!.style.display = "none"
+                          }
+                          if (e.keyCode === 27) {
+                            e.target.value = ""
+                            document.getElementById("tagInput")!.hidden = true
+                            document.getElementById("tagInput")!.style.display = "none"
+                            document.getElementsByClassName("auto-complete")[0]!.style.display = "none"
+                          }
+                        }
+                      } />
+                    <span className={useClasses(tagStyles.editTag, tagStyles.editTagPlus)} onClick={() => {
+                      document.getElementById("tagInput")!.hidden = false
+                      document.getElementById("tagInput")!.style.display = "inherit"
+                      document.getElementsByClassName("auto-complete")[0]!.style.display = "inherit"
+                    }}>
+                      <span className={useClasses(tagStyles.editTagAction)}>
+                        <Plus />
+                      </span>
+                      New
+                    </span>
+                  </div>
                 </div>
               )
             }
@@ -411,7 +408,7 @@ export const Editor: FC<any> = (props) => {
                   <Text h4>页面顺序？</Text>
                   <Input
                     placeholder={"可选"}
-                    defaultValue={post?.order === null ? undefined : post?.order}
+                    initialValue={post?.order === null ? undefined : post?.order}
                     onChange={(e) => {
                       setPost({ ...post, order: e.target.value })
                     }}
