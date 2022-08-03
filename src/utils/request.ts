@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-15 17:33:03
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-02 19:13:29
+ * @LastEditTime: 2022-08-03 12:22:18
  * Coding With IU
  */
 
@@ -16,7 +16,7 @@ const API = 'http://127.0.0.1:3333'
 
 export const apiClient = {
   get: (path: string, params?: any, query?: any, body?: any, options?: any) => {
-    const url = `${path}${params ? `/` + params.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}${query ? `?` + query.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}`
+    const url = `${path}${params ? `/` + params.map((item: any) => `${item}`) : ""}${query ? `?` + query.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}`
     return apiClientManger(url, {
       method: 'GET',
       options
@@ -32,7 +32,7 @@ export const apiClient = {
     })
   },
   post: async (path: string, params?: any, query?: any, body?: any, options?: any) => {
-    const url = `${path}${params ? `/` + params.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}${query ? `?` + query.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}`
+    const url = `${path}${params ? `/` + params.map((item: any) => `${item}`) : ""}${query ? `?` + query.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}`
     return apiClientManger(url, {
       method: 'POST',
       body,
@@ -48,7 +48,7 @@ export const apiClient = {
     })
   },
   put: (path: string, params?: any, query?: any, body?: any, options?: any) => {
-    const url = `${path}${params ? `/` + params.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}${query ? `?` + query.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}`
+    const url = `${path}${params ? `/` + params.map((item: any) => `${item}`) : ""}${query ? `?` + query.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}`
     return apiClientManger(url, {
       method: 'PUT',
       body,
@@ -63,7 +63,7 @@ export const apiClient = {
     })
   },
   patch: (path: string, params?: any, query?: any, body?: any, options?: any) => {
-    const url = `${path}${params ? `/` + params.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}${query ? `?` + query.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}`
+    const url = `${path}${params ? `/` + params.map((item: any) => `${item}`) : ""}${query ? `?` + query.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}`
     return apiClientManger(url, {
       method: 'PATCH',
       body,
@@ -77,7 +77,7 @@ export const apiClient = {
     })
   },
   delete: (path: string, params?: any, query?: any, body?: any, options?: any) => {
-    const url = `${path}${params ? `/` + params.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}${query ? `?` + query.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}`
+    const url = `${path}${params ? `/` + params.map((item: any) => `${item}`) : ""}${query ? `?` + query.map((item: any) => `${item.key}=${item.value}`).join("&") : ""}`
     return apiClientManger(url, {
       method: 'DELETE',
       body,
