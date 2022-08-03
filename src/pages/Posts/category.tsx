@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-08-01 14:25:48
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-03 13:10:06
+ * @LastEditTime: 2022-08-03 13:40:02
  * Coding With IU
  */
 
@@ -25,7 +25,7 @@ import { message } from "react-message-popup";
 import { useMount } from "react-use";
 import Dashboards from "../../components/layouts/Dashboards";
 import { NxPage } from "../../components/widgets/Page";
-import { BasicPage } from "../../types/basic";
+import type { BasicPage } from "../../types/basic";
 import { apiClient } from "../../utils/request";
 
 export const Category: BasicPage = () => {
@@ -38,19 +38,16 @@ export const Category: BasicPage = () => {
   }>({ from: "", to: "" });
   const [editCategory, setEditCategory] = useState<any>({});
 
-  const { visible, setVisible, bindings } = useModal();
+  const { setVisible, bindings } = useModal();
   const {
-    visible: addVisible,
     setVisible: setAddVisible,
     bindings: addBindings,
   } = useModal();
   const {
-    visible: mergeVisible,
     setVisible: setMergeVisible,
     bindings: mergeBindings,
   } = useModal();
   const {
-    visible: editVisible,
     setVisible: setEditVisible,
     bindings: editBindings,
   } = useModal();
@@ -74,6 +71,7 @@ export const Category: BasicPage = () => {
   });
 
   const renderCategoryAction = (value, rowData, index) => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [deleteVisible, setDeleteVisible] = useState(false);
 
     const changeHandler = (next) => {
@@ -96,7 +94,7 @@ export const Category: BasicPage = () => {
             onClick={async () => {
               await apiClient
                 .delete("/categories", [categories[index].id])
-                .then((res) => {
+                .then(() => {
                   message.success(`已将分类 ${categories[index].name} 删除`);
                   setDeleteVisible(false);
                   request();
@@ -195,7 +193,7 @@ export const Category: BasicPage = () => {
           >
             {categories.map((category) => {
               return (
-                <Select.Option value={category.id}>
+                <Select.Option key={category.id} value={category.id}>
                   {category.name}
                 </Select.Option>
               );
@@ -215,7 +213,7 @@ export const Category: BasicPage = () => {
           >
             {categories.map((category) => {
               return (
-                <Select.Option value={category.id}>
+                <Select.Option key={category.id} value={category.id}>
                   {category.name}
                 </Select.Option>
               );
@@ -239,7 +237,7 @@ export const Category: BasicPage = () => {
                   type: "Category",
                   ...selectCategory,
                 })
-                .then((res) => {
+                .then(() => {
                   message.success(`合并成功`);
                   setVisible(false);
                   setSelectCategory({ from: "", to: "" });
@@ -278,7 +276,7 @@ export const Category: BasicPage = () => {
             }}
           >
             {tags.map((tag) => {
-              return <Select.Option value={tag.name}>{tag.name}</Select.Option>;
+              return <Select.Option key={tag.name} value={tag.name}>{tag.name}</Select.Option>;
             })}
           </Select>
           <Spacer />
@@ -294,7 +292,7 @@ export const Category: BasicPage = () => {
             }}
           >
             {tags.map((tag) => {
-              return <Select.Option value={tag.name}>{tag.name}</Select.Option>;
+              return <Select.Option key={tag.name} value={tag.name}>{tag.name}</Select.Option>;
             })}
           </Select>
         </Modal.Content>
@@ -315,7 +313,7 @@ export const Category: BasicPage = () => {
                   type: "Tags",
                   ...selectCategory,
                 })
-                .then((res) => {
+                .then(() => {
                   message.success(`合并成功`);
                   setMergeVisible(false);
                   setSelectCategory({ from: "", to: "" });

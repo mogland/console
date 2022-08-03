@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-15 18:45:35
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-02 19:16:33
+ * @LastEditTime: 2022-08-03 13:46:01
  * Coding With IU
  */
 import {
@@ -19,11 +19,10 @@ import {
 import { useState } from "react";
 import { message } from "react-message-popup";
 import { Link, useLocation } from "react-router-dom";
-import { useMount, useQueue } from "react-use";
+import { useMount } from "react-use";
 import Dashboards from "../../components/layouts/Dashboards";
 import { NxPage } from "../../components/widgets/Page";
-import { useStore } from "../../hooks/use-store";
-import { BasicPage } from "../../types/basic";
+import type { BasicPage } from "../../types/basic";
 import { apiClient } from "../../utils/request";
 import "./index.css";
 
@@ -36,7 +35,7 @@ export const Posts: BasicPage = () => {
   const [loading, setLoading] = useState(false);
   const [totalPage, setTotalPage] = useState(1);
 
-  const { visible, setVisible, bindings } = useModal();
+  const { setVisible, bindings } = useModal();
   const [deleteIndex, setDeleteIndex] = useState<number>(-1);
 
   useMount(async () => {
@@ -48,8 +47,8 @@ export const Posts: BasicPage = () => {
       .then((res) => {
         // console.log(res)
         const { data } = res as any;
-        const content = new Array();
-        for (let index of Object.keys(data)) {
+        const content = [] as any[];
+        for (const index of Object.keys(data)) {
           content.push({
             id: data[index].id,
             title: data[index].title,

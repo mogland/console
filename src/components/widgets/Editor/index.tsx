@@ -1,9 +1,10 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /*
  * @FilePath: /nx-admin/src/components/widgets/Editor/index.tsx
  * @author: Wibus
  * @Date: 2022-07-23 23:47:19
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-03 11:46:37
+ * @LastEditTime: 2022-08-03 13:44:29
  * Coding With IU
  */
 
@@ -26,10 +27,9 @@ import {
   Save,
   SettingConfig,
 } from "@icon-park/react";
-import { FC, useEffect, useState } from "react";
+import type { FC} from "react";
+import { useEffect, useState } from "react";
 import CodeMirror from "@uiw/react-codemirror";
-import { xcodeLight, xcodeDark } from "@uiw/codemirror-theme-xcode";
-import { javascript } from "@codemirror/lang-javascript";
 import {
   highlightActiveLine,
   highlightActiveLineGutter,
@@ -43,7 +43,6 @@ import {
   indentWithTab,
 } from "@codemirror/commands";
 import { bracketMatching, indentOnInput } from "@codemirror/language";
-import { oneDark } from "@codemirror/theme-one-dark";
 import {
   markdown,
   markdownKeymap,
@@ -54,13 +53,12 @@ import { githubDark } from "@ddietr/codemirror-themes/theme/github-dark";
 import { languages } from "@codemirror/language-data";
 import "./index.css";
 import tagStyles from "../Tag/index.module.css";
-import { Tags } from "../Tag";
 import { syntaxTheme } from "./syntaxTheme";
 import { PostModel } from "../../../pages/Posts/post.model";
 import { apiClient } from "../../../utils/request";
 import { useMount } from "react-use";
 import { message } from "react-message-popup";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { PageModel } from "../../../pages/Pages/page.model";
 
 export const BackBtn = (props) => {
@@ -194,7 +192,7 @@ export const Editor: FC<any> = (props) => {
               ? postDataCheck(post) &&
                 apiClient
                   .post("/posts", null, null, data)
-                  .then((res) => {
+                  .then(() => {
                     message.success("发布成功");
                     AppNavigate(`/posts`);
                   })
@@ -204,7 +202,7 @@ export const Editor: FC<any> = (props) => {
               : postDataCheck(post) &&
                 apiClient
                   .patch(`/posts/${post.id}`, null, null, data)
-                  .then((res) => {
+                  .then(() => {
                     message.success("更新成功");
                     AppNavigate(`/posts`);
                   })
@@ -216,7 +214,7 @@ export const Editor: FC<any> = (props) => {
               ? pageDataCheck(post) &&
                 apiClient
                   .patch(`/page/${post.id}`, null, null, data)
-                  .then((res) => {
+                  .then(() => {
                     message.success("更新成功");
                     AppNavigate(`/pages`);
                   })
@@ -226,7 +224,7 @@ export const Editor: FC<any> = (props) => {
               : pageDataCheck(post) &&
                 apiClient
                   .post(`/page`, null, null, data)
-                  .then((res) => {
+                  .then(() => {
                     message.success("发布成功");
                     AppNavigate(`/pages`);
                   })
@@ -441,7 +439,7 @@ export const Editor: FC<any> = (props) => {
                       return (
                         <span
                           className={useClasses(tagStyles.editTag)}
-                          key={"Tag" + index}
+                          key={`Tag${index}`}
                         >
                           {tag}
                           <span

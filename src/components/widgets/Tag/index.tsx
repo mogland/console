@@ -3,27 +3,16 @@
  * @author: Wibus
  * @Date: 2022-07-24 22:17:08
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-25 14:15:31
+ * @LastEditTime: 2022-08-03 13:51:12
  * Coding With IU
  */
 
 import { useClasses } from "@geist-ui/core";
 import { CloseSmall, Plus } from "@icon-park/react";
-import { FC, useEffect, useState } from "react";
+import { useState } from "react";
 import styles from "./index.module.css";
 
-const ATag: FC<any> = ({ children }) => {
-  return (
-    <span className={useClasses(styles.editTag)}>
-      {children}
-      <span className={useClasses(styles.editTagAction)}>
-        <CloseSmall />
-      </span>
-    </span>
-  );
-};
-
-export const Tags: any = (props) => {
+export const Tags: any = () => {
   // 用数组生成一组标签，可以动态添加和删除。
   const [tags, setTags] = useState<string[]>(["Tag1", "Tag2", "Tag3"]);
 
@@ -35,7 +24,7 @@ export const Tags: any = (props) => {
     <>
       {tags.map((tag, index) => {
         return (
-          <span className={useClasses(styles.editTag)} key={"Tag" + index}>
+          <span className={useClasses(styles.editTag)} key={`Tag${index}`}>
             {tag}
             <span
               className={useClasses(styles.editTagAction)}

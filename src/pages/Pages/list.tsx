@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-22 14:13:18
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-30 17:53:05
+ * @LastEditTime: 2022-08-03 13:47:02
  * Coding With IU
  */
 /*
@@ -30,8 +30,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useMount } from "react-use";
 import Dashboards from "../../components/layouts/Dashboards";
 import { NxPage } from "../../components/widgets/Page";
-import { useStore } from "../../hooks/use-store";
-import { BasicPage } from "../../types/basic";
+import type { BasicPage } from "../../types/basic";
 import { apiClient } from "../../utils/request";
 
 export const Pages: BasicPage = () => {
@@ -43,7 +42,7 @@ export const Pages: BasicPage = () => {
   const [loading, setLoading] = useState(false);
   const [totalPage, setTotalPage] = useState(1);
 
-  const { visible, setVisible, bindings } = useModal();
+  const { setVisible, bindings } = useModal();
   const [deleteIndex, setDeleteIndex] = useState<number>(-1);
 
   useMount(async () => {
@@ -55,8 +54,8 @@ export const Pages: BasicPage = () => {
       .then((res) => {
         // console.log(res)
         const { data } = res as any;
-        const content = new Array();
-        for (let index of Object.keys(data)) {
+        const content = [] as any[];
+        for (const index of Object.keys(data)) {
           content.push({
             id: data[index].id,
             title: data[index].title,

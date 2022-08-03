@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-15 18:45:35
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-02 19:14:37
+ * @LastEditTime: 2022-08-03 13:50:46
  * Coding With IU
  */
 
@@ -13,7 +13,6 @@ import {
   Modal,
   Pagination,
   Popover,
-  Spacer,
   Table,
   Tabs,
   Text,
@@ -27,7 +26,7 @@ import { useNavigate } from "react-router-dom";
 import { useLocation, useMount } from "react-use";
 import Dashboards from "../../components/layouts/Dashboards";
 import { NxPage } from "../../components/widgets/Page";
-import { BasicPage } from "../../types/basic";
+import type { BasicPage } from "../../types/basic";
 import { getAvatarUrl } from "../../utils/extra";
 import { apiClient } from "../../utils/request";
 import "./index.css";
@@ -38,11 +37,11 @@ export const Comments: BasicPage = () => {
   const { search } = useLocation();
   const params = new URLSearchParams(search);
 
-  const { visible, setVisible, bindings } = useModal();
+  const { setVisible, bindings } = useModal();
   const [reply, setReply] = useState<any>();
 
   const [comments, setComments] = useState<any[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [totalPage, setTotalPage] = useState(1);
   const [nowPage, setNowPage] = useState(Number(params.get("page")) || 1);
   const [nowTab, setNowTab] = useState(params.get("tab") || "1");
@@ -57,8 +56,8 @@ export const Comments: BasicPage = () => {
       .then((res) => {
         // console.log(res)
         const { data } = res as any;
-        const content = new Array();
-        for (let index of Object.keys(data)) {
+        const content = [] as any[];
+        for (const index of Object.keys(data)) {
           content.push({
             id: data[index].id,
             author: data[index].author,
@@ -77,6 +76,7 @@ export const Comments: BasicPage = () => {
         }
         setComments(content);
         setTotalPage(res.pagination.total_page);
+        setLoading(false);
       });
   };
 
@@ -161,7 +161,7 @@ export const Comments: BasicPage = () => {
             font="12px"
             style={{ margin: 10 }}
             onClick={async () => {
-              await apiClient.delete("/comment/" + comment.id).then((res) => {
+              await apiClient.delete(`/comment/${comment.id}`).then(() => {
                 message.success(`已将 ${comment.text} 的评论及其子评论删除`);
                 request();
               });
@@ -231,7 +231,7 @@ export const Comments: BasicPage = () => {
               type="button"
               onClick={async () => {
                 await apiClient
-                  .patch("/comment/" + comment.id, null, null, { status: 1 })
+                  .patch(`/comment/${comment.id}`, null, null, { status: 1 })
                   .then((res) => {
                     console.log(res);
                     message.success(`已将 ${comment.author} 的评论标为已读`);
@@ -246,8 +246,8 @@ export const Comments: BasicPage = () => {
               type="button"
               onClick={async () => {
                 await apiClient
-                  .patch("/comment/" + comment.id, null, null, { status: 2 })
-                  .then((res) => {
+                  .patch(`/comment/${comment.id}`, null, null, { status: 2 })
+                  .then(() => {
                     message.success(`已将 ${comment.text} 的评论标为垃圾评论`);
                     request();
                   });
@@ -405,13 +405,13 @@ export const Comments: BasicPage = () => {
               .post(`/comment/master/reply/${reply.data.id}`, null, null, {
                 text: reply.reply_text,
               })
-              .then((res) => {
+              .then(() => {
                 setVisible(false);
                 setReply(null);
                 message.success(`已回复 ${reply.data.author} 的评论`);
                 request();
               })
-              .catch((err) => {
+              .catch(() => {
                 message.error(`回复失败，请稍后再试`);
               });
           }}

@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-26 20:37:34
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-26 20:58:35
+ * @LastEditTime: 2022-08-03 13:53:25
  * Coding With IU
  */
 /*
@@ -15,19 +15,17 @@
  * Coding With IU
  */
 
-import { BasicPage } from "../../types/basic";
-import { useEffect, useState } from "react";
+import type { BasicPage } from "../../types/basic";
+import { useState } from "react";
 import { apiClient } from "../../utils/request";
 import { NxPage } from "../../components/widgets/Page";
 import { useMount } from "react-use";
-import { BackBtn, Editor } from "../../components/widgets/Editor";
-import { message } from "react-message-popup";
+import { Editor } from "../../components/widgets/Editor";
 import { useParams } from "react-router-dom";
 import { PageModel } from "./page.model";
 import { Types } from "mongoose";
 
 export const PageEdit: BasicPage = () => {
-  const [originPost, setOriginPost] = useState<any>({});
   const [post, setPost] = useState<PageModel>(new PageModel());
   const [loading, setLoading] = useState<boolean>(true);
   const params = useParams();
@@ -38,7 +36,6 @@ export const PageEdit: BasicPage = () => {
     pageId &&
       apiClient.get(`/page/${mongoId}`).then((res) => {
         setPost(res);
-        setOriginPost(res);
         setLoading(false);
       });
   });

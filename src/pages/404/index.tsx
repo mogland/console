@@ -7,7 +7,7 @@
  * Coding With IU
  */
 
-import { BasicPage } from "../../types/basic";
+import type { BasicPage } from "../../types/basic";
 
 export const NotFound: BasicPage = () => {
   return (

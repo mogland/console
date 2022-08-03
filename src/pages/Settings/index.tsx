@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-08-02 20:51:21
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-03 00:12:30
+ * @LastEditTime: 2022-08-03 13:46:11
  * Coding With IU
  */
 
@@ -13,13 +13,11 @@ import {
   Input,
   Spacer,
   Tabs,
-  Text,
   Textarea,
-  Toggle,
   useClasses,
 } from "@geist-ui/core";
 import { NxPage } from "../../components/widgets/Page";
-import { BasicPage } from "../../types/basic";
+import type { BasicPage } from "../../types/basic";
 import Dashboards from "../../components/layouts/Dashboards";
 import { Save } from "@geist-ui/icons";
 import { useState } from "react";
@@ -68,14 +66,14 @@ export const Settings: BasicPage = () => {
             onClick={async () => {
               await apiClient
                 .patch("/user", null, null, JSON.stringify(user))
-                .then((res) => {
+                .then(() => {
                   message.success("用户配置保存成功");
                   request();
                 });
 
               await apiClient
                 .patch("/configs", null, null, JSON.stringify(configs))
-                .then((res) => {
+                .then(() => {
                   message.success("系统配置保存成功");
                   request();
                 });
@@ -248,7 +246,7 @@ export const Settings: BasicPage = () => {
                         introduce: e.target.value,
                       });
                     }}
-                  ></Textarea>
+                   />
                 </div>
               </div>
             </Tabs.Item>

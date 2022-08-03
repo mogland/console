@@ -6,11 +6,10 @@
  * @LastEditTime: 2022-07-30 17:35:06
  * Coding With IU
  */
-import { Table, Tabs, useClasses } from "@geist-ui/core";
+import { Table, Tabs } from "@geist-ui/core";
 import { useState } from "react";
 import { useMount } from "react-use";
 import { apiClient } from "../../../utils/request";
-import style from "./index.module.scss";
 
 export const Lists = () => {
   const [article, setArticle] = useState<any>();
@@ -25,8 +24,8 @@ export const Lists = () => {
       .then((res) => {
         // console.log(res)
         const { data } = res as any;
-        const content = new Array();
-        for (let index of Object.keys(data)) {
+        const content = [];
+        for (const index of Object.keys(data)) {
           content.push({
             title: data[index].title,
             // slug: data[index].slug,
@@ -46,8 +45,8 @@ export const Lists = () => {
       .then((res) => {
         // console.log(res)
         const { data } = res as any;
-        const content = new Array();
-        for (let index of Object.keys(data)) {
+        const content = [];
+        for (const index of Object.keys(data)) {
           content.push({
             author: data[index].author,
             text: data[index].text,
@@ -68,8 +67,8 @@ export const Lists = () => {
       .then((res) => {
         // console.log(res)
         const { data } = res as any;
-        const content = new Array();
-        for (let index of Object.keys(data)) {
+        const content = [];
+        for (const index of Object.keys(data)) {
           content.push({
             name: data[index].name,
             description: data[index].description,

@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-16 17:09:06
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-26 16:16:37
+ * @LastEditTime: 2022-08-03 13:53:07
  * Coding With IU
  */
 
@@ -21,15 +21,14 @@ import { message } from "react-message-popup";
 import { useNavigate } from "react-router-dom";
 import { useMount } from "react-use";
 import { A_WEEK_S } from "../../constant/time.constant";
-import { BasicPage } from "../../types/basic";
+import type { BasicPage } from "../../types/basic";
 import { apiClient } from "../../utils/request";
 import { setStorage } from "../../utils/storage";
-import styles from "./index.module.css";
 
 export const InitSystem: BasicPage = () => {
   const AppNavigate = useNavigate();
   const [status, setStatus] = useState<any>();
-  const { visible, setVisible, bindings } = useModal();
+  const { setVisible, bindings } = useModal();
   const [loading, setLoading] = useState(false);
   useMount(async () => {
     await apiClient
@@ -105,11 +104,11 @@ export const InitSystem: BasicPage = () => {
       });
   }
 
-  function initConfigs(e: any) {
+  function initConfigs() {
     setLoading(true);
     apiClient
       .get("/init/configs/default")
-      .then((res) => {
+      .then(() => {
         message.success("配置初始化成功，正在跳转至仪表盘...");
         setLoading(false);
         setVisible(false);

@@ -3,15 +3,15 @@
  * @author: Wibus
  * @Date: 2022-07-30 17:42:24
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-03 11:59:04
+ * @LastEditTime: 2022-08-03 13:48:38
  * Coding With IU
  */
 import {
   Button,
   Input,
   Modal,
+  Pagination,
   Popover,
-  Radio,
   Select,
   Spacer,
   Table,
@@ -27,7 +27,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useMount } from "react-use";
 import Dashboards from "../../components/layouts/Dashboards";
 import { NxPage } from "../../components/widgets/Page";
-import { BasicPage } from "../../types/basic";
+import type { BasicPage } from "../../types/basic";
 import { apiClient } from "../../utils/request";
 import "./index.css";
 
@@ -37,9 +37,8 @@ export const Friends: BasicPage = () => {
   const { search } = useLocation();
   const params = new URLSearchParams(search);
 
-  const { visible, setVisible, bindings } = useModal();
+  const { setVisible, bindings } = useModal();
   const {
-    visible: addVisible,
     setVisible: setAddVisible,
     bindings: addBinds,
   } = useModal();
@@ -50,7 +49,6 @@ export const Friends: BasicPage = () => {
   });
 
   const [links, setLinks] = useState<any[]>([]);
-  const [loading, setLoading] = useState(false);
   const [totalPage, setTotalPage] = useState(1);
   const [nowPage, setNowPage] = useState(Number(params.get("page")) || 1);
   const [nowTab, setNowTab] = useState(params.get("tab") || "1");
@@ -64,8 +62,8 @@ export const Friends: BasicPage = () => {
       ])
       .then((res) => {
         const { data } = res as any;
-        const result = new Array();
-        for (let index of Object.keys(data)) {
+        const result = [] as any[];
+        for (const index of Object.keys(data)) {
           const typesNum = data[index].types;
           const types =
             typesNum === 0 ? "好友" : typesNum === 1 ? "收藏" : "导航链接";
@@ -135,7 +133,7 @@ export const Friends: BasicPage = () => {
             font="12px"
             style={{ margin: 10 }}
             onClick={async () => {
-              await apiClient.delete("/links/" + link.id).then((res) => {
+              await apiClient.delete(`/links/${link.id}`).then(() => {
                 message.success(`已将友链 ${link.name} 删除`);
                 request();
               });
@@ -172,8 +170,8 @@ export const Friends: BasicPage = () => {
               type="button"
               onClick={async () => {
                 await apiClient
-                  .patch("/links/status/" + link.id, null, null, {})
-                  .then((res) => {
+                  .patch(`/links/status/${link.id}`, null, null, {})
+                  .then(() => {
                     message.success(`已通过友链 ${link.name} `);
                     request();
                   });
@@ -187,12 +185,12 @@ export const Friends: BasicPage = () => {
               onClick={async () => {
                 await apiClient
                   .patch(
-                    "/links/status/" + link.id,
+                    `/links/status/${link.id}`,
                     null,
                     [{ key: "status", value: 2 }],
                     {}
                   )
-                  .then((res) => {
+                  .then(() => {
                     message.warning(`已将友链 ${link.name} 封禁`);
                     request();
                   });
@@ -355,6 +353,17 @@ export const Friends: BasicPage = () => {
           </Tabs>
         </Dashboards.Area>
       </Dashboards.Container>
+      <Pagination
+        count={totalPage}
+        initialPage={nowPage}
+        style={{
+          float: "right",
+        }}
+        onChange={(page) => {
+          setNowPage(page);
+          appNavigate(`/friends?page=${page}&tab=${nowTab}`);
+        }}
+      />
       <Modal {...bindings}>
         <Modal.Title>
           关于 &nbsp;{moreMessage && moreMessage.data.name}&nbsp;{" "}
@@ -517,12 +526,12 @@ export const Friends: BasicPage = () => {
                 null,
                 JSON.stringify(data)
               )
-              .then((res) => {
+              .then(() => {
                 message.success(`已更新友链 ${data.name} 信息`);
                 setVisible(false);
                 setMoreMessage(null);
               })
-              .catch((err) => {
+              .catch(() => {
                 message.error(`出现错误，无法更新`);
               });
           }}
@@ -712,7 +721,7 @@ export const Friends: BasicPage = () => {
             console.log(data);
             await apiClient
               .post(`/links/apply`, null, null, JSON.stringify(data))
-              .then((res) => {
+              .then(() => {
                 message.success(`已新增友链 ${data.name}`);
                 setAddVisible(false);
                 setAddLink({
@@ -720,7 +729,7 @@ export const Friends: BasicPage = () => {
                 });
                 request();
               })
-              .catch((err) => {
+              .catch(() => {
                 message.error(`出现错误，无法更新`);
               });
           }}

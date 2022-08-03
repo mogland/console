@@ -8,7 +8,7 @@
  */
 
 import { useClasses } from "@geist-ui/core";
-import {
+import type {
   ReactElement,
   JSXElementConstructor,
   ReactFragment,

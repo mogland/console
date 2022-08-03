@@ -23,7 +23,7 @@ const TimelineItem = (props) => {
           data-view-component="true"
           className="octicon octicon-dot-fill mb-2"
         >
-          <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8z"></path>
+          <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8z" />
         </svg>
       </div>
 

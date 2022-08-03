@@ -10,13 +10,9 @@ import { Drawer, useClasses } from "@geist-ui/core";
 import {
   Home,
   List,
-  File,
   Link as Links,
-  ChevronDown,
   Edit,
   Feather,
-  Package,
-  Trello,
   Settings,
   AlignLeft,
   MessageCircle,
@@ -26,7 +22,6 @@ import {
   CategoryManagement,
   ListAlphabet,
   Newlybuild,
-  Page,
 } from "@icon-park/react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
@@ -37,13 +32,13 @@ export const SidebarGroup = (props) => {
     <>
       <div
         className={
-          style.sidebarItem +
-          "  w-full flex items-center py-2 left-0 pt-8 " +
-          style.sidebarGroup
+          `${style.sidebarItem 
+          }  w-full flex items-center py-2 left-0 pt-8 ${ 
+          style.sidebarGroup}`
         }
       >
         <div
-          className={style.sidebarItemIcon + " pr-4 justify-center"}
+          className={`${style.sidebarItemIcon} pr-4 justify-center`}
           style={{
             flexBasis: "1.2rem",
           }}
@@ -57,7 +52,7 @@ export const SidebarGroup = (props) => {
           </div> */}
         </div>
       </div>
-      <div className={style.groupContent + " block"}>{props.children}</div>
+      <div className={`${style.groupContent} block`}>{props.children}</div>
     </>
   );
 };
@@ -66,12 +61,12 @@ export const SidebarGroupItem = (props) => {
   return (
     <Link
       className={
-        style.sidebarItem + " w-full flex flex-row items-center py-2 left-0"
+        `${style.sidebarItem} w-full flex flex-row items-center py-2 left-0`
       }
       to={props.path ? props.path : "/"}
     >
       <div
-        className={style.sidebarItemIcon + " pr-4 justify-center"}
+        className={`${style.sidebarItemIcon} pr-4 justify-center`}
         style={{
           flexBasis: "1.2rem",
         }}

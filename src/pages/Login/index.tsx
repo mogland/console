@@ -3,13 +3,13 @@
  * @author: Wibus
  * @Date: 2022-07-21 13:21:01
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-26 16:18:29
+ * @LastEditTime: 2022-08-03 13:46:49
  * Coding With IU
  */
 
 import { message } from "react-message-popup";
 import { useMount } from "react-use";
-import { BasicPage } from "../../types/basic";
+import type { BasicPage } from "../../types/basic";
 import { apiClient } from "../../utils/request";
 import { Button, Input, Spacer, Text, useClasses } from "@geist-ui/core";
 import { setStorage } from "../../utils/storage";
@@ -20,16 +20,13 @@ export const Login: BasicPage = () => {
   useMount(async () => {
     apiClient
       .get("/master/check_logged")
-      .then((res) => {
+      .then(() => {
         // if (res.code === 401) {
         //   return
         // } else {
         AppNavigate("/dashboard");
         // }
       })
-      .catch((err) => {
-        return;
-      });
   });
 
   function loginUser(e: any) {

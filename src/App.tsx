@@ -2,11 +2,9 @@ import { CssBaseline, GeistProvider } from "@geist-ui/core";
 import { AppRouter } from "./router/router";
 import Sidebar, { SidebarBtn } from "./components/widgets/Sidebar";
 import sidebarStyle from "./components/widgets/Sidebar/index.module.css";
-import { initSystem } from "./hooks/use-system";
 import { useEffect, useState } from "react";
 import { useMount } from "react-use";
 import { apiClient } from "./utils/request";
-import { A_MINUTE_MS } from "./constant/time.constant";
 import { message } from "react-message-popup";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -32,10 +30,9 @@ function App() {
     // 随时监听路由变化
     setIgnoreConditionState(ignoreCondition);
     setCheckIgnoreConditionState(checkIgnoreCondition);
-  }, [useLocation()]);
+  }, [useLocation().pathname]);
 
   const [themeType, setThemeType] = useState("light");
-  const [sidebar, setSidebar] = useState(true);
   const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
   const handleChange = (e: any) => {
     // console.log(e.matches)
@@ -59,9 +56,6 @@ function App() {
   });
 
   useEffect(() => {
-    setSidebar(
-      location.pathname !== "/init" && location.pathname !== "/register"
-    );
     checkToken();
   }, [location.pathname]);
   mediaQuery.addEventListener("change", handleChange);

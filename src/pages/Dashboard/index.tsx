@@ -7,21 +7,16 @@
  * Coding With IU
  */
 
-import { Page, Button, Text, Grid, Card, useClasses } from "@geist-ui/core";
+import { Text } from "@geist-ui/core";
 import {
-  ReactElement,
-  JSXElementConstructor,
-  ReactFragment,
-  ReactPortal,
   useState,
 } from "react";
-import { useFirstMountState, useMount } from "react-use";
+import { useMount } from "react-use";
 import Dashboards from "../../components/layouts/Dashboards";
 import { Lists } from "../../components/widgets/Lists";
 import { NxPage } from "../../components/widgets/Page";
 import { Timeline } from "../../components/widgets/Timeline";
-import { BasicPage } from "../../types/basic";
-import styles from "./index.module.css";
+import type { BasicPage } from "../../types/basic";
 
 const Hitokoto = () => {
   const [hitokoto, setHitokoto] = useState({

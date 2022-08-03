@@ -8,10 +8,8 @@
  */
 
 import {
-  BrowserRouter,
   Route,
   Routes,
-  useLocation,
   useNavigate,
 } from "react-router-dom";
 import { NotFound } from "../pages/404";
