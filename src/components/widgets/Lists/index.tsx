@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-15 17:06:10
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-30 17:35:06
+ * @LastEditTime: 2022-08-09 15:08:33
  * Coding With IU
  */
 import { Table, Tabs } from "@geist-ui/core";
@@ -24,7 +24,7 @@ export const Lists = () => {
       .then((res) => {
         // console.log(res)
         const { data } = res as any;
-        const content = [];
+        const content = new Array();
         for (const index of Object.keys(data)) {
           content.push({
             title: data[index].title,
@@ -37,7 +37,7 @@ export const Lists = () => {
         setArticle(content);
       });
     await apiClient
-      .get("/comment", null, [
+      .get("/comments", null, [
         { key: "page", value: 1 },
         { key: "size", value: 5 },
         { key: "status", value: 0 },
@@ -45,7 +45,7 @@ export const Lists = () => {
       .then((res) => {
         // console.log(res)
         const { data } = res as any;
-        const content = [];
+        const content = new Array();
         for (const index of Object.keys(data)) {
           content.push({
             author: data[index].author,
@@ -67,7 +67,7 @@ export const Lists = () => {
       .then((res) => {
         // console.log(res)
         const { data } = res as any;
-        const content = [];
+        const content = new Array();
         for (const index of Object.keys(data)) {
           content.push({
             name: data[index].name,

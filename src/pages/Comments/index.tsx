@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-15 18:45:35
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-03 13:50:46
+ * @LastEditTime: 2022-08-09 15:08:10
  * Coding With IU
  */
 
@@ -48,7 +48,7 @@ export const Comments: BasicPage = () => {
 
   const request = async () => {
     await apiClient
-      .get("/comment", null, [
+      .get("/comments", null, [
         { key: "page", value: nowPage },
         { key: "size", value: 5 },
         { key: "status", value: Number(nowTab) - 1 },
@@ -231,7 +231,7 @@ export const Comments: BasicPage = () => {
               type="button"
               onClick={async () => {
                 await apiClient
-                  .patch(`/comment/${comment.id}`, null, null, { status: 1 })
+                  .patch(`/comments/${comment.id}`, null, null, { status: 1 })
                   .then((res) => {
                     console.log(res);
                     message.success(`已将 ${comment.author} 的评论标为已读`);
@@ -246,7 +246,7 @@ export const Comments: BasicPage = () => {
               type="button"
               onClick={async () => {
                 await apiClient
-                  .patch(`/comment/${comment.id}`, null, null, { status: 2 })
+                  .patch(`/comments/${comment.id}`, null, null, { status: 2 })
                   .then(() => {
                     message.success(`已将 ${comment.text} 的评论标为垃圾评论`);
                     request();
@@ -402,7 +402,7 @@ export const Comments: BasicPage = () => {
           onClick={async () => {
             // console.log(reply.reply_text)
             await apiClient
-              .post(`/comment/master/reply/${reply.data.id}`, null, null, {
+              .post(`/comments/master/reply/${reply.data.id}`, null, null, {
                 text: reply.reply_text,
               })
               .then(() => {

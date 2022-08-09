@@ -15,7 +15,7 @@ enum SystemApi {
   categories = "/categories",
   tags = "/categories?type=Tag",
   users = "/user",
-  comment = "/comment",
+  comment = "/comments",
   aggregate = "/aggregate",
   links = "/links",
   init = "/init",
