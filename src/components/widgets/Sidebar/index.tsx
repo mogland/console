@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-14 16:39:24
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-01 14:27:21
+ * @LastEditTime: 2022-08-09 21:28:55
  * Coding With IU
  */
 import { Drawer, useClasses } from "@geist-ui/core";
@@ -20,6 +20,7 @@ import {
 } from "@geist-ui/icons";
 import {
   CategoryManagement,
+  DateComesBack,
   ListAlphabet,
   Newlybuild,
 } from "@icon-park/react";
@@ -168,6 +169,7 @@ export const Sidebar = (props) => {
           {/* <SidebarItem icon={<File />} title='文件' path="/files" />
           <SidebarItem icon={<Package />} title='插件' path="/plugins" />
           <SidebarItem icon={<Trello />} title='主题' path="/themes" /> */}
+          <SidebarItem icon={<DateComesBack />} title="导入与备份" path="/backup" />
           <SidebarItem icon={<Settings />} title="系统设置" path="/settings" />
         </SidebarList>
       </div>

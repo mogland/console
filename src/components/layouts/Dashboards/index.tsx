@@ -1,9 +1,9 @@
 /*
- * @FilePath: /nx-admin/src/components/widgets/Dashboards/index.tsx
+ * @FilePath: /nx-admin/src/components/layouts/Dashboards/index.tsx
  * @author: Wibus
  * @Date: 2022-07-15 15:26:54
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-26 21:22:06
+ * @LastEditTime: 2022-08-09 21:30:32
  * Coding With IU
  */
 
@@ -28,7 +28,7 @@ Dashboards.Container = (props: {
     | ReactPortal
     | null
     | undefined;
-  className: any;
+  className?: any;
   gridTemplateColumns?: string;
 }) => {
   return (

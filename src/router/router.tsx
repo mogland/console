@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-12 16:25:35
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-09 18:21:14
+ * @LastEditTime: 2022-08-09 21:29:29
  * Coding With IU
  */
 
@@ -13,6 +13,7 @@ import {
   useNavigate,
 } from "react-router-dom";
 import { NotFound } from "../pages/404";
+import { Backup } from "../pages/backup";
 import { Comments } from "../pages/Comments";
 import { Dashboard } from "../pages/Dashboard";
 import { Friends } from "../pages/Friends";
@@ -49,9 +50,12 @@ export const AppRouter = () => {
       <Route path="/pages" element={<Pages />} />
       <Route path="/pages/edit" element={<PageEdit />} />
       <Route path="/pages/edit/:id" element={<PageEdit />} />
+      
 
       <Route path="/comments" element={<Comments />} />
       <Route path="/friends" element={<Friends />} />
+
+      <Route path="/backup" element={<Backup />} />
       <Route path="/settings" element={<Settings />} />
 
       {/* TODO: 404 页面 */}

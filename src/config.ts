@@ -3,10 +3,10 @@
  * @author: Wibus
  * @Date: 2022-08-09 16:04:26
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-09 16:06:12
+ * @LastEditTime: 2022-08-09 21:45:53
  * Coding With IU
  */
 
 export const config = {
-  api: "https://localhost:3333",
+  api: "http://localhost:3333",
 }

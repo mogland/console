@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-15 17:33:03
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-09 16:06:35
+ * @LastEditTime: 2022-08-09 23:08:14
  * Coding With IU
  */
 
@@ -28,7 +28,7 @@ export const apiClient = {
       options,
     })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
 
         return res;
       })
@@ -147,8 +147,6 @@ export const apiClient = {
 export const apiClientManger = async (url: string, options: any) => {
   return $fetch(API + url, {
     headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
       Authorization: `Bearer ${getStorage("token")}`,
     },
     ...options,
