@@ -17,7 +17,7 @@
     "@codemirror/language-data": "6.1.0",
     "@codemirror/state": "6.1.1",
     "@codemirror/theme-one-dark": "6.0.0",
-    "@codemirror/view": "6.1.2",
+    "@codemirror/view": "6.2.0",
     "@ddietr/codemirror-themes": "https://github.com/Innei/codemirror-themes.git",
     "@geist-ui/core": "2.3.8",
     "@geist-ui/icons": "1.0.2",
