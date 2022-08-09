@@ -3,15 +3,16 @@
  * @author: Wibus
  * @Date: 2022-07-15 17:33:03
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-03 12:22:18
+ * @LastEditTime: 2022-08-09 16:06:35
  * Coding With IU
  */
 
 import { $fetch } from "ohmyfetch";
 import { message } from "react-message-popup";
+import { config } from "../config";
 import { getStorage } from "./storage";
 
-const API = "http://127.0.0.1:3333";
+const API = config.api;
 
 export const apiClient = {
   get: (path: string, params?: any, query?: any, body?: any, options?: any) => {
