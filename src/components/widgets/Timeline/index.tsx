@@ -3,11 +3,14 @@
  * @author: Wibus
  * @Date: 2022-07-14 21:59:20
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-23 20:43:28
+ * @LastEditTime: 2022-08-10 20:15:50
  * Coding With IU
  */
 
 import { useClasses } from "@geist-ui/core";
+import { $fetch } from "ohmyfetch";
+import { useState } from "react";
+import { useMount } from "react-use";
 import styles from "./index.module.css";
 
 const TimelineItem = (props) => {
@@ -29,7 +32,6 @@ const TimelineItem = (props) => {
 
       <div className={useClasses("mt-n1", styles.TimelineItemBody)}>
         <div className={useClasses(styles.colorFgMuted, "text-small")}>
-          {/* <small>{item.day ? item.day : "many hours ago"}</small> */}
           <small>{props.day}</small>
         </div>
         <a
@@ -38,46 +40,48 @@ const TimelineItem = (props) => {
         >
           {props.title}
         </a>
+        <div className={useClasses(styles.colorFgMuted, "text-small")}>
+          <small>{props.summary}...</small>
+        </div>
       </div>
     </li>
   );
 };
 
-export const Timeline = (props) => {
+export const Timeline = () => {
+
+  // 在加载后获取数据
+  const [data, setData] = useState([]);
+  useMount(() => {
+    $fetch("https://nx.js.org/blog/feed.json").then((res) => {
+      setData(res.items);
+    })
+  });
+
+
   return (
     <>
       <ul className={useClasses(styles.timelineList)}>
-        {/* {props.data ? props.data.map((item, index) => { */}
 
-        <TimelineItem
-          title={"NEXT Core Release V1.5.1 has been released to the public"}
-          day={"many hours ago"}
-          url={"https://github.com/nx-space/core/releases/tag/v1.5.1"}
-        />
-        <TimelineItem
-          title={"NEXT Core Release v1.4.0-alpha.2 is coming with nestjs@v9"}
-          day={"many hours ago"}
-          url={"https://github.com/nx-space/core/releases/tag/v1.4.0-alpha.2"}
-        />
-        <TimelineItem
-          title={
-            "Breaking Changes: New links module with crawling feeds in NEXT Core "
-          }
-          day={"many hours ago"}
-          url={"https://github.com/nx-space/core/pull/223"}
-        />
-        <TimelineItem
-          title={"NEXT Core Aggregate Service becomes a rss builder"}
-          day={"many hours ago"}
-          // url={"https://github.com/nx-space/core/pull/223"}
-        />
+        {data.map((item: any, index) => {
+          return (
+            <TimelineItem
+              key={index}
+              title={item.title}
+              day={item.date_modified.split("T")[0]}
+              url={item.url}
+              summary={item.summary}
+            />
+          )
+        })}
+
       </ul>
       <div className="ml-1 pt-2 pl-4 border-left">
         <a
           className={useClasses("text-small mt-2", styles.viewChanges)}
-          href="https://github.blog/changelog"
+          href="https://nx.js.org/blog/"
         >
-          View changelog →
+          View changeblog →
         </a>
       </div>
     </>

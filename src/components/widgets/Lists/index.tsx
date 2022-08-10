@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-15 17:06:10
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-10 19:03:33
+ * @LastEditTime: 2022-08-10 21:23:16
  * Coding With IU
  */
 import { Table, Tabs } from "@geist-ui/core";
@@ -86,7 +86,6 @@ export const Lists = () => {
       <Tabs.Item label="最近文章" value="1">
         <Table data={article ? article : []}>
           <Table.Column prop="title" label="标题" />
-          <Table.Column prop="summary" label="描述" />
           <Table.Column prop="category" label="分类" />
           <Table.Column prop="created" label="时间" />
         </Table>
