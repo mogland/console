@@ -1,23 +1,40 @@
 .cm-theme {
   background: inherit !important;
   height: calc(100vh - 15rem) !important;
+  max-width: 100%;
+  width: 100%;
 }
+
 .cm-editor {
   height: 100% !important;
+  width: 100%;
 }
+
+.cm-content {
+  white-space: unset !important;
+  max-width: 90%;
+}
+
 .cm-editor.cm-focused {
   outline: none !important;
 }
 
-.drawer-content div:not(:first-child) > h4 {
+.cm-line {
+  word-wrap: break-word;
+  word-break: break-all;
+  width: 100%;
+}
+
+.drawer-content div:not(:first-child)>h4 {
   margin-top: 20px;
   margin-bottom: 15px;
 }
 
-.drawer-content div:not(:first-child) > h5 {
+.drawer-content div:not(:first-child)>h5 {
   margin-top: 20px;
   margin-bottom: 15px;
 }
+
 .title h3 {
   font-size: 0.9rem !important;
   color: #363535 !important;
