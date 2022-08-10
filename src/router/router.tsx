@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-12 16:25:35
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-09 21:29:29
+ * @LastEditTime: 2022-08-10 21:31:21
  * Coding With IU
  */
 
@@ -25,17 +25,11 @@ import { Category } from "../pages/Posts/category";
 import { PostEdit } from "../pages/Posts/edit";
 import { Posts } from "../pages/Posts/list";
 import { Settings } from "../pages/Settings";
-const JumpToDashboard = () => {
-  // 跳转到 Dashboard 页面
-  const AppNavigate = useNavigate();
-  AppNavigate("/dashboard");
-  return null;
-};
 
 export const AppRouter = () => {
   return (
     <Routes>
-      <Route path="/" element={<JumpToDashboard />} />
+      <Route path="/" element={<Dashboard />} />
 
       <Route path="/init-system" element={<InitSystem />} />
       <Route path="/login" element={<Login />} />

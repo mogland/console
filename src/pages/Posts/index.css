@@ -1,3 +1,7 @@
-#posts-table td:first-child > .cell {
-  width: 100px !important;
+#posts-table td:last-child > .cell {
+  min-width: 200%;
+}
+
+#posts-table th:last-child {
+  min-width: 200%;
 }

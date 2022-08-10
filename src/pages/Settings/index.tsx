@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-08-02 20:51:21
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-09 19:16:00
+ * @LastEditTime: 2022-08-10 21:31:47
  * Coding With IU
  */
 
@@ -108,7 +108,7 @@ export const Settings: BasicPage = () => {
           >
             <Tabs.Item label="用户" value="1">
               <div
-                className="grid"
+                className="md:grid"
                 style={{
                   gridTemplateColumns: "1fr 2fr",
                   gridGap: "20px",
@@ -254,7 +254,7 @@ export const Settings: BasicPage = () => {
               <Collapse.Group>
                 <Collapse title="URL 设置">
                   <div
-                    className="grid"
+                    className="md:grid"
                     style={{
                       gridTemplateColumns: "1fr 1fr",
                       gridGap: "1.8vw",
@@ -310,7 +310,7 @@ export const Settings: BasicPage = () => {
                 </Collapse>
                 <Collapse title="站点设置">
                   <div
-                    className="grid"
+                    className="md:grid"
                     style={{
                       gridTemplateColumns: "1fr 1fr",
                       gridGap: "1.8vw",
@@ -369,7 +369,7 @@ export const Settings: BasicPage = () => {
                   {/* <div>开启邮箱提醒 <Toggle /></div> */}
                   <Spacer />
                   <div
-                    className="grid"
+                    className="md:grid"
                     style={{
                       gridTemplateColumns: "1fr 1fr",
                       gridGap: "1.8vw",
@@ -452,7 +452,7 @@ export const Settings: BasicPage = () => {
               <Collapse.Group width={"100%"}>
                 <Collapse title="修改密码">
                   <div
-                    className="grid"
+                    className="md:grid"
                     style={{
                       gridTemplateColumns: "1fr 1fr",
                       gridGap: "1.8vw",

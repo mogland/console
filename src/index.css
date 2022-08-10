@@ -22,8 +22,14 @@ code {
 .thead-box {
   min-width: 40px;
 }
+
+.cell {
+  width: 100% !important;
+}
+
 td:first-child > .cell {width: 100px;}
 td:last-child> .cell {width: 200px;}
+
 
 @media (prefers-color-scheme: dark) {
   body {
