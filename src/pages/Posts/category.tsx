@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-08-01 14:25:48
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-03 13:40:02
+ * @LastEditTime: 2022-08-10 18:30:42
  * Coding With IU
  */
 
@@ -234,7 +234,7 @@ export const Category: BasicPage = () => {
             if (selectCategory.from && selectCategory.to) {
               await apiClient
                 .post("/categories/merge", null, null, {
-                  type: "Category",
+                  type: 0,
                   ...selectCategory,
                 })
                 .then(() => {
@@ -310,7 +310,7 @@ export const Category: BasicPage = () => {
             if (selectCategory.from && selectCategory.to) {
               await apiClient
                 .post("/categories/merge", null, null, {
-                  type: "Tags",
+                  type: 1,
                   ...selectCategory,
                 })
                 .then(() => {
