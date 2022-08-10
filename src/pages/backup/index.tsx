@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-08-09 19:16:13
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-10 18:39:32
+ * @LastEditTime: 2022-08-10 19:06:48
  * Coding With IU
  */
 
@@ -76,6 +76,7 @@ export const Backup: BasicPage = () => {
     const strList = fileList.value.map((i) => i.file)
     const parsedList_ = parseMarkdown(strList)
     message.success('解析完成, 结果查看 console 哦')
+    console.log(parsedList_)
     setParsedList({
       value: parsedList_.map((v, index) => ({
         ...v,

@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-08-01 14:25:48
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-10 18:30:42
+ * @LastEditTime: 2022-08-10 19:11:57
  * Coding With IU
  */
 
@@ -401,13 +401,15 @@ export const Category: BasicPage = () => {
             const slug = document.getElementById(
               "edit-category-slug"
             ) as HTMLInputElement;
-            await apiClient.put("/categories", null, null, {
+            await apiClient.put(`/categories/${editCategory.id}`, null, null, {
               name: name.value,
               slug: slug.value,
-              type: "Category",
-            });
-            setEditVisible(false);
-            request();
+              type: 0,
+            }).then(() => {
+              message.success(`编辑成功`);
+              setEditVisible(false);
+              request();
+            })
           }}
         >
           提交

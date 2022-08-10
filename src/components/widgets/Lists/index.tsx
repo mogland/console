@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-15 17:06:10
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-09 15:08:33
+ * @LastEditTime: 2022-08-10 19:03:33
  * Coding With IU
  */
 import { Table, Tabs } from "@geist-ui/core";
@@ -29,7 +29,7 @@ export const Lists = () => {
           content.push({
             title: data[index].title,
             // slug: data[index].slug,
-            summary: data[index].summary.substring(0, 10),
+            summary: data[index].summary?.substring(0, 10),
             category: data[index].category.name,
             created: data[index].created.split("T")[0],
           });
