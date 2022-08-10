@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-08-09 19:16:13
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-10 18:08:49
+ * @LastEditTime: 2022-08-10 18:39:32
  * Coding With IU
  */
 
@@ -89,16 +89,18 @@ export const Backup: BasicPage = () => {
     if (!parsedList.value.length) {
       return message.error('请先解析!!')
     }
-    console.log(await apiClientManger("/markdown/import", {
+    await apiClientManger("/markdown/import", {
       method: "POST",
       body: {
         type: ImportType.Post,
         data: parsedList.value,
       },
-    }))
-
-    message.success('上传成功!')
-    fileList.value = []
+    }).then(() => {
+      message.success('上传成功!')
+      fileList.value = []
+    }).catch((e) => {
+      message.error(e.message)
+    })
   }
 
   return (
