@@ -3,12 +3,12 @@
  * @author: Wibus
  * @Date: 2022-08-09 19:16:13
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-09 23:33:49
+ * @LastEditTime: 2022-08-10 18:08:49
  * Coding With IU
  */
 
 import { Button, ButtonGroup, Checkbox, Input, Radio, Select, Spacer, Tabs, Text } from "@geist-ui/core";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { message } from "react-message-popup";
 import Dashboards from "../../components/layouts/Dashboards";
 import { NxPage } from "../../components/widgets/Page";
@@ -16,6 +16,12 @@ import type { BasicPage } from "../../types/basic";
 import { responseBlobToFile } from "../../utils/backup";
 import { ParseMarkdownYAML } from "../../utils/markdown-parser";
 import { apiClientManger } from "../../utils/request";
+import Upload from 'rc-upload'
+
+enum ImportType {
+  Post = 'post',
+  Page = 'page',
+}
 
 export const Backup: BasicPage = () => {
 
@@ -27,16 +33,24 @@ export const Backup: BasicPage = () => {
 
   const [fileList, setFileList] = useState<any>({
     value: [],
+  })
+  const [parsedList, setParsedList] = useState<any>({
+    value: [],
     [Symbol.toStringTag]: "FileList",
   })
-  const [parsedList, setParsedList] = useState<any>()
+
+  useEffect(() => {
+    console.log(fileList)
+    const dataInFormData = fileList.value as FileList
+    console.log(dataInFormData)
+  }, [fileList])
 
   const parseMarkdown = (strList: string[]) => {
     const parser = new ParseMarkdownYAML(strList)
     return parser.start().map((i, index) => {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      const filename = fileList.value[index].file!.name
-      const title = filename.replace(/\.md$/, '')
+      const filename = fileList.value[index].name.replace(/\.md$/, "")
+      const title = filename
       if (i.meta) {
         i.meta.slug = i.meta.slug ?? title
       } else {
@@ -56,69 +70,32 @@ export const Backup: BasicPage = () => {
 
   const handleParse = async (e) => {
     e?.preventDefault();
-    e?.stopPropagation();
     if (!fileList.value.length) {
       throw new ReferenceError('fileList is empty')
     }
-    const strList = [] as string[]
-    for await (const _file of fileList.value) {
-      const res = await Promise.resolve(
-        new Promise<string>((resolve, reject) => {
-          const file = _file.file as File | null
-          if (!file) {
-            message.error('文件不存在')
-            reject('File is empty')
-            return
-          }
-          // 垃圾 windows , 不识别 mine-type 的处理
-          const ext = file.name.split('.').pop()
-
-          if (
-            (file.type && file.type !== 'text/markdown') ||
-            !['md', 'markdown'].includes(ext!)
-          ) {
-            message.error(`只能解析 markdown 文件, 但是得到了 ${file.type}`)
-
-            reject(
-              `File must be markdown. got type: ${file.type
-              }, got ext: ${ext}`,
-            )
-            return
-          }
-          const reader = new FileReader()
-          reader.onload = (e) => {
-            // console.log(e.target?.result)
-            resolve((e.target?.result as string) || '')
-          }
-          reader.readAsText(file)
-        }),
-      )
-      console.log(res)
-
-      strList.push(res as string)
-    }
+    const strList = fileList.value.map((i) => i.file)
     const parsedList_ = parseMarkdown(strList)
     message.success('解析完成, 结果查看 console 哦')
-    parsedList.value = parsedList_.map((v, index) => ({
-      ...v,
-      filename: fileList.value[index].file?.name ?? '',
-    }))
-    console.log((parsedList))
-
+    setParsedList({
+      value: parsedList_.map((v, index) => ({
+        ...v,
+        filename: fileList.value[index].name || '',
+      }))
+    })
   }
 
-  const handleUpload = async (e: MouseEvent) => {
-    e.stopPropagation()
+  const handleUpload = async (e) => {
     e.preventDefault()
     if (!parsedList.value.length) {
       return message.error('请先解析!!')
     }
-    await apiClientManger("/markdown/import", {
-      data: {
-        type: "post",
+    console.log(await apiClientManger("/markdown/import", {
+      method: "POST",
+      body: {
+        type: ImportType.Post,
         data: parsedList.value,
       },
-    })
+    }))
 
     message.success('上传成功!')
     fileList.value = []
@@ -230,24 +207,58 @@ export const Backup: BasicPage = () => {
             <Tabs.Item label="导入 Markdown Data" value="2">
 
               <ButtonGroup type="success" ghost scale={0.5}>
+
                 <Button
                   onClick={async () => {
+                    // multiple, accept=".md,.markdown", getFilelist in onChange Function
                     const $file = document.createElement('input')
                     $file.type = 'file'
                     $file.style.cssText = `position: absolute; opacity: 0; z-index: -9999;top: 0; left: 0`
-                    $file.accept = '.md'
+                    $file.multiple = true
+                    $file.accept = '.md,.markdown'
                     document.body.append($file)
                     $file.click()
                     $file.onchange = async () => {
                       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                      const file = $file.files![0]
+                      const files = $file.files!
                       const formData = new FormData()
-                      formData.append('file', file)
+                      for (const file of files) {
+                        formData.append('files', file)
+                      }
+
+                      const filesReader = new FileReader() // FileReader is a built-in object, used to read the contents of files.
+                      for (let i = 0; i < files.length; i++) {
+                        filesReader.readAsText(files[i])
+                        filesReader.onload = async (e) => {
+                          const fileContent = e.target?.result as string
+                          const fileName = files[i].name
+                          const fileExt = fileName.split('.').pop()
+                          const fileType = fileExt === 'md' ? 'markdown' : 'yaml'
+                          const fileData = fileType === 'markdown' ? {
+                            content: fileContent,
+                            type: fileType,
+                          } : {
+                            content: fileContent,
+                            type: fileType,
+                            configs: ['yaml'],
+                          }
+                          console.log(fileData)
+                          setFileList({
+                            value: [
+                              // ...fileList.value,
+                              {
+                                name: fileName,
+                                file: fileData.content,
+                                type: fileData.type,
+                              }
+                            ]
+                          })
+                        }
+                      }
                       setFileList({
-                        ...fileList,
-                        value: formData,
+                        value: formData
                       })
-                      console.log(fileList)
+
                     }
                   }}
                 >
@@ -257,11 +268,16 @@ export const Backup: BasicPage = () => {
                   onClick={async (e) => {
                     return await handleParse(e)
                   }}
-                  disabled={!fileList.value.length}
+                // disabled={!fileList.value.length}
                 >
                   2. 解析数据文件
                 </Button>
-                <Button>
+                <Button
+                  onClick={async (e) => {
+                    return await handleUpload(e)
+                  }}
+                // disabled={!parsedList.value.length}
+                >
                   3. 开始恢复导入
                 </Button>
               </ButtonGroup>
