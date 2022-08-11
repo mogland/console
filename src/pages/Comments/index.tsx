@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-15 18:45:35
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-09 15:08:10
+ * @LastEditTime: 2022-08-11 22:49:56
  * Coding With IU
  */
 
@@ -161,7 +161,7 @@ export const Comments: BasicPage = () => {
             font="12px"
             style={{ margin: 10 }}
             onClick={async () => {
-              await apiClient.delete(`/comment/${comment.id}`).then(() => {
+              await apiClient.delete(`/comments/${comment.id}`).then(() => {
                 message.success(`已将 ${comment.text} 的评论及其子评论删除`);
                 request();
               });
