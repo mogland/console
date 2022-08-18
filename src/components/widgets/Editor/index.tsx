@@ -4,7 +4,7 @@
  * @author: Wibus
  * @Date: 2022-07-23 23:47:19
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-10 21:37:30
+ * @LastEditTime: 2022-08-18 22:26:34
  * Coding With IU
  */
 
@@ -223,7 +223,7 @@ export const Editor: FC<any> = (props) => {
                   })
               : pageDataCheck(post) &&
                 apiClient
-                  .post(`/page`, null, null, data)
+                  .post(`/page/create`, null, null, data)
                   .then(() => {
                     message.success("发布成功");
                     AppNavigate(`/pages`);
