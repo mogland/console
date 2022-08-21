@@ -44,7 +44,6 @@ function App() {
   };
   const checkToken = async () => {
     await apiClient.get("/master/check_logged").catch((err) => {
-      message.error(err.message);
       // console.log(err)
       if (checkIgnoreConditionState) return;
       AppNavigate("/login");
@@ -52,7 +51,6 @@ function App() {
   };
   useMount(() => {
     setThemeType(mediaQuery.matches ? "dark" : "light");
-    checkToken();
   });
 
   useEffect(() => {
