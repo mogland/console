@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-16 17:09:06
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-03 13:53:07
+ * @LastEditTime: 2022-08-21 12:35:08
  * Coding With IU
  */
 
@@ -27,23 +27,13 @@ import { setStorage } from "../../utils/storage";
 
 export const InitSystem: BasicPage = () => {
   const AppNavigate = useNavigate();
-  const [status, setStatus] = useState<any>();
+  const [status, setStatus] = useState<number>(999); // 使用不可能返回的状态码
   const { setVisible, bindings } = useModal();
   const [loading, setLoading] = useState(false);
   useMount(async () => {
     await apiClient
       .get("/init")
-      .then((res) => {
-        if (!res.can_init) {
-          message.error(res.mes);
-          setStatus(res.reason);
-          switch (res.reason) {
-            case 1: // means performance has been initialized
-              AppNavigate("/dashboard");
-              break;
-          }
-        }
-      })
+      // .then((res) => {})
       .catch((err) => {
         message.error(err.mes);
         setStatus(err.reason);
@@ -81,22 +71,21 @@ export const InitSystem: BasicPage = () => {
       username: e.target[1].value,
       password: e.target[2].value,
 
-      introduce: e.target[4].value || "Just So So",
-      mail: e.target[5].value || "example@example.com",
-      avatar: e.target[6].value || "https://example.com/avatar.png",
+      introduce: e.target[4].value,
+      mail: e.target[5].value,
+      avatar: e.target[6].value,
       url: e.target[7].value,
     };
 
     apiClient
       .post("/user/register", null, null, JSON.stringify(body))
       .then((res) => {
-        if (!res.ok) throw new Error(res.message);
         message.success("用户注册成功");
         setStorage("token", res.token, A_WEEK_S);
         setVisible(false);
         setLoading(false);
-        message.loading("正在刷新更新配置状态");
-        window.location.reload();
+        message.loading("正在初始化默认配置...");
+        initConfigs();
       })
       .catch((err) => {
         message.error(err.mes);
@@ -112,14 +101,21 @@ export const InitSystem: BasicPage = () => {
         message.success("配置初始化成功，正在跳转至仪表盘...");
         setLoading(false);
         setVisible(false);
-        AppNavigate("/dashboard");
+        setTimeout(() => {
+          AppNavigate("/dashboard");
+        } , 1000);
       })
       .catch((err) => {
-        if (err.code === 401) {
-          message.error("配置初始化失败,您尚未登录");
-          AppNavigate("/login");
-        }
+        message.error("配置初始化失败, 请检查服务端报错信息");
       });
+  }
+
+  function initHandle() {
+    if (status === 0 ) {
+      setVisible(true);
+    } else {
+      initConfigs();
+    }
   }
 
   return (
@@ -134,19 +130,19 @@ export const InitSystem: BasicPage = () => {
           <Text h4>初始化系统</Text>
           <Spacer h={1} />
           {/* <form onSubmit={initSystem}> */}
-          {!status && (
+          {(
             <Button
               htmlType="submit"
               width="100%"
               auto
-              onClick={() => setVisible(true)}
+              onClick={() => initHandle()}
             >
               开始初始化系统
             </Button>
           )}
           {/* </form> */}
-          {/* <Modal {...bindings}> */}
-          {status === 0 && (
+
+          {(
             <Modal {...bindings}>
               <form onSubmit={initUser}>
                 <Modal.Title>注册用户</Modal.Title>
@@ -168,13 +164,13 @@ export const InitSystem: BasicPage = () => {
                     width="100%"
                   />
                   <Spacer h={0.5} />
-                  <Input label="个人介绍" placeholder="必填" width="100%" />
+                  <Input label="个人介绍" placeholder="可选" width="100%" />
                   <Spacer h={0.5} />
-                  <Input label="邮箱" placeholder="必填" width="100%" />
+                  <Input label="邮箱" placeholder="可选" width="100%" />
                   <Spacer h={0.5} />
-                  <Input label="头像" placeholder="必填" width="100%" />
+                  <Input label="头像" placeholder="可选" width="100%" />
                   <Spacer h={0.5} />
-                  <Input label="个人主页" placeholder="必填" width="100%" />
+                  <Input label="个人主页" placeholder="可选" width="100%" />
                 </Modal.Content>
                 <Modal.Action
                   passive
@@ -191,44 +187,6 @@ export const InitSystem: BasicPage = () => {
               </form>
             </Modal>
           )}
-          {status === 1 && (
-            <Modal {...bindings}>
-              <Modal.Title>遇到错误</Modal.Title>
-              <Modal.Subtitle>无法初始化配置</Modal.Subtitle>
-              <Modal.Content>
-                <p>您已初始化配置，请进入后台进行个人配置</p>
-              </Modal.Content>
-              <Modal.Action
-                onClick={() => {
-                  setVisible(false);
-                }}
-              >
-                确定
-              </Modal.Action>
-            </Modal>
-          )}
-          {!status && status !== 0 && (
-            <Modal {...bindings}>
-              <Modal.Title>初始化配置</Modal.Title>
-              <Modal.Subtitle>初始化 NEXT 默认配置</Modal.Subtitle>
-              <Modal.Content>
-                <p>您确定要初始化默认配置吗？</p>
-              </Modal.Content>
-              <Modal.Action
-                passive
-                onClick={() => {
-                  setVisible(false);
-                  setLoading(false);
-                }}
-              >
-                取消
-              </Modal.Action>
-              <Modal.Action onClick={initConfigs} loading={loading}>
-                确定
-              </Modal.Action>
-            </Modal>
-          )}
-          {/* </Modal> */}
         </div>
       </div>
     </>
