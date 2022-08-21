@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-30 17:42:24
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-03 13:48:38
+ * @LastEditTime: 2022-08-21 12:54:26
  * Coding With IU
  */
 import {
@@ -57,7 +57,7 @@ export const Friends: BasicPage = () => {
     await apiClient
       .get("/links", null, [
         { key: "page", value: nowPage },
-        { key: "size", value: 5 },
+        { key: "size", value: 6 },
         { key: "status", value: Number(nowTab) - 1 },
       ])
       .then((res) => {
@@ -100,7 +100,7 @@ export const Friends: BasicPage = () => {
     const link = links[index];
     return (
       <>
-        <img className={"avatar"} src={link.avatar} alt="avatar" />
+        <img className={"avatar"} src={link.avatar} alt="avatar" width={200}/>
       </>
     );
   };
