@@ -38,7 +38,7 @@ specifiers:
   prettier: 2.7.1
   react: 18.2.0
   react-dom: 18.2.0
-  react-message-popup: 1.0.0-alpha.2
+  react-message-popup: 1.0.0-alpha.4
   react-router-dom: 6.3.0
   react-use: 17.4.0
   tailwindcss: 3.1.8
@@ -68,7 +68,7 @@ dependencies:
   ohmyfetch: 0.4.18
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
-  react-message-popup: 1.0.0-alpha.2_biqbaboplfbrettd7655fr4n2y
+  react-message-popup: 1.0.0-alpha.4_biqbaboplfbrettd7655fr4n2y
   react-router-dom: 6.3.0_biqbaboplfbrettd7655fr4n2y
   react-use: 17.4.0_biqbaboplfbrettd7655fr4n2y
 
@@ -372,6 +372,7 @@ packages:
       '@codemirror/language': 6.2.1
       '@codemirror/state': 6.1.1
       '@codemirror/view': 6.2.0
+      '@lezer/common': 1.0.0
     dev: false
 
   /@codemirror/commands/6.0.1:
@@ -3302,9 +3303,8 @@ packages:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
     dev: true
 
-  /react-message-popup/1.0.0-alpha.2_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-YQiYMTu+qnlmHHDgTogg8PyDGd6jBxvcOBnioRzxrzOBkLr8yKhbXee7kH22DXghlXCbBZBHNvOdCEUMrvmE7Q==}
-    engines: {pnpm: '>=6'}
+  /react-message-popup/1.0.0-alpha.4_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-D0e+RScG08BRcuVxb5RXb9hcEUTfQeainEDsNXo7dx2/t0MMh8mSmYHVF6QOoyTWF+b6NwKmeaaQA/sw7kGVEg==}
     peerDependencies:
       react: ^18.0.0
       react-dom: ^18.0.0
