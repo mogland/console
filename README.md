@@ -37,6 +37,6 @@
 
 ## Author
 
-nx-space © Wibus, Released under the AGPL-3.0 License. Created on Jul 12, 2022
+MogLand © Wibus, Released under the AGPL-3.0 License. Created on Jul 12, 2022
 
 > [Personal Website](http://iucky.cn/) · [Blog](https://blog.iucky.cn/) · GitHub [@wibus-wee](https://github.com/wibus-wee/) · Telegram [@wibus✪](https://t.me/wibus_wee)
