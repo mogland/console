@@ -1,4 +1,4 @@
-# NEXT Admin Dashboard
+# Mog Admin Dashboard
 > The powerful admin dashboard for NEXT, provide the latest features
 >
 > 一个非常强大的管理后台，提供最新功能
