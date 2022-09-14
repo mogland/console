@@ -33,7 +33,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-message-popup": "1.0.0-alpha.4",
-    "react-router-dom": "6.3.0",
+    "react-router-dom": "6.4.0",
     "react-use": "17.4.0"
   },
   "devDependencies": {
