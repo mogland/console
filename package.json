@@ -24,7 +24,7 @@
     "@icon-park/react": "1.4.2",
     "@lezer/highlight": "1.0.0",
     "@uiw/codemirror-theme-xcode": "4.11.4",
-    "@uiw/react-codemirror": "4.11.4",
+    "@uiw/react-codemirror": "4.12.2",
     "codemirror": "6.0.1",
     "crypto-js": "4.1.1",
     "md5": "2.3.0",
