@@ -32,7 +32,7 @@ specifiers:
   less: 4.1.3
   md5: 2.3.0
   mongoose: 6.6.3
-  ohmyfetch: 0.4.18
+  ohmyfetch: 0.4.19
   postcss: 8.4.16
   postcss-import: 15.0.0
   prettier: 2.7.1
@@ -65,7 +65,7 @@ dependencies:
   crypto-js: 4.1.1
   md5: 2.3.0
   mongoose: 6.6.3
-  ohmyfetch: 0.4.18
+  ohmyfetch: 0.4.19
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-message-popup: 1.0.0-alpha.4_biqbaboplfbrettd7655fr4n2y
@@ -3302,8 +3302,8 @@ packages:
     dev: true
     optional: true
 
-  /node-fetch-native/0.1.4:
-    resolution: {integrity: sha512-10EKpOCQPXwZVFh3U1ptOMWBgKTbsN7Vvo6WVKt5pw4hp8zbv6ZVBZPlXw+5M6Tyi1oc1iD4/sNPd71KYA16tQ==}
+  /node-fetch-native/0.1.7:
+    resolution: {integrity: sha512-hps7dFJM0IEF056JftDSSjWDAwW9v2clwHoUJiHyYgl+ojoqjKyWybljMlpTmlC1O+864qovNlRLyAIjRxu9Ag==}
     dev: false
 
   /node-releases/2.0.6:
@@ -3383,13 +3383,13 @@ packages:
       es-abstract: 1.20.1
     dev: true
 
-  /ohmyfetch/0.4.18:
-    resolution: {integrity: sha512-MslzNrQzBLtZHmiZBI8QMOcMpdNFlK61OJ34nFNFynZ4v+4BonfCQ7VIN4EGXvGGq5zhDzgdJoY3o9S1l2T7KQ==}
+  /ohmyfetch/0.4.19:
+    resolution: {integrity: sha512-OH2xVeRPNsHkx+JFdq1ewe9EwVDfTrv6lsBHpIx8wIWXowP5FyLhhYVaXIVlPsW542rt7gmwK14FwIDWUXEO+Q==}
     dependencies:
       destr: 1.1.1
-      node-fetch-native: 0.1.4
+      node-fetch-native: 0.1.7
       ufo: 0.8.5
-      undici: 5.8.0
+      undici: 5.10.0
     dev: false
 
   /once/1.4.0:
@@ -4194,8 +4194,8 @@ packages:
       which-boxed-primitive: 1.0.2
     dev: true
 
-  /undici/5.8.0:
-    resolution: {integrity: sha512-1F7Vtcez5w/LwH2G2tGnFIihuWUlc58YidwLiCv+jR2Z50x0tNXpRRw7eOIJ+GvqCqIkg9SB7NWAJ/T9TLfv8Q==}
+  /undici/5.10.0:
+    resolution: {integrity: sha512-c8HsD3IbwmjjbLvoZuRI26TZic+TSEe8FPMLLOkN1AfYRhdjnKBU6yL+IwcSCbdZiX4e5t0lfMDLDCqj4Sq70g==}
     engines: {node: '>=12.18'}
     dev: false
 
