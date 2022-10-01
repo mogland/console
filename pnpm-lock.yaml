@@ -14,7 +14,7 @@ specifiers:
   '@geist-ui/icons': 1.0.2
   '@icon-park/react': 1.4.2
   '@innei-util/prettier': 0.8.2
-  '@innei/eslint-config-react-ts': 0.9.4
+  '@innei/eslint-config-react-ts': 0.9.5
   '@innei/eslint-config-ts': 0.9.4
   '@lezer/highlight': 1.1.0
   '@originjs/vite-plugin-commonjs': 1.0.3
@@ -74,7 +74,7 @@ dependencies:
 
 devDependencies:
   '@innei-util/prettier': 0.8.2
-  '@innei/eslint-config-react-ts': 0.9.4_typescript@4.7.4
+  '@innei/eslint-config-react-ts': 0.9.5_typescript@4.7.4
   '@innei/eslint-config-ts': 0.9.4_typescript@4.7.4
   '@originjs/vite-plugin-commonjs': 1.0.3
   '@types/crypto-js': 4.1.1
@@ -700,8 +700,8 @@ packages:
       - supports-color
     dev: true
 
-  /@innei/eslint-config-react-ts/0.9.4_typescript@4.7.4:
-    resolution: {integrity: sha512-1HOJhMUUC7ylpWMSSrAjDBTmgLlyxtqtprnH4n0bDhve+mu6Shz7AgQniezOsRjEW+x957XwMYfCNY4jOf5B9w==}
+  /@innei/eslint-config-react-ts/0.9.5_typescript@4.7.4:
+    resolution: {integrity: sha512-YxGziGdinMirGKY41aNE93ii8Qfelb6Kee7ZzWTvkb5v9tnQwkmuVyBblTQ8VNVfDR0cGbc+7MVOp+WTqYYxsg==}
     peerDependencies:
       typescript: '>=4'
     dependencies:

@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "@innei-util/prettier": "0.8.2",
-    "@innei/eslint-config-react-ts": "0.9.4",
+    "@innei/eslint-config-react-ts": "0.9.5",
     "@innei/eslint-config-ts": "0.9.4",
     "@originjs/vite-plugin-commonjs": "1.0.3",
     "@types/crypto-js": "4.1.1",
