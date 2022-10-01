@@ -23,7 +23,7 @@ specifiers:
   '@types/node': 18.6.1
   '@types/react': 18.0.21
   '@types/react-dom': 18.0.6
-  '@uiw/codemirror-theme-xcode': 4.11.4
+  '@uiw/codemirror-theme-xcode': 4.12.3
   '@uiw/react-codemirror': 4.12.2
   '@vitejs/plugin-react': 2.0.0
   autoprefixer: 10.4.12
@@ -59,7 +59,7 @@ dependencies:
   '@geist-ui/icons': 1.0.2_zhza2kbnl2wkkf7vqdl3ton2f4
   '@icon-park/react': 1.4.2_biqbaboplfbrettd7655fr4n2y
   '@lezer/highlight': 1.1.1
-  '@uiw/codemirror-theme-xcode': 4.11.4_d7mo6becmtqongve6btgjyline
+  '@uiw/codemirror-theme-xcode': 4.12.3_d7mo6becmtqongve6btgjyline
   '@uiw/react-codemirror': 4.12.2_dqwlyxgtie6fu3ewiodvgjfppy
   codemirror: 6.0.1
   crypto-js: 4.1.1
@@ -1270,18 +1270,18 @@ packages:
       '@codemirror/view': 6.2.0
     dev: false
 
-  /@uiw/codemirror-theme-xcode/4.11.4_d7mo6becmtqongve6btgjyline:
-    resolution: {integrity: sha512-SlbVLX2fQ9hQVZh1obTLkR2yWkqxFirYno6jKwwZcn7lt7p1lGhO824226szHJhK9yV5V7x2abU/V3e+vxX1Xg==}
+  /@uiw/codemirror-theme-xcode/4.12.3_d7mo6becmtqongve6btgjyline:
+    resolution: {integrity: sha512-vXqYl+pTuhCUEpNahXi3jIXaUIivUta+9EkYmQX/+5wiYUsJRasyM7VQEgUyODOpvx8zrEWrhXm27XUwjcEBtQ==}
     dependencies:
-      '@uiw/codemirror-themes': 4.11.4_d7mo6becmtqongve6btgjyline
+      '@uiw/codemirror-themes': 4.12.3_d7mo6becmtqongve6btgjyline
     transitivePeerDependencies:
       - '@codemirror/language'
       - '@codemirror/state'
       - '@codemirror/view'
     dev: false
 
-  /@uiw/codemirror-themes/4.11.4_d7mo6becmtqongve6btgjyline:
-    resolution: {integrity: sha512-tp4wahAuGRhMoKNMk/6lt8nNr21UZ4zhFqdDTZZ4jLc2w4BKTQ23AkublXAM8vMSuYt/LpE+cajuq4/aSYn01w==}
+  /@uiw/codemirror-themes/4.12.3_d7mo6becmtqongve6btgjyline:
+    resolution: {integrity: sha512-5jnhMzubDV6MxKt7bRrUNEE51wssOkDVefKgiok91udSFsbh3Ju3VcCv6abQ+oMPHf67sA84P2jJdK3hGwx8MQ==}
     peerDependencies:
       '@codemirror/language': '>=6.0.0'
       '@codemirror/state': '>=6.0.0'
