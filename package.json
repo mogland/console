@@ -22,7 +22,7 @@
     "@geist-ui/core": "2.3.8",
     "@geist-ui/icons": "1.0.2",
     "@icon-park/react": "1.4.2",
-    "@lezer/highlight": "1.1.0",
+    "@lezer/highlight": "1.1.1",
     "@uiw/codemirror-theme-xcode": "4.11.4",
     "@uiw/react-codemirror": "4.12.2",
     "codemirror": "6.0.1",
