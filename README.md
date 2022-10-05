@@ -1,32 +1,27 @@
-# Mog Admin Dashboard
-> The powerful admin dashboard for Mog, provide the latest features
->
-> 一个非常强大的管理后台，提供最新功能
+# Mog Admin Console Dashboard
+<img src="https://img.shields.io/github/package-json/v/mogland/console" referrerpolicy="no-referrer" alt="version"> <a href="https://wakatime.com/badge/user/5c293fcd-9bec-4609-946b-c06b5fbf192c/project/09bcd1ad-babf-4f96-a09d-c418d8a7a835"><img src="https://wakatime.com/badge/user/5c293fcd-9bec-4609-946b-c06b5fbf192c/project/09bcd1ad-babf-4f96-a09d-c418d8a7a835.svg" alt="wakatime"></a>
 
-<img src="https://img.shields.io/github/package-json/v/nx-space/core" referrerpolicy="no-referrer" alt="version"> <a href="https://wakatime.com/badge/user/5c293fcd-9bec-4609-946b-c06b5fbf192c/project/09bcd1ad-babf-4f96-a09d-c418d8a7a835"><img src="https://wakatime.com/badge/user/5c293fcd-9bec-4609-946b-c06b5fbf192c/project/09bcd1ad-babf-4f96-a09d-c418d8a7a835.svg" alt="wakatime"></a>
+## Usage
 
----
+```bash
+pnpm i
+pnpm build
+```
 
-## Features
+## Development
 
-- [X] 仪表盘
-- [X] 登录页面
-- [X] 初始化+注册页面
-- [X] 检测 Token 是否过期
-- [X] 文章列表
-- [X] 文章发布与更新
-- [X] 页面列表
-- [X] 页面发布与更新
-- [X] 评论管理页面
-- [X] 友链管理页面
-- [X] 系统设置页面
-- [X] 分类标签管理页面
-- [ ] ~~插件管理页面（因 Core 尚未实现，暂时延期）~~
-- [ ] ~~主题管理页面（因 Core 尚未实现，暂时延期）~~
+```bash
+# Mog Core
+pnpm i
+pnpm start:core
+pnpm start:page-service
+pnpm start:user-service
+## Then, run user init program firstly
 
-## Activity
-
-![Alt](https://repobeats.axiom.co/api/embed/af99a21e60aedbb0e3625145522f36d85c2e5ae5.svg "Repobeats analytics image")
+# Mog Console
+pnpm i
+pnpm dev
+```
 
 ## License
 
@@ -34,6 +29,6 @@
 
 ## Author
 
-MogLand © Wibus, Released under the AGPL-3.0 License. Created on Jul 12, 2022
+Mog © Wibus, Released under the AGPL-3.0 License. Created on Jul 12, 2022
 
 > [Personal Website](http://iucky.cn/) · [Blog](https://blog.iucky.cn/) · GitHub [@wibus-wee](https://github.com/wibus-wee/) · Telegram [@wibus✪](https://t.me/wibus_wee)
