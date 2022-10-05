@@ -3,7 +3,7 @@ import { alpha } from '@mui/material/styles';
 //
 import palette from './palette';
 
-// ----------------------------------------------------------------------
+
 
 const LIGHT_MODE = palette.light.grey[500];
 const DARK_MODE = '#000000';

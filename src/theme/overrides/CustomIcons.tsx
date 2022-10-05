@@ -9,7 +9,7 @@
 // @mui
 import { SvgIcon } from '@mui/material';
 
-// ----------------------------------------------------------------------
+
 
 // CloseIcon
 export function CloseIcon(props) {

@@ -10,7 +10,7 @@
 import { PATH_DASHBOARD } from './routes/paths';
 
 // API
-// ----------------------------------------------------------------------
+
 
 export const HOST_API = process.env.REACT_APP_HOST_API_KEY || '';
 
@@ -42,7 +42,7 @@ export const MAPBOX_API = process.env.REACT_APP_MAPBOX;
 export const PATH_AFTER_LOGIN = PATH_DASHBOARD.general.app; // as '/dashboard/app'
 
 // LAYOUT
-// ----------------------------------------------------------------------
+
 
 export const HEADER = {
   MOBILE_HEIGHT: 64,
@@ -68,7 +68,7 @@ export const ICON = {
 
 // SETTINGS
 // Please remove `localStorage` when you set settings.
-// ----------------------------------------------------------------------
+
 
 export const defaultSettings = {
   themeMode: 'light',

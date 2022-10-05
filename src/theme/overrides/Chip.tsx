@@ -9,7 +9,7 @@
 //
 import { CloseIcon } from './CustomIcons';
 
-// ----------------------------------------------------------------------
+
 
 export default function Chip(theme) {
   return {

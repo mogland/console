@@ -16,7 +16,7 @@ import getColorPresets, { colorPresets, defaultPreset } from '../utils/getColorP
 import { defaultSettings } from '../config';
 import { Direction } from '@mui/material';
 
-// ----------------------------------------------------------------------
+
 
 const initialState = {
   ...defaultSettings,
@@ -33,7 +33,7 @@ const initialState = {
 
 const SettingsContext = createContext(initialState);
 
-// ----------------------------------------------------------------------
+
 
 SettingsProvider.propTypes = {
   children: PropTypes.node,

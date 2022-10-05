@@ -6,7 +6,7 @@
  * @LastEditTime: 2022-10-05 15:32:00
  * Coding With IU
  */
-// ----------------------------------------------------------------------
+
 
 export default function Card(theme) {
   return {
