@@ -1,7 +1,0 @@
-#posts-table td:last-child > .cell {
-  min-width: 200%;
-}
-
-#posts-table th:last-child {
-  min-width: 200%;
-}
