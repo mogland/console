@@ -1,4 +1,4 @@
-// ----------------------------------------------------------------------
+
 
 export default function Switch(theme) {
   const isLight = theme.palette.mode === 'light';

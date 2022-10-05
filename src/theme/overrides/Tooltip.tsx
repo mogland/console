@@ -1,4 +1,4 @@
-// ----------------------------------------------------------------------
+
 
 export default function Tooltip(theme) {
   const isLight = theme.palette.mode === 'light';

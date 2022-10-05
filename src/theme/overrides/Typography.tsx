@@ -1,4 +1,4 @@
-// ----------------------------------------------------------------------
+
 
 export default function Typography(theme) {
   return {

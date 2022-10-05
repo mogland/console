@@ -6,7 +6,7 @@
  * @LastEditTime: 2022-10-05 15:41:38
  * Coding With IU
  */
-// ----------------------------------------------------------------------
+
 
 export default function Progress(theme) {
   const isLight = theme.palette.mode === 'light';

@@ -1,6 +1,6 @@
 import { TreeViewCollapseIcon, TreeViewExpandIcon, TreeViewEndIcon } from './CustomIcons';
 
-// ----------------------------------------------------------------------
+
 
 export default function TreeView(theme) {
   return {
