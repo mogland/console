@@ -3,14 +3,14 @@
  * @author: Wibus
  * @Date: 2022-10-06 09:35:47
  * @LastEditors: Wibus
- * @LastEditTime: 2022-10-06 10:14:38
+ * @LastEditTime: 2022-10-06 23:44:04
  * Coding With IU
  */
 import { Outlet } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
 // components
-// import Logo from '../components/Logo';
+import Logo from '../components/Logo';
 
 // ----------------------------------------------------------------------
 
@@ -32,7 +32,7 @@ export default function LogoOnlyLayout() {
   return (
     <>
       <HeaderStyle>
-        {/* <Logo /> */}
+        <Logo />
       </HeaderStyle>
       <Outlet />
     </>
