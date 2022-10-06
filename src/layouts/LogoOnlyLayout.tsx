@@ -1,9 +1,9 @@
 /*
- * @FilePath: /mog-admin/src/layouts/LogoOnlyLogout.tsx
+ * @FilePath: /mog-admin/src/layouts/LogoOnlyLayout.tsx
  * @author: Wibus
  * @Date: 2022-10-06 09:35:47
  * @LastEditors: Wibus
- * @LastEditTime: 2022-10-06 09:35:48
+ * @LastEditTime: 2022-10-06 10:14:38
  * Coding With IU
  */
 import { Outlet } from 'react-router-dom';
