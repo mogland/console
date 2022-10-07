@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-10-06 17:24:32
  * @LastEditors: Wibus
- * @LastEditTime: 2022-10-06 17:24:32
+ * @LastEditTime: 2022-10-07 08:52:40
  * Coding With IU
  */
 
@@ -88,4 +88,4 @@ export const PATH_DASHBOARD = {
   }
 };
 
-export const PATH_DOCS = 'https://docs-minimals.vercel.app/introduction';
+export const PATH_DOCS = 'https://mog.js.org';
