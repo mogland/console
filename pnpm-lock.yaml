@@ -1,7 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@auth0/auth0-spa-js': 1.22.4
+  '@auth0/auth0-spa-js': 1.22.5
   '@emotion/react': 11.10.4
   '@emotion/styled': 11.10.4
   '@iconify/react': 4.0.0
@@ -29,7 +29,7 @@ specifiers:
   vite: 3.1.5
 
 dependencies:
-  '@auth0/auth0-spa-js': 1.22.4
+  '@auth0/auth0-spa-js': 1.22.5
   '@emotion/react': 11.10.4_ug65io7jkbhmo4fihdmbrh3ina
   '@emotion/styled': 11.10.4_4qlqmspomoqctzkikkhvhnn3qu
   '@iconify/react': 4.0.0_react@18.2.0
@@ -68,8 +68,8 @@ packages:
       '@jridgewell/trace-mapping': 0.3.15
     dev: true
 
-  /@auth0/auth0-spa-js/1.22.4:
-    resolution: {integrity: sha512-iOboSV+aUsExV1onKvGKEqi626sjJt+61c3EvA4mkn9RM7RV9RMjPI+cInNFHWjwAd2Sdi3LqBj6/MfcHh69dg==}
+  /@auth0/auth0-spa-js/1.22.5:
+    resolution: {integrity: sha512-6gaQcd+Eb8ZBcdQkrrm9undM7dY/rPvVdQN8s7rxxrviUCs7OopEygsfSkHf67IP4HtlCiE8dSW5/AipRUOw/A==}
     dependencies:
       abortcontroller-polyfill: 1.7.3
       browser-tabs-lock: 1.2.15
