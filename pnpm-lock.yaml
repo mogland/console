@@ -18,7 +18,7 @@ specifiers:
   framer-motion: 7.5.2
   jsonwebtoken: 8.5.1
   jwt-decode: 3.1.2
-  notistack: 2.0.5
+  notistack: 2.0.8
   prop-types: 15.8.1
   react: 18.2.0
   react-dom: 18.2.0
@@ -40,7 +40,7 @@ dependencies:
   framer-motion: 7.5.2_biqbaboplfbrettd7655fr4n2y
   jsonwebtoken: 8.5.1
   jwt-decode: 3.1.2
-  notistack: 2.0.5_o5fu5zzztezljyppmu7zljxb6q
+  notistack: 2.0.8_o5fu5zzztezljyppmu7zljxb6q
   prop-types: 15.8.1
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
@@ -2051,8 +2051,8 @@ packages:
     resolution: {integrity: sha512-PiVXnNuFm5+iYkLBNeq5211hvO38y63T0i2KKh2KnUs3RpzJ+JtODFjkD8yjLwnDkTYF1eKXheUwdssR+NRZdg==}
     dev: true
 
-  /notistack/2.0.5_o5fu5zzztezljyppmu7zljxb6q:
-    resolution: {integrity: sha512-Ig2T1Muqkc1PaSQcEDrK7diKv6cBxw02Iq6uv074ySfgq524TV5lK41diAb6OSsaiWfp3aRt+T3+0MF8m2EcJQ==}
+  /notistack/2.0.8_o5fu5zzztezljyppmu7zljxb6q:
+    resolution: {integrity: sha512-/IY14wkFp5qjPgKNvAdfL5Jp6q90+MjgKTPh4c81r/lW70KeuX6b9pE/4f8L4FG31cNudbN9siiFS5ql1aSLRw==}
     peerDependencies:
       '@emotion/react': ^11.4.1
       '@emotion/styled': ^11.3.0
