@@ -11,7 +11,7 @@ specifiers:
   '@types/react': 18.0.17
   '@types/react-dom': 18.0.6
   '@vitejs/plugin-react': 2.1.0
-  axios: 1.0.0
+  axios: 1.2.1
   change-case: ^4.1.2
   date-fns: ^2.29.3
   eslint: 8.25.0
@@ -34,7 +34,7 @@ dependencies:
   '@emotion/styled': 11.10.4_4qlqmspomoqctzkikkhvhnn3qu
   '@iconify/react': 4.0.0_react@18.2.0
   '@mui/material': 5.10.9_pmt7mohamriu6nuiv5xnts3qce
-  axios: 1.0.0
+  axios: 1.2.1
   change-case: 4.1.2
   date-fns: 2.29.3
   framer-motion: 7.5.2_biqbaboplfbrettd7655fr4n2y
@@ -953,8 +953,8 @@ packages:
     resolution: {integrity: sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==}
     dev: false
 
-  /axios/1.0.0:
-    resolution: {integrity: sha512-SsHsGFN1qNPFT5QhSoSD37SHDfGyLSW5AESmyLk2JeCMHv5g0I9g0Hz/zQHx2KNe0jGXh2q2hAm7OdkXm360CA==}
+  /axios/1.2.1:
+    resolution: {integrity: sha512-I88cFiGu9ryt/tfVEi4kX2SITsvDddTajXTOFmt2uK1ZVA8LytjtdeyefdQWEf5PU8w+4SSJDoYnggflB5tW4A==}
     dependencies:
       follow-redirects: 1.15.2
       form-data: 4.0.0
