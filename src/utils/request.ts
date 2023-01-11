@@ -10,9 +10,9 @@
 import { ofetch } from "ofetch";
 import { getStorage } from "./storage";
 
-const API = "http://127.0.0.1:3333";
+const API = "http://192.168.3.4:2330";
 
-const apiCient = ofetch.create({
+export const apiClient = ofetch.create({
   baseURL: API,
   headers: {
     "Content-Type": "application/json",
