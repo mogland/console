@@ -31,5 +31,5 @@
 
 .links {
   margin-top: 15px;
-  margin-left: 15px;
+  max-width: 150px;
 }

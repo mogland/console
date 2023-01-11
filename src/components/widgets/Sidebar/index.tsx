@@ -84,7 +84,15 @@ const Links = () => {
 export const Sidebar: React.FC = () => {
   const [float, setFloat] = useState(getStorage('sidebarFloat') === "true" || false)
   const [isMobile, setIsMobile] = useState(false)
+  const [x, setX] = useState(0)
   const { width } = useWindowSize()
+
+  function setXEnterByFloat() {
+    if (float) setX(0)
+  }
+  function setXLeaveByFloat() {
+    if (float) setX(-300)
+  }
 
   useEffect(() => {
     setStorage('sidebarFloat', String(float))
@@ -93,11 +101,10 @@ export const Sidebar: React.FC = () => {
   useEffect(() => {
     if (width < 768) {
       setFloat(true)
-      setX(-300)
       setIsMobile(true)
+      setX(-300)
     }
   }, [width])
-  const [x, setX] = useState(0)
   return (
     <>
       <motion.div
@@ -113,26 +120,10 @@ export const Sidebar: React.FC = () => {
           bounce: 0.5,
           damping: 15,
         }}
-        onMouseLeave={() => {
-          if (float) {
-            setX(-300)
-          }
-        }}
-        onMouseEnter={() => {
-          if (float) {
-            setX(0)
-          }
-        }}
-        onTouchStart={() => {
-          if (float) {
-            setX(0)
-          }
-        }}
-        onTouchEnd={() => {
-          if (float) {
-            setX(-300)
-          }
-        }}
+        onMouseEnter={setXEnterByFloat}
+        onMouseLeave={setXLeaveByFloat}
+        onTouchStart={setXEnterByFloat}
+        onTouchEnd={setXLeaveByFloat}
       >
         <div className={styles.header}>
           <div className={styles.logo}>
