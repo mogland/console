@@ -1,7 +1,12 @@
-import { Agreement, CategoryManagement, Dashboard, Editor, FriendsCircle, GithubOne, HomeTwo, OpenDoor, Page, Search } from "@icon-park/react"
+import { Agreement, CategoryManagement, Dashboard, Editor, FriendsCircle, GithubOne, HomeTwo, MenuFoldOne, MenuUnfoldOne, OpenDoor, Page, Search } from "@icon-park/react"
+import clsx from "clsx"
+import { useEffect, useState } from "react"
 import { Space } from "../../universal/Space"
 import styles from "./index.module.css"
 import { SidebarItem } from "./item"
+import { motion } from 'framer-motion'
+import { getStorage, setStorage } from "../../../utils/storage"
+import { useWindowSize } from "react-use"
 
 const Links = () => {
   return (
@@ -77,19 +82,71 @@ const Links = () => {
 }
 
 export const Sidebar: React.FC = () => {
+  const [float, setFloat] = useState(getStorage('sidebarFloat') === "true" || false)
+  const [isMobile, setIsMobile] = useState(false)
+  const { width } = useWindowSize()
+
+  useEffect(() => {
+    setStorage('sidebarFloat', String(float))
+  }, [float])
+
+  useEffect(() => {
+    if (width < 768) {
+      setFloat(true)
+      setX(-300)
+      setIsMobile(true)
+    }
+  }, [width])
+  const [x, setX] = useState(0)
   return (
     <>
-      <div className={styles.sidebar}>
+      <motion.div
+        className={clsx(
+          styles.sidebar,
+          float && styles.float
+        )}
+        initial={{ x: -300 }}
+        animate={{ x }}
+        transition={{
+          type: "spring",
+          // stiffness: 95,
+        }}
+        onMouseLeave={() => {
+          if (float) {
+            setX(-300)
+          }
+        }}
+        onMouseEnter={() => {
+          if (float) {
+            setX(0)
+          }
+        }}
+        onTouchStart={() => {
+          if (float) {
+            setX(0)
+          }
+        }}
+        onTouchEnd={() => {
+          if (float) {
+            setX(-300)
+          }
+        }}
+      >
         <div className={styles.header}>
           <div className={styles.logo}>
             Mog
           </div>
-          <div className={styles.search}>
-            <Search />
+          <div
+            className={styles.search}
+            onClick={() => setFloat(!float)}
+          >
+            {
+              !isMobile && (float ? <MenuFoldOne /> : <MenuUnfoldOne />)
+            }
           </div>
         </div>
         <Links />
-      </div>
+      </motion.div>
     </>
   )
 }

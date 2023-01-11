@@ -11,6 +11,11 @@
   min-height: 100vh;
 }
 
+.float {
+  position: fixed;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+}
+
 .header {
   display: flex;
   justify-content: space-between;
