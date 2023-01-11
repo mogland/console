@@ -1,0 +1,38 @@
+.item {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+  color: var(--color-text-secondary);
+}
+
+.title {
+  font-size: 0.91rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.active {
+  color: var(--color-text-primary); 
+  font-weight: 500;
+}
+
+.item:hover {
+  color: var(--color-text-primary);
+}
+
+:root {
+  --color-text-primary: #000;
+  --color-text-secondary: #999;
+}
+
+.icon {
+  margin-right: 1rem;
+}
+
+.sub {
+  margin-left: 1rem; 
+  margin-top: -3px;
+}
