@@ -1,0 +1,29 @@
+.gridContainer {
+  display: grid;
+}
+
+.total {
+  background-color: #f9f9f9;
+  padding: 20px;
+  padding-left: 30px;
+  border-radius: 10px;
+}
+
+.totalItem:not(:last-child) {
+  border-right: 1px solid #e2e2e2;
+}
+
+.totalItem:not(:first-child){
+  padding-left: 20px;
+}
+
+.totalTitle {
+  font-size: 0.8rem;
+  color: #999;
+}
+
+.totalNumber {
+  font-size: 1.5rem;
+  color: #000;
+  font-weight: 600;
+}

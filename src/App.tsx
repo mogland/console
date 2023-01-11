@@ -3,10 +3,12 @@ import { AppRouter } from "./router/router";
 
 function App() {
   return (
-    <>
+    <div className="app">
       <Sidebar />
-      <AppRouter />
-    </>
+      <div className="inner">
+        <AppRouter />
+      </div>
+    </div>
   );
 }
 
