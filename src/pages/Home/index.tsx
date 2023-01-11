@@ -114,8 +114,8 @@ export const Home: BasicPage = () => {
       apiClient("/friends", { query: { status: 3, } }),
       apiClient("/post"),
       apiClient("/comments").then(res => {
-        res.data?.map(async item => {
-          await apiClient(`/post/${item.pid}`).then(res => {
+        res.data?.map(item => {
+          apiClient(`/post/${item.pid}`).then(res => {
             item = {
               ...item,
               post: res,
@@ -255,7 +255,7 @@ export const Home: BasicPage = () => {
                     return (
                       <TableItem key={index}>
                         <span className={styles.tableItemTitle}>{item.text}</span>
-                        <span className={styles.tableItemTitle}>{item.post.title}</span>
+                        <span className={styles.tableItemTitle}>{item?.post?.title || "未找到"}</span>
                         <span className={styles.tableItemViews}>{item.author}</span>
                       </TableItem>
                     )

@@ -90,6 +90,8 @@
 
 .tableItem {
   padding: 13px 0;
+  margin-left: -10px;
+  padding-left: 10px;
   font-size: 0.8rem;
   color: var(--quaternary-color);
   font-weight: 500;
