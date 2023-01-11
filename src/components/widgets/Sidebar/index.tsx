@@ -109,7 +109,9 @@ export const Sidebar: React.FC = () => {
         animate={{ x }}
         transition={{
           type: "spring",
-          // stiffness: 95,
+          duration: 0.2,
+          bounce: 0.5,
+          damping: 15,
         }}
         onMouseLeave={() => {
           if (float) {
