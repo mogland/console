@@ -13,7 +13,7 @@
   border-right: 1px solid #e2e2e2;
 }
 
-.totalItem:not(:first-child){
+.totalItem:not(:first-child) {
   padding-left: 20px;
 }
 
@@ -26,4 +26,80 @@
   font-size: 1.5rem;
   color: #000;
   font-weight: 600;
+}
+
+.widget {
+  margin-top: 50px;
+  border: 1px solid #e2e2e2;
+  border-radius: 10px;
+}
+
+.widgetTitle {
+  margin-left: 30px;
+  margin-top: 20px;
+  font-size: 1.1rem;
+  font-weight: 900;
+}
+
+.chartDetail {
+  padding: 30px;
+  color: #999;
+}
+
+.chartTitle {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: inherit;
+}
+
+
+
+.widgetTitleUnActive {
+  color: #999;
+  transition: color 0.2s ease;
+}
+
+.widgetTitleUnActive:hover {
+  color: #000;
+}
+
+.noOutline {
+  outline: none;
+}
+
+.tabContent {
+  padding: 30px;
+}
+
+.tableGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-gap: 20px;
+}
+
+.tableHeaderItem {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #999;
+}
+
+.tableHeader {
+  width: 100%;
+  border-bottom: 1px solid #e2e2e2;
+}
+
+.tableItem {
+  padding: 13px 0;
+  font-size: 0.8rem;
+  color: #000;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.tableTitle:hover {
+  text-decoration: underline;
+}
+
+.tableItem:hover {
+  background-color: #f9f9f9;
 }
