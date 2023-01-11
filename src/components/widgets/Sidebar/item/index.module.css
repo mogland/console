@@ -5,7 +5,7 @@
   border-radius: 0.5rem;
   cursor: pointer;
   transition: color 0.2s ease-in-out;
-  color: var(--color-text-secondary);
+  color: var(--sidebar-item-color-text-secondary);
 }
 
 .title {
@@ -15,17 +15,12 @@
 }
 
 .active {
-  color: var(--color-text-primary); 
+  color: var(--sidebar-item-color-text-primary); 
   font-weight: 500;
 }
 
 .item:hover {
-  color: var(--color-text-primary);
-}
-
-:root {
-  --color-text-primary: #000;
-  --color-text-secondary: #999;
+  color: var(--sidebar-item-color-text-primary);
 }
 
 .icon {
@@ -35,4 +30,16 @@
 .sub {
   margin-left: 1rem; 
   margin-top: -3px;
+}
+
+:root {
+  --sidebar-item-color-text-primary: #000;
+  --sidebar-item-color-text-secondary: #999;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --sidebar-item-color-text-primary: #fff;
+    --sidebar-item-color-text-secondary: #999;
+  }
 }

@@ -30,3 +30,10 @@ code {
     padding-left: 30px;
   }
 }
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #000000;
+    color: #fff;
+  }
+}

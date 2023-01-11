@@ -3,14 +3,14 @@
 }
 
 .total {
-  background-color: #f9f9f9;
+  background-color: var(--primary-color);
   padding: 20px;
   padding-left: 30px;
   border-radius: 10px;
 }
 
 .totalItem:not(:last-child) {
-  border-right: 1px solid #e2e2e2;
+  border-right: 1px solid var(--secondary-color);
 }
 
 .totalItem:not(:first-child) {
@@ -19,18 +19,18 @@
 
 .totalTitle {
   font-size: 0.8rem;
-  color: #999;
+  color: var(--tertiary-color);
 }
 
 .totalNumber {
   font-size: 1.5rem;
-  color: #000;
+  color: var(--quaternary-color);
   font-weight: 600;
 }
 
 .widget {
   margin-top: 50px;
-  border: 1px solid #e2e2e2;
+  border: 1px solid var(--secondary-color);
   border-radius: 10px;
 }
 
@@ -43,7 +43,7 @@
 
 .chartDetail {
   padding: 30px;
-  color: #999;
+  color: var(--quaternary-color);
 }
 
 .chartTitle {
@@ -55,12 +55,12 @@
 
 
 .widgetTitleUnActive {
-  color: #999;
+  color: var(--tertiary-color);
   transition: color 0.2s ease;
 }
 
 .widgetTitleUnActive:hover {
-  color: #000;
+  color: var(--quaternary-color);
 }
 
 .noOutline {
@@ -80,18 +80,18 @@
 .tableHeaderItem {
   font-size: 0.8rem;
   font-weight: 600;
-  color: #999;
+  color: var(--tertiary-color);
 }
 
 .tableHeader {
   width: 100%;
-  border-bottom: 1px solid #e2e2e2;
+  border-bottom: 1px solid var(--secondary-color);
 }
 
 .tableItem {
   padding: 13px 0;
   font-size: 0.8rem;
-  color: #000;
+  color: var(--quaternary-color);
   font-weight: 500;
   transition: background-color 0.2s ease;
 }
@@ -101,5 +101,21 @@
 }
 
 .tableItem:hover {
-  background-color: #f9f9f9;
+  background-color: var(--secondary-color);
+}
+
+:root {
+  --primary-color: #f9f9f9;
+  --secondary-color: #e2e2e2;
+  --tertiary-color: #999;
+  --quaternary-color: #000;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary-color: #1f1f1f;
+    --secondary-color: #2f2f2f;
+    --tertiary-color: #999;
+    --quaternary-color: #fff;
+  }
 }

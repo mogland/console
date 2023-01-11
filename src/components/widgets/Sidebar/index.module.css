@@ -3,8 +3,8 @@
   flex-direction: column;
   width: 100%;
   height: 100%;
-  background-color: #fff;
-  border-right: 1px solid #e6ecf0;
+  background-color: var(--sidebar-primary-color);
+  border-right: 1px solid var(--sidebar-secondary-color);
   overflow: hidden;
   padding: 30px;
   max-width: 20rem;
@@ -13,7 +13,7 @@
 
 .float {
   position: fixed;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 20px 0 var(--sidebar-tertiary-color);
 }
 
 .header {
@@ -24,7 +24,7 @@
 .logo {
   font-size: 1rem;
   font-weight: 900;
-  color: #000;
+  color: var(--sidebar-quaternary-color);
   margin-bottom: 30px;
   margin-left: 15px;
 }
@@ -32,4 +32,20 @@
 .links {
   margin-top: 15px;
   max-width: 150px;
+}
+
+:root {
+  --sidebar-primary-color: #fff;
+  --sidebar-secondary-color: #e6ecf0;
+  --sidebar-tertiary-color: rgba(0, 0, 0, 0.1);
+  --sidebar-quaternary-color: #000;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --sidebar-primary-color: #000;
+    --sidebar-secondary-color: #1c1c1c;
+    --sidebar-tertiary-color: rgba(255, 255, 255, 0.1);
+    --sidebar-quaternary-color: #fff;
+  }
 }
