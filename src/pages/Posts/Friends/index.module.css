@@ -1,0 +1,5 @@
+.tableItem {
+  width: 100%;
+  height: inherit;
+  cursor: pointer;
+}

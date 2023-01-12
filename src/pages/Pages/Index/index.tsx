@@ -6,7 +6,7 @@ import { Title } from "../../../components/universal/Title";
 import type { BasicPage } from "../../../types/basic";
 import { apiClient } from "../../../utils/request";
 import { TableContainer, TableItem, TableItemValue } from "../../Home/universal";
-import styles from "./index.module.css"
+import styles from "../../Posts/Index/index.module.css"
 
 export const PagesIndex: BasicPage = () => {
   const [loading, setLoading] = useState(true)
