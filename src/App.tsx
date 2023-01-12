@@ -15,9 +15,9 @@ function App() {
 
   useEffect(() => {
     apiClient("/user/check").then(() => {
-      window.location.pathname == '/' ||
-      window.location.pathname == '/login'
-      && navigate("/dashboard")
+      (window.location.pathname == '/' ||
+        window.location.pathname == '/login')
+        && navigate("/dashboard")
       app.showSidebar = true;
     }).catch(() => {
       navigate("/login")

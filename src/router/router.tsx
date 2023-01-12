@@ -20,6 +20,13 @@ export const AppRouter = () => {
       <Route path="/" element={<Home />} />
       <Route path="/dashboard" element={<Home />} />
       <Route path="/login" element={<Login />} />
+
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 };
+
+const NotFoundPage = () => {
+  window.location.href = "/dashboard"
+  return <></>
+}
