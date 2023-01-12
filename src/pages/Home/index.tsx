@@ -7,11 +7,13 @@ import { useEffect, useState } from "react";
 import { apiClient } from "../../utils/request";
 import { Loading } from "../../components/universal/Loading";
 import { GridContainer, Widget, TableContainer, TableItem } from "./universal";
+import { useNavigate } from "react-router-dom";
 
 
 export const Home: BasicPage = () => {
 
   const [loading, setLoading] = useState(true)
+  const navigate = useNavigate()
 
   const [total, setTotal] = useState<{
     posts: {
@@ -193,6 +195,10 @@ export const Home: BasicPage = () => {
                       return (
                         <TableItem
                           header={["TITLE", "DATE", "READ"]}
+                          onClick={() => {
+                            navigate(`/write/post?id=${item.id}`)
+                          }}
+                          style={{ cursor: "pointer" }}
                           key={index}>
                           <span className={styles.tableItemTitle}>{item.title}</span>
                           <span className={styles.tableItemDate}>{item.created.split("T")[0]}</span>
