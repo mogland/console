@@ -1,12 +1,10 @@
 import { Save } from "@icon-park/react"
-import { Editor } from "@toast-ui/react-editor"
 import clsx from "clsx"
 import { useEffect, useRef, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { MarkdownEditor } from "../../components/universal/Editor"
 import { FloatBtn, FloatBtnContainer } from "../../components/universal/FloatBtn"
 import { Loading } from "../../components/universal/Loading"
-import { Title } from "../../components/universal/Title"
 import { Twindow } from "../../components/universal/Twindow"
 import type { BasicPage } from "../../types/basic"
 import { apiClient } from "../../utils/request"
@@ -22,12 +20,8 @@ export const EditorPage: BasicPage = () => {
   const id = getQueryVariable("id")
 
   useEffect(() => {
-    setLoading(true)
     if (!id) {
       setData({})
-      setTimeout(() => {
-        setLoading(false)
-      }, 500)
     }
   }, [id])
 
@@ -45,7 +39,6 @@ export const EditorPage: BasicPage = () => {
   }, [])
   return (
     <>
-      <Loading loading={loading} />
       <div className={clsx("loading", !loading && "loaded")}>
         {/* <Title>写 · {type === "page" ? "页面" : "文章"}</Title> */}
         <div className={styles.container}>
@@ -54,7 +47,7 @@ export const EditorPage: BasicPage = () => {
               onChange={(e) => { setData({ ...data, title: e.target.value }) }}
               className={styles.title} type="text" name="title" placeholder="标题" defaultValue={data?.title} />
             <input
-              onChange={(e) => { setData({ ...data, title: e.target.value }) }}
+              onChange={(e) => { setData({ ...data, slug: e.target.value }) }}
               className={styles.slug} name="slug" placeholder="Slug" defaultValue={data?.slug} />
             {
               !loading && (
