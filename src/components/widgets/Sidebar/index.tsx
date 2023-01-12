@@ -1,12 +1,13 @@
-import { Agreement, CategoryManagement, Dashboard, Editor, FriendsCircle, GithubOne, HomeTwo, MenuFoldOne, MenuUnfoldOne, OpenDoor, Page, Search } from "@icon-park/react"
+import { Agreement, CategoryManagement, Dashboard, Editor, FriendsCircle, GithubOne, HomeTwo, Logout, MenuFoldOne, MenuUnfoldOne, OpenDoor, Page, Search } from "@icon-park/react"
 import clsx from "clsx"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Space } from "../../universal/Space"
 import styles from "./index.module.css"
 import { SidebarItem } from "./item"
 import { motion } from 'framer-motion'
 import { getStorage, setStorage } from "../../../utils/storage"
-import { useWindowSize } from "react-use"
+import { useScroll, useWindowSize } from "react-use"
+import itemStyle from './item/index.module.css'
 
 const Links = () => {
   return (
@@ -77,6 +78,19 @@ const Links = () => {
         href="https://github.com"
         outside
       />
+      <Space
+        height={30}
+      />
+      <div>
+        <span className={itemStyle.item}>
+          <div className={itemStyle.icon}>
+            <Logout />
+          </div>
+          <div className={itemStyle.title}>
+            退出登录
+          </div>
+        </span>
+      </div>
     </div>
   )
 }
@@ -86,6 +100,7 @@ export const Sidebar: React.FC = () => {
   const [isMobile, setIsMobile] = useState(false)
   const [x, setX] = useState(0)
   const { width } = useWindowSize()
+
 
   function setXEnterByFloat() {
     if (float) setX(0)
@@ -125,20 +140,24 @@ export const Sidebar: React.FC = () => {
         onTouchStart={setXEnterByFloat}
         onTouchEnd={setXLeaveByFloat}
       >
-        <div className={styles.header}>
-          <div className={styles.logo}>
-            Mog
-          </div>
-          <div
-            className={styles.search}
-            onClick={() => setFloat(!float)}
-          >
-            {
-              !isMobile && (float ? <MenuFoldOne /> : <MenuUnfoldOne />)
-            }
+        <div className={clsx(styles.header)} >
+          <div className={styles.headerInner}>
+            <div className={styles.logo}>
+              Mog
+            </div>
+            <div
+              className={styles.search}
+              onClick={() => setFloat(!float)}
+            >
+              {
+                !isMobile && (float ? <MenuFoldOne /> : <MenuUnfoldOne />)
+              }
+            </div>
           </div>
         </div>
-        <Links />
+        <div className={styles.inner}>
+          <Links />
+        </div>
       </motion.div>
     </>
   )

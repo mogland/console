@@ -32,9 +32,7 @@ function App() {
       <Loading loading={loading} />
       <div className={clsx("app", "loading", !loading && "loaded")}>
         {
-          appSnapshot.showSidebar && (
-            <Sidebar />
-          )
+          appSnapshot.showSidebar && <Sidebar />
         }
         <div className="inner">
           <AppRouter />

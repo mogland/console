@@ -140,7 +140,7 @@ export const Home: BasicPage = () => {
 
 
   return (
-    <>
+    <div>
       <Loading loading={loading} />
       <div className={clsx("loading", !loading && "loaded")}>
         <Title>
@@ -268,6 +268,6 @@ export const Home: BasicPage = () => {
           </Tab.Group>
         </Widget>
       </div>
-    </>
+    </div>
   )
 }

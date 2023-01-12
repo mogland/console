@@ -69,3 +69,11 @@ code {
     padding-left: 30px;
   }
 }
+
+.inner {
+  overflow-y: auto;
+  height: 100vh;
+}
+.inner::-webkit-scrollbar {
+  display: none;
+}

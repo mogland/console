@@ -1,8 +1,7 @@
-import { Icon } from "@icon-park/react/lib/runtime"
 import styles from "./index.module.css"
 import { NavLink } from "react-router-dom"
 import clsx from "clsx"
-import { ReactElement } from "react"
+import type { ReactElement } from "react"
 
 interface Prop {
   icon?: ReactElement,
