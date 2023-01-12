@@ -4,13 +4,23 @@ import { Sidebar } from "./components/widgets/Sidebar";
 import { AppRouter } from "./router/router";
 import { apiClient } from "./utils/request";
 import { Loading } from "./components/universal/Loading";
+import { useNavigate } from "react-router-dom";
+import { useSnapshot } from "valtio";
+import { app } from "./states/app";
 
 function App() {
-
+  const appSnapshot = useSnapshot(app)
   const [loading, setLoading] = useState(true)
+  const navigate = useNavigate()
 
   useEffect(() => {
-    apiClient("/user/check").catch(() => {
+    apiClient("/user/check").then(() => {
+      window.location.pathname == '/' ||
+      window.location.pathname == '/login'
+      && navigate("/dashboard")
+      app.showSidebar = true;
+    }).catch(() => {
+      navigate("/login")
     })
     setTimeout(() => {
       setLoading(false)
@@ -21,7 +31,11 @@ function App() {
     <>
       <Loading loading={loading} />
       <div className={clsx("app", "loading", !loading && "loaded")}>
-        <Sidebar />
+        {
+          appSnapshot.showSidebar && (
+            <Sidebar />
+          )
+        }
         <div className="inner">
           <AppRouter />
         </div>

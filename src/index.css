@@ -5,6 +5,15 @@
 :root {
   --background-color: #ffffff;
   --text-color: #000000;
+  --maskbgdeep: rgba(255, 255, 255, 0.8);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #000000;
+    --text-color: #fff;
+    --maskdeep: rgba(0, 0, 0, 0.8);
+  }
 }
 
 body {
@@ -58,12 +67,5 @@ code {
 @media screen and (max-width: 768px) {
   .inner {
     padding-left: 30px;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background-color: #000000;
-    --text-color: #fff;
   }
 }
