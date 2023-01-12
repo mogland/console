@@ -1,6 +1,6 @@
 import type { EditorProps } from '@toast-ui/react-editor';
 import { Editor } from '@toast-ui/react-editor';
-import { useEffect, useState } from 'react';
+import { createRef, useEffect, useState } from 'react';
 import { useMedia } from 'react-use';
 import styles from "./index.module.css"
 import { motion } from "framer-motion"
@@ -9,7 +9,7 @@ import { Loading } from '../Loading';
 
 interface IEditor extends EditorProps {
   initialValue?: string;
-  onChange?: (value: string) => void;
+  onChange?: (value: string | undefined) => void;
   height?: string;
 }
 
@@ -17,6 +17,7 @@ export const MarkdownEditor: React.FC<IEditor> = (props) => {
 
   const isDark = useMedia('(prefers-color-scheme: dark)');
   const [render, setRender] = useState(true);
+  const ref = createRef<Editor>();
 
   useEffect(() => {
     setRender(false);
@@ -38,13 +39,16 @@ export const MarkdownEditor: React.FC<IEditor> = (props) => {
             animate={{ opacity: 1, }}
           >
             <Editor
-              {...props}
-              height={props.height}
-              // ref={props.ref}
-              initialEditType={'wysiwyg'}
               initialValue={props.initialValue || " "}
+              ref={ref}
+              height={props.height}
+              initialEditType={'markdown'}
               previewStyle={'vertical'}
               theme={isDark ? 'dark' : 'default'}
+              useCommandShortcut={true}
+              onChange={() => {
+                props.onChange?.(ref.current?.getInstance().getMarkdown());
+              }}
             />
           </motion.div>
         )

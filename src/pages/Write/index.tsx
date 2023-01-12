@@ -7,6 +7,7 @@ import { MarkdownEditor } from "../../components/universal/Editor"
 import { FloatBtn, FloatBtnContainer } from "../../components/universal/FloatBtn"
 import { Loading } from "../../components/universal/Loading"
 import { Title } from "../../components/universal/Title"
+import { Twindow } from "../../components/universal/Twindow"
 import type { BasicPage } from "../../types/basic"
 import { apiClient } from "../../utils/request"
 import { getQueryVariable } from "../../utils/url"
@@ -38,28 +39,47 @@ export const EditorPage: BasicPage = () => {
         {/* <Title>写 · {type === "page" ? "页面" : "文章"}</Title> */}
         <div className={styles.container}>
           <form className={styles.form} ref={formRef}>
-            <input className={styles.title} type="text" name="title" placeholder="标题" defaultValue={data?.title} />
-            <input className={styles.slug} name="slug" placeholder="Slug" defaultValue={data?.slug} />
+            <input
+              onChange={(e) => { setData({ ...data, title: e.target.value }) }}
+              className={styles.title} type="text" name="title" placeholder="标题" defaultValue={data?.title} />
+            <input
+              onChange={(e) => { setData({ ...data, title: e.target.value }) }}
+              className={styles.slug} name="slug" placeholder="Slug" defaultValue={data?.slug} />
             {
-                !loading && (
-                  <MarkdownEditor
-                    initialValue={data?.text}
-                    height="calc(100vh - 200px)"
-                    onChange={(e) => {
-                      setData({
-                        ...data,
-                        text: e
-                      })
-                      console.log(e)
-                    }}
-                  />
-                )
-              }
-              <FloatBtnContainer>
-                <FloatBtn>
-                  <Save />
-                </FloatBtn>
-              </FloatBtnContainer>
+              !loading && (
+                <MarkdownEditor
+                  initialValue={data?.text || " "}
+                  height="calc(100vh - 200px)"
+                  onChange={(value: string | undefined) => {
+                    setData({
+                      ...data,
+                      text: value
+                    })
+                  }}
+                />
+              )
+            }
+            <FloatBtnContainer>
+              <FloatBtn
+                onClick={() => {
+                  (apiClient(`${data.id ? `/${type}/${data.id}` : `/${type}`}`, {
+                    method: data.id ? "PUT" : "POST",
+                    body: JSON.stringify({
+                      ...data,
+                      categoryId: data.category_id
+                    })
+                  })).then(() => {
+                    navigate(`/${type}s`)
+                    Twindow({
+                      title: `${type === "page" ? "页面" : "文章"}保存成功 - ${data.title}`,
+                      text: "正在跳转...",
+                    })
+                  })
+                }}
+              >
+                <Save />
+              </FloatBtn>
+            </FloatBtnContainer>
           </form>
         </div>
       </div>
