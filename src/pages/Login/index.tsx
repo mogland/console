@@ -7,11 +7,13 @@ import { useNavigate } from "react-router-dom";
 import { apiClient } from "../../utils/request";
 import { Twindow } from "../../components/universal/Twindow";
 import { setStorage } from "../../utils/storage";
+import { app } from "../../states/app";
 
 export const Login: BasicPage = () => {
   const [loading, setLoading] = useState(false)
   const formRef = useRef<HTMLFormElement>(null)
   const navigate = useNavigate()
+  app.showSidebar = false;
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();

@@ -69,7 +69,7 @@
   :root {
     --sidebar-primary-color: #000;
     --sidebar-secondary-color: #1c1c1c;
-    --sidebar-tertiary-color: rgba(255, 255, 255, 0.1);
+    --sidebar-tertiary-color: rgba(255, 255, 255, 0.243);
     --sidebar-quaternary-color: #fff;
   }
 }

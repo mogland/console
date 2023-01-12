@@ -8,11 +8,8 @@ import { motion } from 'framer-motion'
 import { getStorage, removeStorage, setStorage } from "../../../utils/storage"
 import { useWindowSize } from "react-use"
 import itemStyle from './item/index.module.css'
-import { useNavigate } from "react-router-dom"
-import { Twindow } from "../../universal/Twindow"
 
 const Links = () => {
-  const navigate = useNavigate()
   return (
     <div className={styles.links}>
       <SidebarItem
