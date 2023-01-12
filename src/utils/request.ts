@@ -8,6 +8,7 @@
  */
 
 import { ofetch } from "ofetch";
+import { Twindow } from "../components/universal/Twindow";
 import { getStorage } from "./storage";
 
 const API = "http://192.168.3.4:2330";
@@ -18,5 +19,12 @@ export const apiClient = ofetch.create({
     "Content-Type": "application/json",
     Accept: "application/json",
     Authorization: `Bearer ${getStorage("token")}`,
+  },
+  onResponseError: (error) => {
+    Twindow({
+      title: `请求出错了哦 - ${error.response.status}`,
+      text: error.response._data.message,
+      allowClose: true,
+    })
   },
 });
