@@ -98,6 +98,10 @@
   transition: background-color 0.2s ease;
 }
 
+.tableItem > span {
+  text-overflow: ellipsis;
+}
+
 .tableTitle:hover {
   text-decoration: underline;
 }

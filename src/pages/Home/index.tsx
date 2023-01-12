@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { Title } from "../../components/universal/Title";
-import { BasicPage } from "../../types/basic";
+import type { BasicPage } from "../../types/basic";
 import styles from "./index.module.css"
 import { Tab } from '@headlessui/react'
 import { useEffect, useState } from "react";
@@ -48,7 +48,7 @@ export const TableContainer = ({ children, className, header }: { header: string
 
 export const TableItem = ({ children, className }: { children: React.ReactNode, className?: string }) => {
   return (
-    <div className={clsx(styles.tableGrid, styles.tableItem)}>
+    <div className={clsx(styles.tableGrid, styles.tableItem, className)}>
       {children}
     </div>
   )
@@ -109,19 +109,14 @@ export const Home: BasicPage = () => {
 
   useEffect(() => {
     Promise.all([
-      apiClient("/friends", { query: { status: 0, } }),
-      apiClient("/friends", { query: { status: 1, } }),
-      apiClient("/friends", { query: { status: 3, } }),
-      apiClient("/post"),
-      apiClient("/comments").then(res => {
-        res.data?.map(item => {
-          apiClient(`/post/${item.pid}`).then(res => {
-            item = {
-              ...item,
-              post: res,
-            }
-          })
-        })
+      apiClient("/friends/all", { query: { status: 0, } }), // pending
+      apiClient("/friends/all", { query: { status: 1, } }), // approved
+      apiClient("/friends/all", { query: { status: 3, } }), // trash
+      apiClient("/post", { query: { size: 5 } }),
+      apiClient("/comments", { query: { size: 5 } }).then(async res => {
+        for (let i = 0; i < res.data.length; i++) {
+          res.data[i].post = await apiClient(`/post/${res.data[i].pid}`)
+        }
         return res;
       }),
       apiClient("/page")
@@ -255,7 +250,7 @@ export const Home: BasicPage = () => {
                     return (
                       <TableItem key={index}>
                         <span className={styles.tableItemTitle}>{item.text}</span>
-                        <span className={styles.tableItemTitle}>{item?.post?.title || "未找到"}</span>
+                        <span className={styles.tableItemTitle}>{item.post?.title || "未找到"}</span>
                         <span className={styles.tableItemViews}>{item.author}</span>
                       </TableItem>
                     )
