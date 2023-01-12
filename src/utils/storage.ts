@@ -6,3 +6,7 @@ export function setStorage(key: string, value: string) {
   localStorage.setItem(key, value);
   return value;
 }
+
+export function removeStorage(key: string) {
+  localStorage.removeItem(key);
+}

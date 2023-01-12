@@ -1,15 +1,18 @@
-import { Agreement, CategoryManagement, Dashboard, Editor, FriendsCircle, GithubOne, HomeTwo, Logout, MenuFoldOne, MenuUnfoldOne, OpenDoor, Page, Search } from "@icon-park/react"
+import { CategoryManagement, Dashboard, Editor, FriendsCircle, GithubOne, HomeTwo, Logout, MenuFoldOne, MenuUnfoldOne, OpenDoor, Page } from "@icon-park/react"
 import clsx from "clsx"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { Space } from "../../universal/Space"
 import styles from "./index.module.css"
 import { SidebarItem } from "./item"
 import { motion } from 'framer-motion'
-import { getStorage, setStorage } from "../../../utils/storage"
-import { useScroll, useWindowSize } from "react-use"
+import { getStorage, removeStorage, setStorage } from "../../../utils/storage"
+import { useWindowSize } from "react-use"
 import itemStyle from './item/index.module.css'
+import { useNavigate } from "react-router-dom"
+import { Twindow } from "../../universal/Twindow"
 
 const Links = () => {
+  const navigate = useNavigate()
   return (
     <div className={styles.links}>
       <SidebarItem
@@ -81,16 +84,19 @@ const Links = () => {
       <Space
         height={30}
       />
-      <div>
-        <span className={itemStyle.item}>
-          <div className={itemStyle.icon}>
-            <Logout />
-          </div>
-          <div className={itemStyle.title}>
-            退出登录
-          </div>
-        </span>
-      </div>
+      <span className={itemStyle.item}
+        onClick={() => {
+          removeStorage('token')
+          window.location.href = '/login'
+        }}
+      >
+        <div className={itemStyle.icon}>
+          <Logout />
+        </div>
+        <div className={itemStyle.title}>
+          退出登录
+        </div>
+      </span>
     </div>
   )
 }

@@ -36,6 +36,7 @@ export const Login: BasicPage = () => {
           image: res.avatar,
         })
         navigate("/dashboard")
+        window.location.reload();
       }).catch(res => {
         Twindow({
           title: `登录失败 - ${res.data.message}`,
