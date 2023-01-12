@@ -13,6 +13,7 @@ import {
 } from "react-router-dom";
 import { Home } from "../pages/Home";
 import { Login } from "../pages/Login";
+import { PostsIndex } from "../pages/Posts/Index";
 
 export const AppRouter = () => {
   return (
@@ -20,6 +21,8 @@ export const AppRouter = () => {
       <Route path="/" element={<Home />} />
       <Route path="/dashboard" element={<Home />} />
       <Route path="/login" element={<Login />} />
+      
+      <Route path="/posts" element={<PostsIndex />} />
 
       <Route path="*" element={<NotFoundPage />} />
     </Routes>

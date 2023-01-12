@@ -71,6 +71,10 @@
   padding: 30px;
 }
 
+.tableContainer {
+  overflow-x: auto; 
+}
+
 .tableGrid {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
