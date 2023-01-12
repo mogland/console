@@ -8,9 +8,9 @@ import { apiClient } from "../../../utils/request";
 import { TableContainer, TableItem, TableItemValue } from "../../Home/universal";
 import styles from "./index.module.css"
 
-export const PostsIndex: BasicPage = () => {
+export const PagesIndex: BasicPage = () => {
   const [loading, setLoading] = useState(true)
-  const [select, setSelect] = useState<string[]>([]) // 选择的文章
+  const [select, setSelect] = useState<string[]>([]) // 选择的页面
   const [data, setData] = useState<{
     data: any[];
     pagination: any;
@@ -20,7 +20,7 @@ export const PostsIndex: BasicPage = () => {
   })
 
   useEffect(() => {
-    apiClient("/post").then((res) => {
+    apiClient("/page").then((res) => {
       setData(res)
       setLoading(false)
     })
@@ -36,7 +36,7 @@ export const PostsIndex: BasicPage = () => {
         <div className={clsx("loading", !loading && "loaded")}>
           <Title>
             <div className={styles.head}>
-              <span>文章 · 列表</span>
+              <span>页面 · 列表</span>
               <div>
                 {
                   select.length && <button
@@ -56,7 +56,7 @@ export const PostsIndex: BasicPage = () => {
                     onClick={(e) => {
                       if (e.currentTarget.classList.contains(styles.confrim)) {
                         // select.forEach((item) => {
-                        //   apiClient(`/post/${item}`, {
+                        //   apiClient(`/page/${item}`, {
                         //     method: "DELETE",
                         //   })
                         // })

@@ -13,6 +13,7 @@ import {
 } from "react-router-dom";
 import { Home } from "../pages/Home";
 import { Login } from "../pages/Login";
+import { PagesIndex } from "../pages/Pages/Index";
 import { PostsIndex } from "../pages/Posts/Index";
 
 export const AppRouter = () => {
@@ -23,6 +24,7 @@ export const AppRouter = () => {
       <Route path="/login" element={<Login />} />
       
       <Route path="/posts" element={<PostsIndex />} />
+      <Route path="/pages" element={<PagesIndex />} />
 
       <Route path="*" element={<NotFoundPage />} />
     </Routes>

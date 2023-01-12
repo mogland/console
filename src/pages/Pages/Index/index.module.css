@@ -1,0 +1,64 @@
+.widget {
+  padding: 30px;
+}
+
+.table::-webkit-scrollbar {
+  display: none;
+}
+
+.tableItem {
+  height: 60px;
+  border-bottom: 1px solid var(--secondary-color);
+  align-items: center;
+  width: 150%;
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button {
+  background: var(--secondary-color);
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  margin: 0 10px;
+  animation: fadeIn 0.5s ease;  
+}
+
+.select, .button:hover {
+  background: var(--primary-color);
+}
+
+.confrim {
+  background: red !important;
+  color: var(--background-color)
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.nav {
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  color: var(--text-color);
+  font-size: 1.2rem;
+  font-weight: 600;
+  position: fixed;
+  bottom: 20px;
+  right: 0;
+}
