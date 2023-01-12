@@ -33,9 +33,9 @@ const Links = () => {
       />
       <SidebarItem
         title="写文章"
-        href="/write?new=true&type=post"
+        href="/write/post"
         sub
-        naive
+        // naive
       />
       <SidebarItem
         title="朋友动态"
@@ -52,9 +52,9 @@ const Links = () => {
       />
       <SidebarItem
         title="新增页面"
-        href="/write?new=true&type=page"
+        href="/write/page"
         sub
-        naive
+        // naive
       />
       <Space
         height={20}

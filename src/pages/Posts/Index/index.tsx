@@ -1,6 +1,7 @@
 import { AddOne, Clear, Delete, Edit } from "@icon-park/react";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Loading } from "../../../components/universal/Loading";
 import { Title } from "../../../components/universal/Title";
 import type { BasicPage } from "../../../types/basic";
@@ -11,6 +12,7 @@ import styles from "./index.module.css"
 export const PostsIndex: BasicPage = () => {
   const [loading, setLoading] = useState(true)
   const [select, setSelect] = useState<string[]>([]) // 选择的文章
+  const nagitive = useNavigate()
   const [data, setData] = useState<{
     data: any[];
     pagination: any;
@@ -28,7 +30,6 @@ export const PostsIndex: BasicPage = () => {
 
   return (
     <>
-
       <div style={{
         width: "100%",
       }}>
@@ -71,9 +72,18 @@ export const PostsIndex: BasicPage = () => {
                   ><Delete /></button> || null
                 }
                 {
-                  select.length === 1 && <button className={styles.button}><Edit /></button> || null
+                  select.length === 1 && <button
+                    className={styles.button}
+                    onClick={() => {
+                      nagitive(`/write/post?id=${select[0]}`)
+                    }}
+                  ><Edit /></button> || null
                 }
-                <button className={styles.button}><AddOne /></button>
+                <button className={styles.button}
+                  onClick={() => {
+                    nagitive("/write/post")
+                  }}
+                ><AddOne /></button>
               </div>
             </div>
           </Title>

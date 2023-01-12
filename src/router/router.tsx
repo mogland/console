@@ -16,6 +16,7 @@ import { Login } from "../pages/Login";
 import { PagesIndex } from "../pages/Pages/Index";
 import { FriendsPosts } from "../pages/Posts/Friends";
 import { PostsIndex } from "../pages/Posts/Index";
+import { EditorPage } from "../pages/Write";
 
 export const AppRouter = () => {
   return (
@@ -28,12 +29,20 @@ export const AppRouter = () => {
       <Route path="/posts/friends" element={<FriendsPosts />} />
       <Route path="/pages" element={<PagesIndex />} />
 
+      <Route path="/write" element={<JumpToEditorPage />} />
+      <Route path="/write/:type" element={<EditorPage />} />
+
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 };
 
 const NotFoundPage = () => {
-  // window.location.href = "/dashboard"
+  window.location.href = "/dashboard"
+  return <></>
+}
+
+const JumpToEditorPage = () => {
+  window.location.href = "/write/post"
   return <></>
 }
