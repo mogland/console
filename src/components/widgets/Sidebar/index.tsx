@@ -14,7 +14,7 @@ const Links = () => {
       <SidebarItem
         icon={HomeTwo({})}
         title="仪表盘"
-        href="/"
+        href="/dashboard"
       />
       <SidebarItem
         icon={Page({})}
@@ -32,17 +32,17 @@ const Links = () => {
       />
       <SidebarItem
         title="草稿箱"
-        href="/posts?types=drafts"
+        href="/posts/drafts"
         sub
       />
       <SidebarItem
         title="已发布"
-        href="/posts?types=published"
+        href="/posts/published"
         sub
       />
       <SidebarItem
         title="朋友动态"
-        href="/posts?types=friends"
+        href="/posts/friends"
         sub
       />
       <Space

@@ -5,6 +5,7 @@ import styles from "./index.module.css"
 import { Tab } from '@headlessui/react'
 import { useEffect, useState } from "react";
 import { apiClient } from "../../utils/request";
+import { Loading } from "../../components/universal/Loading";
 
 export const GridContainer = ({ children, gridTemplateColumns, className }: { children: React.ReactNode, gridTemplateColumns: string, className?: string }) => {
   return (
@@ -55,6 +56,8 @@ export const TableItem = ({ children, className }: { children: React.ReactNode, 
 }
 
 export const Home: BasicPage = () => {
+
+  const [loading, setLoading] = useState(true)
 
   const [total, setTotal] = useState<{
     posts: {
@@ -131,136 +134,140 @@ export const Home: BasicPage = () => {
           trash: res[2]?.data.length,
         },
       })
+      setLoading(false)
     })
   }, [])
 
 
   return (
     <>
-      <Title>
-        仪表盘
-      </Title>
-      <GridContainer gridTemplateColumns="1fr 1fr 1fr" className={styles.total}>
-        <div className={styles.totalItem}>
-          <div className={styles.totalTitle}>
-            总文章
-          </div>
-          <div className={styles.totalNumber}>
-            {total.posts.pagination?.total}
-          </div>
-        </div>
-        <div className={styles.totalItem}>
-          <div className={styles.totalTitle}>
-            总页面
-          </div>
-          <div className={styles.totalNumber}>
-            {total.pages.pagination?.total}
-          </div>
-        </div>
-        <div className={styles.totalItem}>
-          <div className={styles.totalTitle}>
-            总评论
-          </div>
-          <div className={styles.totalNumber}>
-            {total.comments.pagination?.total}
-          </div>
-        </div>
-      </GridContainer>
-      <Widget>
-        <div className={styles.widgetTitle}>
-          {/* 每日访问总数 */}
-          战绩统计
-        </div>
-        {/* <ReactECharts option={options} /> */}
-        <GridContainer gridTemplateColumns="1fr 1fr 1fr" className={styles.chartDetail}>
+      <Loading loading={loading} />
+      <div className={clsx("loading", !loading && "loaded")}>
+        <Title>
+          仪表盘
+        </Title>
+        <GridContainer gridTemplateColumns="1fr 1fr 1fr" className={styles.total}>
           <div className={styles.totalItem}>
-            <div className={clsx(styles.totalTitle, styles.chartTitle)}>
-              当前友链数量
+            <div className={styles.totalTitle}>
+              总文章
             </div>
-            <div className={clsx(styles.totalNumber, styles.chartNumber)}>
-              {total.friends.approved} 个
+            <div className={styles.totalNumber}>
+              {total.posts.pagination?.total}
             </div>
           </div>
           <div className={styles.totalItem}>
-            <div className={clsx(styles.totalTitle, styles.chartTitle)}>
-              申请中友链数量
+            <div className={styles.totalTitle}>
+              总页面
             </div>
-            <div className={clsx(styles.totalNumber, styles.chartNumber)}>
-              {total.friends.pending} 个
+            <div className={styles.totalNumber}>
+              {total.pages.pagination?.total}
             </div>
           </div>
           <div className={styles.totalItem}>
-            <div className={clsx(styles.totalTitle, styles.chartTitle)}>
-              已拒绝友链数量
+            <div className={styles.totalTitle}>
+              总评论
             </div>
-            <div className={clsx(styles.totalNumber, styles.chartNumber)}>
-              {total.friends.trash} 个
+            <div className={styles.totalNumber}>
+              {total.comments.pagination?.total}
             </div>
           </div>
         </GridContainer>
-      </Widget>
-      <Widget>
-        <Tab.Group>
-          <Tab.List>
-            <Tab className={styles.noOutline}>
-              {({ selected }) => {
-                return (
-                  <div className={clsx(styles.widgetTitle, !selected && styles.widgetTitleUnActive)}>
-                    最近文章
-                  </div>
-                )
-              }}
-            </Tab>
-            <Tab className={styles.noOutline}>
-              {
-                ({ selected }) => {
+        <Widget>
+          <div className={styles.widgetTitle}>
+            {/* 每日访问总数 */}
+            战绩统计
+          </div>
+          {/* <ReactECharts option={options} /> */}
+          <GridContainer gridTemplateColumns="1fr 1fr 1fr" className={styles.chartDetail}>
+            <div className={styles.totalItem}>
+              <div className={clsx(styles.totalTitle, styles.chartTitle)}>
+                当前友链数量
+              </div>
+              <div className={clsx(styles.totalNumber, styles.chartNumber)}>
+                {total.friends.approved} 个
+              </div>
+            </div>
+            <div className={styles.totalItem}>
+              <div className={clsx(styles.totalTitle, styles.chartTitle)}>
+                申请中友链数量
+              </div>
+              <div className={clsx(styles.totalNumber, styles.chartNumber)}>
+                {total.friends.pending} 个
+              </div>
+            </div>
+            <div className={styles.totalItem}>
+              <div className={clsx(styles.totalTitle, styles.chartTitle)}>
+                已拒绝友链数量
+              </div>
+              <div className={clsx(styles.totalNumber, styles.chartNumber)}>
+                {total.friends.trash} 个
+              </div>
+            </div>
+          </GridContainer>
+        </Widget>
+        <Widget>
+          <Tab.Group>
+            <Tab.List>
+              <Tab className={styles.noOutline}>
+                {({ selected }) => {
                   return (
                     <div className={clsx(styles.widgetTitle, !selected && styles.widgetTitleUnActive)}>
-                      最近评论
+                      最近文章
                     </div>
                   )
-                }
-              }
-            </Tab>
-          </Tab.List>
-          <Tab.Panels className={styles.tabContent}>
-            <Tab.Panel>
-              <TableContainer
-                header={["TITLE", "DATE", "READ"]}
-              >
+                }}
+              </Tab>
+              <Tab className={styles.noOutline}>
                 {
-                  total.posts.data?.map((item: any, index: number) => {
+                  ({ selected }) => {
                     return (
-                      <TableItem key={index}>
-                        <span className={styles.tableItemTitle}>{item.title}</span>
-                        <span className={styles.tableItemDate}>{item.created.split("T")[0]}</span>
-                        <span className={styles.tableItemViews}>{item.count.read}</span>
-                      </TableItem>
+                      <div className={clsx(styles.widgetTitle, !selected && styles.widgetTitleUnActive)}>
+                        最近评论
+                      </div>
                     )
-                  })
+                  }
                 }
-              </TableContainer>
-            </Tab.Panel>
-            <Tab.Panel>
-              <TableContainer
-                header={["TEXT", "POST", "AUTHOR"]}
-              >
-                {
-                  total.comments.data?.map((item: any, index: number) => {
-                    return (
-                      <TableItem key={index}>
-                        <span className={styles.tableItemTitle}>{item.text}</span>
-                        <span className={styles.tableItemTitle}>{item.post?.title || "未找到"}</span>
-                        <span className={styles.tableItemViews}>{item.author}</span>
-                      </TableItem>
-                    )
-                  })
-                }
-              </TableContainer>
-            </Tab.Panel>
-          </Tab.Panels>
-        </Tab.Group>
-      </Widget>
+              </Tab>
+            </Tab.List>
+            <Tab.Panels className={styles.tabContent}>
+              <Tab.Panel>
+                <TableContainer
+                  header={["TITLE", "DATE", "READ"]}
+                >
+                  {
+                    total.posts.data?.map((item: any, index: number) => {
+                      return (
+                        <TableItem key={index}>
+                          <span className={styles.tableItemTitle}>{item.title}</span>
+                          <span className={styles.tableItemDate}>{item.created.split("T")[0]}</span>
+                          <span className={styles.tableItemViews}>{item.count.read}</span>
+                        </TableItem>
+                      )
+                    })
+                  }
+                </TableContainer>
+              </Tab.Panel>
+              <Tab.Panel>
+                <TableContainer
+                  header={["TEXT", "POST", "AUTHOR"]}
+                >
+                  {
+                    total.comments.data?.map((item: any, index: number) => {
+                      return (
+                        <TableItem key={index}>
+                          <span className={styles.tableItemTitle}>{item.text}</span>
+                          <span className={styles.tableItemTitle}>{item.post?.title || "未找到"}</span>
+                          <span className={styles.tableItemViews}>{item.author}</span>
+                        </TableItem>
+                      )
+                    })
+                  }
+                </TableContainer>
+              </Tab.Panel>
+            </Tab.Panels>
+          </Tab.Group>
+        </Widget>
+      </div>
     </>
   )
 }

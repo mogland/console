@@ -13,7 +13,6 @@ interface Prop {
 }
 
 export const SidebarItem: React.FC<Prop> = ({ icon, title, href, sub, outside }) => {
-
   return (
     <>
       {
