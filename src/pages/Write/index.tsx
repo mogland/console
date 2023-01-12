@@ -20,6 +20,17 @@ export const EditorPage: BasicPage = () => {
   const navigate = useNavigate()
   const formRef = useRef<HTMLFormElement>(null)
   const id = getQueryVariable("id")
+
+  useEffect(() => {
+    setLoading(true)
+    if (!id) {
+      setData({})
+      setTimeout(() => {
+        setLoading(false)
+      }, 500)
+    }
+  }, [id])
+
   useEffect(() => {
     if (!id) {
       setLoading(false)
