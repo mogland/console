@@ -86,7 +86,7 @@ export const PagesIndex: BasicPage = () => {
             {
               data.data.map((item, index) => {
                 return <TableItem
-                  onClick={(e) => {
+                  onClick={(e: React.MouseEvent) => {
                     if (e.currentTarget.classList.contains(styles.select)) {
                       setSelect(select.filter((i) => i !== item.id))
                       console.log(select)
