@@ -1,16 +1,22 @@
+.title, .slug {
+  background-color: var(--background-color);
+}
+
 .title {
   width: 100%;
   height: 100%;
   border: none;
   outline: none;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: bold;
-  border-bottom: 1px solid rgb(222, 222, 222);
+  border-bottom: 1px solid var(--maskbgdeep-reverse);
+  padding-top: 20px;
+  padding-bottom: 10px;
   transition: border-bottom 0.2s ease-in-out;
 }
 
 .title:focus {
-  border-bottom: 1px solid rgb(0, 0, 0);
+  border-bottom: 1px solid var(--text-color);
 }
 
 .slug {

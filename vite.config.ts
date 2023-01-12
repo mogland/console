@@ -18,6 +18,9 @@ export default defineConfig({
             "@milkdown/core",
             "@milkdown/plugin-history",
           ],
+          "toast-ui": [
+            "@toast-ui/react-editor",
+          ]
         },
       },
     },

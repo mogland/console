@@ -1,6 +1,10 @@
+import { Save } from "@icon-park/react"
+import { Editor } from "@toast-ui/react-editor"
 import clsx from "clsx"
 import { useEffect, useRef, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
+import { MarkdownEditor } from "../../components/universal/Editor"
+import { FloatBtn, FloatBtnContainer } from "../../components/universal/FloatBtn"
 import { Loading } from "../../components/universal/Loading"
 import { Title } from "../../components/universal/Title"
 import type { BasicPage } from "../../types/basic"
@@ -36,7 +40,26 @@ export const EditorPage: BasicPage = () => {
           <form className={styles.form} ref={formRef}>
             <input className={styles.title} type="text" name="title" placeholder="标题" defaultValue={data?.title} />
             <input className={styles.slug} name="slug" placeholder="Slug" defaultValue={data?.slug} />
-
+            {
+                !loading && (
+                  <MarkdownEditor
+                    initialValue={data?.text}
+                    height="calc(100vh - 200px)"
+                    onChange={(e) => {
+                      setData({
+                        ...data,
+                        text: e
+                      })
+                      console.log(e)
+                    }}
+                  />
+                )
+              }
+              <FloatBtnContainer>
+                <FloatBtn>
+                  <Save />
+                </FloatBtn>
+              </FloatBtnContainer>
           </form>
         </div>
       </div>
