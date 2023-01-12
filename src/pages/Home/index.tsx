@@ -6,54 +6,8 @@ import { Tab } from '@headlessui/react'
 import { useEffect, useState } from "react";
 import { apiClient } from "../../utils/request";
 import { Loading } from "../../components/universal/Loading";
+import { GridContainer, Widget, TableContainer, TableItem } from "./universal";
 
-export const GridContainer = ({ children, gridTemplateColumns, className }: { children: React.ReactNode, gridTemplateColumns: string, className?: string }) => {
-  return (
-    <div style={{ gridTemplateColumns }} className={clsx(styles.gridContainer, className)}>
-      {children}
-    </div>
-  )
-}
-
-export const Widget = ({ children, className }: { children: React.ReactNode, className?: string }) => {
-  return (
-    <div className={clsx(styles.widget, className)}>
-      {children}
-    </div>
-  )
-}
-
-export const TableContainer = ({ children, className, header }: { header: string[], children: React.ReactNode, className?: string }) => {
-  return (
-    <div className={clsx(styles.tableContainer, className)}>
-      <div
-        className={clsx(styles.tableHeader, styles.tableGrid)}
-        style={{
-          gridTemplateColumns: `2fr repeat(${header.length - 1}, 1fr)`
-        }}
-      >
-        {
-          header.map((item, index) => {
-            return (
-              <span key={index} className={styles.tableHeaderItem}>
-                {item}
-              </span>
-            )
-          })
-        }
-      </div>
-      {children}
-    </div>
-  )
-}
-
-export const TableItem = ({ children, className }: { children: React.ReactNode, className?: string }) => {
-  return (
-    <div className={clsx(styles.tableGrid, styles.tableItem, className)}>
-      {children}
-    </div>
-  )
-}
 
 export const Home: BasicPage = () => {
 
@@ -237,7 +191,9 @@ export const Home: BasicPage = () => {
                   {
                     total.posts.data?.map((item: any, index: number) => {
                       return (
-                        <TableItem key={index}>
+                        <TableItem
+                          header={["TITLE", "DATE", "READ"]}
+                          key={index}>
                           <span className={styles.tableItemTitle}>{item.title}</span>
                           <span className={styles.tableItemDate}>{item.created.split("T")[0]}</span>
                           <span className={styles.tableItemViews}>{item.count.read}</span>
@@ -254,7 +210,9 @@ export const Home: BasicPage = () => {
                   {
                     total.comments.data?.map((item: any, index: number) => {
                       return (
-                        <TableItem key={index}>
+                        <TableItem
+                          header={["TEXT", "POST", "AUTHOR"]}
+                          key={index}>
                           <span className={styles.tableItemTitle}>{item.text}</span>
                           <span className={styles.tableItemTitle}>{item.post?.title || "未找到"}</span>
                           <span className={styles.tableItemViews}>{item.author}</span>
