@@ -34,6 +34,6 @@ export const AppRouter = () => {
 };
 
 const NotFoundPage = () => {
-  window.location.href = "/dashboard"
+  // window.location.href = "/dashboard"
   return <></>
 }

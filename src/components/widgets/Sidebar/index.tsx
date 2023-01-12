@@ -1,4 +1,4 @@
-import { CategoryManagement, Dashboard, Editor, FriendsCircle, GithubOne, HomeTwo, Logout, MenuFoldOne, MenuUnfoldOne, OpenDoor, Page } from "@icon-park/react"
+import { CategoryManagement, Dashboard, Editor, FriendsCircle, GithubOne, HomeTwo, Logout, MenuFoldOne, MenuUnfoldOne, OpenDoor, Page, Write } from "@icon-park/react"
 import clsx from "clsx"
 import { useEffect, useState } from "react"
 import { Space } from "../../universal/Space"
@@ -32,14 +32,10 @@ const Links = () => {
         href="/posts"
       />
       <SidebarItem
-        title="草稿箱"
-        href="/posts/drafts"
+        title="写文章"
+        href="/write?new=true&type=post"
         sub
-      />
-      <SidebarItem
-        title="已发布"
-        href="/posts/published"
-        sub
+        naive
       />
       <SidebarItem
         title="朋友动态"
@@ -53,6 +49,15 @@ const Links = () => {
         icon={OpenDoor({})}
         title="页面"
         href="/pages"
+      />
+      <SidebarItem
+        title="新增页面"
+        href="/write?new=true&type=page"
+        sub
+        naive
+      />
+      <Space
+        height={20}
       />
       <SidebarItem
         icon={CategoryManagement({})}
