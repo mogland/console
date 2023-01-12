@@ -18,7 +18,7 @@ export const Widget = ({ children, className }: { children: React.ReactNode, cla
   )
 }
 
-export const TableContainer = ({ children, className, header, style }: { header: string[], children: React.ReactNode, className?: string, style?: React.CSSProperties }) => {
+export const TableContainer = ({ children, className, header, style, headerStyle }: { header: string[], children: React.ReactNode, className?: string, style?: React.CSSProperties, headerStyle?: React.CSSProperties }) => {
   return (
     <div className={clsx(styles.tableContainer, className)}
       style={style}
@@ -26,7 +26,8 @@ export const TableContainer = ({ children, className, header, style }: { header:
       <div
         className={clsx(styles.tableHeader, styles.tableGrid)}
         style={{
-          gridTemplateColumns: `2fr repeat(${header.length - 1}, 1fr)`
+          gridTemplateColumns: `2fr repeat(${header.length - 1}, 1fr)`,
+          ...headerStyle
         }}
       >
         {

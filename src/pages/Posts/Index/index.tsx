@@ -78,7 +78,9 @@ export const PostsIndex: BasicPage = () => {
             </div>
           </Title>
           <TableContainer
+            className={styles.table}
             style={{ marginTop: "20px" }}
+            headerStyle={{ width: "150%" }}
             header={["TITLE", "DATE", "CATEGORY", "TAGS", "READ", "LIKE"]}
           >
             {
