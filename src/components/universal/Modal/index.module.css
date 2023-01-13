@@ -22,15 +22,32 @@
   color: var(--text-color);
 }
 
+.sm {
+  @apply max-w-md;
+}
+
+.md {
+  @apply max-w-2xl;
+}
+
+.lg {
+  @apply max-w-3xl;
+}
+
+.xl {
+  @apply max-w-5xl;
+}
+
 .title {
-  @apply text-lg font-medium leading-6;
+  @apply text-lg leading-6;
   color: var(--text-color);
+  font-weight: 900;
 }
 
 :root {
-  --modal-hover-background-color: rgb(219 234 254);
-  --modal-background-color: rgb(201, 216, 236);
-  --modal-text-color: rgb(30 58 138);
+  --modal-hover-background-color: rgb(185, 185, 185);
+  --modal-background-color: rgb(227, 227, 227);
+  --modal-text-color: rgb(0, 0, 0);
 }
 
 .button {
@@ -44,10 +61,28 @@
   background-color: var(--modal-hover-background-color) !important;
 }
 
+.button:not(last-child) {
+  @apply mr-2;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --modal-hover-background-color: rgb(42, 42, 42);
     --modal-background-color: rgb(58, 58, 58);
     --modal-text-color: rgb(255 255 255);
   }
+}
+
+.modalBody {
+  @apply text-sm text-gray-500;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.double-click {
+  background-color: red !important;
+}
+
+.double-click:hover {
+  background-color: rgb(181, 0, 0) !important;
 }

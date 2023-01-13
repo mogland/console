@@ -2,8 +2,7 @@ import styles from "./index.module.css"
 import { Fragment, useState } from "react"
 import { Dialog, Transition } from "@headlessui/react"
 import clsx from "clsx"
-
-export const Modal = ({ children, onClose, title, type, options, onConfirm }: {
+export const Modal = ({ children, onClose, title, type, options, onConfirm, size, doubleClick }: {
   children: React.ReactNode,
   title: string,
   type?: "confirm" | "info",
@@ -13,8 +12,46 @@ export const Modal = ({ children, onClose, title, type, options, onConfirm }: {
   }
   onConfirm?: (e: boolean) => void,
   onClose?: (e: boolean) => void,
+  size?: "sm" | "md" | "lg",
+  doubleClick?: {
+    confirm?: boolean,
+    cancel?: boolean,
+  },
 }) => {
   const [isOpen, setIsOpen] = useState(true)
+  const [doubleClickState, setDoubleClickState] = useState(doubleClick || {
+    confirm: false,
+    cancel: false,
+  })
+
+  const confirm = (e) => {
+    console.log(doubleClickState)
+    if (doubleClickState.confirm) {
+      e.preventDefault()
+      e.currentTarget.classList.add(styles["double-click"])
+      setDoubleClickState({
+        ...doubleClickState,
+        confirm: false,
+      })
+      return;
+    }
+    onConfirm?.(true)
+  }
+
+  const cancel = (e) => {
+    if (doubleClickState.cancel) {
+      e.preventDefault()
+      e.currentTarget.classList.add(styles["double-click"])
+      setDoubleClickState({
+        ...doubleClickState,
+        cancel: false,
+      })
+      return
+    }
+
+    onClose?.(false)
+  }
+
   function closeModal(e: boolean) {
     setIsOpen(false)
     onClose?.(e)
@@ -46,7 +83,7 @@ export const Modal = ({ children, onClose, title, type, options, onConfirm }: {
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel
-                className={clsx(styles.panel)} >
+                className={clsx(styles.panel, styles[size || "sm"])}>
                 <Dialog.Title
                   as="h3"
                   className={clsx(styles.title)}
@@ -62,8 +99,8 @@ export const Modal = ({ children, onClose, title, type, options, onConfirm }: {
                       <button
                         type="button"
                         className={clsx(styles.confirm, styles.button)}
-                        onClick={() => {
-                          onConfirm?.(true)
+                        onClick={(e) => {
+                          confirm(e)
                         }}
                       >
                         {options?.confirmText || "好的～"}
@@ -74,7 +111,9 @@ export const Modal = ({ children, onClose, title, type, options, onConfirm }: {
                   <button
                     type="button"
                     className={clsx(styles.cancel, styles.button)}
-                    onClick={() => { closeModal(false) }}
+                    onClick={(e) => {
+                      cancel(e)
+                    }}
                   >
                     {options?.cancelText || "取消"}
                   </button>
@@ -90,7 +129,7 @@ export const Modal = ({ children, onClose, title, type, options, onConfirm }: {
 
 export const ModalBody = ({ children }) => {
   return (
-    <p className={clsx("text-sm text-gray-500", styles.modalBody)}>
+    <p className={clsx(styles.modalBody)}>
       {children}
     </p>
   )
