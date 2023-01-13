@@ -25,3 +25,31 @@
 .slug:focus {
   outline: none;
 }
+
+.summary {
+  width: 100%;
+  border-radius: 0.5rem;
+  min-height: 3rem;
+  border: none;
+  outline: none;
+  padding-top: 10px;
+  padding-left: 10px;
+  transition: border-bottom 0.2s ease-in-out;
+  resize: none;
+  background-color: var(--background-color);
+}
+
+.summary:focus {
+  outline: none;
+}
+
+.toggleGroup {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.toggleGroupTitle {
+  margin-top: -0.5rem;
+  margin-right: 12px;
+}

@@ -1,11 +1,18 @@
-import { Save } from "@icon-park/react"
+import { ExpandLeft, ExpandRight, Save } from "@icon-park/react"
 import clsx from "clsx"
 import { useEffect, useRef, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
+import { useSnapshot } from "valtio"
+import { DatePick } from "../../components/universal/DatePick"
 import { MarkdownEditor } from "../../components/universal/Editor"
 import { FloatBtn, FloatBtnContainer } from "../../components/universal/FloatBtn"
 import { Loading } from "../../components/universal/Loading"
+import { Modal, ModalBody } from "../../components/universal/Modal"
+import { Selects } from "../../components/universal/Select"
+import { Tags } from "../../components/universal/Tags"
+import { Toggle } from "../../components/universal/Toggle"
 import { Twindow } from "../../components/universal/Twindow"
+import { server } from "../../states/app"
 import type { BasicPage } from "../../types/basic"
 import { apiClient } from "../../utils/request"
 import { getQueryVariable } from "../../utils/url"
@@ -13,11 +20,14 @@ import styles from "./index.module.css"
 
 export const EditorPage: BasicPage = () => {
   const [loading, setLoading] = useState(true)
+  const [sidebar, setSidebar] = useState(false)
   const [data, setData] = useState<any>()
+  const [rawData, setRawData] = useState<any>()
   const { type } = useParams()
   const navigate = useNavigate()
   const formRef = useRef<HTMLFormElement>(null)
   const id = getQueryVariable("id")
+  const serverSnapshot = useSnapshot(server)
 
   useEffect(() => {
     if (!id) {
@@ -32,16 +42,155 @@ export const EditorPage: BasicPage = () => {
     }
     apiClient(`/${type}/${id}`).then(res => {
       setData(res)
+      setRawData(res)
       setLoading(false)
     }).catch(() => {
       navigate(`/${type}s`)
     })
   }, [type, id])
+
+  const FloatBtns = () => {
+    return (
+      <FloatBtnContainer>
+        <FloatBtn
+          onClick={() => {
+            (apiClient(`${data.id ? `/${type}/${data.id}` : `/${type}`}`, {
+              method: data.id ? "PUT" : "POST",
+              body: JSON.stringify({
+                ...data,
+                categoryId: data.category_id
+              })
+            })).then(() => {
+              navigate(`/${type}s`)
+              Twindow({
+                title: `${type === "page" ? "页面" : "文章"}保存成功 - ${data.title}`,
+                text: "正在跳转...",
+              })
+            })
+          }}
+        >
+          <Save />
+        </FloatBtn>
+        <FloatBtn
+          onClick={() => {
+            setSidebar(!sidebar)
+          }}
+        >
+          {sidebar ? <ExpandRight /> : <ExpandLeft />}
+        </FloatBtn>
+      </FloatBtnContainer>
+    )
+  }
+
+  const sidebarComponent = () => {
+    return (
+      <>
+        <Modal
+          size="md"
+          title="元数据"
+          onClose={() => {
+            setSidebar(false)
+          }}
+          onCancel={() => {
+            console.log(rawData, "rawData 还原")
+            setData(rawData)
+          }}
+          onConfirm={() => {
+            setRawData(data)
+            console.log(rawData, "rawData 确认")
+          }}
+          type="confirm"
+          doubleClick={{
+            cancel: true
+          }}
+        >
+
+          <div className={styles.toggleGroup}>
+            <span className={styles.toggleGroupTitle}><ModalBody>文章署名</ModalBody></span>
+            <Toggle
+              checked={data?.copyright}
+              onChange={(value) => {
+                setData({
+                  ...data,
+                  copyright: value
+                })
+              }}
+            />
+
+          </div>
+
+          <div className={styles.toggleGroup}>
+            <span className={styles.toggleGroupTitle}><ModalBody>是否隐藏</ModalBody></span>
+            <Toggle
+              checked={data?.hide}
+              onChange={(value) => {
+                setData({
+                  ...data,
+                  hide: value
+                })
+              }}
+            />
+          </div>
+
+
+          <ModalBody>文章分类</ModalBody>
+          <Selects
+            value={serverSnapshot.categories.map((item) => {
+              return {
+                name: item.name,
+                value: item.id
+              }
+            })}
+            onChange={(value) => {
+              setData({
+                ...data,
+                category_id: value
+              })
+            }}
+          />
+          <ModalBody>文章发布日期</ModalBody>
+          <DatePick
+            value={data?.created}
+            onChange={(value) => {
+              setData({
+                ...data,
+                created: value
+              })
+            }}
+            calendarStyle={{ position: "absolute", top: "100px", left: "220px" }}
+          />
+          <ModalBody>文章标签</ModalBody>
+          <Tags
+            tags={data?.tags || []}
+            setTags={(tags) => {
+              setData({
+                ...data,
+                tags
+              })
+            }}
+          />
+          <ModalBody>文章概要</ModalBody>
+          <textarea
+            className={styles.summary}
+            name="summary"
+            placeholder=""
+            defaultValue={data?.summary}
+            onChange={(e) => {
+              setData({
+                ...data,
+                summary: e.target.value
+              })
+            }}
+          />
+        </Modal>
+      </>
+    )
+  }
+
   return (
     <>
       <Loading loading={loading} />
       <div className={clsx("loading", !loading && "loaded")}>
-        {/* <Title>写 · {type === "page" ? "页面" : "文章"}</Title> */}
         <div className={styles.container}>
           <form className={styles.form} ref={formRef}>
             <input
@@ -64,27 +213,10 @@ export const EditorPage: BasicPage = () => {
                 />
               )
             }
-            <FloatBtnContainer>
-              <FloatBtn
-                onClick={() => {
-                  (apiClient(`${data.id ? `/${type}/${data.id}` : `/${type}`}`, {
-                    method: data.id ? "PUT" : "POST",
-                    body: JSON.stringify({
-                      ...data,
-                      categoryId: data.category_id
-                    })
-                  })).then(() => {
-                    navigate(`/${type}s`)
-                    Twindow({
-                      title: `${type === "page" ? "页面" : "文章"}保存成功 - ${data.title}`,
-                      text: "正在跳转...",
-                    })
-                  })
-                }}
-              >
-                <Save />
-              </FloatBtn>
-            </FloatBtnContainer>
+            <FloatBtns />
+            {
+              sidebar && sidebarComponent()
+            }
           </form>
         </div>
       </div>
