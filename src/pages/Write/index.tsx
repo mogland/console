@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { MarkdownEditor } from "../../components/universal/Editor"
 import { FloatBtn, FloatBtnContainer } from "../../components/universal/FloatBtn"
-import { Loading } from "../../components/universal/Loading"
 import { Twindow } from "../../components/universal/Twindow"
 import type { BasicPage } from "../../types/basic"
 import { apiClient } from "../../utils/request"
@@ -34,9 +33,9 @@ export const EditorPage: BasicPage = () => {
       setData(res)
       setLoading(false)
     }).catch(() => {
-      navigate('/posts')
+      navigate('/${type}s')
     })
-  }, [])
+  }, [type, id])
   return (
     <>
       <div className={clsx("loading", !loading && "loaded")}>

@@ -10,7 +10,6 @@
   outline: none;
   font-size: 1.6rem;
   font-weight: bold;
-  border-bottom: 1px solid var(--maskbgdeep-reverse);
   padding-top: 20px;
   padding-bottom: 10px;
   transition: border-bottom 0.2s ease-in-out;
@@ -20,16 +19,8 @@
 .slug {
   margin-top: 10px;
   font-size: 1rem;
-  width: 25%;
-  border-bottom: 1px solid var(--maskbgdeep-reverse);
+  width: 100%;
 }
-
-
-.title:focus,
-.slug:focus {
-  border-bottom: 1px solid var(--text-color);
-}
-
 
 .slug:focus {
   outline: none;
