@@ -5,6 +5,9 @@
 :root {
   --background-color: #ffffff;
   --background-color-primary: #f5f5f5;
+  --background-color-secondary: #e5e5e5;
+  --background-color-tertiary: #d5d5d5;
+  --background-color-quaternary: #b5b5b5;
   --text-color: #000000;
   --text-color-primary: #333333;
   --maskbgdeep: rgba(255, 255, 255, 0.8);
@@ -15,6 +18,9 @@
   :root {
     --background-color: #000000;
     --background-color-primary: #1b1b1b;
+    --background-color-secondary: #2b2b2b;
+    --background-color-tertiary: #3b3b3b;
+    --background-color-quaternary: #5b5b5b;
     --text-color: #fff;
     --text-color-primary: #fff;
     --maskbgdeep: rgba(0, 0, 0, 0.8);
