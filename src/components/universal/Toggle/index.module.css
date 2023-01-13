@@ -1,3 +1,16 @@
+:root {
+  --toggle-background: #e5e7eb;
+  --toggle-background-active: #667eea;
+  --toggle-circle-color: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --toggle-background: #4b5563;
+    --toggle-background-active: #667eea;
+  }
+}
+
 .switch {
   position: relative;
   display: inline-flex;
@@ -5,11 +18,12 @@
   height: 1.5rem;
   align-items: center;
   border-radius: 9999px;
-  background-color: var(--toggle-background-color);
+  background-color: var(--toggle-background) !important;
+  outline: none !important;
 }
 
 .active {
-  background-color: var(--toggle-background-color-active);
+  background-color: var(--toggle-background-active) !important;
 }
 
 .circle {
@@ -17,7 +31,7 @@
   width: 1rem;
   height: 1rem;
   border-radius: 9999px;
-  background-color: var(--toggle-circle-color);
+  background-color: var(--toggle-circle-color) !important;
   transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   transform: translateX(0.25rem);
 }
@@ -34,20 +48,4 @@
 
 .enter {
   width: 1.5rem;
-}
-
-
-
-
-:root {
-  --toggle-background-color: #e5e7eb;
-  --toggle-background-color-active: #667eea;
-  --toggle-circle-color: #ffffff;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --toggle-background-color: #4b5563;
-    --toggle-background-color-active: #667eea;
-  }
 }
