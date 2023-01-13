@@ -80,8 +80,7 @@ export const PagesIndex: BasicPage = () => {
           <TableContainer
             className={styles.table}
             style={{ marginTop: "20px" }}
-            headerStyle={{ width: "150%" }}
-            header={["TITLE", "DATE", "CATEGORY", "TAGS", "READ", "LIKE"]}
+            header={["TITLE", "DATE"]}
           >
             {
               data.data.map((item, index) => {
@@ -95,15 +94,12 @@ export const PagesIndex: BasicPage = () => {
                     }
                     e.currentTarget.classList.toggle(styles.select)
                   }}
-                  header={["TITLE", "DATE", "CATEGORY", "TAGS", "READ", "LIKE"]}
-                  className={clsx(styles.tableItem, "item")}
+                  header={["TITLE", "DATE"]}
+                  className={clsx(styles.tableItem)}
+                  style={{ width: "inherit" }}
                   key={index}>
                   <TableItemValue> {item.title} </TableItemValue>
                   <TableItemValue> {item.created.split("T")[0]} </TableItemValue>
-                  <TableItemValue> {item.category.name} </TableItemValue>
-                  <TableItemValue> {item.tags?.join(",") || ""} </TableItemValue>
-                  <TableItemValue> {item.count.read} </TableItemValue>
-                  <TableItemValue> {item.count.like} </TableItemValue>
                 </TableItem>
               })
             }

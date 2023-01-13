@@ -16,6 +16,7 @@ import { Login } from "../pages/Login";
 import { PagesIndex } from "../pages/Pages/Index";
 import { FriendsPosts } from "../pages/Posts/Friends";
 import { PostsIndex } from "../pages/Posts/Index";
+import { StatusPage } from "../pages/Status";
 import { EditorPage } from "../pages/Write";
 
 export const AppRouter = () => {
@@ -31,6 +32,8 @@ export const AppRouter = () => {
 
       <Route path="/write" element={<JumpToEditorPage />} />
       <Route path="/write/:type" element={<EditorPage />} />
+
+      <Route path="/status" element={<StatusPage />} />
 
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
