@@ -46,12 +46,13 @@ export const TableContainer = ({ children, className, header, style, headerStyle
 }
 
 export const TableItem = ({ children, className, header, ...props }: { header: string[], children: React.ReactNode, className?: string, [key: string]: any }) => {
+  props.style = {
+    gridTemplateColumns: `2fr repeat(${header.length - 1}, 1fr)`,
+    ...props.style
+  }
   return (
     <div
       className={clsx(styles.tableGrid, styles.tableItem, className)}
-      style={{
-        gridTemplateColumns: `2fr repeat(${header.length - 1}, 1fr)`
-      }}
       {...props}
     >
       {children}
