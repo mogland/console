@@ -1,0 +1,75 @@
+.button {
+  @apply relative w-full cursor-default rounded-lg py-2 pl-3 pr-10 text-left focus:outline-none sm:text-sm;
+  background-color: var(--background-color) !important;
+}
+
+.container {
+  @apply top-16 w-72;
+}
+
+.containerInner {
+  @apply relative mt-1;
+}
+
+.name {
+  @apply block truncate;
+}
+
+.icon {
+  @apply absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none;
+}
+
+.icon svg {
+  @apply w-5 h-5;
+  color: var(--text-color);
+}
+
+.menu {
+  @apply absolute z-10 w-full mt-1  rounded-md shadow-lg overflow-hidden;
+  background-color: var(--background-color);
+  outline: none !important;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.menu .active {
+  background-color: var(--background-color-primary);
+}
+
+.menuItem {
+  @apply block w-full px-4 py-2 text-sm cursor-pointer;
+  color: var(--text-color);
+  background-color: var(--background-color);
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.menuItem:hover {
+  background-color: var(--background-color-primary);
+}
+
+.menuItemActive {
+  @apply block w-full px-4 py-2 text-sm cursor-pointer;
+  color: var(--text-color);
+  background-color: var(--background-color-primary);
+}
+
+.menuItemActive:hover {
+  background-color: var(--background-color-primary);
+}
+
+.menuItemDisabled {
+  @apply block w-full px-4 py-2 text-sm cursor-not-allowed;
+  color: var(--text-color);
+  background-color: var(--background-color);
+}
+
+.menuItemDisabled:hover {
+  background-color: var(--background-color);
+}
