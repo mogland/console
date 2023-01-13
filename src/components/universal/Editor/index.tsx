@@ -19,7 +19,7 @@ interface IEditor extends EditorProps {
 export const MarkdownEditor: React.FC<IEditor> = (props) => {
 
   const isDark = useMedia('(prefers-color-scheme: dark)');
-  const [render, setRender] = useState(true);
+  const [render, setRender] = useState(false);
   const ref = createRef<Editor>();
   const appSnapshot = useSnapshot(app)
   const id = getQueryVariable("id")

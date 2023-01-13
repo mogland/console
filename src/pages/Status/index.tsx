@@ -25,16 +25,41 @@ const Status: React.FC<IStatus> = (props) => {
 
 export const StatusPage: BasicPage = () => {
 
-  const services = ["", "user", "post", "page", "category", "comments", "friends"]
+  const services = [{
+    name: "核心网关层",
+    url: ""
+  }, {
+    name: "用户服务",
+    url: "user"
+  }, {
+    name: "文章服务",
+    url: "post"
+  }, {
+    name: "页面服务",
+    url: "page"
+  }, {
+    name: "分类服务",
+    url: "category"
+  }, {
+    name: "评论服务",
+    url: "comments"
+  }, {
+    name: "友链服务",
+    url: "friends"
+  }, {
+    name: "通知服务",
+    url: "notification"
+  }]
   const [statuses, setStatuses] = useState<{ [key: string]: "Operational" | "Down" }>({})
   const [loading, setLoading] = useState(true)
 
   const fetchStatus = async () => {
     await Promise.all(services.map(async (service) => {
-      const res = await ofetch.raw(`${service ? `/${service}` : ""}/ping`, { baseURL: API }).catch(() => ({ status: 500 }))
+      console.log(service.name, `${service.url ? `/${service.url}` : ""}/ping`)
+      const res = await ofetch.raw(`${service.url ? `/${service.url}` : ""}/ping`, { baseURL: API }).catch(() => ({ status: 500 }))
       setStatuses((prev) => ({
         ...prev,
-        [service]: res.status === 200 ? "Operational" : "Down"
+        [service.name]: res.status === 200 ? "Operational" : "Down"
       }))
     }))
     setLoading(false)
@@ -56,15 +81,15 @@ export const StatusPage: BasicPage = () => {
             <TableItem
               header={["NAME", "Status"]}
               className={styles.tableItem}
-              key={service}
+              key={service.name}
               onClick={() => {
                 if (service) window.open(`${API}/${service}`)
                 window.open(API)
               }}
             >
-              <TableItemValue>{service?.toUpperCase() || "CORE"}</TableItemValue>
+              <TableItemValue>{service?.name.toUpperCase() || "CORE"}</TableItemValue>
               <TableItemValue>
-                <Status status={statuses[service] || "Down"} />
+                <Status status={statuses[service.name]} />
               </TableItemValue>
             </TableItem>
           ))}

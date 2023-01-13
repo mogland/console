@@ -62,3 +62,13 @@
   bottom: 20px;
   right: 0;
 }
+
+@media (max-width: 768px) {
+  .tableItem {
+    height: 100px;
+  }
+}
+
+.headTitle {
+  min-width: 130px;
+}

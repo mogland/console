@@ -37,7 +37,7 @@ export const PostsIndex: BasicPage = () => {
         <div className={clsx("loading", !loading && "loaded")}>
           <Title>
             <div className={styles.head}>
-              <span>文章 · 列表</span>
+              <span className={styles.headTitle}>文章 · 列表</span>
               <div>
                 {
                   select.length && <button
