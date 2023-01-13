@@ -1,0 +1,204 @@
+.calendar {
+  width: 300px;
+  height: 300px;
+  background-color: var(--background-color);
+  border-radius: 4px;
+  box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.16), 0 6px 16px 0 rgba(0, 0, 0, 0.08),
+    0 9px 28px 8px rgba(0, 0, 0, 0.10);
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  z-index: 100;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.previewDate {
+  display: flex;
+  /* justify-content: center; */
+  /* align-items: center; */
+  padding: 10px;
+  padding-bottom: 0;
+  font-size: 13px;
+  color: var(--text-color);
+}
+
+.previewDate span {
+  width: 50%;
+  margin-left: 10px;
+  margin-right: 10px;
+  border: 1px solid var(--background-color-primary);
+  padding: 5px;
+  padding-left: 10px;
+  border-radius: 4px;
+  transition: border 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.previewDate span:hover {
+  border: 1px solid var(--background-color-secondary);
+}
+
+.previewDate.active {
+  border: 1px solid var(--background-color-secondary);
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.yearAndMonth {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  user-select: none;
+}
+
+.yearAndMonth span {
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.btn {
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-color: var(--background-color);
+  cursor: pointer;
+  font-size: 18px;
+  color: var(--text-color);
+  transition: background-color 0.2s ease-in-out;
+  border-radius: 4px;
+}
+
+.body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.bodyContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-items: space-between;
+}
+
+.week {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  padding-bottom: 0px;
+  font-size: 13px;
+  color: var(--text-color);
+  user-select: none;
+  border-bottom: 1px solid var(--background-color-secondary);
+}
+
+.week span {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+}
+
+.days {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+  padding-top: 8px;
+}
+
+.day {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--text-color);
+  transition: background-color 0.2s ease-in-out;
+  border-radius: 4px;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+}
+
+.day:hover,
+.btn:hover {
+  background-color: var(--background-color-secondary);
+}
+
+.current {
+  background-color: var(--background-color-tertiary) !important;
+}
+
+@media only screen and (max-width: 600px) {
+  .calendar {
+    width: 100%;
+  }
+
+  .week span,
+  .day {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+  }
+}
+
+.active {
+  background-color: var(--background-color-primary);
+}
+
+.time{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  font-size: 13px;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  position: absolute;
+  top: -50px;
+  right: -3.333px;
+  box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.358), 0 6px 16px 0 rgba(0, 0, 0, 0),
+    0 9px 28px 8px rgba(0, 0, 0, 0);
+}
+
+.time .btn {
+  background-color: var(--background-color);
+}
+
+.time .btn:hover {
+  background-color: var(--background-color-primary);
+}
+
+.timeItem {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  color: var(--text-color);
+  transition: background-color 0.2s ease-in-out;
+  border-radius: 4px;
+}
