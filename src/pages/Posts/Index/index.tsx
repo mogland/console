@@ -12,7 +12,7 @@ import styles from "./index.module.css"
 export const PostsIndex: BasicPage = () => {
   const [loading, setLoading] = useState(true)
   const [select, setSelect] = useState<string[]>([]) // 选择的文章
-  const nagitive = useNavigate()
+  const navigate = useNavigate()
   const [data, setData] = useState<{
     data: any[];
     pagination: any;
@@ -75,13 +75,13 @@ export const PostsIndex: BasicPage = () => {
                   select.length === 1 && <button
                     className={styles.button}
                     onClick={() => {
-                      nagitive(`/write/post?id=${select[0]}`)
+                      navigate(`/write/post?id=${select[0]}`)
                     }}
                   ><Edit /></button> || null
                 }
                 <button className={styles.button}
                   onClick={() => {
-                    nagitive("/write/post")
+                    navigate("/write/post")
                   }}
                 ><AddOne /></button>
               </div>

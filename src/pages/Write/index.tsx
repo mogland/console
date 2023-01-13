@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { MarkdownEditor } from "../../components/universal/Editor"
 import { FloatBtn, FloatBtnContainer } from "../../components/universal/FloatBtn"
+import { Loading } from "../../components/universal/Loading"
 import { Twindow } from "../../components/universal/Twindow"
 import type { BasicPage } from "../../types/basic"
 import { apiClient } from "../../utils/request"
@@ -33,11 +34,12 @@ export const EditorPage: BasicPage = () => {
       setData(res)
       setLoading(false)
     }).catch(() => {
-      navigate('/${type}s')
+      navigate(`/${type}s`)
     })
   }, [type, id])
   return (
     <>
+      <Loading loading={loading} />
       <div className={clsx("loading", !loading && "loaded")}>
         {/* <Title>写 · {type === "page" ? "页面" : "文章"}</Title> */}
         <div className={styles.container}>
