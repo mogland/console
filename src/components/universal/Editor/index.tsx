@@ -5,6 +5,8 @@ import { useMedia } from 'react-use';
 import styles from "./index.module.css"
 import { motion } from "framer-motion"
 import { Loading } from '../Loading';
+import { useSnapshot } from 'valtio';
+import { app } from '../../../states/app';
 
 
 interface IEditor extends EditorProps {
@@ -18,16 +20,17 @@ export const MarkdownEditor: React.FC<IEditor> = (props) => {
   const isDark = useMedia('(prefers-color-scheme: dark)');
   const [render, setRender] = useState(true);
   const ref = createRef<Editor>();
+  const appSnapshot = useSnapshot(app)
 
   useEffect(() => {
     setRender(false);
-    if (isDark) {
-      import('@toast-ui/editor/dist/theme/toastui-editor-dark.css');
+    if (!appSnapshot.editorDarkCSSLoaded && isDark) {
+      return;
     }
     setTimeout(() => {
       setRender(true);
-    }, 500)
-  }, [isDark])
+    }, 1000);
+  }, [isDark, appSnapshot])
 
   return (
     <div className={styles.editor}>
