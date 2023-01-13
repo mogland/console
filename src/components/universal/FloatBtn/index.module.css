@@ -7,8 +7,8 @@
 }
 
 .btn {
-  width: 3rem;
-  height: 3rem;
+  width: 2.8rem;
+  height: 2.8rem;
   border-radius: 50%;
   background-color: var(--background-color);
   display: flex;
@@ -22,4 +22,8 @@
 
 .btn:hover {
   background-color: var(--background-color-primary);
+}
+
+.btn:not(:last-child) {
+  margin-bottom: 1rem;
 }
