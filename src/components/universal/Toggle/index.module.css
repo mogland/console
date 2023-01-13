@@ -1,0 +1,53 @@
+.switch {
+  position: relative;
+  display: inline-flex;
+  width: 2.75rem;
+  height: 1.5rem;
+  align-items: center;
+  border-radius: 9999px;
+  background-color: var(--toggle-background-color);
+}
+
+.active {
+  background-color: var(--toggle-background-color-active);
+}
+
+.circle {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 9999px;
+  background-color: var(--toggle-circle-color);
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateX(0.25rem);
+}
+
+.cirCleActive {
+  transform: translateX(1.50rem);
+}
+
+
+.cirCleActive.enter {
+  transform: translateX(1.0rem);
+}
+
+
+.enter {
+  width: 1.5rem;
+}
+
+
+
+
+:root {
+  --toggle-background-color: #e5e7eb;
+  --toggle-background-color-active: #667eea;
+  --toggle-circle-color: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --toggle-background-color: #4b5563;
+    --toggle-background-color-active: #667eea;
+  }
+}
