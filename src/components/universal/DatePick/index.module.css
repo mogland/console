@@ -8,4 +8,9 @@
   transition: border-bottom 0.2s ease-in-out;
   resize: none;
   background-color: var(--background-color);
+  cursor: pointer;
+}
+
+.active {
+  background: var(--background-color-secondary);
 }

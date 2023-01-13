@@ -1,3 +1,4 @@
+import clsx from "clsx"
 import { useState } from "react"
 import { Calendar } from "../Calendar"
 import styles from "./index.module.css"
@@ -21,7 +22,7 @@ export const DatePick: React.FC<DatePickProps> = ({ value, onChange, calendarSty
   return (
     <>
       <input
-        className={styles.date}
+        className={clsx(styles.date, show && styles.active)}
         type="text"
         name="date"
         placeholder="日期"
