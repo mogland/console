@@ -11,13 +11,6 @@ export default defineConfig({
       output: {
         manualChunks: {
           "icon-park": ["@icon-park/react"],
-          milkdown: [
-            "@milkdown/preset-commonmark",
-            "@milkdown/react",
-            "@milkdown/theme-nord",
-            "@milkdown/core",
-            "@milkdown/plugin-history",
-          ],
           "toast-ui": [
             "@toast-ui/react-editor",
           ]
