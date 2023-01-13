@@ -1,5 +1,5 @@
 import { Close, Plus } from "@icon-park/react"
-import type { PropsWithChildren, PropsWithRef} from "react";
+import type { PropsWithChildren, PropsWithRef } from "react";
 import { forwardRef, useRef, useState } from "react";
 import { useKeyPressEvent } from "react-use";
 import styles from "./index.module.css"
@@ -70,7 +70,7 @@ export const Tags: React.FC<TagsProp> = (props) => {
         )
       })}
       {!inputVisible && (
-        <NewTag onClick={showInput} className={styles.siteTagPlus}>
+        <NewTag onClick={showInput} className={styles.newTag}>
           <Plus /> New Tag
         </NewTag>
       )}
@@ -115,7 +115,7 @@ export const Tag: React.FC<PropsWithChildren & TagProps> = (props) => {
 const NewTag: React.FC<PropsWithChildren & React.HTMLAttributes<HTMLDivElement>> = (props) => {
   const { onClick, children } = props
   return (
-    <div className={styles.newTag} onClick={onClick}>
+    <div onClick={onClick} {...props}>
       {children}
     </div>
   )
