@@ -7,6 +7,7 @@ import { motion } from "framer-motion"
 import { Loading } from '../Loading';
 import { useSnapshot } from 'valtio';
 import { app } from '../../../states/app';
+import { getQueryVariable } from '../../../utils/url';
 
 
 interface IEditor extends EditorProps {
@@ -21,6 +22,7 @@ export const MarkdownEditor: React.FC<IEditor> = (props) => {
   const [render, setRender] = useState(true);
   const ref = createRef<Editor>();
   const appSnapshot = useSnapshot(app)
+  const id = getQueryVariable("id")
 
   useEffect(() => {
     setRender(false);
@@ -31,6 +33,13 @@ export const MarkdownEditor: React.FC<IEditor> = (props) => {
       setRender(true);
     }, 1000);
   }, [isDark, appSnapshot])
+
+  useEffect(() => {
+    setRender(false);
+    setTimeout(() => {
+      setRender(true);
+    }, 1000);
+  }, [id])
 
   return (
     <div className={styles.editor}>
