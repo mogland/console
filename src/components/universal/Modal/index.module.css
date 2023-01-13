@@ -1,0 +1,53 @@
+.container {
+  @apply fixed inset-0 overflow-y-auto;
+}
+
+.containerInner {
+  @apply flex min-h-full items-center justify-center p-4 text-center;
+}
+
+.overlay {
+  @apply fixed inset-0;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0.5;
+}
+
+.dialog {
+  @apply relative z-10
+}
+
+.panel {
+  @apply w-full max-w-md transform overflow-hidden rounded-2xl p-6 text-left align-middle shadow-xl transition-all;
+  background: var(--background-color-primary);
+  color: var(--text-color);
+}
+
+.title {
+  @apply text-lg font-medium leading-6;
+  color: var(--text-color);
+}
+
+:root {
+  --modal-hover-background-color: rgb(219 234 254);
+  --modal-background-color: rgb(201, 216, 236);
+  --modal-text-color: rgb(30 58 138);
+}
+
+.button {
+  @apply inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium;
+  color: var(--modal-text-color);
+  background-color: var(--modal-background-color) !important;
+  transition: background-color 0.2s ease;
+}
+
+.button:hover {
+  background-color: var(--modal-hover-background-color) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --modal-hover-background-color: rgb(42, 42, 42);
+    --modal-background-color: rgb(58, 58, 58);
+    --modal-text-color: rgb(255 255 255);
+  }
+}
