@@ -6,7 +6,7 @@ import { apiClient } from "./utils/request";
 import { Loading } from "./components/universal/Loading";
 import { useNavigate } from "react-router-dom";
 import { useSnapshot } from "valtio";
-import { app } from "./states/app";
+import { app, server } from "./states/app";
 import { useMedia } from "react-use";
 
 function App() {
@@ -37,6 +37,9 @@ function App() {
     setTimeout(() => {
       setLoading(false)
     }, 1000)
+    apiClient("/category").then((res) => {
+      server.categories = res.data
+    })
   }, [])
 
   return (
