@@ -84,5 +84,11 @@
 }
 
 .double-click:hover {
-  background-color: rgb(181, 0, 0) !important;
+  background-color: rgb(219, 0, 0) !important;
+}
+
+@media (prefers-color-scheme: light) {
+  .double-click {
+    color: rgb(255, 255, 255) !important;
+  }
 }
