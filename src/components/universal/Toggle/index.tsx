@@ -6,9 +6,10 @@ import styles from "./index.module.css"
 interface SwitchProps {
   checked: boolean
   onChange: (checked: boolean) => void
+  [key: string]: any
 }
 
-export const Toggle: React.FC<SwitchProps> = ({ checked, onChange }) => {
+export const Toggle: React.FC<SwitchProps> = ({ checked, onChange, ...rest }) => {
   const [state, setState] = useState(checked)
   const [enter, setEnter] = useState(false)
 
@@ -17,8 +18,10 @@ export const Toggle: React.FC<SwitchProps> = ({ checked, onChange }) => {
     onChange(!state)
   }
 
+
   return (
     <Switch
+      {...rest}
       checked={state}
       onChange={handleChange}
       className={clsx(styles.switch, { [styles.active]: state })}
@@ -26,7 +29,6 @@ export const Toggle: React.FC<SwitchProps> = ({ checked, onChange }) => {
       onMouseUp={() => setEnter(false)}
       onTouchStart={() => setEnter(true)}
       onTouchEnd={() => setEnter(false)}
-      
     >
       <span className="sr-only">Use setting</span>
       <span
