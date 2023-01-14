@@ -110,8 +110,14 @@ export const CategoriesPage: BasicPage = () => {
         onConfirm={() => {
           apiClient(`/category${`${modalCreateData.id ? `/${modalCreateData.id}` : ""}`}`, {
             method: `${modalCreateData.id ? "PUT" : "POST"}`,
-            body: JSON.stringify(modalCreateData)
-          }).then(() => {
+            body: JSON.stringify({
+              name: modalCreateData.name,
+              slug: modalCreateData.slug,
+              icon: modalCreateData.icon,
+              description: modalCreateData.description,
+              type: modalCreateData.type === "tag" ? 1 : 0
+            })
+          }).then((res) => {
             setModalActive(false)
             setModalCreateData({
               name: "",
@@ -119,9 +125,13 @@ export const CategoriesPage: BasicPage = () => {
               icon: "",
               description: ""
             })
-            navigate("/categories")
-            window.location.reload()
+            console.log(modalCreateData.id)
+            console.log(res)
+            handleRemoveSelect()
+            // navigate("/categories")
+            // window.location.reload()
           })
+          setLoading(true)
           Promise.all([
             apiClient("/category").then((res) => {
               server.categories = res.data
@@ -129,7 +139,9 @@ export const CategoriesPage: BasicPage = () => {
             apiClient("/category?type=Tag").then((res) => {
               server.tags = res.data
             })
-          ])
+          ]).then(() => {
+            window.location.reload()
+          })
         }}
         onCancel={() => {
           setModalActive(false)
