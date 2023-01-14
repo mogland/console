@@ -3,6 +3,7 @@ import { ofetch } from "ofetch";
 import { useEffect, useState } from "react";
 import { Loading } from "../../components/universal/Loading";
 import { Title } from "../../components/universal/Title";
+import { app } from "../../states/app";
 import type { BasicPage } from "../../types/basic";
 import { API } from "../../utils/request";
 import { TableItem, TableItemValue } from "../Home/universal";
@@ -52,6 +53,7 @@ export const StatusPage: BasicPage = () => {
   }]
   const [statuses, setStatuses] = useState<{ [key: string]: "Operational" | "Down" }>({})
   const [loading, setLoading] = useState(true)
+  app.showSidebar = true;
 
   const fetchStatus = async () => {
     await Promise.all(services.map(async (service) => {
