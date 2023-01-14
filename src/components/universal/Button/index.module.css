@@ -1,0 +1,14 @@
+.button {
+  @apply inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium;
+  color: var(--modal-text-color);
+  background-color: var(--modal-background-color) !important;
+  transition: background-color 0.2s ease;
+}
+
+.button:hover {
+  background-color: var(--modal-hover-background-color) !important;
+}
+
+.button:not(last-child) {
+  @apply mr-2;
+}

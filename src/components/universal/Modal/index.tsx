@@ -2,6 +2,7 @@ import styles from "./index.module.css";
 import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import clsx from "clsx";
+import { Button } from "../Button";
 export const Modal = ({
   children,
   onClose,
@@ -102,15 +103,12 @@ export const Modal = ({
                 <div className={clsx("mt-2", styles.panelChildren)}>{children}</div>
                 <div className="mt-4">
                   {type === "confirm" && (
-                    <button
-                      type="button"
+                    <Button
                       className={clsx(styles.confirm, styles.button)}
-                      onClick={(e) => {
-                        confirm(e);
-                      }}
+                      onClick={confirm}
                     >
                       {options?.confirmText || "好的～"}
-                    </button>
+                    </Button>
                   )}
 
                   <button
