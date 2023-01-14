@@ -10,7 +10,7 @@ interface DatePickProps {
 }
 
 export const DatePick: React.FC<DatePickProps> = ({ value, onChange, calendarStyle }) => {
-  const [date, setDate] = useState(value)
+  const [date, setDate] = useState(value || new Date().toISOString())
   const [show, setShow] = useState(false)
 
   const handleDateChange = (date: Date) => {
