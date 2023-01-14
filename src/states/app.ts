@@ -7,4 +7,8 @@ export const app = proxy({
 
 export const server = proxy({
   categories: [] as any[],
+  tags: [] as {
+    name: string;
+    count: number;
+  }[],
 })

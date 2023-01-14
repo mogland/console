@@ -40,6 +40,10 @@ function App() {
     apiClient("/category").then((res) => {
       server.categories = res.data
     })
+    apiClient("/category?type=Tag")
+      .then(res => {
+        server.tags = res.data
+      })
   }, [])
 
   return (
