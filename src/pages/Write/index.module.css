@@ -67,3 +67,16 @@
   background-color: var(--background-color);
   font-size: 14px;
 }
+
+.removeButton {
+  margin-left: 10px;
+  margin-top: 6px;
+}
+
+.fieldName {
+  margin-right: 20px;
+}
+
+.addButton {
+  margin-top: 6px;
+}

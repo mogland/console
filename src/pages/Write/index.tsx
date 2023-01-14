@@ -16,6 +16,7 @@ import { server } from "../../states/app"
 import type { BasicPage } from "../../types/basic"
 import { apiClient } from "../../utils/request"
 import { getQueryVariable } from "../../utils/url"
+import { Fields } from "./fields"
 import styles from "./index.module.css"
 
 export const EditorPage: BasicPage = () => {
@@ -92,12 +93,10 @@ export const EditorPage: BasicPage = () => {
             setSidebar(false)
           }}
           onCancel={() => {
-            console.log(rawData, "rawData 还原")
             setData(rawData)
           }}
           onConfirm={() => {
             setRawData(data)
-            console.log(rawData, "rawData 确认")
           }}
           type="confirm"
           doubleClick={{
@@ -106,7 +105,7 @@ export const EditorPage: BasicPage = () => {
         >
 
           <div className={styles.toggleGroup}>
-            <span className={styles.toggleGroupTitle}><ModalBody>文章署名</ModalBody></span>
+            <span className={styles.toggleGroupTitle}><ModalBody>作者署名</ModalBody></span>
             <Toggle
               checked={data?.copyright || true}
               onChange={(value) => {
@@ -145,7 +144,7 @@ export const EditorPage: BasicPage = () => {
             />
           </div>
           <div className={styles.toggleGroup}>
-          <span className={styles.toggleGroupTitle}><ModalBody>阅读密码</ModalBody></span>
+            <span className={styles.toggleGroupTitle}><ModalBody>阅读密码</ModalBody></span>
             <input
               className={styles.passwordInput}
               type="password"
@@ -158,22 +157,28 @@ export const EditorPage: BasicPage = () => {
               }}
             />
           </div>
-          <ModalBody>文章分类</ModalBody>
-          <Selects
-            value={serverSnapshot.categories.map((item) => {
-              return {
-                name: item.name,
-                value: item.id
-              }
-            })}
-            onChange={(value) => {
-              setData({
-                ...data,
-                category_id: value
-              })
-            }}
-          />
-          <ModalBody>文章发布日期</ModalBody>
+          {
+            type === "post" && (
+              <>
+                <ModalBody>文章分类</ModalBody>
+                <Selects
+                  value={serverSnapshot.categories.map((item) => {
+                    return {
+                      name: item.name,
+                      value: item.id
+                    }
+                  })}
+                  onChange={(value) => {
+                    setData({
+                      ...data,
+                      category_id: value
+                    })
+                  }}
+                />
+              </>
+            )
+          }
+          <ModalBody>发布日期</ModalBody>
           <DatePick
             value={data?.created}
             onChange={(value) => {
@@ -184,26 +189,42 @@ export const EditorPage: BasicPage = () => {
             }}
             calendarStyle={{ position: "absolute", top: "100px", left: "220px" }}
           />
-          <ModalBody>文章标签</ModalBody>
-          <Tags
-            tags={data?.tags || []}
-            setTags={(tags) => {
+          {
+            type === "post" && (
+              <>
+                <ModalBody>文章标签</ModalBody>
+                <Tags
+                  tags={data?.tags || []}
+                  setTags={(tags) => {
+                    setData({
+                      ...data,
+                      tags
+                    })
+                  }}
+                />
+                <ModalBody>文章概要</ModalBody>
+                <textarea
+                  className={styles.summary}
+                  name="summary"
+                  placeholder=""
+                  defaultValue={data?.summary}
+                  onChange={(e) => {
+                    setData({
+                      ...data,
+                      summary: e.target.value
+                    })
+                  }}
+                />
+              </>
+            )
+          }
+          <ModalBody>自定义字段 <small>( 修改键名有 Bug )</small> </ModalBody>
+          <Fields
+            value={data?.fields || {}}
+            onChange={(value) => {
               setData({
                 ...data,
-                tags
-              })
-            }}
-          />
-          <ModalBody>文章概要</ModalBody>
-          <textarea
-            className={styles.summary}
-            name="summary"
-            placeholder=""
-            defaultValue={data?.summary}
-            onChange={(e) => {
-              setData({
-                ...data,
-                summary: e.target.value
+                fields: value
               })
             }}
           />
