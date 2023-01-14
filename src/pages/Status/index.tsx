@@ -53,7 +53,6 @@ export const StatusPage: BasicPage = () => {
   }]
   const [statuses, setStatuses] = useState<{ [key: string]: "Operational" | "Down" }>({})
   const [loading, setLoading] = useState(true)
-  app.showSidebar = true;
 
   const fetchStatus = async () => {
     await Promise.all(services.map(async (service) => {
@@ -84,10 +83,6 @@ export const StatusPage: BasicPage = () => {
               header={["NAME", "Status"]}
               className={styles.tableItem}
               key={service.name}
-              onClick={() => {
-                if (service) window.open(`${API}/${service}`)
-                window.open(API)
-              }}
             >
               <TableItemValue>{service?.name.toUpperCase() || "CORE"}</TableItemValue>
               <TableItemValue>

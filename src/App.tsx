@@ -44,9 +44,9 @@ function App() {
             window.location.pathname == '/status')
             && navigate("/dashboard")
           app.authenticated = true;
+          app.showSidebar = true;
         }).catch(() => {
-          (window.location.pathname != '/' &&
-            window.location.pathname != '/login' &&
+          (window.location.pathname != '/login' &&
             window.location.pathname != '/register' &&
             window.location.pathname != '/status')
             && navigate("/login")

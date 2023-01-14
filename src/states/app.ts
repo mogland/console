@@ -1,7 +1,7 @@
 import { proxy } from "valtio";
 
 export const app = proxy({
-  showSidebar: true,
+  showSidebar: false,
   editorDarkCSSLoaded: false,
   authenticated: false,
 })
