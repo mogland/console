@@ -18,6 +18,7 @@ import { apiClient } from "../../utils/request"
 import { getQueryVariable } from "../../utils/url"
 import { Fields } from "./fields"
 import styles from "./index.module.css"
+import { Input, Textarea } from "./Input"
 
 export const EditorPage: BasicPage = () => {
   const [loading, setLoading] = useState(true)
@@ -143,20 +144,17 @@ export const EditorPage: BasicPage = () => {
               }}
             />
           </div>
-          <div className={styles.toggleGroup}>
-            <span className={styles.toggleGroupTitle}><ModalBody>阅读密码</ModalBody></span>
-            <input
-              className={styles.passwordInput}
-              type="password"
-              value={data?.password}
-              onChange={(e) => {
-                setData({
-                  ...data,
-                  password: e.target.value
-                })
-              }}
-            />
-          </div>
+          <Input 
+            label="阅读密码"
+            type="password"
+            value={data?.password}
+            onChange={(e) => {
+              setData({
+                ...data,
+                password: e
+              })
+            }}
+          />
           {
             type === "post" && (
               <>
@@ -202,16 +200,13 @@ export const EditorPage: BasicPage = () => {
                     })
                   }}
                 />
-                <ModalBody>文章概要</ModalBody>
-                <textarea
-                  className={styles.summary}
-                  name="summary"
-                  placeholder=""
-                  defaultValue={data?.summary}
+                <Textarea 
+                  label="文章摘要"
+                  value={data?.summary}
                   onChange={(e) => {
                     setData({
                       ...data,
-                      summary: e.target.value
+                      summary: e
                     })
                   }}
                 />
