@@ -108,7 +108,7 @@ export const EditorPage: BasicPage = () => {
           <div className={styles.toggleGroup}>
             <span className={styles.toggleGroupTitle}><ModalBody>文章署名</ModalBody></span>
             <Toggle
-              checked={data?.copyright}
+              checked={data?.copyright || true}
               onChange={(value) => {
                 setData({
                   ...data,
@@ -122,7 +122,7 @@ export const EditorPage: BasicPage = () => {
           <div className={styles.toggleGroup}>
             <span className={styles.toggleGroupTitle}><ModalBody>是否隐藏</ModalBody></span>
             <Toggle
-              checked={data?.hide}
+              checked={data?.hide || false}
               onChange={(value) => {
                 setData({
                   ...data,
@@ -132,7 +132,32 @@ export const EditorPage: BasicPage = () => {
             />
           </div>
 
-
+          <div className={styles.toggleGroup}>
+            <span className={styles.toggleGroupTitle}><ModalBody>是否展示于订阅中</ModalBody></span>
+            <Toggle
+              checked={data?.rss || true}
+              onChange={(value) => {
+                setData({
+                  ...data,
+                  rss: value
+                })
+              }}
+            />
+          </div>
+          <div className={styles.toggleGroup}>
+          <span className={styles.toggleGroupTitle}><ModalBody>阅读密码</ModalBody></span>
+            <input
+              className={styles.passwordInput}
+              type="password"
+              value={data?.password}
+              onChange={(e) => {
+                setData({
+                  ...data,
+                  password: e.target.value
+                })
+              }}
+            />
+          </div>
           <ModalBody>文章分类</ModalBody>
           <Selects
             value={serverSnapshot.categories.map((item) => {

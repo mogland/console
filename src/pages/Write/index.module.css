@@ -37,6 +37,7 @@
   transition: border-bottom 0.2s ease-in-out;
   resize: none;
   background-color: var(--background-color);
+  font-size: 14px;
 }
 
 .summary:focus {
@@ -52,4 +53,17 @@
 .toggleGroupTitle {
   margin-top: -0.5rem;
   margin-right: 12px;
+}
+
+.passwordInput {
+  border-radius: 0.5rem;
+  min-height: 2rem;
+  border: none;
+  outline: none;
+  padding-left: 10px;
+  padding-right: 10px;
+  transition: border-bottom 0.2s ease-in-out;
+  resize: none;
+  background-color: var(--background-color);
+  font-size: 14px;
 }
