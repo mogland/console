@@ -65,7 +65,7 @@ export const Tags: React.FC<TagsProp> = (props) => {
               style={{ width: 78 }}
               defaultValue={inputValue}
               onChange={handleInputChange}
-              // onBlur={handleInputConfirm}
+              onBlur={handleInputConfirm}
               onPressEnter={handleInputConfirm}
               onAutoComplete={handleConfirmWithAutoComplete}
             />
@@ -95,6 +95,7 @@ export const Input = forwardRef<HTMLInputElement, PropsWithRef<PropsWithChildren
   const tags = useSnapshot(server).tags
   const { onPressEnter, ...rest } = props
   useKeyPressEvent("Enter", onPressEnter)
+
   return (
     <div className={styles.suggestContainer}>
       <input
@@ -107,7 +108,7 @@ export const Input = forwardRef<HTMLInputElement, PropsWithRef<PropsWithChildren
           <div
             key={tag.name}
             className={styles.input}
-            onClick={() => {
+            onMouseDown={() => { // use mousedown instead of click to prevent input blur
               props.onAutoComplete?.(tag.name)
             }}
           >
