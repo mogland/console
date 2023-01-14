@@ -37,6 +37,7 @@ export const Login: BasicPage = () => {
           allowClose: true,
           image: res.avatar,
         })
+        app.authenticated = true;
         navigate("/dashboard")
         window.location.reload();
       }).catch(res => {
