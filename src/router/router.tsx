@@ -11,6 +11,7 @@ import {
   Route,
   Routes,
 } from "react-router-dom";
+import { CategoriesPage } from "../pages/Categories";
 import { Home } from "../pages/Home";
 import { Login } from "../pages/Login";
 import { PagesIndex } from "../pages/Pages/Index";
@@ -32,6 +33,8 @@ export const AppRouter = () => {
 
       <Route path="/write" element={<JumpToEditorPage />} />
       <Route path="/write/:type" element={<EditorPage />} />
+
+      <Route path="/categories" element={<CategoriesPage />} />
 
       <Route path="/status" element={<StatusPage />} />
 

@@ -1,0 +1,126 @@
+.block {
+  display: inline-block;
+  padding: 12px;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  background-color: var(--background-color-primary);
+  color: var(--text-color);
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  /* position: absolute; */
+}
+
+.add {
+  background-color: var(--background-color);
+}
+
+.count {
+  padding: 2px 8px;
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  border-radius: 9999px;
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  transition: background-color 0.2s;
+}
+
+.select .count {
+  background-color: var(--background-color-primary);
+  color: var(--text-color);
+}
+
+.block {
+  position: relative;
+}
+
+.block:hover {
+  background-color: var(--background-color-secondary);
+}
+
+
+.add:hover {
+  background-color: var(--background-color-primary);
+}
+
+.group {
+  margin-bottom: 30px;
+}
+
+.modalItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  margin-top: 5px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  background-color: var(--background-color-primary);
+  color: var(--text-color);
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.modalItem p {
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.modalItem:hover {
+  background-color: var(--background-color-secondary);
+}
+
+.modalItem:hover p {
+  opacity: 0.3;
+}
+
+
+.head {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.headTitle {
+  min-width: 130px;
+}
+
+.button {
+  background: var(--secondary-color);
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  margin: 0 10px;
+  margin-bottom: -10px;
+  animation: fadeIn 0.5s ease;  
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.select, .button:hover {
+  background: var(--primary-color);
+}
+
+.select:hover {
+  background-color: var(--background-color-primary);
+}
+
+.confrim {
+  background: red !important;
+  color: #fff;
+}
