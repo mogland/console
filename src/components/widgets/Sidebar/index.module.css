@@ -79,3 +79,12 @@
   position: absolute;
   bottom: 2rem;
 }
+
+.links.disabled * {
+  pointer-events: none;
+}
+
+.links.disabled .item {
+  color: var(--sidebar-quaternary-color);
+  pointer-events: all;
+}

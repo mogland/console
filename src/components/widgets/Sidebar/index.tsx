@@ -1,4 +1,4 @@
-import { CategoryManagement, Dashboard, Editor, FriendsCircle, GithubOne, HomeTwo, Logout, MenuFoldOne, MenuUnfoldOne, OpenDoor, Page, Write } from "@icon-park/react"
+import { CategoryManagement, Dashboard, Editor, FriendsCircle, GithubOne, HomeTwo, Login, Logout, MenuFoldOne, MenuUnfoldOne, OpenDoor, Page, Write } from "@icon-park/react"
 import clsx from "clsx"
 import { useEffect, useState } from "react"
 import { Space } from "../../universal/Space"
@@ -8,10 +8,25 @@ import { motion } from 'framer-motion'
 import { getStorage, removeStorage, setStorage } from "../../../utils/storage"
 import { useWindowSize } from "react-use"
 import itemStyle from './item/index.module.css'
+import { useSnapshot } from "valtio"
+import { app } from "../../../states/app"
 
 const Links = () => {
+  const authenticated = useSnapshot(app).authenticated
+  const [disabled, setDisabled] = useState(false)
+  useEffect(() => {
+    if (authenticated) {
+      setDisabled(false)
+    } else {
+      setDisabled(true)
+    }
+  }, [authenticated])
   return (
-    <div className={styles.links}>
+    <div 
+    className={clsx(styles.links, {
+      [styles.disabled]: disabled
+    })}
+    >
       <SidebarItem
         icon={HomeTwo({})}
         title="仪表盘"
@@ -35,7 +50,7 @@ const Links = () => {
         title="写文章"
         href="/write/post"
         sub
-        // naive
+      // naive
       />
       <SidebarItem
         title="朋友动态"
@@ -54,7 +69,7 @@ const Links = () => {
         title="新增页面"
         href="/write/page"
         sub
-        // naive
+      // naive
       />
       <Space
         height={20}
@@ -86,17 +101,22 @@ const Links = () => {
       <Space
         height={30}
       />
-      <span className={itemStyle.item}
+      <span className={clsx(itemStyle.item, styles.item)}
         onClick={() => {
           removeStorage('token')
           window.location.href = '/login'
         }}
       >
         <div className={itemStyle.icon}>
-          <Logout />
+          {
+            authenticated ? Logout({}) : Login({})
+          }
         </div>
         <div className={itemStyle.title}>
-          退出登录
+          {
+            authenticated ? '退出' : '前往'
+          }
+          登录
         </div>
       </span>
     </div>
