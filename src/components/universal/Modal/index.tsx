@@ -99,7 +99,7 @@ export const Modal = ({
                 <Dialog.Title as="h3" className={clsx(styles.title)}>
                   {title}
                 </Dialog.Title>
-                <div className="mt-2">{children}</div>
+                <div className={clsx("mt-2", styles.panelChildren)}>{children}</div>
                 <div className="mt-4">
                   {type === "confirm" && (
                     <button

@@ -22,6 +22,11 @@
   color: var(--text-color);
 }
 
+.panelChildren {
+  max-height: 68vh;
+  overflow-y: auto;
+}
+
 .sm {
   @apply max-w-md;
 }
