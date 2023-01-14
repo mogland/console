@@ -30,8 +30,8 @@ function App() {
     }).catch(() => {
       if (window.location.pathname != '/status') {
         Twindow({
-          title: "通信错误",
-          text: "似乎无法与后端通信，请检查网络连接"
+          title: "通信错误 - 跳转服务状态页",
+          text: "无法与后端通信，请检查服务状态"
         })
         navigate("/status")
       }
