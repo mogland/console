@@ -1,4 +1,3 @@
-
 declare global {
   export interface History {
     backPath: string[];
@@ -13,4 +12,4 @@ interface HTMLInputElement extends HTMLElement {
   value: string;
 }
 
-export {}
+export {};

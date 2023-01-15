@@ -25,6 +25,6 @@ export const apiClient = ofetch.create({
       title: `请求出错了哦 - ${error.response.status}`,
       text: error.response._data.message,
       allowClose: true,
-    })
+    });
   },
 });

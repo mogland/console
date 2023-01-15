@@ -1,48 +1,48 @@
-import clsx from "clsx"
-import { useState } from "react"
-import { Button } from "../../components/universal/Button"
-import styles from "./index.module.css"
+import clsx from "clsx";
+import { useState } from "react";
+import { Button } from "@components/universal/Button";
+import styles from "./index.module.css";
 interface FieldsProps {
   value: {
-    [key: string]: any
-  }
-  onChange: (value: { [key: string]: any }) => void
+    [key: string]: any;
+  };
+  onChange: (value: { [key: string]: any }) => void;
 }
 
 export const Fields: React.FC<FieldsProps> = ({ value, onChange }) => {
-  const [fields, setFields] = useState<{ [key: string]: any }>(value || {})
-  const [fieldName, setFieldName] = useState("")
+  const [fields, setFields] = useState<{ [key: string]: any }>(value || {});
+  const [fieldName, setFieldName] = useState("");
 
   const handleAdd = () => {
-    setFields({ ...fields, [fieldName]: "" })
-    setFieldName("")
-  }
+    setFields({ ...fields, [fieldName]: "" });
+    setFieldName("");
+  };
 
   const handleRemove = (key: string) => {
-    const newFields = { ...fields }
-    delete newFields[key]
-    setFields(newFields)
-    onChange(newFields)
-  }
+    const newFields = { ...fields };
+    delete newFields[key];
+    setFields(newFields);
+    onChange(newFields);
+  };
 
   const handleChange = (key: string, value: string, newKey?: string) => {
     if (newKey) {
-      const newFields = { ...fields }
-      delete newFields[key]
+      const newFields = { ...fields };
+      delete newFields[key];
       newFields[newKey] = value;
-      setFields(newFields)
-      onChange(newFields)
+      setFields(newFields);
+      onChange(newFields);
       return;
     }
-    const newFields = { ...fields }
+    const newFields = { ...fields };
     newFields[key] = value;
-    setFields(newFields)
-    onChange(newFields)
-  }
+    setFields(newFields);
+    onChange(newFields);
+  };
 
   const handleFieldName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFieldName(e.target.value)
-  }
+    setFieldName(e.target.value);
+  };
 
   return (
     <div className={styles.fields}>
@@ -80,10 +80,10 @@ export const Fields: React.FC<FieldsProps> = ({ value, onChange }) => {
           value={fieldName}
           onChange={handleFieldName}
         />
-        <Button onClick={handleAdd}
-          className={styles.addButton}
-        >添加</Button>
+        <Button onClick={handleAdd} className={styles.addButton}>
+          添加
+        </Button>
       </div>
     </div>
-  )
-}
+  );
+};

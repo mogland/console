@@ -7,10 +7,7 @@
  * Coding With IU
  */
 
-import {
-  Route,
-  Routes,
-} from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { CategoriesPage } from "../pages/Categories";
 import { FriendsPage } from "../pages/Friends";
 import { Home } from "../pages/Home";
@@ -18,6 +15,7 @@ import { Login } from "../pages/Login";
 import { PagesIndex } from "../pages/Pages/Index";
 import { FriendsPosts } from "../pages/Posts/Friends";
 import { PostsIndex } from "../pages/Posts/Index";
+import { SettingsPage } from "../pages/Settings";
 import { StatusPage } from "../pages/Status";
 import { EditorPage } from "../pages/Write";
 
@@ -27,7 +25,7 @@ export const AppRouter = () => {
       <Route path="/" element={<Home />} />
       <Route path="/dashboard" element={<Home />} />
       <Route path="/login" element={<Login />} />
-      
+
       <Route path="/posts" element={<PostsIndex />} />
       <Route path="/posts/friends" element={<FriendsPosts />} />
       <Route path="/pages" element={<PagesIndex />} />
@@ -38,6 +36,7 @@ export const AppRouter = () => {
       <Route path="/categories" element={<CategoriesPage />} />
       <Route path="/friends" element={<FriendsPage />} />
 
+      <Route path="/settings" element={<SettingsPage />} />
       <Route path="/status" element={<StatusPage />} />
 
       <Route path="*" element={<NotFoundPage />} />
@@ -46,11 +45,11 @@ export const AppRouter = () => {
 };
 
 const NotFoundPage = () => {
-  window.location.href = "/dashboard"
-  return <></>
-}
+  window.location.href = "/dashboard";
+  return <></>;
+};
 
 const JumpToEditorPage = () => {
-  window.location.href = "/write/post"
-  return <></>
-}
+  window.location.href = "/write/post";
+  return <></>;
+};

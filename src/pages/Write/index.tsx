@@ -1,94 +1,98 @@
-import { ExpandLeft, ExpandRight, Save } from "@icon-park/react"
-import clsx from "clsx"
-import { useEffect, useRef, useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
-import { useSnapshot } from "valtio"
-import { DatePick } from "../../components/universal/DatePick"
-import { MarkdownEditor } from "../../components/universal/Editor"
-import { FloatBtn, FloatBtnContainer } from "../../components/universal/FloatBtn"
-import { Loading } from "../../components/universal/Loading"
-import { Modal, ModalBody } from "../../components/universal/Modal"
-import { Selects } from "../../components/universal/Select"
-import { Tags } from "../../components/universal/Tags"
-import { Toggle } from "../../components/universal/Toggle"
-import { Twindow } from "../../components/universal/Twindow"
-import { server } from "../../states/app"
-import type { BasicPage } from "../../types/basic"
-import { apiClient } from "../../utils/request"
-import { getQueryVariable } from "../../utils/url"
-import { Fields } from "./fields"
-import styles from "./index.module.css"
-import { Input, Textarea } from "./Input"
+import { ExpandLeft, ExpandRight, Save } from "@icon-park/react";
+import clsx from "clsx";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useSnapshot } from "valtio";
+import { DatePick } from "@components/universal/DatePick";
+import { MarkdownEditor } from "@components/universal/Editor";
+import { FloatBtn, FloatBtnContainer } from "@components/universal/FloatBtn";
+import { Loading } from "@components/universal/Loading";
+import { Modal, ModalBody } from "@components/universal/Modal";
+import { Selects } from "@components/universal/Select";
+import { Tags } from "@components/universal/Tags";
+import { Toggle } from "@components/universal/Toggle";
+import { Twindow } from "@components/universal/Twindow";
+import { server } from "@states/app";
+import type { BasicPage } from "@type/basic";
+import { apiClient } from "@utils/request";
+import { getQueryVariable } from "@utils/url";
+import { Fields } from "./fields";
+import styles from "./index.module.css";
+import { Input, Textarea } from "./Input";
 
 export const EditorPage: BasicPage = () => {
-  const [loading, setLoading] = useState(true)
-  const [sidebar, setSidebar] = useState(false)
-  const [data, setData] = useState<any>()
-  const [rawData, setRawData] = useState<any>()
-  const { type } = useParams()
-  const navigate = useNavigate()
-  const formRef = useRef<HTMLFormElement>(null)
-  const id = getQueryVariable("id")
-  const serverSnapshot = useSnapshot(server)
+  const [loading, setLoading] = useState(true);
+  const [sidebar, setSidebar] = useState(false);
+  const [data, setData] = useState<any>();
+  const [rawData, setRawData] = useState<any>();
+  const { type } = useParams();
+  const navigate = useNavigate();
+  const formRef = useRef<HTMLFormElement>(null);
+  const id = getQueryVariable("id");
+  const serverSnapshot = useSnapshot(server);
 
   useEffect(() => {
     if (!id) {
-      setData({})
+      setData({});
     }
-  }, [id])
+  }, [id]);
 
   useEffect(() => {
     if (!id) {
-      setLoading(false)
+      setLoading(false);
       return;
     }
-    apiClient(`/${type}/${id}`).then(res => {
-      setData(res)
-      setRawData(res)
-      setLoading(false)
-    }).catch(() => {
-      navigate(`/${type}s`)
-    })
-  }, [type, id])
+    apiClient(`/${type}/${id}`)
+      .then((res) => {
+        setData(res);
+        setRawData(res);
+        setLoading(false);
+      })
+      .catch(() => {
+        navigate(`/${type}s`);
+      });
+  }, [type, id]);
 
   const FloatBtns = () => {
     return (
       <FloatBtnContainer>
         <FloatBtn
           onClick={() => {
-            (apiClient(`${data.id ? `/${type}/${data.id}` : `/${type}`}`, {
+            apiClient(`${data.id ? `/${type}/${data.id}` : `/${type}`}`, {
               method: data.id ? "PUT" : "POST",
               body: JSON.stringify({
                 ...data,
                 categoryId: data.category_id.value,
                 category: undefined,
-              })
-            })).then(() => {
-              navigate(`/${type}s`)
+              }),
+            }).then(() => {
+              navigate(`/${type}s`);
               Twindow({
-                title: `${type === "page" ? "页面" : "文章"}保存成功 - ${data.title}`,
+                title: `${type === "page" ? "页面" : "文章"}保存成功 - ${
+                  data.title
+                }`,
                 text: "正在跳转...",
-              })
-            })
+              });
+            });
             console.log({
               ...data,
               categoryId: data.category_id.value,
               category: undefined,
-            })
+            });
           }}
         >
           <Save />
         </FloatBtn>
         <FloatBtn
           onClick={() => {
-            setSidebar(!sidebar)
+            setSidebar(!sidebar);
           }}
         >
           {sidebar ? <ExpandRight /> : <ExpandLeft />}
         </FloatBtn>
       </FloatBtnContainer>
-    )
-  }
+    );
+  };
 
   const sidebarComponent = () => {
     return (
@@ -97,56 +101,60 @@ export const EditorPage: BasicPage = () => {
           size="md"
           title="元数据"
           onClose={() => {
-            setSidebar(false)
+            setSidebar(false);
           }}
           onCancel={() => {
-            setData(rawData)
+            setData(rawData);
           }}
           onConfirm={() => {
-            setRawData(data)
+            setRawData(data);
           }}
           type="confirm"
           doubleClick={{
-            cancel: true
+            cancel: true,
           }}
         >
-
           <div className={styles.toggleGroup}>
-            <span className={styles.toggleGroupTitle}><ModalBody>作者署名</ModalBody></span>
+            <span className={styles.toggleGroupTitle}>
+              <ModalBody>作者署名</ModalBody>
+            </span>
             <Toggle
               checked={data?.copyright || true}
               onChange={(value) => {
                 setData({
                   ...data,
-                  copyright: value
-                })
+                  copyright: value,
+                });
               }}
             />
-
           </div>
 
           <div className={styles.toggleGroup}>
-            <span className={styles.toggleGroupTitle}><ModalBody>是否隐藏</ModalBody></span>
+            <span className={styles.toggleGroupTitle}>
+              <ModalBody>是否隐藏</ModalBody>
+            </span>
             <Toggle
               checked={data?.hide || false}
               onChange={(value) => {
                 setData({
                   ...data,
-                  hide: value
-                })
+                  hide: value,
+                });
               }}
             />
           </div>
 
           <div className={styles.toggleGroup}>
-            <span className={styles.toggleGroupTitle}><ModalBody>是否展示于订阅中</ModalBody></span>
+            <span className={styles.toggleGroupTitle}>
+              <ModalBody>是否展示于订阅中</ModalBody>
+            </span>
             <Toggle
               checked={data?.rss || true}
               onChange={(value) => {
                 setData({
                   ...data,
-                  rss: value
-                })
+                  rss: value,
+                });
               }}
             />
           </div>
@@ -157,86 +165,88 @@ export const EditorPage: BasicPage = () => {
             onChange={(e) => {
               setData({
                 ...data,
-                password: e
-              })
+                password: e,
+              });
             }}
           />
-          {
-            type === "post" && (
-              <>
-                <ModalBody>文章分类</ModalBody>
-                <Selects
-                  value={serverSnapshot.categories.map((item) => {
-                    return {
-                      name: item.name,
-                      value: item.id
-                    }
-                  })}
-                  selected={{
-                    name: data?.category?.name,
-                    value: data?.category?.id
-                  }}
-                  onChange={(value) => {
-                    setData({
-                      ...data,
-                      category_id: value
-                    })
-                  }}
-                />
-              </>
-            )
-          }
+          {type === "post" && (
+            <>
+              <ModalBody>文章分类</ModalBody>
+              <Selects
+                value={serverSnapshot.categories.map((item) => {
+                  return {
+                    name: item.name,
+                    value: item.id,
+                  };
+                })}
+                selected={{
+                  name: data?.category?.name,
+                  value: data?.category?.id,
+                }}
+                onChange={(value) => {
+                  setData({
+                    ...data,
+                    category_id: value,
+                  });
+                }}
+              />
+            </>
+          )}
           <ModalBody>发布日期</ModalBody>
           <DatePick
             value={data?.created}
             onChange={(value) => {
               setData({
                 ...data,
-                created: value
-              })
+                created: value,
+              });
             }}
-            calendarStyle={{ position: "absolute", top: "100px", left: "220px" }}
+            calendarStyle={{
+              position: "absolute",
+              top: "100px",
+              left: "220px",
+            }}
           />
-          {
-            type === "post" && (
-              <>
-                <ModalBody>文章标签</ModalBody>
-                <Tags
-                  tags={data?.tags || []}
-                  setTags={(tags) => {
-                    setData({
-                      ...data,
-                      tags
-                    })
-                  }}
-                />
-                <Textarea
-                  label="文章摘要"
-                  value={data?.summary}
-                  onChange={(e) => {
-                    setData({
-                      ...data,
-                      summary: e
-                    })
-                  }}
-                />
-              </>
-            )
-          }
-          <ModalBody>自定义字段 <small>( 修改键名有 Bug )</small> </ModalBody>
+          {type === "post" && (
+            <>
+              <ModalBody>文章标签</ModalBody>
+              <Tags
+                tags={data?.tags || []}
+                setTags={(tags) => {
+                  setData({
+                    ...data,
+                    tags,
+                  });
+                }}
+              />
+              <Textarea
+                label="文章摘要"
+                value={data?.summary}
+                onChange={(e) => {
+                  setData({
+                    ...data,
+                    summary: e,
+                  });
+                }}
+              />
+            </>
+          )}
+          <ModalBody>
+            自定义字段 <small>( 修改键名有 Bug )</small>{" "}
+          </ModalBody>
           <Fields
             value={data?.fields || {}}
             onChange={(value) => {
               setData({
                 ...data,
-                fields: value
-              })
+                fields: value,
+              });
             }}
           />
         </Modal>
       </>
-    )
-  }
+    );
+  };
 
   return (
     <>
@@ -245,32 +255,41 @@ export const EditorPage: BasicPage = () => {
         <div className={styles.container}>
           <form className={styles.form} ref={formRef}>
             <input
-              onChange={(e) => { setData({ ...data, title: e.target.value }) }}
-              className={styles.title} type="text" name="title" placeholder="标题" defaultValue={data?.title} />
+              onChange={(e) => {
+                setData({ ...data, title: e.target.value });
+              }}
+              className={styles.title}
+              type="text"
+              name="title"
+              placeholder="标题"
+              defaultValue={data?.title}
+            />
             <input
-              onChange={(e) => { setData({ ...data, slug: e.target.value }) }}
-              className={styles.slug} name="slug" placeholder="Slug" defaultValue={data?.slug} />
-            {
-              !loading && (
-                <MarkdownEditor
-                  initialValue={data?.text || " "}
-                  height="calc(100vh - 200px)"
-                  onChange={(value: string | undefined) => {
-                    setData({
-                      ...data,
-                      text: value
-                    })
-                  }}
-                />
-              )
-            }
+              onChange={(e) => {
+                setData({ ...data, slug: e.target.value });
+              }}
+              className={styles.slug}
+              name="slug"
+              placeholder="Slug"
+              defaultValue={data?.slug}
+            />
+            {!loading && (
+              <MarkdownEditor
+                initialValue={data?.text || " "}
+                height="calc(100vh - 200px)"
+                onChange={(value: string | undefined) => {
+                  setData({
+                    ...data,
+                    text: value,
+                  });
+                }}
+              />
+            )}
             <FloatBtns />
-            {
-              sidebar && sidebarComponent()
-            }
+            {sidebar && sidebarComponent()}
           </form>
         </div>
       </div>
     </>
-  )
-}
+  );
+};

@@ -1,16 +1,15 @@
 import clsx from "clsx";
 import { ofetch } from "ofetch";
 import { useEffect, useState } from "react";
-import { Loading } from "../../components/universal/Loading";
-import { Title } from "../../components/universal/Title";
-import { app } from "../../states/app";
-import type { BasicPage } from "../../types/basic";
-import { API } from "../../utils/request";
-import { TableItem, TableItemValue } from "../Home/universal";
-import styles from "./index.module.css"
+import { Loading } from "@components/universal/Loading";
+import { Title } from "@components/universal/Title";
+import type { BasicPage } from "@type/basic";
+import { API } from "@utils/request";
+import { TableItem, TableItemValue } from "@pages/Home/universal";
+import styles from "./index.module.css";
 
 interface IStatus {
-  status: "Operational" | "Down"
+  status: "Operational" | "Down";
 }
 
 const Status: React.FC<IStatus> = (props) => {
@@ -21,62 +20,77 @@ const Status: React.FC<IStatus> = (props) => {
         <span className={styles.text}>{props.status}</span>
       </div>
     </>
-  )
-}
+  );
+};
 
 export const StatusPage: BasicPage = () => {
-
-  const services = [{
-    name: "核心网关层",
-    url: ""
-  }, {
-    name: "用户服务",
-    url: "user"
-  }, {
-    name: "文章服务",
-    url: "post"
-  }, {
-    name: "页面服务",
-    url: "page"
-  }, {
-    name: "分类服务",
-    url: "category"
-  }, {
-    name: "评论服务",
-    url: "comments"
-  }, {
-    name: "友链服务",
-    url: "friends"
-  }, {
-    name: "通知服务",
-    url: "notification"
-  }]
-  const [statuses, setStatuses] = useState<{ [key: string]: "Operational" | "Down" }>({})
-  const [loading, setLoading] = useState(true)
+  const services = [
+    {
+      name: "核心网关层",
+      url: "",
+    },
+    {
+      name: "用户服务",
+      url: "user",
+    },
+    {
+      name: "文章服务",
+      url: "post",
+    },
+    {
+      name: "页面服务",
+      url: "page",
+    },
+    {
+      name: "分类服务",
+      url: "category",
+    },
+    {
+      name: "评论服务",
+      url: "comments",
+    },
+    {
+      name: "友链服务",
+      url: "friends",
+    },
+    {
+      name: "通知服务",
+      url: "notification",
+    },
+  ];
+  const [statuses, setStatuses] = useState<{
+    [key: string]: "Operational" | "Down";
+  }>({});
+  const [loading, setLoading] = useState(true);
 
   const fetchStatus = async () => {
-    await Promise.all(services.map(async (service) => {
-      console.log(service.name, `${service.url ? `/${service.url}` : ""}/ping`)
-      const res = await ofetch.raw(`${service.url ? `/${service.url}` : ""}/ping`, { baseURL: API }).catch(() => ({ status: 500 }))
-      setStatuses((prev) => ({
-        ...prev,
-        [service.name]: res.status === 200 ? "Operational" : "Down"
-      }))
-    }))
-    setLoading(false)
-  }
+    await Promise.all(
+      services.map(async (service) => {
+        console.log(
+          service.name,
+          `${service.url ? `/${service.url}` : ""}/ping`
+        );
+        const res = await ofetch
+          .raw(`${service.url ? `/${service.url}` : ""}/ping`, { baseURL: API })
+          .catch(() => ({ status: 500 }));
+        setStatuses((prev) => ({
+          ...prev,
+          [service.name]: res.status === 200 ? "Operational" : "Down",
+        }));
+      })
+    );
+    setLoading(false);
+  };
 
   useEffect(() => {
-    fetchStatus()
-  }, [])
+    fetchStatus();
+  }, []);
 
   return (
     <>
       <Loading loading={loading} />
       <div className={clsx("loading", !loading && "loaded")}>
-        <Title>
-          服务 · 状态
-        </Title>
+        <Title>服务 · 状态</Title>
         <div className={styles.services}>
           {services.map((service) => (
             <TableItem
@@ -84,7 +98,9 @@ export const StatusPage: BasicPage = () => {
               className={styles.tableItem}
               key={service.name}
             >
-              <TableItemValue>{service?.name.toUpperCase() || "CORE"}</TableItemValue>
+              <TableItemValue>
+                {service?.name.toUpperCase() || "CORE"}
+              </TableItemValue>
               <TableItemValue>
                 <Status status={statuses[service.name]} />
               </TableItemValue>
@@ -93,5 +109,5 @@ export const StatusPage: BasicPage = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};

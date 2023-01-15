@@ -1,23 +1,27 @@
-import clsx from "clsx"
-import { useState } from "react"
-import { Calendar } from "../Calendar"
-import styles from "./index.module.css"
+import clsx from "clsx";
+import { useState } from "react";
+import { Calendar } from "../Calendar";
+import styles from "./index.module.css";
 
 interface DatePickProps {
-  value: string
-  onChange: (value: string) => void
-  calendarStyle?: React.CSSProperties
+  value: string;
+  onChange: (value: string) => void;
+  calendarStyle?: React.CSSProperties;
 }
 
-export const DatePick: React.FC<DatePickProps> = ({ value, onChange, calendarStyle }) => {
-  const [date, setDate] = useState(value || new Date().toISOString())
-  const [show, setShow] = useState(false)
+export const DatePick: React.FC<DatePickProps> = ({
+  value,
+  onChange,
+  calendarStyle,
+}) => {
+  const [date, setDate] = useState(value || new Date().toISOString());
+  const [show, setShow] = useState(false);
 
   const handleDateChange = (date: Date) => {
-    const newDate = date.toISOString()
-    setDate(newDate)
-    onChange(newDate)
-  }
+    const newDate = date.toISOString();
+    setDate(newDate);
+    onChange(newDate);
+  };
 
   return (
     <>
@@ -38,5 +42,5 @@ export const DatePick: React.FC<DatePickProps> = ({ value, onChange, calendarSty
         />
       )}
     </>
-  )
-}
+  );
+};

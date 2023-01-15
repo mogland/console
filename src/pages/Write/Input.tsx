@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { ModalBody } from "../../components/universal/Modal";
+import { ModalBody } from "@components/universal/Modal";
 import styles from "./index.module.css";
 
 export const Input: React.FC<{

@@ -1,0 +1,24 @@
+.tab {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 30px;
+}
+
+.tabItem {
+  padding: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+  padding-bottom: 3px;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease-in-out;
+  outline: none !important;
+}
+
+div[data-headlessui-state="selected"] {
+  color: green;
+}
+
+.tabItemActive {
+  border-bottom: 2px solid green;
+  margin-bottom: -2px;
+}

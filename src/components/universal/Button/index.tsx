@@ -1,11 +1,15 @@
-import clsx from "clsx"
-import styles from "./index.module.css"
+import clsx from "clsx";
+import styles from "./index.module.css";
 
 interface ButtonProps {
-  onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+  onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
-export const Button: React.FC<ButtonProps & React.HTMLAttributes<HTMLButtonElement> & React.PropsWithChildren<{}>> = (props) => {
+export const Button: React.FC<
+  ButtonProps &
+    React.HTMLAttributes<HTMLButtonElement> &
+    React.PropsWithChildren<{}>
+> = (props) => {
   return (
     <button
       type="button"
@@ -14,5 +18,5 @@ export const Button: React.FC<ButtonProps & React.HTMLAttributes<HTMLButtonEleme
     >
       {props.children}
     </button>
-  )
-}
+  );
+};
