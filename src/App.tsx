@@ -7,23 +7,12 @@ import { Loading } from "./components/universal/Loading";
 import { useNavigate } from "react-router-dom";
 import { useSnapshot } from "valtio";
 import { app, server } from "./states/app";
-import { useMedia } from "react-use";
 import { Twindow } from "./components/universal/Twindow";
 
 function App() {
   const appSnapshot = useSnapshot(app)
   const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
-
-  const isDark = useMedia('(prefers-color-scheme: dark)');
-
-  useEffect(() => {
-    if (isDark && !appSnapshot.editorDarkCSSLoaded) {
-      import('@toast-ui/editor/dist/theme/toastui-editor-dark.css').then(() => {
-        app.editorDarkCSSLoaded = true;
-      })
-    }
-  }, [isDark, appSnapshot])
 
   useEffect(() => {
     apiClient("/ping").then(() => {

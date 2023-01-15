@@ -12,9 +12,6 @@
   "dependencies": {
     "@headlessui/react": "^1.7.7",
     "@icon-park/react": "^1.4.2",
-    "@milkdown/plugin-history": "^6.5.4",
-    "@toast-ui/editor": "^3.2.1",
-    "@toast-ui/react-editor": "^3.2.2",
     "echarts": "^5.4.1",
     "framer-motion": "^8.4.2",
     "md5": "2.3.0",
@@ -24,7 +21,8 @@
     "react-message-popup": "1.0.0",
     "react-router-dom": "6.6.2",
     "react-use": "17.4.0",
-    "valtio": "^1.8.2"
+    "valtio": "^1.8.2",
+    "vditor": "^3.9.0"
   },
   "devDependencies": {
     "@innei-util/prettier": "0.8.2",

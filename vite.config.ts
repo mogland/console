@@ -11,9 +11,7 @@ export default defineConfig({
       output: {
         manualChunks: {
           "icon-park": ["@icon-park/react"],
-          "toast-ui": [
-            "@toast-ui/react-editor",
-          ]
+          "vditor": ["vditor"],
         },
       },
     },
