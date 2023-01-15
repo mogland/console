@@ -1,5 +1,6 @@
 import {
   CategoryManagement,
+  Comment,
   Dashboard,
   Editor,
   FriendsCircle,
@@ -53,7 +54,6 @@ const Links = () => {
         title="写文章"
         href="/write/post"
         sub
-        // naive
       />
       <SidebarItem title="朋友动态" href="/posts/friends" sub />
       <Space height={20} />
@@ -62,9 +62,9 @@ const Links = () => {
         title="新增页面"
         href="/write/page"
         sub
-        // naive
       />
       <Space height={20} />
+      <SidebarItem icon={Comment({})} title="评论" href="/comments" />
       <SidebarItem
         icon={CategoryManagement({})}
         title="分类标签"
