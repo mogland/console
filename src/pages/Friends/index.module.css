@@ -8,6 +8,18 @@
   background-color: #ffe6e6;
 }
 
+@media (prefers-color-scheme: dark) {
+  .alive {
+    color: green;
+    background-color: #002000;
+  }
+
+  .dead {
+    color: red;
+    background-color: #200000;
+  }
+}
+
 .tab {
   display: flex;
   flex-direction: row;
