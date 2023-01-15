@@ -65,7 +65,7 @@ export const MarkdownEditor: React.FC<IEditor> = (props) => {
       });
     }, 1000);
 
-  }, [render, isDark, props.initialValue, id])
+  }, [render, props.initialValue, id])
 
   useEffect(() => {
     setRender(false);
@@ -74,7 +74,7 @@ export const MarkdownEditor: React.FC<IEditor> = (props) => {
     setTimeout(() => {
       setRender(true);
     }, 1000);
-  }, [id, window.location.href])
+  }, [id, window.location.href, isDark])
 
   return (
     <div className={styles.editor}>
