@@ -1,4 +1,4 @@
-import { CategoryManagement, Dashboard, Editor, FriendsCircle, GithubOne, HomeTwo, Login, Logout, MenuFoldOne, MenuUnfoldOne, OpenDoor, Page, Write } from "@icon-park/react"
+import { CategoryManagement, Dashboard, Editor, FriendsCircle, GithubOne, HomeTwo, Login, Logout, MenuFoldOne, MenuUnfoldOne, OpenDoor, Page, Setting, Write } from "@icon-park/react"
 import clsx from "clsx"
 import { useEffect, useState } from "react"
 import { Space } from "../../universal/Space"
@@ -88,15 +88,14 @@ const Links = () => {
         height={20}
       />
       <SidebarItem
+        icon={Setting({})}
+        title="系统设置"
+        href="/settings"
+      />
+      <SidebarItem
         icon={Dashboard({})}
         title="服务状态"
         href="/status"
-      />
-      <SidebarItem
-        icon={GithubOne({})}
-        title="前往文档"
-        href="https://github.com"
-        outside
       />
       <Space
         height={30}
