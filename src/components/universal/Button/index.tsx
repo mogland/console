@@ -15,6 +15,7 @@ export const Button: React.FC<
       type="button"
       className={clsx(props.className, styles.button)}
       onClick={props.onClick}
+      {...{ ...props }}
     >
       {props.children}
     </button>

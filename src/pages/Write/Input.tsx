@@ -9,8 +9,9 @@ export const Input: React.FC<{
   onChange?: (value: string) => void;
   oneLine?: boolean;
   disabled?: boolean;
+  children?: React.ReactNode;
   [key: string]: any;
-}> = ({ label, value, onChange, oneLine, type, disabled, ...props }) => {
+}> = ({ label, value, onChange, oneLine, type, disabled, children, ...props }) => {
   return (
     <div className={clsx({ [styles.toggleGroup]: oneLine })}>
       <span className={clsx({ [styles.toggleGroupTitle]: oneLine })}>
@@ -26,6 +27,7 @@ export const Input: React.FC<{
           onChange?.(e.target.value);
         }}
       />
+      {children}
     </div>
   );
 };
@@ -35,11 +37,13 @@ export const Textarea: React.FC<{
   value: string;
   onChange?: (value: string) => void;
   placeholder?: string;
-}> = ({ label, value, onChange, placeholder }) => {
+  [key: string]: any;
+}> = ({ label, value, onChange, placeholder, ...rest }) => {
   return (
     <>
       <ModalBody>{label}</ModalBody>
       <textarea
+        {...rest}
         className={styles.summary}
         name={label}
         placeholder={placeholder}

@@ -1,24 +1,21 @@
-.tab {
+.tabList {
   display: flex;
   flex-direction: row;
   margin-bottom: 30px;
 }
 
-.tabItem {
+.tab {
   padding: 10px;
   margin-right: 10px;
   cursor: pointer;
   padding-bottom: 3px;
   border-bottom: 2px solid transparent;
+  font-size: 1rem;
   transition: all 0.2s ease-in-out;
   outline: none !important;
 }
 
-div[data-headlessui-state="selected"] {
-  color: green;
-}
-
-.tabItemActive {
+.selected {
   border-bottom: 2px solid green;
   margin-bottom: -2px;
 }

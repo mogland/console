@@ -90,6 +90,14 @@ code {
   display: none;
 }
 
+div[data-headlessui-state="selected"] {
+  animation: fadein 0.3s ease-in-out;
+}
+
+button[data-headlessui-state="selected"] {
+  color: green;
+}
+
 .vditor-reset {
   color: var(--text-color);
 }

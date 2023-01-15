@@ -36,10 +36,6 @@
   outline: none !important;
 }
 
-div[data-headlessui-state="selected"] {
-  color: green;
-}
-
 .tabItemActive {
   border-bottom: 2px solid green;
   margin-bottom: -2px;

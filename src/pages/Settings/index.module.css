@@ -1,0 +1,64 @@
+.userSettingsContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+
+.userSettingsBackground {
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 15rem;
+  background-color: var(--background-color-secondary);
+  border-radius: 50%;
+}
+
+.background {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.5);
+  border-radius: 10px 10px 0 0;
+  animation: blurIn 1.5s;
+}
+
+.avatar {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  border: 6px solid var(--background-color-secondary);
+  border-radius: 50%;
+  object-fit: cover;
+  bottom: -40px;
+  left: 3%;
+}
+
+.userSettings {
+  padding-top: 15rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  border-radius: 0 0 10px 10px;
+}
+
+.userSettings > div {
+  width: 100%;
+  height: 100%;
+  margin: 2rem;
+  /* border: 5px solid #e5e5e5; */
+  padding-top: 0;
+}
+
+
+@keyframes blurIn {
+  0% {
+    filter: brightness(0);
+  }
+  100% {
+    filter:brightness(0.5);
+  }
+}
