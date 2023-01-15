@@ -1,19 +1,12 @@
-# React + TypeScript Starter Template
+![对角线切割图](https://user-images.githubusercontent.com/62133302/212527878-cb415e34-50d4-4522-a257-70965d9a558e.png)
 
+<div align="center">
 
-<img src="https://img.shields.io/github/package-json/v/wibus-wee/react-ts-starter" referrerpolicy="no-referrer" alt="version"> 
+# Mog Console Dashboard
 
+<img src="https://img.shields.io/github/package-json/v/wibus-wee/react-ts-starter?style=for-the-badge" referrerpolicy="no-referrer" alt="version"> <img src="https://img.shields.io/badge/Mog%20Core-%5E2.0.0-9cf?style=for-the-badge" referrerpolicy="no-referrer" alt="mog version"> <img src="https://img.shields.io/badge/Status-WIP-lightgrey?style=for-the-badge" referrerpolicy="no-referrer" alt="status"> 
 
-## Stacks
-
-- [React](https://reactjs.org/)
-  - [React Hooks](https://reactjs.org/docs/hooks-intro.html)
-  - [React Router](https://reactrouter.com/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Vite](http://vitejs.dev)
-- [Tailwind CSS](https://tailwindcss.com/)
-  - [PostCSS](https://postcss.com/)
-  - [Less CSS](https://lesscss.org)
+</div>
 
 ## License
 
