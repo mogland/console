@@ -211,6 +211,7 @@ export const EditorPage: BasicPage = () => {
             <>
               <ModalBody>文章标签</ModalBody>
               <Tags
+                autoComplete
                 tags={data?.tags || []}
                 setTags={(tags) => {
                   setData({
