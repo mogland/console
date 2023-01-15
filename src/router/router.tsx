@@ -12,6 +12,7 @@ import {
   Routes,
 } from "react-router-dom";
 import { CategoriesPage } from "../pages/Categories";
+import { FriendsPage } from "../pages/Friends";
 import { Home } from "../pages/Home";
 import { Login } from "../pages/Login";
 import { PagesIndex } from "../pages/Pages/Index";
@@ -35,6 +36,7 @@ export const AppRouter = () => {
       <Route path="/write/:type" element={<EditorPage />} />
 
       <Route path="/categories" element={<CategoriesPage />} />
+      <Route path="/friends" element={<FriendsPage />} />
 
       <Route path="/status" element={<StatusPage />} />
 

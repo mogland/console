@@ -53,6 +53,7 @@
 .toggleGroupTitle {
   margin-top: -0.5rem;
   margin-right: 12px;
+  width: 70px;
 }
 
 .passwordInput {

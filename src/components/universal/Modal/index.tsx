@@ -13,6 +13,7 @@ export const Modal = ({
   size,
   doubleClick,
   onCancel,
+  className,
 }: {
   children: React.ReactNode;
   title: string;
@@ -29,6 +30,7 @@ export const Modal = ({
     confirm?: boolean;
     cancel?: boolean;
   };
+  className?: string;
 }) => {
   const [isOpen, setIsOpen] = useState(true);
   const [doubleClickState, setDoubleClickState] = useState({
@@ -83,7 +85,7 @@ export const Modal = ({
           <div className={clsx(styles.overlay)} />
         </Transition.Child>
 
-        <div className={clsx(styles.container)}>
+        <div className={clsx(styles.container, className)}>
           <div className={clsx(styles.containerInner)}>
             <Transition.Child
               as={Fragment}

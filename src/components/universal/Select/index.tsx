@@ -23,7 +23,7 @@ export const Selects: React.FC<SelectsProps> = (props) => {
   }
   return (
     <div className={styles.container}>
-      <Listbox value={selected} onChange={handleChange}>
+      <Listbox defaultValue={selected} onChange={handleChange}>
         <div className={styles.containerInner}>
           <Listbox.Button className={styles.button}>
             <span className={styles.name}>

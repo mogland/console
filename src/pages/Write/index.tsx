@@ -60,7 +60,8 @@ export const EditorPage: BasicPage = () => {
               method: data.id ? "PUT" : "POST",
               body: JSON.stringify({
                 ...data,
-                categoryId: data.category_id
+                categoryId: data.category_id.value,
+                category: undefined,
               })
             })).then(() => {
               navigate(`/${type}s`)
@@ -68,6 +69,11 @@ export const EditorPage: BasicPage = () => {
                 title: `${type === "page" ? "页面" : "文章"}保存成功 - ${data.title}`,
                 text: "正在跳转...",
               })
+            })
+            console.log({
+              ...data,
+              categoryId: data.category_id.value,
+              category: undefined,
             })
           }}
         >
@@ -144,7 +150,7 @@ export const EditorPage: BasicPage = () => {
               }}
             />
           </div>
-          <Input 
+          <Input
             label="阅读密码"
             type="password"
             value={data?.password}
@@ -166,6 +172,10 @@ export const EditorPage: BasicPage = () => {
                       value: item.id
                     }
                   })}
+                  selected={{
+                    name: data?.category?.name,
+                    value: data?.category?.id
+                  }}
                   onChange={(value) => {
                     setData({
                       ...data,
@@ -200,7 +210,7 @@ export const EditorPage: BasicPage = () => {
                     })
                   }}
                 />
-                <Textarea 
+                <Textarea
                   label="文章摘要"
                   value={data?.summary}
                   onChange={(e) => {
