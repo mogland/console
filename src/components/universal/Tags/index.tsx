@@ -9,10 +9,12 @@ import styles from "./index.module.css";
 interface TagsProp {
   tags: string[];
   setTags: (tags: string[]) => void;
+  autoComplete?: boolean;
+  tagStyles?: React.CSSProperties;
 }
 
 export const Tags: React.FC<TagsProp> = (props) => {
-  const { tags, setTags } = props;
+  const { tags, setTags, tagStyles } = props;
   const [inputVisible, setInputVisible] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const input = "input";
@@ -62,6 +64,7 @@ export const Tags: React.FC<TagsProp> = (props) => {
         if (inputVisible && index === tags.length) {
           return (
             <Input
+              styles={tagStyles}
               ref={inputRef}
               key={tag}
               style={{ width: 78 }}
@@ -70,18 +73,19 @@ export const Tags: React.FC<TagsProp> = (props) => {
               onBlur={handleInputConfirm}
               onPressEnter={handleInputConfirm}
               onAutoComplete={handleConfirmWithAutoComplete}
+              autoComplete={props.autoComplete}
             />
           );
         }
 
         return (
-          <Tag closable key={tag} onClose={() => handleClose(tag)}>
+          <Tag closable key={tag} onClose={() => handleClose(tag)} styles={tagStyles}>
             {tag}
           </Tag>
         );
       })}
       {!inputVisible && (
-        <NewTag onClick={showInput} className={styles.newTag}>
+        <NewTag onClick={showInput} className={styles.newTag} styles={tagStyles}>
           <Plus /> New Tag
         </NewTag>
       )}
@@ -94,19 +98,22 @@ export const Input = forwardRef<
   PropsWithRef<PropsWithChildren & React.HTMLAttributes<HTMLInputElement>> & {
     onPressEnter?: () => void;
     onAutoComplete?: (value?: string) => void;
+    autoComplete?: boolean;
+    styles?: React.CSSProperties;
   }
 >((props, ref) => {
   const tags = useSnapshot(server).tags;
-  const { onPressEnter, ...rest } = props;
+  const { onPressEnter, autoComplete, ...rest } = props;
   useKeyPressEvent("Enter", onPressEnter);
 
   return (
     <div className={styles.suggestContainer}>
-      <input className={styles.input} ref={ref} {...rest} />
+      <input className={styles.input} ref={ref} {...rest} style={props.styles} />
       <div className={styles.suggest}>
-        {tags
+        {autoComplete && tags
           .map((tag) => (
             <div
+              style={props.styles}
               key={tag.name}
               className={styles.input}
               onMouseDown={() => {
@@ -126,12 +133,13 @@ export const Input = forwardRef<
 interface TagProps {
   closable?: boolean;
   onClose?: () => void;
+  styles?: React.CSSProperties;
 }
 
 export const Tag: React.FC<PropsWithChildren & TagProps> = (props) => {
   const { children, closable, onClose } = props;
   return (
-    <div className={styles.tag}>
+    <div className={styles.tag} style={props.styles}>
       <span>{children}</span>
       {closable && (
         <span className={styles.close} onClick={onClose}>
@@ -143,11 +151,11 @@ export const Tag: React.FC<PropsWithChildren & TagProps> = (props) => {
 };
 
 const NewTag: React.FC<
-  PropsWithChildren & React.HTMLAttributes<HTMLDivElement>
+  PropsWithChildren & React.HTMLAttributes<HTMLDivElement> & { styles?: React.CSSProperties }
 > = (props) => {
-  const { onClick, children } = props;
+  const { onClick, children, styles } = props;
   return (
-    <div onClick={onClick} {...props}>
+    <div onClick={onClick} {...props} style={styles}>
       {children}
     </div>
   );
