@@ -134,7 +134,6 @@ export const CategoriesPage: BasicPage = () => {
               description: "",
             });
             console.log(modalCreateData.id);
-            console.log(res);
             handleRemoveSelect();
             // navigate("/categories")
             // window.location.reload()

@@ -24,10 +24,15 @@ import { useWindowSize } from "react-use";
 import itemStyle from "./item/index.module.css";
 import { useSnapshot } from "valtio";
 import { app } from "@states/app";
+import { useNavigate } from "react-router-dom";
+import { apiClient } from "@utils/request";
+import { removeCookie } from "@utils/cookie";
 
 const Links = () => {
   const authenticated = useSnapshot(app).authenticated;
   const [disabled, setDisabled] = useState(false);
+  const navigate = useNavigate()
+
   useEffect(() => {
     if (authenticated) {
       setDisabled(false);
@@ -78,8 +83,15 @@ const Links = () => {
       <span
         className={clsx(itemStyle.item, styles.item)}
         onClick={() => {
-          removeStorage("token");
-          window.location.href = "/login";
+          apiClient("/user/logout", {
+            method: "POST",
+          }).then(() => {
+            removeCookie("token")
+            app.authenticated = false;
+            navigate("/login")
+          }).catch((e) => {
+            console.log(e)
+          })
         }}
       >
         <div className={itemStyle.icon}>

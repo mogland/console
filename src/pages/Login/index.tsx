@@ -8,6 +8,7 @@ import { apiClient } from "@utils/request";
 import { Twindow } from "@components/universal/Twindow";
 import { setStorage } from "@utils/storage";
 import { app } from "@states/app";
+import { setCookie } from "@utils/cookie";
 
 export const Login: BasicPage = () => {
   const [loading, setLoading] = useState(false);
@@ -32,8 +33,7 @@ export const Login: BasicPage = () => {
         },
       })
         .then((res) => {
-          setStorage("token", res.token);
-          console.log(res);
+          setCookie("token", res.token)
           Twindow({
             title: `欢迎回来 - ${res.nickname}`,
             text: ``,

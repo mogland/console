@@ -1,4 +1,5 @@
 import { Tab } from "@headlessui/react";
+import tabs from "@components/universal/tabs/index.module.css";
 import {
   Clear,
   Delete,
@@ -570,47 +571,31 @@ export const FriendsPage: BasicPage = () => {
             navigate(`/friends?status=${index}`);
           }}
         >
-          <Tab.List className={styles.tab}>
-            <Tab
-              className={({ selected }) =>
-                clsx(styles.tabItem, selected && styles.tabItemActive)
-              }
-            >
+          <Tab.List className={tabs.tabList}>
+            <Tab className={({ selected }) => clsx(tabs.tab, selected && tabs.selected)}>
               已通过
             </Tab>
-            <Tab
-              className={({ selected }) =>
-                clsx(styles.tabItem, selected && styles.tabItemActive)
-              }
-            >
+            <Tab className={({ selected }) => clsx(tabs.tab, selected && tabs.selected)}>
               待审核
             </Tab>
-            <Tab
-              className={({ selected }) =>
-                clsx(styles.tabItem, selected && styles.tabItemActive)
-              }
-            >
+            <Tab className={({ selected }) => clsx(tabs.tab, selected && tabs.selected)}>
               垃圾友链
             </Tab>
-            <Tab
-              className={({ selected }) =>
-                clsx(styles.tabItem, selected && styles.tabItemActive)
-              }
-            >
+            <Tab className={({ selected }) => clsx(tabs.tab, selected && tabs.selected)}>
               回收站
             </Tab>
           </Tab.List>
           <Tab.Panels>
-            <Tab.Panel className={styles.tabPanel}>
+            <Tab.Panel>
               <FriendsList />
             </Tab.Panel>
-            <Tab.Panel className={styles.tabPanel}>
+            <Tab.Panel>
               <FriendsList />
             </Tab.Panel>
-            <Tab.Panel className={styles.tabPanel}>
+            <Tab.Panel>
               <FriendsList />
             </Tab.Panel>
-            <Tab.Panel className={styles.tabPanel}>
+            <Tab.Panel>
               <FriendsList />
             </Tab.Panel>
           </Tab.Panels>

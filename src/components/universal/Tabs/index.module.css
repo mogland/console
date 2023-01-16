@@ -17,5 +17,6 @@
 
 .selected {
   border-bottom: 2px solid green;
+  color: green;
   margin-bottom: -2px;
 }

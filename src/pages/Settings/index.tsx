@@ -31,7 +31,6 @@ export const SettingsPage: BasicPage = () => {
     navigate(`/settings?tab=${_tabs}`)
     apiClient(tabsAPI[_tabs]).then((res) => {
       setData(res);
-      console.log(res, "res");
     });
     setTimeout(() => {
       setLoading(false);
@@ -189,13 +188,14 @@ export const SettingsPage: BasicPage = () => {
               }}
             />
           </Collapse>
-          <Collapse
+          {/* <Collapse
             title="Webhook 设置"
           >
+          // TODO
             <ModalBody>
-              (WIP) Webhook 是一种通过 HTTP 回调的方式，当某些事件发生时，向指定的 URL 发送 HTTP 请求的方式。
+              WIP
             </ModalBody>
-          </Collapse>
+          </Collapse> */}
           <Collapse
             title="邮件服务设置"
           >
@@ -240,10 +240,6 @@ export const SettingsPage: BasicPage = () => {
               type="password"
             />
           </Collapse>
-          <Collapse
-            title="后台自定义设置"
-          >
-          </Collapse>
         </CollapseContainer>
 
         <Button
@@ -277,10 +273,6 @@ export const SettingsPage: BasicPage = () => {
     )
   }
 
-  const SafeSetting = () => (
-    <></>
-  )
-
   return (
     <>
       <Loading loading={loading} />
@@ -299,9 +291,6 @@ export const SettingsPage: BasicPage = () => {
             <Tab className={({ selected }) => clsx(tabs.tab, selected && tabs.selected)}>
               系统
             </Tab>
-            <Tab className={({ selected }) => clsx(tabs.tab, selected && tabs.selected)}>
-              安全
-            </Tab>
           </Tab.List>
           <Tab.Panels>
             <Tab.Panel>
@@ -309,9 +298,6 @@ export const SettingsPage: BasicPage = () => {
             </Tab.Panel>
             <Tab.Panel>
               <SystemSetting />
-            </Tab.Panel>
-            <Tab.Panel>
-              <SafeSetting />
             </Tab.Panel>
           </Tab.Panels>
         </Tab.Group>

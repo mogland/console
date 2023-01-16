@@ -9,16 +9,17 @@
 
 import { ofetch } from "ofetch";
 import { Twindow } from "../components/universal/Twindow";
-import { getStorage } from "./storage";
+import { getCookie } from "./cookie";
 
 export const API = "http://192.168.3.4:2330";
 
 export const apiClient = ofetch.create({
   baseURL: API,
   headers: {
-    "Content-Type": "application/json",
-    Accept: "application/json",
-    Authorization: `Bearer ${getStorage("token")}`,
+    // "Content-Type": "application/json",
+    // Accept: "application/json",
+    Authorization: `Bearer ${getCookie("token")}`,
+    token: getCookie("token") || "",
   },
   onResponseError: (error) => {
     Twindow({
