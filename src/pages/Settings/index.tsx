@@ -11,46 +11,35 @@ import { apiClient } from "@utils/request";
 import styles from "./index.module.css"
 import { Button } from "@components/universal/Button";
 import { Twindow } from "@components/universal/Twindow";
+import { Collapse, CollapseContainer } from "@components/universal/Collapse";
+import { getQueryVariable } from "@utils/url";
+import { useNavigate } from "react-router-dom";
+import { Tags } from "@components/universal/Tags";
+import { Toggle } from "@components/universal/Toggle";
+
+const tabsAPI = ["/user/master/info", "/configs"]
 
 export const SettingsPage: BasicPage = () => {
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState<{
-    id: string,
-    username: string,
-    nickname: string,
-    description: string,
-    avatar: string,
-    email: string,
-    url: string,
-    last_login_time: string,
-    created: string,
-    password?: string,
-  }>({
-    id: "",
-    username: "",
-    nickname: "",
-    description: "",
-    avatar: "",
-    email: "",
-    url: "",
-    last_login_time: "",
-    created: "",
-    password: "",
-  });
+  const [data, setData] = useState<any>({});
+  const tab = getQueryVariable("tab")
+  const [_tabs, _setTabs] = useState(Number((tab === "0" || tab === "1") ? tab : "0"));
+  const navigate = useNavigate()
 
   useEffect(() => {
-    apiClient("/user/master/info").then((res) => {
-      setUser(res);
+    // setLoading(true);
+    navigate(`/settings?tab=${_tabs}`)
+    apiClient(tabsAPI[_tabs]).then((res) => {
+      setData(res);
+      console.log(res, "res");
     });
     setTimeout(() => {
       setLoading(false);
     }, 1000);
-  }, []);
+  }, [_tabs]);
 
   const UserSetting = () => {
-    const [_user, _setUser] = useState(user);
-    console.log(_user);
-    const [password, setPassword] = useState("");
+    const [_user, _setUser] = useState(data);
     return (
       <div className={styles.userSettingsContainer}>
         <div className={styles.userSettingsBackground}>
@@ -72,7 +61,7 @@ export const SettingsPage: BasicPage = () => {
               value={_user.nickname}
               style={{ backgroundColor: "var(--background-color-primary)", width: "100%" }}
               onChange={(e) => {
-                _setUser({ ...user, nickname: e });
+                _setUser({ ..._user, nickname: e });
               }}
               label="昵称"
             />
@@ -100,7 +89,7 @@ export const SettingsPage: BasicPage = () => {
               }}
               label="个人主页"
             />
-  
+
           </div>
           <div>
             <Textarea
@@ -119,34 +108,174 @@ export const SettingsPage: BasicPage = () => {
                 _setUser({ ..._user, password: e });
               }}
               label="修改密码"
-             />
+            />
 
             <Button
-                style={{ marginTop: "2.5rem", width: "100%" }}
-                onClick={(e) => {
-                  apiClient("/user/info", {
-                    method: "PUT",
-                    body: JSON.stringify(_user),
-                  }).then(() => {
-                    Twindow({
-                      title: "保存成功",
-                      text: "用户信息已保存",
-                      allowClose: true,
-                    })
+              style={{ marginTop: "2.5rem", width: "100%" }}
+              onClick={() => {
+                apiClient("/user/info", {
+                  method: "PUT",
+                  body: JSON.stringify(_user),
+                }).then(() => {
+                  Twindow({
+                    title: "保存成功",
+                    text: "用户信息已保存",
+                    allowClose: true,
                   })
-                }}
-              >
-                保存
-              </Button>
+                })
+              }}
+            >
+              保存
+            </Button>
           </div>
         </div>
       </div>
     )
   }
 
-  const SystemSetting = () => (
-    <></>
-  )
+  const SystemSetting = () => {
+    const [_data, _setData] = useState(data); // prevent re-render
+    return (
+      <>
+        <CollapseContainer>
+          <Collapse
+            title="服务设置"
+          >
+            <Input
+              style={{ backgroundColor: "var(--background-color-primary)" }}
+              label="前端地址"
+              value={_data.site?.front_url}
+              onChange={(e) => {
+                _setData({ ..._data, site: { ..._data.site, front_url: e } })
+              }}
+            />
+            <Input
+              style={{ backgroundColor: "var(--background-color-primary)" }}
+              label="后端地址"
+              value={_data.site?.server_url}
+              onChange={(e) => {
+                _setData({ ..._data, site: { ..._data.site, server_url: e } })
+              }}
+            />
+          </Collapse>
+          <Collapse
+            title="站点信息设置"
+          >
+            <Input
+              style={{ backgroundColor: "var(--background-color-primary)" }}
+              label="站点名称"
+              value={_data.seo?.title}
+              onChange={(e) => {
+                _setData({ ..._data, seo: { ..._data.seo, title: e } })
+              }}
+            />
+            <Textarea
+              style={{ backgroundColor: "var(--background-color-primary)" }}
+              label="站点描述"
+              value={_data.seo?.description}
+              onChange={(e) => {
+                _setData({ ..._data, seo: { ..._data.seo, description: e } })
+              }}
+            />
+            <ModalBody>站点标签</ModalBody>
+            <Tags
+              tagStyles={{
+                backgroundColor: "var(--background-color-primary)",
+              }}
+              tags={_data.seo?.keyword || []}
+              setTags={(e) => {
+                _setData({ ..._data, seo: { ..._data["seo"], keyword: e } })
+                console.log({ ..._data, seo: { ..._data["seo"], keyword: e } })
+              }}
+            />
+          </Collapse>
+          <Collapse
+            title="Webhook 设置"
+          >
+            <ModalBody>
+              (WIP) Webhook 是一种通过 HTTP 回调的方式，当某些事件发生时，向指定的 URL 发送 HTTP 请求的方式。
+            </ModalBody>
+          </Collapse>
+          <Collapse
+            title="邮件服务设置"
+          >
+            <ModalBody>启动加密验证</ModalBody>
+            <Toggle
+              checked={_data.email?.secure}
+              onChange={(e) => {
+                _setData({ ..._data, email: { ..._data.email, secure: e } })
+              }}
+            />
+            <Input
+              style={{ backgroundColor: "var(--background-color-primary)" }}
+              label="邮件服务器地址"
+              value={_data.email?.host}
+              onChange={(e) => {
+                _setData({ ..._data, email: { ..._data.email, host: e } })
+              }}
+            />
+            <Input
+              style={{ backgroundColor: "var(--background-color-primary)" }}
+              label="邮件服务器端口"
+              value={_data.email?.port}
+              onChange={(e) => {
+                _setData({ ..._data, email: { ..._data.email, port: e } })
+              }}
+            />
+            <Input
+              style={{ backgroundColor: "var(--background-color-primary)" }}
+              label="邮件服务器邮箱"
+              value={_data.email?.user}
+              onChange={(e) => {
+                _setData({ ..._data, email: { ..._data.email, user: e } })
+              }}
+            />
+            <Input
+              style={{ backgroundColor: "var(--background-color-primary)" }}
+              label="邮件服务器密码"
+              value={_data.email?.pass}
+              onChange={(e) => {
+                _setData({ ..._data, email: { ..._data.email, pass: e } })
+              }}
+              type="password"
+            />
+          </Collapse>
+          <Collapse
+            title="后台自定义设置"
+          >
+          </Collapse>
+        </CollapseContainer>
+
+        <Button
+          style={{ marginTop: "2.5rem", width: "100%" }}
+          onClick={() => {
+            // Twindow({
+            //   title: "保存配置 - 系统",
+            //   text: "当前系统配置已提交成功",
+            // })
+            Object.keys(_data).forEach((key) => {
+              if (JSON.stringify(_data[key]) === JSON.stringify(data[key])) {
+                return
+              }
+              console.log(key, _data[key])
+              apiClient(`/configs/${key}`, {
+                method: "PATCH",
+                body: JSON.stringify(_data[key]),
+              }).catch((e) => {
+                Twindow({
+                  title: `配置保存时出错 - ${key}`,
+                  text: e.data.message,
+                  allowClose: true,
+                })
+              })
+            })
+          }}
+        >
+          保存
+        </Button>
+      </>
+    )
+  }
 
   const SafeSetting = () => (
     <></>
@@ -157,7 +286,12 @@ export const SettingsPage: BasicPage = () => {
       <Loading loading={loading} />
       <div className={clsx("loading", !loading && "loaded")}>
         <Title>系统设置</Title>
-        <Tab.Group>
+        <Tab.Group
+          defaultIndex={_tabs}
+          onChange={(index) => {
+            _setTabs(index);
+          }}
+        >
           <Tab.List className={tabs.tabList}>
             <Tab className={({ selected }) => clsx(tabs.tab, selected && tabs.selected)}>
               用户

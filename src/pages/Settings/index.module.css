@@ -22,17 +22,22 @@
   filter: brightness(0.5);
   border-radius: 10px 10px 0 0;
   animation: blurIn 1.5s;
+  pointer-events: none;
+  user-select: none;
 }
 
 .avatar {
   position: absolute;
   width: 150px;
   height: 150px;
-  border: 6px solid var(--background-color-secondary);
+  border: 5px solid var(--background-color-secondary);
+  background-color: var(--background-color-secondary);
   border-radius: 50%;
   object-fit: cover;
   bottom: -40px;
   left: 3%;
+  pointer-events: none;
+  user-select: none;
 }
 
 .userSettings {
