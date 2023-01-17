@@ -28,7 +28,7 @@ import {
   TableItem,
   TableItemValue,
 } from "@pages/Home/universal";
-import postStyles from "../Posts/Index/index.module.css";
+import postStyles from "@pages/Posts/Index/index.module.css";
 import { Input, Textarea } from "@pages/Write/Input";
 import styles from "./index.module.css";
 
@@ -357,12 +357,8 @@ export const FriendsPage: BasicPage = () => {
                       //     method: "DELETE",
                       //   })
                       // })
+                      setFriends(friends.filter((item) => !select.includes(item.id)));
                       setSelect([]);
-                      document
-                        .querySelectorAll(`.${postStyles.select}`)
-                        .forEach((item) => {
-                          item.remove();
-                        });
                     } else {
                       e.currentTarget.classList.add(postStyles.confrim);
                     }

@@ -119,7 +119,6 @@ export const PostsIndex: BasicPage = () => {
                   onClick={(e) => {
                     if (e.currentTarget.classList.contains(styles.select)) {
                       setSelect(select.filter((i) => i !== item.id));
-                      console.log(select);
                     } else {
                       setSelect([...select, item.id]);
                     }

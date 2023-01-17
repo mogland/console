@@ -15,6 +15,10 @@
   outline: none !important;
 }
 
+.tab:hover {
+  color: rgb(0, 158, 0);
+}
+
 .selected {
   border-bottom: 2px solid green;
   color: green;

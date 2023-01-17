@@ -7,6 +7,7 @@
  * Coding With IU
  */
 
+import { CommentsPage } from "@pages/Comments";
 import { Route, Routes } from "react-router-dom";
 import { CategoriesPage } from "../pages/Categories";
 import { FriendsPage } from "../pages/Friends";
@@ -33,6 +34,7 @@ export const AppRouter = () => {
       <Route path="/write" element={<JumpToEditorPage />} />
       <Route path="/write/:type" element={<EditorPage />} />
 
+      <Route path="/comments" element={<CommentsPage />} />
       <Route path="/categories" element={<CategoriesPage />} />
       <Route path="/friends" element={<FriendsPage />} />
 

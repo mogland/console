@@ -1,0 +1,15 @@
+.reply {
+  margin-left: 1rem;
+  margin-top: 1rem;
+  border-left: 4px solid rgb(0, 166, 0);
+  padding-left: 0.8rem;
+  color: rgba(0, 114, 0, 0.674);
+}
+
+
+@media (prefers-color-scheme: dark) {
+  .reply {
+    border-left: 4px solid rgb(63, 169, 63);
+    color: rgba(93, 255, 93, 0.674);
+  }
+}
