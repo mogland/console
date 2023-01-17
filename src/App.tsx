@@ -31,8 +31,7 @@ function App() {
           .then(() => {
             (window.location.pathname == "/" ||
               window.location.pathname == "/login" ||
-              window.location.pathname == "/register" ||
-              window.location.pathname == "/status") &&
+              window.location.pathname == "/register") &&
               navigate("/dashboard");
             app.authenticated = true;
             app.showSidebar = true;
@@ -55,7 +54,7 @@ function App() {
           setLoading(false);
         }, 1000);
       });
-  }, [appSnapshot.authenticated]);
+  }, []);
 
   return (
     <>

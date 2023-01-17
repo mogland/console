@@ -8,6 +8,7 @@
  */
 
 import { CommentsPage } from "@pages/Comments";
+import { RegisterPage } from "@pages/Register";
 import { Route, Routes } from "react-router-dom";
 import { CategoriesPage } from "../pages/Categories";
 import { FriendsPage } from "../pages/Friends";
@@ -23,9 +24,11 @@ import { EditorPage } from "../pages/Write";
 export const AppRouter = () => {
   return (
     <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<RegisterPage />} />
+
       <Route path="/" element={<Home />} />
       <Route path="/dashboard" element={<Home />} />
-      <Route path="/login" element={<Login />} />
 
       <Route path="/posts" element={<PostsIndex />} />
       <Route path="/posts/friends" element={<FriendsPosts />} />

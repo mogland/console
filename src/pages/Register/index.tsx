@@ -1,7 +1,7 @@
+import styles from "@pages/Login/index.module.css"
 import clsx from "clsx";
 import React, { useEffect, useRef, useState } from "react";
 import type { BasicPage } from "@type/basic";
-import styles from "./index.module.css";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { apiClient } from "@utils/request";
@@ -9,17 +9,24 @@ import { Twindow } from "@components/universal/Twindow";
 import { app } from "@states/app";
 import { setCookie } from "@utils/cookie";
 
-export const Login: BasicPage = () => {
-  const [loading, setLoading] = useState(false);
-  const formRef = useRef<HTMLFormElement>(null);
+// nickname, description, email, avatar, password, username
+
+export const RegisterPage: BasicPage = () => {
   const navigate = useNavigate();
   app.showSidebar = false;
+  const [loading, setLoading] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
-    apiClient("/user/master/info").catch(() => {
-      navigate("/register");
-    })
-  }, []);
+    apiClient("/user/master/info")
+      .then((res) => {
+        if (res) {
+          navigate("/dashboard");
+        }
+      }).catch(() => {
+        return;
+      })
+  }, [])
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -30,11 +37,19 @@ export const Login: BasicPage = () => {
         .value;
       const password = (form.elements.namedItem("password") as RadioNodeList)!
         .value;
-      apiClient("/user/login", {
+      const nickname = (form.elements.namedItem("nickname") as RadioNodeList)!.value;
+      const description = (form.elements.namedItem("description") as RadioNodeList)!.value;
+      const email = (form.elements.namedItem("email") as RadioNodeList)!.value;
+      const avatar = (form.elements.namedItem("avatar") as RadioNodeList)!.value;
+      apiClient("/user/register", {
         method: "POST",
         body: {
           username,
           password,
+          nickname,
+          description,
+          email,
+          avatar,
         },
       })
         .then((res) => {
@@ -51,7 +66,7 @@ export const Login: BasicPage = () => {
         })
         .catch((res) => {
           Twindow({
-            title: `登录失败 - ${res.data.message}`,
+            title: `注册失败 - ${res.data.message}`,
             text: `请检查提交信息是否正确`,
             allowClose: true,
           });
@@ -63,7 +78,7 @@ export const Login: BasicPage = () => {
   return (
     <>
       <div className={clsx(styles.container)}>
-        <div className={clsx(styles.title)}> 登录 </div>
+        <div className={clsx(styles.title)}> 注册 </div>
         <div>
           <form
             ref={formRef}
@@ -84,9 +99,32 @@ export const Login: BasicPage = () => {
               name="password"
               placeholder="密码"
             />
+            <input
+              className={styles["form-input"]}
+              type="text"
+              name="nickname"
+              placeholder="昵称"
+            />
+            <input
+              className={styles["form-input"]}
+              type="text"
+              name="email"
+              placeholder="邮箱"
+            />
+            <input
+              className={styles["form-input"]}
+              type="text"
+              name="avatar"
+              placeholder="头像"
+            />
+            <textarea
+              className={clsx(styles["form-input"], styles["form-textarea"])}
+              name="description"
+              placeholder="个人简介"
+            />
             <button className={clsx(styles["form-button"])} type="submit">
               <span className={clsx(loading && styles["form-loading"])}>
-                登录
+                注册
               </span>
 
               <motion.span
