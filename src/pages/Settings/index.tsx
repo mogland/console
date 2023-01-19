@@ -1,6 +1,6 @@
 import { Title } from "@components/universal/Title";
 import type { BasicPage } from "@type/basic";
-import tabs from "@components/universal/tabs/index.module.css";
+import tabs from "@components/universal/Tabs/index.module.css";
 import { Tab } from "@headlessui/react";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
