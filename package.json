@@ -19,7 +19,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-message-popup": "1.0.0",
-    "react-router-dom": "6.6.2",
+    "react-router-dom": "6.7.0",
     "react-use": "17.4.0",
     "valtio": "^1.8.2",
     "vditor": "^3.9.0"
