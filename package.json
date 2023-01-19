@@ -1,6 +1,6 @@
 {
-  "name": "react-ts-starter",
-  "version": "0.0.0",
+  "name": "@mogland/console",
+  "version": "0.3.0",
   "author": "wibus-wee <wibus@qq.com>",
   "scripts": {
     "dev": "vite --port 3000",
