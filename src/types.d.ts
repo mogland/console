@@ -2,6 +2,9 @@ declare global {
   export interface History {
     backPath: string[];
   }
+  export interface Window {
+    MOG_API: string;
+  }
 }
 
 interface HTMLFormElement extends HTMLElement {
