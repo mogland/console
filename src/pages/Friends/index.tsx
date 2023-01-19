@@ -1,5 +1,5 @@
 import { Tab } from "@headlessui/react";
-import tabs from "@components/universal/tabs/index.module.css";
+import tabs from "@components/universal/Tabs/index.module.css";
 import {
   Clear,
   Delete,
