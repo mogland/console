@@ -47,6 +47,14 @@ jobs:
         run: |
           pnpm run build
           zip -r dist.zip dist/
+      - name: Get CSS file name
+        id: get_css_file_name
+        run: |
+          echo "::set-output name=css_file_name::$(ls dist/assets/ | grep css)"
+      - name: Get JS file name (index-xxx.js)
+        id: get_js_file_name
+        run: |
+          echo "::set-output name=js_file_name::$(ls dist/assets | grep js)"
 
       - name: Get release
         id: get_release
@@ -81,8 +89,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.get_release.outputs.upload_url }}
-          asset_path: ./dist/assets/index-c8f8134b.css
-          asset_name: index-c8f8134b.css
+          asset_path: ./dist/assets/${{ steps.get_css_file_name.outputs.css_file_name }}
+          asset_name: ${{ steps.get_css_file_name.outputs.css_file_name }}
           asset_content_type: text/css
 
       - name: Upload Release Asset - index.js
@@ -91,36 +99,15 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.get_release.outputs.upload_url }}
-          asset_path: ./dist/index-139f436d.js
-          asset_name: index-139f436d.js
+          asset_path: ./dist/assets/${{ steps.get_js_file_name.outputs.js_file_name }}
+          asset_name: ${{ steps.get_js_file_name.outputs.js_file_name }}
           asset_content_type: application/javascript
-
-      - name: Upload Release Asset - icon-park.js
+      - name: Upload Release Asset - background.avif
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.get_release.outputs.upload_url }}
-          asset_path: ./dist/icon-park-359d24ea.js
-          asset_name: icon-park-359d24ea.js
-          asset_content_type: application/javascript
-          
-      # - name: Upload Release Asset - background.avif
-      #   uses: actions/upload-release-asset@v1
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     upload_url: ${{ steps.get_release.outputs.upload_url }}
-      #     asset_path: ./dist/background.avif
-      #     asset_name: background.avif
-      #     asset_content_type: image/avif
-
-      - name: Upload Release Asset - vditor.js
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.get_release.outputs.upload_url }}
-          asset_path: ./dist/vditor-4d236c9d.js
-          asset_name: vditor-4d236c9d.js
-          asset_content_type: application/javascript
+          asset_path: ./dist/background.avif
+          asset_name: background.avif
+          asset_content_type: image/avif
