@@ -7,8 +7,13 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.tsx\"",
-    "lint": "eslint --ext .ts,.tsx --ignore-path .gitignore . --fix"
+    "lint": "eslint --ext .ts,.tsx --ignore-path .gitignore . --fix",
+    "prepublishOnly": "npm run build",
+    "publish": "pnpm publish --access public"
   },
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@headlessui/react": "^1.7.7",
     "@icon-park/react": "^1.4.2",
