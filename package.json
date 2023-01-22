@@ -9,7 +9,8 @@
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.tsx\"",
     "lint": "eslint --ext .ts,.tsx --ignore-path .gitignore . --fix",
     "prepublishOnly": "npm run build",
-    "publish": "pnpm publish --access public"
+    "publish-release": "pnpm publish --access public",
+    "publish-next": "pnpm publish --access public --tag next"
   },
   "files": [
     "dist"
