@@ -45,7 +45,7 @@ jobs:
 
       - name: Build project
         run: |
-          pnpm run build
+          pnpm run build:mog
           zip -r dist.zip dist/
       - name: Get CSS file name
         id: get_css_file_name
