@@ -8,6 +8,7 @@ import { apiClient } from "@utils/request";
 import { Twindow } from "@components/universal/Twindow";
 import { app } from "@states/app";
 import { setCookie } from "@utils/cookie";
+import { jump } from "@utils/path";
 
 // nickname, description, email, avatar, password, username
 
