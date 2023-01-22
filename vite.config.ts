@@ -5,6 +5,7 @@ import * as path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: process.env.BUILD_MORE === "BUILT_IN" ? "/console" : "/",
   plugins: [react()],
   // alias
   resolve: {

@@ -5,10 +5,11 @@
   "scripts": {
     "dev": "vite --port 3000",
     "build": "tsc && vite build",
+    "build:mog": "BUILD_MODE=BUILT_IN tsc && vite build",
     "preview": "vite preview",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.tsx\"",
     "lint": "eslint --ext .ts,.tsx --ignore-path .gitignore . --fix",
-    "prepublishOnly": "npm run build",
+    "prepublishOnly": "npm run build:mog",
     "publish-release": "pnpm publish --access public",
     "publish-next": "pnpm publish --access public --tag next"
   },
