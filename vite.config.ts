@@ -2,10 +2,9 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import * as path from "path";
 // import { viteCommonjs, esbuildCommonjs } from '@originjs/vite-plugin-commonjs'
-
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: process.env.BUILD_MORE === "BUILT_IN" ? "/console" : "/",
+  base: process.env.BUILD_MODE === "BUILT_IN" ? "/console" : "/",
   plugins: [react()],
   // alias
   resolve: {
