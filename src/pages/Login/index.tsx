@@ -8,6 +8,7 @@ import { apiClient } from "@utils/request";
 import { Twindow } from "@components/universal/Twindow";
 import { app } from "@states/app";
 import { setCookie } from "@utils/cookie";
+import { jump } from "@utils/path";
 
 export const Login: BasicPage = () => {
   const [loading, setLoading] = useState(false);
@@ -17,7 +18,7 @@ export const Login: BasicPage = () => {
 
   useEffect(() => {
     apiClient("/user/master/info").catch(() => {
-      navigate("/register");
+      navigate(jump("/register"));
     })
   }, []);
 
@@ -46,7 +47,7 @@ export const Login: BasicPage = () => {
             image: res.avatar,
           });
           app.authenticated = true;
-          navigate("/dashboard");
+          navigate(jump("/dashboard"));
           window.location.reload();
         })
         .catch((res) => {

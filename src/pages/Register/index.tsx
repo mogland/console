@@ -8,6 +8,7 @@ import { apiClient } from "@utils/request";
 import { Twindow } from "@components/universal/Twindow";
 import { app } from "@states/app";
 import { setCookie } from "@utils/cookie";
+import { jump } from "@utils/path";
 
 // nickname, description, email, avatar, password, username
 
@@ -21,7 +22,7 @@ export const RegisterPage: BasicPage = () => {
     apiClient("/user/master/info")
       .then((res) => {
         if (res) {
-          navigate("/dashboard");
+          navigate(jump("/dashboard"));
         }
       }).catch(() => {
         return;
@@ -61,7 +62,7 @@ export const RegisterPage: BasicPage = () => {
             image: res.avatar,
           });
           app.authenticated = true;
-          navigate("/dashboard");
+          navigate(jump("/dashboard"));
           window.location.reload();
         })
         .catch((res) => {

@@ -16,6 +16,7 @@ import { mailAvatar } from "@utils/avatar";
 import { Modal, ModalBody } from "@components/universal/Modal";
 import { Input, Textarea } from "@pages/Write/Input";
 import { Selects } from "@components/universal/Select";
+import { jump } from "@utils/path";
 
 const tabsList = [{
   name: "待审核",
@@ -72,7 +73,7 @@ export const CommentsPage: BasicPage = () => {
   useEffect(() => {
     // setLoading(true)
     setInSideLoading(true);
-    navigate(`/comments?status=${tab}&page=${page}`)
+    navigate(jump(`/comments?status=${tab}&page=${page}`))
     handleRequest(tab, page).then((res) => {
       setComments(res)
       setInSideLoading(false);
@@ -243,7 +244,7 @@ export const CommentsPage: BasicPage = () => {
                   </TableItemValue>
                   <TableItemValue
                     onClick={() => {
-                      navigate(`/write/post?id=${item.post.id}`)
+                      navigate(jump(`/write/post?id=${item.post.id}`))
                     }}
                     style={{ cursor: "pointer" }}
                   >{item.post.title}</TableItemValue>

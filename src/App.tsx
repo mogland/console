@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useSnapshot } from "valtio";
 import { app, server } from "./states/app";
 import { Twindow } from "./components/universal/Twindow";
+import { jump } from "@utils/path";
 
 function App() {
   const appSnapshot = useSnapshot(app);
@@ -18,29 +19,29 @@ function App() {
     apiClient("/ping")
       .then(() => {})
       .catch(() => {
-        if (window.location.pathname != "/status") {
+        if (window.location.pathname != jump("/status")) {
           Twindow({
             title: "通信错误 - 跳转服务状态页",
             text: "无法与后端通信，请检查服务状态",
           });
-          navigate("/status");
+          navigate(jump(jump("/status")));
         }
       })
       .then(() => {
         apiClient("/user/check")
           .then(() => {
-            (window.location.pathname == "/" ||
-              window.location.pathname == "/login" ||
-              window.location.pathname == "/register") &&
-              navigate("/dashboard");
+            (window.location.pathname == jump("/") ||
+              window.location.pathname == jump("/login") ||
+              window.location.pathname == jump("/register")) &&
+              navigate(jump("/dashboard"));
             app.authenticated = true;
             app.showSidebar = true;
           })
           .catch(() => {
-            window.location.pathname != "/login" &&
-              window.location.pathname != "/register" &&
-              window.location.pathname != "/status" &&
-              navigate("/login");
+            window.location.pathname != jump("/login") &&
+              window.location.pathname != jump("/register") &&
+              window.location.pathname != jump("/status") &&
+              navigate(jump("/login"));
           });
         apiClient("/category").then((res) => {
           server.categories = res.data;
