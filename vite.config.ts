@@ -16,15 +16,4 @@ export default defineConfig({
       "@states": path.resolve(__dirname, "src/states"),
     },
   },
-  // tree shake @icon-park/react
-  build: {
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          "icon-park": ["@icon-park/react"],
-          "vditor": ["vditor"],
-        },
-      },
-    },
-  },
 });
