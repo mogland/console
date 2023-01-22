@@ -90,6 +90,7 @@ code {
   overflow-y: auto;
   height: 100vh;
 }
+
 .inner::-webkit-scrollbar {
   display: none;
 }
@@ -102,7 +103,8 @@ div[data-headlessui-state="selected"] {
   color: var(--text-color);
 }
 
-.vditor-content, .vditor-toolbar {
+.vditor-content,
+.vditor-toolbar {
   animation: fadein 0.3s ease-in-out;
 }
 
@@ -110,6 +112,7 @@ div[data-headlessui-state="selected"] {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
