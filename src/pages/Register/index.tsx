@@ -21,7 +21,7 @@ export const RegisterPage: BasicPage = () => {
     apiClient("/user/master/info")
       .then((res) => {
         if (res) {
-          navigate("/dashboard");
+          navigate(jump("/dashboard"));
         }
       }).catch(() => {
         return;
@@ -61,7 +61,7 @@ export const RegisterPage: BasicPage = () => {
             image: res.avatar,
           });
           app.authenticated = true;
-          navigate("/dashboard");
+          navigate(jump("/dashboard"));
           window.location.reload();
         })
         .catch((res) => {

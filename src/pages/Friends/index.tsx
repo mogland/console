@@ -31,6 +31,7 @@ import {
 import postStyles from "@pages/Posts/Index/index.module.css";
 import { Input, Textarea } from "@pages/Write/Input";
 import styles from "./index.module.css";
+import { jump } from "@utils/path";
 
 const FriendsStatus = ["Approved", "Pending", "Spam", "Trash"];
 const FriendsFormFront = [
@@ -87,7 +88,7 @@ export const FriendsPage: BasicPage = () => {
   useEffect(() => {
     if (status !== "0" && status !== "1" && status !== "2" && status !== "3") {
       setTab(0);
-      navigate("/friends?status=0");
+      navigate(jump("/friends?status=0"));
     } else {
       setTab(Number(status));
     }
@@ -127,7 +128,7 @@ export const FriendsPage: BasicPage = () => {
           onConfirm={() => {
             const REQUEST = {
               method: select[0] ? "PUT" : "POST",
-              URL: select[0] ? `/friends/${select[0]}` : "/friends",
+              URL: select[0] ? jump(`/friends/${select[0]}`) : jump("/friends"),
               title: select[0] ? "修改成功" : "添加成功",
             };
             apiClient(REQUEST.URL, {
@@ -564,7 +565,7 @@ export const FriendsPage: BasicPage = () => {
           defaultIndex={tab}
           onChange={(index) => {
             setTab(index);
-            navigate(`/friends?status=${index}`);
+            navigate(jump(`/friends?status=${index}`));
           }}
         >
           <Tab.List className={tabs.tabList}>

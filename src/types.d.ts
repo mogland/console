@@ -4,6 +4,7 @@ declare global {
   }
   export interface Window {
     MOG_API: string;
+    MOG_BASE: string;
   }
 }
 

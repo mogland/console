@@ -16,6 +16,7 @@ import { getQueryVariable } from "@utils/url";
 import { useNavigate } from "react-router-dom";
 import { Tags } from "@components/universal/Tags";
 import { Toggle } from "@components/universal/Toggle";
+import { jump } from "@utils/path";
 
 const tabsAPI = ["/user/master/info", "/configs"]
 
@@ -28,7 +29,7 @@ export const SettingsPage: BasicPage = () => {
 
   useEffect(() => {
     // setLoading(true);
-    navigate(`/settings?tab=${_tabs}`)
+    navigate(jump(`/settings?tab=${_tabs}`))
     apiClient(tabsAPI[_tabs]).then((res) => {
       setData(res);
     });

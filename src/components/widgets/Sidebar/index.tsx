@@ -19,7 +19,7 @@ import { Space } from "@components/universal/Space";
 import styles from "./index.module.css";
 import { SidebarItem } from "./item";
 import { motion } from "framer-motion";
-import { getStorage, removeStorage, setStorage } from "@utils/storage";
+import { getStorage, setStorage } from "@utils/storage";
 import { useWindowSize } from "react-use";
 import itemStyle from "./item/index.module.css";
 import { useSnapshot } from "valtio";
@@ -27,6 +27,7 @@ import { app } from "@states/app";
 import { useNavigate } from "react-router-dom";
 import { apiClient } from "@utils/request";
 import { removeCookie } from "@utils/cookie";
+import { jump } from "@utils/path";
 
 const Links = () => {
   const authenticated = useSnapshot(app).authenticated;
@@ -46,39 +47,39 @@ const Links = () => {
         [styles.disabled]: disabled,
       })}
     >
-      <SidebarItem icon={HomeTwo({})} title="仪表盘" href="/dashboard" />
+      <SidebarItem icon={HomeTwo({})} title="仪表盘" href={jump("/dashboard")} />
       <SidebarItem
         icon={Page({})}
         title="前往站点"
-        href="https://github.com"
+        href={"https://github.com"}
         outside
       />
       <Space height={20} />
-      <SidebarItem icon={Editor({})} title="文章" href="/posts" />
+      <SidebarItem icon={Editor({})} title="文章" href={jump("/posts")} />
       <SidebarItem
         title="写文章"
-        href="/write/post"
+        href={jump("/write/post")}
         sub
       />
-      <SidebarItem title="朋友动态" href="/posts/friends" sub />
+      <SidebarItem title="朋友动态" href={jump("/posts/friends")} sub />
       <Space height={20} />
-      <SidebarItem icon={OpenDoor({})} title="页面" href="/pages" />
+      <SidebarItem icon={OpenDoor({})} title="页面" href={jump("/pages")} />
       <SidebarItem
         title="新增页面"
-        href="/write/page"
+        href={jump("/write/page")}
         sub
       />
       <Space height={20} />
-      <SidebarItem icon={Comment({})} title="评论" href="/comments" />
+      <SidebarItem icon={Comment({})} title="评论" href={jump("/comments")} />
       <SidebarItem
         icon={CategoryManagement({})}
         title="分类标签"
-        href="/categories"
+        href={jump("/categories")}
       />
-      <SidebarItem icon={FriendsCircle({})} title="朋友们" href="/friends" />
+      <SidebarItem icon={FriendsCircle({})} title="朋友们" href={jump("/friends")} />
       <Space height={20} />
-      <SidebarItem icon={Setting({})} title="系统设置" href="/settings" />
-      <SidebarItem icon={Dashboard({})} title="服务状态" href="/status" />
+      <SidebarItem icon={Setting({})} title="系统设置" href={jump("/settings")} />
+      <SidebarItem icon={Dashboard({})} title="服务状态" href={jump("/status")} />
       <Space height={30} />
       <span
         className={clsx(itemStyle.item, styles.item)}
@@ -88,7 +89,7 @@ const Links = () => {
           }).then(() => {
             removeCookie("token")
             app.authenticated = false;
-            navigate("/login")
+            navigate(jump("/login"))
           }).catch((e) => {
             console.log(e)
           })

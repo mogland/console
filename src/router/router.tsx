@@ -9,7 +9,9 @@
 
 import { CommentsPage } from "@pages/Comments";
 import { RegisterPage } from "@pages/Register";
-import { Route, Routes } from "react-router-dom";
+import { jump } from "@utils/path";
+import { useEffect } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import { CategoriesPage } from "../pages/Categories";
 import { FriendsPage } from "../pages/Friends";
 import { Home } from "../pages/Home";
@@ -24,33 +26,34 @@ import { EditorPage } from "../pages/Write";
 export const AppRouter = () => {
   return (
     <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<RegisterPage />} />
+      <Route path={jump("/login")}  element={<Login />} />
+      <Route path={jump("/register")}  element={<RegisterPage />} />
 
-      <Route path="/" element={<Home />} />
-      <Route path="/dashboard" element={<Home />} />
+      <Route path={jump("/")}  element={<Home />} />
+      <Route path={jump("/dashboard")}  element={<Home />} />
 
-      <Route path="/posts" element={<PostsIndex />} />
-      <Route path="/posts/friends" element={<FriendsPosts />} />
-      <Route path="/pages" element={<PagesIndex />} />
+      <Route path={jump("/posts")}  element={<PostsIndex />} />
+      <Route path={jump("/posts/friends")}  element={<FriendsPosts />} />
+      <Route path={jump("/pages")}  element={<PagesIndex />} />
 
-      <Route path="/write" element={<JumpToEditorPage />} />
-      <Route path="/write/:type" element={<EditorPage />} />
+      <Route path={jump("/write")}  element={<JumpToEditorPage />} />
+      <Route path={jump("/write/:type")}  element={<EditorPage />} />
 
-      <Route path="/comments" element={<CommentsPage />} />
-      <Route path="/categories" element={<CategoriesPage />} />
-      <Route path="/friends" element={<FriendsPage />} />
+      <Route path={jump("/comments")}  element={<CommentsPage />} />
+      <Route path={jump("/categories")}  element={<CategoriesPage />} />
+      <Route path={jump("/friends")}  element={<FriendsPage />} />
 
-      <Route path="/settings" element={<SettingsPage />} />
-      <Route path="/status" element={<StatusPage />} />
+      <Route path={jump("/settings")}  element={<SettingsPage />} />
+      <Route path={jump("/status")}  element={<StatusPage />} />
 
-      <Route path="*" element={<NotFoundPage />} />
+      <Route path={jump("/*")}  element={<NotFoundPage />} />
+      <Route path={"*"}  element={<NotFoundPage />} />
     </Routes>
   );
 };
 
 const NotFoundPage = () => {
-  window.location.href = "/dashboard";
+  window.location.href = jump("/dashboard");
   return <></>;
 };
 
