@@ -66,12 +66,8 @@ export const StatusPage: BasicPage = () => {
   const fetchStatus = async () => {
     await Promise.all(
       services.map(async (service) => {
-        console.log(
-          service.name,
-          `${service.url ? `/${service.url}` : ""}/ping`
-        );
         const res = await ofetch
-          .raw(`${service.url ? `/${service.url}` : ""}/ping`, { baseURL: API })
+          .raw(`${service.url ? `/${service.url}` : ""}/ping`, { baseURL: API, retry: false })
           .catch(() => ({ status: 500 }));
         setStatuses((prev) => ({
           ...prev,

@@ -21,6 +21,7 @@ export const apiClient = ofetch.create({
     Authorization: `Bearer ${getCookie("token")}`,
     token: getCookie("token") || "",
   },
+  retry: false,
   onResponseError: (error) => {
     Twindow({
       title: `请求出错了哦 - ${error.response.status}`,
