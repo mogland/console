@@ -26,9 +26,11 @@ function App() {
           });
           navigate(jump("/status"));
         }
+        return;
       })
       .then(() => {
-        apiClient("/user/check")
+        apiClient("/user/ping").then(() => {
+          apiClient("/user/check")
           .then(() => {
             (window.location.pathname == jump("/") ||
               window.location.pathname == jump("/login") ||
@@ -38,11 +40,22 @@ function App() {
             app.showSidebar = true;
           })
           .catch(() => {
+            console.log(11)
             window.location.pathname != jump("/login") &&
               window.location.pathname != jump("/register") &&
               window.location.pathname != jump("/status") &&
               navigate(jump("/login"));
           });
+        }).catch(() => {
+          if (window.location.pathname != jump("/status")) {
+            Twindow({
+              title: "通信错误 - 跳转服务状态页",
+              text: "无法与用户服务通信，请检查服务状态",
+            });
+            navigate(jump("/status"));
+          }
+          return;
+        })
         apiClient("/category").then((res) => {
           server.categories = res.data;
         });
