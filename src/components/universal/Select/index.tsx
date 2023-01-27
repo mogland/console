@@ -9,7 +9,7 @@ interface Value {
   value: any;
 }
 
-interface SelectsProps {
+export interface SelectsProps {
   value: Value[];
   onChange?: (value: Value) => void;
   selected?: Value;

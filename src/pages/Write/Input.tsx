@@ -1,8 +1,7 @@
 import clsx from "clsx";
 import { ModalBody } from "@components/universal/Modal";
 import styles from "./index.module.css";
-
-export const Input: React.FC<{
+export interface InputInterface {
   label: string;
   value: string;
   type?: HTMLInputElement["type"];
@@ -11,7 +10,9 @@ export const Input: React.FC<{
   disabled?: boolean;
   children?: React.ReactNode;
   [key: string]: any;
-}> = ({ label, value, onChange, oneLine, type, disabled, children, ...props }) => {
+}
+
+export const Input: React.FC<InputInterface> = ({ label, value, onChange, oneLine, type, disabled, children, ...props }) => {
   return (
     <div className={clsx({ [styles.toggleGroup]: oneLine })}>
       <span className={clsx({ [styles.toggleGroupTitle]: oneLine })}>
