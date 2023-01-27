@@ -12,6 +12,7 @@ import {
   OpenDoor,
   Page,
   Setting,
+  Theme,
 } from "@icon-park/react";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
@@ -78,6 +79,7 @@ const Links = () => {
       />
       <SidebarItem icon={FriendsCircle({})} title="朋友们" href={jump("/friends")} />
       <Space height={20} />
+      <SidebarItem icon={Theme({})} title="主题" href={jump("/themes")} />
       <SidebarItem icon={Setting({})} title="系统设置" href={jump("/settings")} />
       <SidebarItem icon={Dashboard({})} title="服务状态" href={jump("/status")} />
       <Space height={30} />
