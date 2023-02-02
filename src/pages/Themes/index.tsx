@@ -170,11 +170,19 @@ export const ThemesPage: BasicPage = () => {
   };
 
   const Setting = ({ id }: { id: string }) => {
-    const data = localData.find((item) => item.id === id);
-    const [config, setConfig] = useState<any>(data?.config && JSON.parse(data.config));
-    console.log(config);
+    // const data = localData.find((item) => item.id === id);
+    const [config, setConfig] = useState<any>([]);
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+      apiClient(`/themes/${id}/config`).then((res) => {
+        setConfig(res.data);
+        setLoading(false);
+      })
+    }, [id]);
+    console.log(config)
     return (
       <>
+        <Loading loading={loading} />
         <Modal
           title="主题设置"
           onClose={() => {
@@ -182,7 +190,21 @@ export const ThemesPage: BasicPage = () => {
           }}
           type="confirm"
           size="lg"
-          onConfirm={() => { }}
+          onConfirm={() => {
+            apiClient(`/themes/${id}/config`, {
+              method: "PATCH",
+              body: {
+                config: JSON.stringify(config),
+              }
+            }).then(() => {
+              handleLocalData();
+              Twindow({
+                title: "设置成功",
+                text: `主题 ${id} 配置保存成功`
+              })
+            })
+            setId(undefined);
+          }}
         >
           {
             config && config.map((item: any, index: number) => {
@@ -191,7 +213,8 @@ export const ThemesPage: BasicPage = () => {
                   <ThemeComponent 
                     type={item.type}
                     label={item.name}
-                    value={item.value}
+                    value={item.data ? item.data : item.value}
+                    selected={item.value}
                     onChange={(value: string) => {
                       setConfig((prev: any) => {
                         prev[index].value = value;
@@ -222,13 +245,55 @@ export const ThemesPage: BasicPage = () => {
         >
           <Tab.List className={tabs.tabList}>
             <Tab className={({ selected }) => clsx(tabs.tab, selected && tabs.selected)}>
-              线上市场
+              本地主题
             </Tab>
             <Tab className={({ selected }) => clsx(tabs.tab, selected && tabs.selected)}>
-              本地主题
+              线上市场
             </Tab>
           </Tab.List>
           <Tab.Panels>
+          <Tab.Panel>
+              <TableContainer
+                className={postStyle.table}
+                style={{ marginTop: "20px" }}
+                header={["NAME", "DESCRIPTION", "ID", "AUTHOR", "ACTIONS"]}
+              >
+                {
+                  localData.map((item, index) => {
+                    return (
+                      <TableItem
+                        header={["NAME", "DESCRIPTION", "ID", "AUTHOR", "ACTIONS"]}
+                        className={clsx(postStyle.tableItem, "item")}
+                        style={{ width: "100%", cursor: "pointer" }}
+                        key={index}
+                        onClick={() => {
+                          setId(item.id);
+                        }}
+                      >
+                        <TableItemValue
+
+                        >
+                          {item.name}
+                        </TableItemValue>
+                        <TableItemValue>
+                          {item.config && JSON.parse(item.config)?.description || "无描述"}
+                        </TableItemValue>
+                        <TableItemValue>
+                          {item.id}
+                        </TableItemValue>
+                        <TableItemValue>
+                          {item.config && JSON.parse(item.config)?.author || "未知"}
+                        </TableItemValue>
+                        <TableItemValue>
+                          <ActiveButton id={item.id} active={item.active} />
+                          <UninstallButton id={item.id} />
+                        </TableItemValue>
+                      </TableItem>
+                    )
+                  })
+                }
+              </TableContainer>
+            </Tab.Panel>
             <Tab.Panel>
               <TableContainer
                 className={postStyle.table}
@@ -273,49 +338,7 @@ export const ThemesPage: BasicPage = () => {
                 }
               </TableContainer>
             </Tab.Panel>
-            <Tab.Panel>
-              <TableContainer
-                className={postStyle.table}
-                style={{ marginTop: "20px" }}
-                header={["NAME", "DESCRIPTION", "ID", "AUTHOR", "ACTIONS"]}
-              // headerStyle={{ gridTemplateColumns: "1fr 1fr 1fr 1fr 2fr" }}
-              >
-                {
-                  localData.map((item, index) => {
-                    return (
-                      <TableItem
-                        header={["NAME", "DESCRIPTION", "ID", "AUTHOR", "ACTIONS"]}
-                        className={clsx(postStyle.tableItem, "item")}
-                        style={{ width: "100%", cursor: "pointer" }}
-                        key={index}
-                        onClick={() => {
-                          setId(item.id);
-                        }}
-                      >
-                        <TableItemValue
-
-                        >
-                          {item.name}
-                        </TableItemValue>
-                        <TableItemValue>
-                          {item.config && JSON.parse(item.config)?.description || "无描述"}
-                        </TableItemValue>
-                        <TableItemValue>
-                          {item.id}
-                        </TableItemValue>
-                        <TableItemValue>
-                          {item.config && JSON.parse(item.config)?.author || "未知"}
-                        </TableItemValue>
-                        <TableItemValue>
-                          <ActiveButton id={item.id} active={item.active} />
-                          <UninstallButton id={item.id} />
-                        </TableItemValue>
-                      </TableItem>
-                    )
-                  })
-                }
-              </TableContainer>
-            </Tab.Panel>
+            
           </Tab.Panels>
         </Tab.Group>
         {

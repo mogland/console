@@ -9,12 +9,13 @@ export interface InputInterface {
   oneLine?: boolean;
   disabled?: boolean;
   children?: React.ReactNode;
+  className?: string;
   [key: string]: any;
 }
 
-export const Input: React.FC<InputInterface> = ({ label, value, onChange, oneLine, type, disabled, children, ...props }) => {
+export const Input: React.FC<InputInterface> = ({ label, value, onChange, oneLine, type, disabled, children, className, ...props }) => {
   return (
-    <div className={clsx({ [styles.toggleGroup]: oneLine })}>
+    <div className={clsx({ [styles.toggleGroup]: oneLine }, className)}>
       <span className={clsx({ [styles.toggleGroupTitle]: oneLine })}>
         <ModalBody>{label}</ModalBody>
       </span>
@@ -33,19 +34,22 @@ export const Input: React.FC<InputInterface> = ({ label, value, onChange, oneLin
   );
 };
 
-export const Textarea: React.FC<{
+export interface TextareaProps {
   label: string;
   value: string;
   onChange?: (value: string) => void;
   placeholder?: string;
+  className?: string;
   [key: string]: any;
-}> = ({ label, value, onChange, placeholder, ...rest }) => {
+}
+
+export const Textarea: React.FC<TextareaProps> = ({ label, value, onChange, placeholder, className, ...rest }) => {
   return (
     <>
       <ModalBody>{label}</ModalBody>
       <textarea
         {...rest}
-        className={styles.summary}
+        className={clsx(styles.summary, className)}
         name={label}
         placeholder={placeholder}
         defaultValue={value}

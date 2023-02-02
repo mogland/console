@@ -1,5 +1,6 @@
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckSmall } from "@icon-park/react";
+import { ModalBody } from "@components/universal/Modal";
 import clsx from "clsx";
 import { Fragment, useState } from "react";
 import styles from "./index.module.css";
@@ -12,12 +13,17 @@ interface Value {
 export interface SelectsProps {
   value: Value[];
   onChange?: (value: Value) => void;
-  selected?: Value;
+  selected?: Value | string;
+  label?: string;
 }
 
 export const Selects: React.FC<SelectsProps> = (props) => {
   const [selected, setSelected] = useState<Value>(
-    props.selected ? props.selected : props.value[0]
+    typeof props.selected === "string" ? {
+      name: props.selected,
+      value: props.value.find((value) => value.name === props.selected)?.value,
+    }
+    : props.selected ? props.selected : props.value[0]
   );
   const handleChange = (value: Value) => {
     props.onChange && props.onChange(value);
@@ -25,6 +31,7 @@ export const Selects: React.FC<SelectsProps> = (props) => {
   };
   return (
     <div className={styles.container}>
+      {props.label && <ModalBody>{props.label}</ModalBody>}
       <Listbox defaultValue={selected} onChange={handleChange}>
         <div className={styles.containerInner}>
           <Listbox.Button className={styles.button}>
