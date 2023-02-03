@@ -16,7 +16,7 @@ specifiers:
   autoprefixer: 10.4.13
   clsx: ^1.2.1
   echarts: ^5.4.1
-  framer-motion: ^8.4.2
+  framer-motion: ^9.0.0
   js-yaml: ^4.1.0
   less: 4.1.3
   md5: 2.3.0
@@ -39,7 +39,7 @@ dependencies:
   '@headlessui/react': 1.7.7_biqbaboplfbrettd7655fr4n2y
   '@icon-park/react': 1.4.2_biqbaboplfbrettd7655fr4n2y
   echarts: 5.4.1
-  framer-motion: 8.4.2_biqbaboplfbrettd7655fr4n2y
+  framer-motion: 9.0.1_biqbaboplfbrettd7655fr4n2y
   js-yaml: 4.1.0
   md5: 2.3.0
   ofetch: 1.0.0
@@ -2148,8 +2148,8 @@ packages:
     resolution: {integrity: sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA==}
     dev: true
 
-  /framer-motion/8.4.2_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-AdYwbEZZ+6Z748A8JdNtwH7YR24HvXr/hJHL06ofipMyRchrf7Mzvk69zM24+rAm3SC3DCJK0WdbhpOLzroO+w==}
+  /framer-motion/9.0.1_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-0EP7+b/hnsbrFOum9zU+23Fq2cJJrLOqv/yJ26fIzK4CC33ZAjXZGi1/XyblbgnUF0cxZ/SEDj5IYHeQo42qNg==}
     peerDependencies:
       react: ^18.0.0
       react-dom: ^18.0.0
