@@ -1,5 +1,6 @@
 import { CheckBox, CheckBoxProps } from "@components/universal/CheckBox";
 import { ModalBody } from "@components/universal/Modal";
+import { Radio } from "@components/universal/Radio";
 import type { SelectsProps } from "@components/universal/Select";
 import { Selects } from "@components/universal/Select";
 import type { SwitchProps} from "@components/universal/Toggle";
@@ -13,7 +14,7 @@ const components = {
   textarea: (props: TextareaProps) => <Textarea {...props} className="font-mono h-24" />,
   switch: (props: SwitchProps) => <Toggle {...props} />,
   checkbox: (props: CheckBoxProps) => <CheckBox {...props} />,
-  radio: (props: any) => (<ModalBody>暂未实现此组件</ModalBody>),
+  radio: (props: any) => <Radio {...props} />,
   slider: (props: any) => (<ModalBody>暂未实现此组件</ModalBody>),
   color: (props: any) => (<ModalBody>暂未实现此组件</ModalBody>),
 }

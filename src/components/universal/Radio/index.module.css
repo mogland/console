@@ -1,0 +1,60 @@
+.radio {
+  margin-top: 10px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.label {
+  position: relative;
+  display: inline-block;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.check {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #ccc;
+  border-radius: 9999px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.name {
+  font-size: 14px;
+  color: #333;
+  position: relative;
+  left: 30px;
+  top: -2px;
+}
+
+.input:checked~.check {
+  background-color: #2196F3;
+  border-color: #2196F3;
+}
+
+.input:checked~.check:before {
+  content: "";
+  position: absolute;
+  display: block;
+  left: 2.2px;
+  top: 2.2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 9999px;
+  background: #fff;
+}
