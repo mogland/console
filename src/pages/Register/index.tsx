@@ -9,10 +9,12 @@ import { Twindow } from "@components/universal/Twindow";
 import { app } from "@states/app";
 import { setCookie } from "@utils/cookie";
 import { jump } from "@utils/path";
+import { useSeo } from "@hooks/use-seo";
 
 // nickname, description, email, avatar, password, username
 
 export const RegisterPage: BasicPage = () => {
+  useSeo("注册")
   const navigate = useNavigate();
   app.showSidebar = false;
   const [loading, setLoading] = useState(false);

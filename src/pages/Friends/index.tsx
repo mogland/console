@@ -32,6 +32,7 @@ import postStyles from "@pages/Posts/Index/index.module.css";
 import { Input, Textarea } from "@pages/Write/Input";
 import styles from "./index.module.css";
 import { jump } from "@utils/path";
+import { useSeo } from "@hooks/use-seo";
 
 const FriendsStatus = ["Approved", "Pending", "Spam", "Trash"];
 const FriendsFormFront = [
@@ -76,6 +77,7 @@ const FriendsFormBack = [
 ];
 
 export const FriendsPage: BasicPage = () => {
+  useSeo("朋友 · 列表")
   const [loading, setLoading] = useState(true);
   const [inSideLoading, setInSideLoading] = useState(true);
   const [select, setSelect] = useState<string[]>([]);

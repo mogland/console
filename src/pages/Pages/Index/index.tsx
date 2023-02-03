@@ -12,8 +12,10 @@ import {
   TableItemValue,
 } from "@pages/Home/universal";
 import styles from "../../Posts/Index/index.module.css";
+import { useSeo } from "@hooks/use-seo";
 
 export const PagesIndex: BasicPage = () => {
+  useSeo("页面 · 列表")
   const [loading, setLoading] = useState(true);
   const [select, setSelect] = useState<string[]>([]); // 选择的页面
   const navigate = useNavigate();

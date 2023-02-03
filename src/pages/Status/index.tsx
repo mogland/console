@@ -7,6 +7,7 @@ import type { BasicPage } from "@type/basic";
 import { API } from "@utils/request";
 import { TableItem, TableItemValue } from "@pages/Home/universal";
 import styles from "./index.module.css";
+import { useSeo } from "@hooks/use-seo";
 
 interface IStatus {
   status: "Operational" | "Down";
@@ -24,6 +25,7 @@ const Status: React.FC<IStatus> = (props) => {
 };
 
 export const StatusPage: BasicPage = () => {
+  useSeo("服务 · 状态")
   const services = [
     {
       name: "核心网关层",

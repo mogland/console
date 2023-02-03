@@ -19,6 +19,7 @@ import { getQueryVariable } from "@utils/url";
 import { Fields } from "./fields";
 import styles from "./index.module.css";
 import { Input, Textarea } from "./Input";
+import { useSeo } from "@hooks/use-seo";
 
 export const EditorPage: BasicPage = () => {
   const [loading, setLoading] = useState(true);
@@ -30,6 +31,8 @@ export const EditorPage: BasicPage = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const id = getQueryVariable("id");
   const serverSnapshot = useSnapshot(server);
+
+  useSeo(`${data?.title ? data.title : "新建"}${type === "page" ? "页面" : "文章"}`);
 
   useEffect(() => {
     if (!id) {

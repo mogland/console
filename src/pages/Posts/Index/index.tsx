@@ -12,8 +12,10 @@ import {
   TableItemValue,
 } from "@pages/Home/universal";
 import styles from "./index.module.css";
+import { useSeo } from "@hooks/use-seo";
 
 export const PostsIndex: BasicPage = () => {
+  useSeo("文章 · 列表");
   const [loading, setLoading] = useState(true);
   const [select, setSelect] = useState<string[]>([]); // 选择的文章
   const navigate = useNavigate();
