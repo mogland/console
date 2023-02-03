@@ -10,6 +10,7 @@ import type { RadioProps } from "@components/universal/Radio";
 import { Radio } from "@components/universal/Radio";
 import type { ColorProps } from "@components/universal/Color";
 import { Color } from "@components/universal/Color";
+import { ModalBody } from "@components/universal/Modal";
 
 const components = {
   input: (props: InputInterface) => <Input {...props} className="font-mono" />,
@@ -22,5 +23,13 @@ const components = {
 }
 
 export const ThemeComponent = (mapping: { type: string, [key: string]: any }) => {
+  if (!components[mapping.type]) {
+    return (
+      <ModalBody>
+        {mapping.label}
+        <p className="text-red-500">Error: No component found for {`<${mapping.type} />`}</p>
+      </ModalBody>
+    )
+  }
   return components[mapping.type](mapping);
 }
