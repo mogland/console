@@ -3,18 +3,20 @@ import { Switch } from "@headlessui/react";
 import clsx from "clsx";
 import styles from "./index.module.css";
 
-interface SwitchProps {
-  checked: boolean;
+export interface SwitchProps {
+  checked?: boolean;
+  value?: boolean;
   onChange: (checked: boolean) => void;
   [key: string]: any;
 }
 
 export const Toggle: React.FC<SwitchProps> = ({
   checked,
+  value,
   onChange,
   ...rest
 }) => {
-  const [state, setState] = useState(checked);
+  const [state, setState] = useState(checked || value || false);
   const [enter, setEnter] = useState(false);
 
   const handleChange = () => {
@@ -44,3 +46,6 @@ export const Toggle: React.FC<SwitchProps> = ({
     </Switch>
   );
 };
+
+const Switch = Toggle;
+export default Switch;
