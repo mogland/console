@@ -1,0 +1,67 @@
+.checkbox {
+  margin-top: 10px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.label {
+  position: relative;
+  display: inline-block;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.check {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #ccc;
+  border-radius: 2px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.name {
+  font-size: 14px;
+  color: #333;
+  position: relative;
+  left: 30px;
+  top: -2px;
+}
+
+.input:checked~.check {
+  background-color: #2196F3;
+  border-color: #2196F3;
+}
+
+.input:checked~.check:before {
+  content: "";
+  position: absolute;
+  display: block;
+}
+
+.input:checked~.check:before {
+  content: "";
+  position: absolute;
+  display: block;
+  left: 4px;
+  top: 0px;
+  width: 6px;
+  height: 12px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
