@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+.color {
+  border-radius: 4px;
+  display: inline-block;
+  height: 20px;
+  width: 50px;
+  margin-top: 16px;
+  margin-left: 10px;
+}
+
+/* 移除掉原生的边框 */
+.color {
+  background-color: initial;
+}

@@ -11,7 +11,7 @@ import { ofetch } from "ofetch";
 import { Twindow } from "../components/universal/Twindow";
 import { getCookie } from "./cookie";
 
-export const API = window.MOG_API || "http://127.0.0.1:2330";
+export const API = window.MOG_API || "http://192.168.3.4:2330";
 
 export const apiClient = ofetch.create({
   baseURL: API,

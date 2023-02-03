@@ -83,8 +83,8 @@ export const Home: BasicPage = () => {
         comments: res[4],
         pages: res[5],
         friends: {
-          pending: res[0]?.data.length,
-          approved: res[1]?.data.length,
+          approved: res[0]?.data.length,
+          pending: res[1]?.data.length,
           trash: res[2]?.data.length,
         },
       });

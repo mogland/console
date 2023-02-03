@@ -57,6 +57,10 @@ export const StatusPage: BasicPage = () => {
       name: "通知服务",
       url: "notification",
     },
+    {
+      name: "主题服务",
+      url: "themes",
+    }
   ];
   const [statuses, setStatuses] = useState<{
     [key: string]: "Operational" | "Down";

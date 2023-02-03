@@ -9,9 +9,9 @@
 
 import { CommentsPage } from "@pages/Comments";
 import { RegisterPage } from "@pages/Register";
+import { ThemesPage } from "@pages/Themes";
 import { jump } from "@utils/path";
-import { useEffect } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { CategoriesPage } from "../pages/Categories";
 import { FriendsPage } from "../pages/Friends";
 import { Home } from "../pages/Home";
@@ -43,6 +43,7 @@ export const AppRouter = () => {
       <Route path={jump("/categories")}  element={<CategoriesPage />} />
       <Route path={jump("/friends")}  element={<FriendsPage />} />
 
+      <Route path={jump("/themes")}  element={<ThemesPage />} />
       <Route path={jump("/settings")}  element={<SettingsPage />} />
       <Route path={jump("/status")}  element={<StatusPage />} />
 

@@ -7,6 +7,7 @@ specifiers:
   '@innei/eslint-config-react-ts': 0.9.7
   '@innei/eslint-config-ts': 0.9.7
   '@originjs/vite-plugin-commonjs': 1.0.3
+  '@types/js-yaml': ^4.0.5
   '@types/md5': 2.3.2
   '@types/node': 18.11.18
   '@types/react': 18.0.27
@@ -16,6 +17,7 @@ specifiers:
   clsx: ^1.2.1
   echarts: ^5.4.1
   framer-motion: ^8.4.2
+  js-yaml: ^4.1.0
   less: 4.1.3
   md5: 2.3.0
   ofetch: ^1.0.0
@@ -38,6 +40,7 @@ dependencies:
   '@icon-park/react': 1.4.2_biqbaboplfbrettd7655fr4n2y
   echarts: 5.4.1
   framer-motion: 8.4.2_biqbaboplfbrettd7655fr4n2y
+  js-yaml: 4.1.0
   md5: 2.3.0
   ofetch: 1.0.0
   react: 18.2.0
@@ -53,6 +56,7 @@ devDependencies:
   '@innei/eslint-config-react-ts': 0.9.7_typescript@4.9.4
   '@innei/eslint-config-ts': 0.9.7_typescript@4.9.4
   '@originjs/vite-plugin-commonjs': 1.0.3
+  '@types/js-yaml': 4.0.5
   '@types/md5': 2.3.2
   '@types/node': 18.11.18
   '@types/react': 18.0.27
@@ -762,6 +766,10 @@ packages:
     resolution: {integrity: sha512-aLkWa0C0vO5b4Sr798E26QgOkss68Un0bLjs7u9qxzPT5CG+8DuNTffWES58YzJs3hrVAOs1wonycqEBqNJubA==}
     dev: false
 
+  /@types/js-yaml/4.0.5:
+    resolution: {integrity: sha512-FhpRzf927MNQdRZP0J5DLIdTXhjLYzeUTmLAu69mnVksLH9CJY3IuSeEgbKUki7GQZm0WqDkGzyxju2EZGD2wA==}
+    dev: true
+
   /@types/json-schema/7.0.11:
     resolution: {integrity: sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==}
     dev: true
@@ -1078,7 +1086,6 @@ packages:
 
   /argparse/2.0.1:
     resolution: {integrity: sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==}
-    dev: true
 
   /array-includes/3.1.5:
     resolution: {integrity: sha512-iSDYZMMyTPkiFasVqfuAQnWAYcvO/SeBSCGKePoEthjp4LEMTe4uLc7b025o4jAZpHhihh8xPo99TNWUWWkGDQ==}
@@ -2575,7 +2582,6 @@ packages:
     hasBin: true
     dependencies:
       argparse: 2.0.1
-    dev: true
 
   /jsesc/2.5.2:
     resolution: {integrity: sha512-OYu7XEzjkCQ3C5Ps3QIZsQfNpqoJyZZA99wd9aWd05NCtC5pWOkShK2mkL6HXQR6/Cy2lbNdPlZBpuQHXE63gA==}
