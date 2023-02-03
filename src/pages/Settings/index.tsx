@@ -17,10 +17,12 @@ import { useNavigate } from "react-router-dom";
 import { Tags } from "@components/universal/Tags";
 import { Toggle } from "@components/universal/Toggle";
 import { jump } from "@utils/path";
+import { useSeo } from "@hooks/use-seo";
 
 const tabsAPI = ["/user/master/info", "/configs"]
 
 export const SettingsPage: BasicPage = () => {
+  useSeo("设置")
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState<any>({});
   const tab = getQueryVariable("tab")

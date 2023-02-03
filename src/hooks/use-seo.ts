@@ -8,8 +8,8 @@ interface SeoProps {
   type?: string;
 }
 
-export function useSeo(props: SeoProps) {
-  const { title } = props;
+export function useSeo(props: SeoProps | string) {
+  const { title } = typeof props === 'string' ? { title: props } : props;
   const siteName = 'Mog Console';
   const siteDescription = 'The Powerfull Console for Mog System';
 

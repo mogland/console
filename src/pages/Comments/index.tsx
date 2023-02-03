@@ -17,6 +17,7 @@ import { Modal, ModalBody } from "@components/universal/Modal";
 import { Input, Textarea } from "@pages/Write/Input";
 import { Selects } from "@components/universal/Select";
 import { jump } from "@utils/path";
+import { useSeo } from "@hooks/use-seo";
 
 const tabsList = [{
   name: "待审核",
@@ -33,6 +34,7 @@ const tabsList = [{
 }]
 
 export const CommentsPage: BasicPage = () => {
+  useSeo("评论 · 列表")
   const status = getQueryVariable("status")
   const page = Number(getQueryVariable("page")) || 1
   const navigate = useNavigate()

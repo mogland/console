@@ -12,8 +12,10 @@ import type { BasicPage } from "@type/basic";
 import { apiClient } from "@utils/request";
 import { Input, Textarea } from "@pages/Write/Input";
 import styles from "./index.module.css";
+import { useSeo } from "@hooks/use-seo";
 
 export const CategoriesPage: BasicPage = () => {
+  useSeo("分类 & 标签")
   const [loading, setLoading] = useState(true);
   const serverSnapshot = useSnapshot(server);
   const navigate = useNavigate();

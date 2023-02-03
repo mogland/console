@@ -16,10 +16,12 @@ import { useNavigate } from "react-router-dom";
 import { Modal } from "@components/universal/Modal";
 import { ThemeComponent } from "@components/widgets/ThemeComponent";
 import { Space } from "@components/universal/Space";
+import { useSeo } from "@hooks/use-seo";
 
 const LIST = "https://ghproxy.com/https://raw.githubusercontent.com/mogland/awesome-mog/main/production-awesome-list/themes.json";
 
 export const ThemesPage: BasicPage = () => {
+  useSeo("主题")
   const _tab = Number(getQueryVariable("tab") || 0)
   const [tab, setTab] = useState<number>(_tab);
   const [loading, setLoading] = useState(false);

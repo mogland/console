@@ -9,8 +9,10 @@ import { Twindow } from "@components/universal/Twindow";
 import { app } from "@states/app";
 import { setCookie } from "@utils/cookie";
 import { jump } from "@utils/path";
+import { useSeo } from "@hooks/use-seo";
 
 export const Login: BasicPage = () => {
+  useSeo("登录")
   const [loading, setLoading] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
   const navigate = useNavigate();
