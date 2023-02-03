@@ -311,16 +311,16 @@ export const ThemesPage: BasicPage = () => {
               <TableContainer
                 className={postStyle.table}
                 style={{ marginTop: "20px" }}
-                headerStyle={{ width: "100%" }}
-                header={["NAME", "DESCRIPTION", "ID", "AUTHOR", "ACTIONS"]}
+                headerStyle={{ width: "100%", gridTemplateColumns: "1fr 2fr 1fr 1fr 1fr" }}
+                header={["REPO", "DESCRIPTION", "ID", "AUTHOR", "ACTIONS"]}
               >
                 {
                   data.map((item, index) => {
                     return (
                       <TableItem
-                        header={["NAME", "DESCRIPTION", "ID", "AUTHOR", "ACTIONS"]}
+                        header={["REPO", "DESCRIPTION", "ID", "AUTHOR", "ACTIONS"]}
                         className={clsx(postStyle.tableItem, "item")}
-                        style={{ width: "100%", cursor: "pointer" }}
+                        style={{ width: "100%", cursor: "pointer", gridTemplateColumns: "1fr 2fr 1fr 1fr 1fr" }}
                         key={index}
                       >
                         <TableItemValue>
