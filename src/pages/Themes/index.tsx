@@ -15,6 +15,7 @@ import { getQueryVariable } from "@utils/url";
 import { useNavigate } from "react-router-dom";
 import { Modal } from "@components/universal/Modal";
 import { ThemeComponent } from "@components/widgets/ThemeComponent";
+import { Space } from "@components/universal/Space";
 
 const LIST = "https://ghproxy.com/https://raw.githubusercontent.com/mogland/awesome-mog/main/production-awesome-list/themes.json";
 
@@ -182,7 +183,6 @@ export const ThemesPage: BasicPage = () => {
     console.log(config)
     return (
       <>
-        <Loading loading={loading} />
         <Modal
           title="主题设置"
           onClose={() => {
@@ -207,9 +207,19 @@ export const ThemesPage: BasicPage = () => {
           }}
         >
           {
+            loading && (
+              <>
+              <Loading loading={loading} />
+              <Space 
+                height={"48rem"}
+              />
+              </>
+            )
+          }
+          {
             config && config.map((item: any, index: number) => {
               return (
-                <div key={index}>
+                <div key={index} className={styles.modal}>
                   <ThemeComponent 
                     type={item.type}
                     label={item.name}

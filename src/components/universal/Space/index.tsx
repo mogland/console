@@ -1,5 +1,5 @@
 interface Prop {
-  height?: number;
+  height?: number | string;
 }
 
 export const Space: React.FC<Prop> = (props) => {

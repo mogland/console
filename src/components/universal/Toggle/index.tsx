@@ -46,6 +46,3 @@ export const Toggle: React.FC<SwitchProps> = ({
     </Switch>
   );
 };
-
-const Switch = Toggle;
-export default Switch;
