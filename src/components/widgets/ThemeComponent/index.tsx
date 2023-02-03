@@ -1,12 +1,15 @@
-import { CheckBox, CheckBoxProps } from "@components/universal/CheckBox";
-import { ModalBody } from "@components/universal/Modal";
-import { Radio } from "@components/universal/Radio";
+import type { CheckBoxProps } from "@components/universal/CheckBox";
+import { CheckBox } from "@components/universal/CheckBox";
 import type { SelectsProps } from "@components/universal/Select";
 import { Selects } from "@components/universal/Select";
 import type { SwitchProps} from "@components/universal/Toggle";
 import { Toggle } from "@components/universal/Toggle";
 import type { InputInterface, TextareaProps } from "@pages/Write/Input";
 import { Textarea , Input } from "@pages/Write/Input";
+import type { RadioProps } from "@components/universal/Radio";
+import { Radio } from "@components/universal/Radio";
+import type { ColorProps } from "@components/universal/Color";
+import { Color } from "@components/universal/Color";
 
 const components = {
   input: (props: InputInterface) => <Input {...props} className="font-mono" />,
@@ -14,9 +17,8 @@ const components = {
   textarea: (props: TextareaProps) => <Textarea {...props} className="font-mono h-24" />,
   switch: (props: SwitchProps) => <Toggle {...props} />,
   checkbox: (props: CheckBoxProps) => <CheckBox {...props} />,
-  radio: (props: any) => <Radio {...props} />,
-  slider: (props: any) => (<ModalBody>暂未实现此组件</ModalBody>),
-  color: (props: any) => (<ModalBody>暂未实现此组件</ModalBody>),
+  radio: (props: RadioProps) => <Radio {...props} />,
+  color: (props: ColorProps) => <Color {...props} />,
 }
 
 export const ThemeComponent = (mapping: { type: string, [key: string]: any }) => {
