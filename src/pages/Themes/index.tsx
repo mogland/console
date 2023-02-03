@@ -90,7 +90,7 @@ export const ThemesPage: BasicPage = () => {
     return (
       <button
         disabled={disabled}
-        className={clsx(styles.button, styles.button4)}
+        className={clsx(styles.button, styles.button4, styles.small)}
         onClick={(e) => {
           apiClient(`/themes/manager/download`, {
             query: {
@@ -117,6 +117,7 @@ export const ThemesPage: BasicPage = () => {
       <button
         className={clsx(styles.button, styles.button3, styles.small)}
         onClick={(e) => {
+          e.preventDefault();
           apiClient(`/themes/${id}`, {
             method: "DELETE",
             query: {
@@ -126,16 +127,8 @@ export const ThemesPage: BasicPage = () => {
             handleLocalData();
             e.currentTarget.innerHTML = "已卸载";
             e.currentTarget.disabled = true;
-          }).catch(() => {
-            Twindow({
-              title: "卸载失败",
-              text: "卸载失败，请重试",
-            })
           })
-          Twindow({
-            title: "卸载中",
-            text: "正在卸载主题，请稍后",
-          })
+          
         }}
       >
         卸载
@@ -166,6 +159,19 @@ export const ThemesPage: BasicPage = () => {
         }}
       >
         {active ? "已启用" : "启用"}
+      </button>
+    )
+  };
+
+  const SettingButton = ({ id }: { id: string }) => {
+    return (
+      <button
+        className={clsx(styles.button, styles.button2, styles.small)}
+        onClick={() => {
+          setId(id);
+        }}
+      >
+        设置
       </button>
     )
   };
@@ -267,6 +273,7 @@ export const ThemesPage: BasicPage = () => {
                 className={postStyle.table}
                 style={{ marginTop: "20px" }}
                 header={["NAME", "DESCRIPTION", "ID", "AUTHOR", "ACTIONS"]}
+                headerStyle={{ gridTemplateColumns: "1fr 1fr 1fr 1fr 2fr" }}
               >
                 {
                   localData.map((item, index) => {
@@ -274,15 +281,10 @@ export const ThemesPage: BasicPage = () => {
                       <TableItem
                         header={["NAME", "DESCRIPTION", "ID", "AUTHOR", "ACTIONS"]}
                         className={clsx(postStyle.tableItem, "item")}
-                        style={{ width: "100%", cursor: "pointer" }}
+                        style={{ width: "100%", cursor: "pointer", gridTemplateColumns: "1fr 1fr 1fr 1fr 2fr" }}
                         key={index}
-                        onClick={() => {
-                          setId(item.id);
-                        }}
                       >
-                        <TableItemValue
-
-                        >
+                        <TableItemValue>
                           {item.name}
                         </TableItemValue>
                         <TableItemValue>
@@ -296,6 +298,7 @@ export const ThemesPage: BasicPage = () => {
                         </TableItemValue>
                         <TableItemValue>
                           <ActiveButton id={item.id} active={item.active} />
+                          <SettingButton id={item.id} />
                           <UninstallButton id={item.id} />
                         </TableItemValue>
                       </TableItem>
@@ -309,22 +312,17 @@ export const ThemesPage: BasicPage = () => {
                 className={postStyle.table}
                 style={{ marginTop: "20px" }}
                 headerStyle={{ width: "100%" }}
-                header={["PREVIEW", "NAME", "DESCRIPTION", "ID", "AUTHOR", "ACTIONS"]}
+                header={["NAME", "DESCRIPTION", "ID", "AUTHOR", "ACTIONS"]}
               >
                 {
                   data.map((item, index) => {
                     return (
                       <TableItem
-                        header={["PREVIEW", "NAME", "DESCRIPTION", "ID", "AUTHOR", "ACTIONS"]}
+                        header={["NAME", "DESCRIPTION", "ID", "AUTHOR", "ACTIONS"]}
                         className={clsx(postStyle.tableItem, "item")}
-                        style={{ width: "100%", height: "130px", background: "var(--background-color)" }}
+                        style={{ width: "100%", cursor: "pointer" }}
                         key={index}
                       >
-                        <TableItemValue>
-                          <img src={`https://ghproxy.com/https://raw.githubusercontent.com/${item.repo}/main/preview.png`}
-                            style={{ marginLeft: "10px", maxHeight: "100px" }}
-                            alt="preview" />
-                        </TableItemValue>
                         <TableItemValue>
                           <a href={`https://github.com/${item.repo}`} target="_blank" rel="noreferrer">{item.repo?.split("/")?.[1]}</a>
                         </TableItemValue>
