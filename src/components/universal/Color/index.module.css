@@ -10,3 +10,8 @@
   margin-top: 16px;
   margin-left: 10px;
 }
+
+/* 移除掉原生的边框 */
+.color {
+  background-color: initial;
+}

@@ -29,14 +29,14 @@
   height: 18px;
   border: 2px solid #ccc;
   border-radius: 9999px;
-  background-color: #fff;
+  background-color: var(--background-color);
   cursor: pointer;
   transition: all 0.2s;
 }
 
 .name {
   font-size: 14px;
-  color: #333;
+  color: var(--text-color);
   position: relative;
   left: 30px;
   top: -2px;
@@ -57,4 +57,11 @@
   height: 10px;
   border-radius: 9999px;
   background: #fff;
+}
+
+@media (prefers-color-scheme: dark) {
+  .input:checked~.check {
+    background-color: #2196F3;
+    border-color: #2196F3;
+  }
 }
