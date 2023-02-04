@@ -58,7 +58,7 @@ export const Login = () => {
         <Stack spacing="6">
           <Logo />
           <Stack spacing={{ base: '2', md: '3' }} textAlign="center">
-            <Heading>Log in to Mog Console</Heading>
+            <Heading fontSize={{ base: '2xl' }}>Sign in to your account</Heading>
           </Stack>
         </Stack>
         <Box
