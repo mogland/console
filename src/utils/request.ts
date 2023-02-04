@@ -8,7 +8,6 @@
  */
 
 import { ofetch } from "ofetch";
-import { Twindow } from "../components/universal/Twindow";
 import { getCookie } from "./cookie";
 
 export const API = window.MOG_API || "http://192.168.3.4:2330";
@@ -20,13 +19,5 @@ export const apiClient = ofetch.create({
     // Accept: "application/json",
     Authorization: `Bearer ${getCookie("token")}`,
     token: getCookie("token") || "",
-  },
-  retry: false,
-  onResponseError: (error) => {
-    Twindow({
-      title: `请求出错了哦 - ${error.response.status}`,
-      text: error.response._data.message,
-      allowClose: true,
-    });
   },
 });
