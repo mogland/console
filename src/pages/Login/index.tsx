@@ -11,11 +11,14 @@ import {
   useToast,
   useColorMode,
 } from '@chakra-ui/react'
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { PasswordField } from '@components/widgets/PasswordField'
 import { apiClient } from '@utils/request'
 import { useNavigate } from 'react-router-dom'
 import { useSeo } from '@hooks/use-seo'
+import { app } from '@states/app'
+import { jump } from '@utils/path'
+import { setCookie } from '@utils/cookie'
 
 export const Login = () => {
   useSeo("登录")
@@ -23,6 +26,13 @@ export const Login = () => {
   const navigate = useNavigate();
   const userNameRef = useRef<HTMLInputElement>(null)
   const passwordRef = useRef<HTMLInputElement>(null)
+  app.showSidebar = false;
+
+  useEffect(() => {
+    apiClient("/user/master/info").catch(() => {
+      navigate(jump("/register"));
+    })
+  }, []);
 
   const handleLogin = () => {
     apiClient("/user/login", {
@@ -32,14 +42,14 @@ export const Login = () => {
         password: passwordRef.current?.value
       })
     }).then(res => {
-      localStorage.setItem("token", res.token)
+      setCookie("token", res.token)
       toast({
         title: `欢迎回来，${res.username}`,
         status: "success",
         duration: 2000,
         isClosable: true,
       })
-      navigate("/dashboard")
+      navigate(jump("/dashboard"))
     }).catch(err => {
       toast({
         title: "登录失败",
