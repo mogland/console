@@ -49,7 +49,8 @@ export const Login = () => {
         duration: 2000,
         isClosable: true,
       })
-      navigate(jump("/dashboard"))
+      app.authenticated = true;
+      window.location.href = jump("/dashboard");
     }).catch(err => {
       toast({
         title: "登录失败",
