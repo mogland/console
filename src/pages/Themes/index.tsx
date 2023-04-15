@@ -10,13 +10,13 @@ import { Tab } from "@headlessui/react";
 import tabs from "@components/universal/Tabs/index.module.css"
 import styles from "./index.module.css";
 import { apiClient } from "@utils/request";
-import { Twindow } from "@components/universal/Twindow";
 import { getQueryVariable } from "@utils/url";
 import { useNavigate } from "react-router-dom";
 import { Modal } from "@components/universal/Modal";
 import { ThemeComponent } from "@components/widgets/ThemeComponent";
 import { Space } from "@components/universal/Space";
 import { useSeo } from "@hooks/use-seo";
+import { toast } from "sonner";
 
 const LIST = "https://ghproxy.com/https://raw.githubusercontent.com/mogland/awesome-mog/main/production-awesome-list/themes.json";
 
@@ -94,7 +94,7 @@ export const ThemesPage: BasicPage = () => {
         disabled={disabled}
         className={clsx(styles.button, styles.button4, styles.small)}
         onClick={(e) => {
-          apiClient(`/themes/manager/download`, {
+          const handler = apiClient(`/themes/manager/download`, {
             query: {
               url: `https://github.com/${repo}/archive/refs/heads/main.zip`
             }
@@ -103,9 +103,10 @@ export const ThemesPage: BasicPage = () => {
             e.currentTarget.innerHTML = "已安装";
             e.currentTarget.disabled = true;
           })
-          Twindow({
-            title: "安装中",
-            text: "正在安装主题，请稍后",
+          toast.promise(handler, {
+            loading: "安装中",
+            success: "安装成功",
+            error: "安装失败",
           })
         }}
       >
@@ -144,7 +145,7 @@ export const ThemesPage: BasicPage = () => {
         disabled={active}
         className={clsx(styles.button, styles.button2, styles.small)}
         onClick={(e) => {
-          apiClient(`/themes/${id}`, {
+          const handler = apiClient(`/themes/${id}`, {
             method: "PATCH",
             query: {
               id,
@@ -154,9 +155,10 @@ export const ThemesPage: BasicPage = () => {
             e.currentTarget.innerHTML = "已启用";
             e.currentTarget.disabled = true;
           })
-          Twindow({
-            title: "启用中",
-            text: "正在启用主题，请稍后",
+          toast.promise(handler, {
+            loading: "启用中",
+            success: "启用成功",
+            error: "启用失败",
           })
         }}
       >
@@ -199,17 +201,18 @@ export const ThemesPage: BasicPage = () => {
           type="confirm"
           size="lg"
           onConfirm={() => {
-            apiClient(`/themes/${id}/config`, {
+            const handler = apiClient(`/themes/${id}/config`, {
               method: "PATCH",
               body: {
                 config: JSON.stringify(config),
               }
             }).then(() => {
               handleLocalData();
-              Twindow({
-                title: "设置成功",
-                text: `主题 ${id} 配置保存成功`
-              })
+            })
+            toast.promise(handler, {
+              loading: "保存中",
+              success: "保存成功",
+              error: "保存失败",
             })
             setId(undefined);
           }}

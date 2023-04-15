@@ -6,13 +6,13 @@ import { useSnapshot } from "valtio";
 import { Loading } from "@components/universal/Loading";
 import { Modal } from "@components/universal/Modal";
 import { Title } from "@components/universal/Title";
-import { Twindow } from "@components/universal/Twindow";
 import { server } from "@states/app";
 import type { BasicPage } from "@type/basic";
 import { apiClient } from "@utils/request";
 import { Input, Textarea } from "@pages/Write/Input";
 import styles from "./index.module.css";
 import { useSeo } from "@hooks/use-seo";
+import { toast } from "sonner";
 
 export const CategoriesPage: BasicPage = () => {
   useSeo("分类 & 标签")
@@ -320,36 +320,22 @@ export const CategoriesPage: BasicPage = () => {
                       } else {
                         e.currentTarget.classList.add(styles.confrim);
                         if (select.length === 1) {
-                          Twindow(
-                            {
-                              title: `提示 - 合并${
-                                select[0].type === "category" ? "分类" : "标签"
-                              }`,
-                              text: `请继续选择一个${
-                                select[0].type === "category" ? "分类" : "标签"
-                              }，然后再次点击合并按钮, 以将 ${select[0].name} ${
-                                select[0].type === "category" ? "分类" : "标签"
-                              }下的文章合并到所选${
-                                select[0].type === "category" ? "分类" : "标签"
-                              }下`,
-                            },
-                            5000
-                          );
+                          toast(
+                            `
+                            请继续选择一个${
+                              select[0].type === "category" ? "分类" : "标签"
+                            }，再点击合并按钮, 以将 ${select[0].name} ${
+                              select[0].type === "category" ? "分类" : "标签"
+                            }合并之所选${
+                              select[0].type === "category" ? "分类" : "标签"
+                            }下
+                            `, {
+                              duration: 5000,
+                            }
+                          )
                         } else {
-                          Twindow(
-                            {
-                              title: `提示 - 合并${
-                                select[0].type === "category" ? "分类" : "标签"
-                              }`,
-                              text: `请再次点击合并按钮, 以将 ${
-                                select[0].name
-                              } ${
-                                select[0].type === "category" ? "分类" : "标签"
-                              }下的文章合并到 ${select[1].name} ${
-                                select[1].type === "category" ? "分类" : "标签"
-                              }下`,
-                            },
-                            5000
+                          toast(
+                            `请再次点击合并按钮, 以将 ${select[0].name} 合并至 ${select[1].name}`
                           );
                         }
                       }
@@ -371,10 +357,7 @@ export const CategoriesPage: BasicPage = () => {
                 onClick={(e) => {
                   // 以确保只有单一类型（分类或标签）被选中
                   if (select.length && select[0].type === "tags") {
-                    Twindow({
-                      title: "提示 - 仅能选择一个分类或标签",
-                      text: "请先取消选择标签",
-                    });
+                    toast("仅可选择一个分类或标签, 请先取消选择标签");
                     return;
                   }
                   if (e.currentTarget.classList.contains(styles.select)) {
@@ -431,10 +414,7 @@ export const CategoriesPage: BasicPage = () => {
               aria-label={tag.name}
               onClick={(e) => {
                 if (select.length && select[0].type === "category") {
-                  Twindow({
-                    title: "提示 - 仅能选择一个分类或标签",
-                    text: "请先取消选择分类",
-                  });
+                  toast("仅可选择一个分类或标签, 请先取消选择分类");
                   return;
                 }
                 if (e.currentTarget.classList.contains(styles.select)) {
