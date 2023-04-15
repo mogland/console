@@ -19,7 +19,6 @@ import { Loading } from "@components/universal/Loading";
 import { Modal, ModalBody } from "@components/universal/Modal";
 import { Selects } from "@components/universal/Select";
 import { Title } from "@components/universal/Title";
-import { Twindow } from "@components/universal/Twindow";
 import type { BasicPage } from "@type/basic";
 import { apiClient } from "@utils/request";
 import { getQueryVariable } from "@utils/url";
@@ -33,6 +32,7 @@ import { Input, Textarea } from "@pages/Write/Input";
 import styles from "./index.module.css";
 import { jump } from "@utils/path";
 import { useSeo } from "@hooks/use-seo";
+import { toast } from "sonner";
 
 const FriendsStatus = ["Approved", "Pending", "Spam", "Trash"];
 const FriendsFormFront = [
@@ -133,26 +133,29 @@ export const FriendsPage: BasicPage = () => {
               URL: select[0] ? jump(`/friends/${select[0]}`) : jump("/friends"),
               title: select[0] ? "修改成功" : "添加成功",
             };
-            apiClient(REQUEST.URL, {
-              method: REQUEST.method,
-              body: JSON.stringify(item),
-            }).then(() => {
-              Twindow({
-                title: REQUEST.title,
-                text: "正在重新加载数据",
+            const request = async () => {
+              await apiClient(REQUEST.URL, {
+                method: REQUEST.method,
+                body: JSON.stringify(item),
+              }).then(() => {
+                setShowEditModal(false);
+                setSelect([]);
+                setInSideLoading(true);
+                apiClient("/friends/all", {
+                  query: {
+                    status: tab === 0 ? undefined : tab,
+                  },
+                }).then((res) => {
+                  setFriends(res.data);
+                  setInSideLoading(false);
+                });
               });
-              setShowEditModal(false);
-              setSelect([]);
-              setInSideLoading(true);
-              apiClient("/friends/all", {
-                query: {
-                  status: tab === 0 ? undefined : tab,
-                },
-              }).then((res) => {
-                setFriends(res.data);
-                setInSideLoading(false);
-              });
-            });
+            }
+            toast.promise(request, {
+              loading: "正在提交",
+              success: "提交成功",
+              error: "提交失败",
+            })
           }}
           options={{
             confirmText: "提交",
@@ -355,11 +358,18 @@ export const FriendsPage: BasicPage = () => {
                     if (
                       e.currentTarget.classList.contains(postStyles.confrim)
                     ) {
-                      // select.forEach((item) => {
-                      //   apiClient(`/post/${item}`, {
-                      //     method: "DELETE",
-                      //   })
-                      // })
+                      const handler = Promise.all(
+                        select.map((item) => {
+                          return apiClient(`/post/${item}`, {
+                            method: "DELETE",
+                          });
+                        })
+                      )
+                      toast.promise(handler, {
+                        loading: "正在删除",
+                        success: "删除成功",
+                        error: "删除失败",
+                      });
                       setFriends(friends.filter((item) => !select.includes(item.id)));
                       setSelect([]);
                     } else {
@@ -448,10 +458,7 @@ export const FriendsPage: BasicPage = () => {
                 <button
                   className={postStyles.button}
                   onClick={() => {
-                    Twindow({
-                      title: "批量检查 - 互链",
-                      text: "正在重新自动检查是否互链, 结果仅供参考",
-                    });
+                    toast("正在重新自动检查是否互链, 结果仅供参考");
                     select.forEach((item) => {
                       apiClient(`/friends/${item}/check`).then((res) => {
                         setFriends(
@@ -465,14 +472,7 @@ export const FriendsPage: BasicPage = () => {
                             return i;
                           })
                         );
-                        Twindow({
-                          title: `互链检查 - ${
-                            friends.find((i) => i.id === item)?.name
-                          }`,
-                          text: res.data
-                            ? "站点已互链"
-                            : "检查验证链接后疑似不存在，建议自行前往站点检查",
-                        });
+                        toast("检查完成");
                       });
                     });
                   }}
@@ -505,23 +505,12 @@ export const FriendsPage: BasicPage = () => {
                   <button
                     className={postStyles.button}
                     onClick={() => {
-                      Twindow({
-                        title: "开始抓取 - 友链订阅",
-                        text: `等待服务器返回检查结果`,
-                      });
-                      apiClient("/friends/feeds")
-                        .then(() => {
-                          Twindow({
-                            title: "抓取结果",
-                            text: `已抓取全部可用订阅，请前往 \`朋友动态\`页面查看`,
-                          });
-                        })
-                        .catch(() => {
-                          Twindow({
-                            title: "抓取结果",
-                            text: `抓取疑似全部失败，请检查服务器日志`,
-                          });
-                        });
+                      toast.promise(
+                        apiClient("/friends/feeds"), {
+                          loading: "正在申请抓取订阅",
+                          success: "已申请抓取活动",
+                          error: "申请抓取失败",
+                      })
                     }}
                   >
                     <Rss />
@@ -529,30 +518,27 @@ export const FriendsPage: BasicPage = () => {
                   <button
                     className={postStyles.button}
                     onClick={() => {
-                      Twindow({
-                        title: "开始检测 - 有效链接",
-                        text: `等待服务器返回检查结果`,
-                      });
-                      apiClient("/friends/alive").then((res) => {
-                        Twindow({
-                          title: "检测结果",
-                          text: `检测到 ${
-                            res.data.filter((item) => item.is_alive).length
-                          } 个有效链接`,
-                        });
-                        res.data.forEach((item) => {
-                          const target = document.querySelector(
-                            `[aria-label="${item.id}"]`
-                          );
-                          if (target) {
-                            if (item.is_alive) {
-                              target.classList.add(styles.alive);
-                            } else {
-                              target.classList.add(styles.dead);
+                      const request = async () => {
+                        return await apiClient("/friends/alive").then((res) => {
+                          res.data.forEach((item) => {
+                            const target = document.querySelector(
+                              `[aria-label="${item.id}"]`
+                            );
+                            if (target) {
+                              if (item.is_alive) {
+                                target.classList.add(styles.alive);
+                              } else {
+                                target.classList.add(styles.dead);
+                              }
                             }
-                          }
+                          });
                         });
-                      });
+                      }
+                      toast.promise(request, {
+                        loading: "正在检查",
+                        success: `检查完成`,
+                        error: "检查失败",
+                      })
                     }}
                   >
                     <Detection />

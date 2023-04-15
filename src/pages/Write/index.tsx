@@ -11,7 +11,6 @@ import { Modal, ModalBody } from "@components/universal/Modal";
 import { Selects } from "@components/universal/Select";
 import { Tags } from "@components/universal/Tags";
 import { Toggle } from "@components/universal/Toggle";
-import { Twindow } from "@components/universal/Twindow";
 import { server } from "@states/app";
 import type { BasicPage } from "@type/basic";
 import { apiClient } from "@utils/request";
@@ -20,6 +19,7 @@ import { Fields } from "./fields";
 import styles from "./index.module.css";
 import { Input, Textarea } from "./Input";
 import { useSeo } from "@hooks/use-seo";
+import { toast } from "sonner";
 
 export const EditorPage: BasicPage = () => {
   const [loading, setLoading] = useState(true);
@@ -61,7 +61,7 @@ export const EditorPage: BasicPage = () => {
       <FloatBtnContainer>
         <FloatBtn
           onClick={() => {
-            apiClient(`${data.id ? `/${type}/${data.id}` : `/${type}`}`, {
+            const handler = apiClient(`${data.id ? `/${type}/${data.id}` : `/${type}`}`, {
               method: data.id ? "PUT" : "POST",
               body: JSON.stringify({
                 ...data,
@@ -70,17 +70,11 @@ export const EditorPage: BasicPage = () => {
               }),
             }).then(() => {
               navigate(`/${type}s`);
-              Twindow({
-                title: `${type === "page" ? "页面" : "文章"}保存成功 - ${
-                  data.title
-                }`,
-                text: "正在跳转...",
-              });
             });
-            console.log({
-              ...data,
-              categoryId: data.category_id.value,
-              category: undefined,
+            toast.promise(handler, {
+              loading: "正在保存",
+              success: `${type === "page" ? "页面" : "文章"}保存成功`,
+              error: `${type === "page" ? "页面" : "文章"}保存失败`,
             });
           }}
         >

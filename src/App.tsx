@@ -7,8 +7,8 @@ import { Loading } from "./components/universal/Loading";
 import { useNavigate } from "react-router-dom";
 import { useSnapshot } from "valtio";
 import { app, server } from "./states/app";
-import { Twindow } from "./components/universal/Twindow";
 import { jump } from "@utils/path";
+import { toast, Toaster } from "sonner";
 
 function App() {
   const appSnapshot = useSnapshot(app);
@@ -20,10 +20,7 @@ function App() {
       .then(() => {})
       .catch(() => {
         if (window.location.pathname != jump("/status")) {
-          Twindow({
-            title: "通信错误 - 跳转服务状态页",
-            text: "无法与后端通信，请检查服务状态",
-          });
+          toast.error("无法与后端通信，请检查服务状态");
           navigate(jump("/status"));
         }
         return;
@@ -48,10 +45,7 @@ function App() {
           });
         }).catch(() => {
           if (window.location.pathname != jump("/status")) {
-            Twindow({
-              title: "通信错误 - 跳转服务状态页",
-              text: "无法与用户服务通信，请检查服务状态",
-            });
+            toast.error("无法与后端通信，请检查服务状态");
             navigate(jump("/status"));
           }
           return;
@@ -72,6 +66,7 @@ function App() {
 
   return (
     <>
+      <Toaster />
       <Loading loading={loading} />
       <div className={clsx("app", "loading", !loading && "loaded")}>
         {appSnapshot.showSidebar && <Sidebar />}

@@ -5,11 +5,11 @@ import type { BasicPage } from "@type/basic";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { apiClient } from "@utils/request";
-import { Twindow } from "@components/universal/Twindow";
 import { app } from "@states/app";
 import { setCookie } from "@utils/cookie";
 import { jump } from "@utils/path";
 import { useSeo } from "@hooks/use-seo";
+import { toast } from "sonner";
 
 // nickname, description, email, avatar, password, username
 
@@ -57,22 +57,13 @@ export const RegisterPage: BasicPage = () => {
       })
         .then((res) => {
           setCookie("token", res.token)
-          Twindow({
-            title: `欢迎回来 - ${res.nickname}`,
-            text: ``,
-            allowClose: true,
-            image: res.avatar,
-          });
+          toast.success("登录成功, 欢迎回来");
           app.authenticated = true;
           navigate(jump("/dashboard"));
           window.location.reload();
         })
         .catch((res) => {
-          Twindow({
-            title: `注册失败 - ${res.data.message}`,
-            text: `请检查提交信息是否正确`,
-            allowClose: true,
-          });
+          toast.error(`登录失败 - ${res.data.message}`);
         });
     }
     setLoading(false);

@@ -10,7 +10,6 @@ import { Input, Textarea } from "@pages/Write/Input";
 import { apiClient } from "@utils/request";
 import styles from "./index.module.css"
 import { Button } from "@components/universal/Button";
-import { Twindow } from "@components/universal/Twindow";
 import { Collapse, CollapseContainer } from "@components/universal/Collapse";
 import { getQueryVariable } from "@utils/url";
 import { useNavigate } from "react-router-dom";
@@ -18,6 +17,7 @@ import { Tags } from "@components/universal/Tags";
 import { Toggle } from "@components/universal/Toggle";
 import { jump } from "@utils/path";
 import { useSeo } from "@hooks/use-seo";
+import { toast } from "sonner";
 
 const tabsAPI = ["/user/master/info", "/configs"]
 
@@ -115,15 +115,13 @@ export const SettingsPage: BasicPage = () => {
             <Button
               style={{ marginTop: "2.5rem", width: "100%" }}
               onClick={() => {
-                apiClient("/user/info", {
+                toast.promise(apiClient("/user/info", {
                   method: "PUT",
                   body: JSON.stringify(_user),
-                }).then(() => {
-                  Twindow({
-                    title: "保存成功",
-                    text: "用户信息已保存",
-                    allowClose: true,
-                  })
+                }), {
+                  loading: "正在保存",
+                  success: "用户信息已保存",
+                  error: "保存失败"
                 })
               }}
             >
@@ -248,24 +246,17 @@ export const SettingsPage: BasicPage = () => {
         <Button
           style={{ marginTop: "2.5rem", width: "100%" }}
           onClick={() => {
-            // Twindow({
-            //   title: "保存配置 - 系统",
-            //   text: "当前系统配置已提交成功",
-            // })
             Object.keys(_data).forEach((key) => {
               if (JSON.stringify(_data[key]) === JSON.stringify(data[key])) {
                 return
               }
-              console.log(key, _data[key])
-              apiClient(`/configs/${key}`, {
+              toast.promise(apiClient(`/configs/${key}`, {
                 method: "PATCH",
                 body: JSON.stringify(_data[key]),
-              }).catch((e) => {
-                Twindow({
-                  title: `配置保存时出错 - ${key}`,
-                  text: e.data.message,
-                  allowClose: true,
-                })
+              }), {
+                loading: "正在保存",
+                success: "配置已保存",
+                error: (data) => `保存失败 - ${data.message}`
               })
             })
           }}
