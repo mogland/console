@@ -29,6 +29,7 @@ import { useNavigate } from "react-router-dom";
 import { apiClient } from "@utils/request";
 import { removeCookie } from "@utils/cookie";
 import { jump } from "@utils/path";
+import { mutate } from "swr";
 
 const Links = () => {
   const authenticated = useSnapshot(app).authenticated;
@@ -92,6 +93,7 @@ const Links = () => {
             removeCookie("token")
             app.authenticated = false;
             navigate(jump("/login"))
+            mutate("/user/check")
           }).catch((e) => {
             console.log(e)
           })
