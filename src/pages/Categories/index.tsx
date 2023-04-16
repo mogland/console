@@ -350,7 +350,7 @@ export const CategoriesPage: BasicPage = () => {
               </div>
             </div>
           </Title>
-          {serverSnapshot.categories.map((category) => {
+          {serverSnapshot?.categories?.map((category) => {
             return (
               <span
                 key={category.id}

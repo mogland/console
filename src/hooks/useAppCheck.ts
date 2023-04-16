@@ -7,16 +7,16 @@ import { useValidateUser } from "./useValidateUser";
 export function useAppCheck() {
   const navigate = useNavigate();
   useInitialData();
-  let path = ""
+  let path = "";
   const validateUser = useValidateUser();
   if (!validateUser.status) {
     if (validateUser.code === 401) {
-      path = jump("/login")
+      path = jump("/login");
     } else {
-      path = jump("/status")
+      path = jump("/status");
     }
   } else {
-    path = jump("/dashboard")
+    path = jump("/dashboard");
   }
   useEffect(() => {
     navigate(path);
