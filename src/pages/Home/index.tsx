@@ -4,7 +4,6 @@ import type { BasicPage } from "@type/basic";
 import styles from "./index.module.css";
 import { Tab } from "@headlessui/react";
 import { useEffect, useState } from "react";
-import { apiClient } from "@utils/request";
 import { Loading } from "@components/universal/Loading";
 import { GridContainer, Widget, TableContainer, TableItem } from "./universal";
 import { useNavigate } from "react-router-dom";
