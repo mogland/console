@@ -30,6 +30,7 @@ import { apiClient } from "@utils/request";
 import { removeCookie } from "@utils/cookie";
 import { jump } from "@utils/path";
 import { mutate } from "swr";
+import { toast } from "sonner";
 
 const Links = () => {
   const authenticated = useSnapshot(app).authenticated;
@@ -94,6 +95,7 @@ const Links = () => {
             app.authenticated = false;
             navigate(jump("/login"))
             mutate("/user/check")
+            toast("退出成功")
           }).catch((e) => {
             console.log(e)
           })
