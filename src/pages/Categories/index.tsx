@@ -13,13 +13,14 @@ import { Input, Textarea } from "@pages/Write/Input";
 import styles from "./index.module.css";
 import { useSeo } from "@hooks/useSeo";
 import { toast } from "sonner";
+import useSWR from "swr";
 
 export const CategoriesPage: BasicPage = () => {
-  useSeo("分类 & 标签")
-  const [loading, setLoading] = useState(true);
+  useSeo("分类 & 标签");
+  const [loading, setLoading] = useState(false);
   const serverSnapshot = useSnapshot(server);
   console.log(serverSnapshot);
-  
+
   const navigate = useNavigate();
   const [data, setData] = useState<{
     name: string;
@@ -38,35 +39,22 @@ export const CategoriesPage: BasicPage = () => {
   >(null);
   const [select, setSelect] = useState<any[]>([]);
 
-  useEffect(() => {
-    Promise.all([
-      apiClient("/category").then((res) => {
-        server.categories = res.data;
-      }),
-      apiClient("/category?type=Tag").then((res) => {
-        server.tags = res.data;
-      }),
-    ]).then(() => {
-      setLoading(false);
-    });
-  }, []);
+  const { data: _modalData } = useSWR(
+    data ? `/category/${data.name}?tag=${data.type === "tag"}` : null
+  );
 
   useEffect(() => {
     if (data) {
-      apiClient(`/category/${data.name}`, {
-        query: {
-          tag: data.type === "tag" ? "true" : "false",
-        },
-      }).then((res) => {
+      if (_modalData) {
         if (data.type === "tag") {
-          setModalData(res.data);
+          setModalData(_modalData);
         }
         if (data.type === "category") {
-          setModalData(res.data.children);
+          setModalData(_modalData.children);
         }
-      });
+      }
     }
-  }, [data]);
+  }, [_modalData]);
 
   const handleModalClose = () => {
     setModalData(null);
@@ -151,7 +139,7 @@ export const CategoriesPage: BasicPage = () => {
               server.tags = res.data;
             }),
           ]).then(() => {
-            window.location.reload();
+            setLoading(false);
           });
         }}
         onCancel={() => {
@@ -250,11 +238,11 @@ export const CategoriesPage: BasicPage = () => {
                     className={styles.button}
                     onClick={(e) => {
                       if (e.currentTarget.classList.contains(styles.confrim)) {
-                        // select.forEach((item) => {
-                        //   apiClient(`/post/${item}`, {
-                        //     method: "DELETE",
-                        //   })
-                        // })
+                        select.forEach((item) => {
+                          apiClient(`/categories/${item}`, {
+                            method: "DELETE",
+                          })
+                        })
                         setSelect([]);
                         document
                           .querySelectorAll(`.${styles.select}`)
@@ -331,10 +319,11 @@ export const CategoriesPage: BasicPage = () => {
                             }合并之所选${
                               select[0].type === "category" ? "分类" : "标签"
                             }下
-                            `, {
+                            `,
+                            {
                               duration: 5000,
                             }
-                          )
+                          );
                         } else {
                           toast(
                             `请再次点击合并按钮, 以将 ${select[0].name} 合并至 ${select[1].name}`
