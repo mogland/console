@@ -19,7 +19,6 @@ export const CategoriesPage: BasicPage = () => {
   useSeo("分类 & 标签");
   const [loading, setLoading] = useState(false);
   const serverSnapshot = useSnapshot(server);
-  console.log(serverSnapshot);
 
   const navigate = useNavigate();
   const [data, setData] = useState<{
@@ -397,7 +396,7 @@ export const CategoriesPage: BasicPage = () => {
           <Title>标签</Title>
         </div>
 
-        {serverSnapshot.tags.map((tag) => {
+        {serverSnapshot?.tags?.map((tag) => {
           return (
             <span
               key={tag.name}

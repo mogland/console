@@ -9,7 +9,7 @@ function getCategoryData() {
   }
   // console.log(data);
   
-  server.categories = data;
+  server.categories = data?.data || [];
   return;
 }
 
@@ -19,7 +19,7 @@ function getTagData() {
     app.error.push("category");
     return;
   }
-  server.tags = data;
+  server.tags = data?.data || [];
   return;
 }
 
