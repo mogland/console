@@ -7,6 +7,8 @@ function getCategoryData() {
     app.error.push("category");
     return;
   }
+  // console.log(data);
+  
   server.categories = data;
   return;
 }

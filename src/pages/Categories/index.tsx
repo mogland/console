@@ -18,6 +18,8 @@ export const CategoriesPage: BasicPage = () => {
   useSeo("分类 & 标签")
   const [loading, setLoading] = useState(true);
   const serverSnapshot = useSnapshot(server);
+  console.log(serverSnapshot);
+  
   const navigate = useNavigate();
   const [data, setData] = useState<{
     name: string;
