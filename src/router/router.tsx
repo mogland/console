@@ -59,6 +59,6 @@ const NotFoundPage = () => {
 };
 
 const JumpToEditorPage = () => {
-  window.location.href = "/write/post";
+  window.location.href = jump("/write/post");
   return <></>;
 };
