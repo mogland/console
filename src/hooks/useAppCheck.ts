@@ -1,3 +1,4 @@
+import { app } from "@states/app";
 import { jump } from "@utils/path";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +13,7 @@ export function useAppCheck() {
   if (!validateUser.status) {
     if (validateUser.code === 401) {
       path = jump("/login");
+      app.authenticated = false;
     } else {
       path = jump("/status");
     }

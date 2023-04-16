@@ -18,18 +18,17 @@ export const Login: BasicPage = () => {
   const [loading, setLoading] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
   const navigate = useNavigate();
-  
-  const appSnapshot = useSnapshot(app)
+
+  const appSnapshot = useSnapshot(app);
+  const { error } = useSWR("/user/master/info");
+  if (error) {
+    toast.error("无用户信息，请注册");
+    navigate(jump("/register"));
+  }
   useEffect(() => {
     if (appSnapshot.authenticated) {
-      toast.success("已登录，正在前往仪表盘")
+      toast.success("已登录，正在前往仪表盘");
       navigate(jump("/dashboard"));
-      return;
-    }
-    const { error } = useSWR("/user/master/info");
-    if (error) {
-      toast.error("无用户信息，请注册")
-      navigate(jump("/register"));
       return;
     }
     app.showSidebar = false;
