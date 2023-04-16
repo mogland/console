@@ -31,7 +31,7 @@ import postStyles from "@pages/Posts/Index/index.module.css";
 import { Input, Textarea } from "@pages/Write/Input";
 import styles from "./index.module.css";
 import { jump } from "@utils/path";
-import { useSeo } from "@hooks/use-seo";
+import { useSeo } from "@hooks/useSeo";
 import { toast } from "sonner";
 
 const FriendsStatus = ["Approved", "Pending", "Spam", "Trash"];

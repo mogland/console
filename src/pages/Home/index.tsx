@@ -8,7 +8,7 @@ import { apiClient } from "@utils/request";
 import { Loading } from "@components/universal/Loading";
 import { GridContainer, Widget, TableContainer, TableItem } from "./universal";
 import { useNavigate } from "react-router-dom";
-import { useSeo } from "@hooks/use-seo";
+import { useSeo } from "@hooks/useSeo";
 import { useHomeAggregateData } from "@hooks/useHomeAggregateData";
 
 interface IHomeTotal {

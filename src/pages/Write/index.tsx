@@ -18,7 +18,7 @@ import { getQueryVariable } from "@utils/url";
 import { Fields } from "./fields";
 import styles from "./index.module.css";
 import { Input, Textarea } from "./Input";
-import { useSeo } from "@hooks/use-seo";
+import { useSeo } from "@hooks/useSeo";
 import { toast } from "sonner";
 
 export const EditorPage: BasicPage = () => {

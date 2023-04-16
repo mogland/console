@@ -8,7 +8,7 @@ import { apiClient } from "@utils/request";
 import { app } from "@states/app";
 import { setCookie } from "@utils/cookie";
 import { jump } from "@utils/path";
-import { useSeo } from "@hooks/use-seo";
+import { useSeo } from "@hooks/useSeo";
 import { toast } from "sonner";
 import useSWR from "swr";
 import { useSnapshot } from "valtio";

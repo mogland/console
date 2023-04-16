@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { Modal } from "@components/universal/Modal";
 import { ThemeComponent } from "@components/widgets/ThemeComponent";
 import { Space } from "@components/universal/Space";
-import { useSeo } from "@hooks/use-seo";
+import { useSeo } from "@hooks/useSeo";
 import { toast } from "sonner";
 
 const LIST = "https://ghproxy.com/https://raw.githubusercontent.com/mogland/awesome-mog/main/production-awesome-list/themes.json";

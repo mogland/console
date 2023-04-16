@@ -12,7 +12,7 @@ import {
   TableItemValue,
 } from "@pages/Home/universal";
 import styles from "./index.module.css";
-import { useSeo } from "@hooks/use-seo";
+import { useSeo } from "@hooks/useSeo";
 
 export const PostsIndex: BasicPage = () => {
   useSeo("文章 · 列表");

@@ -11,7 +11,7 @@ import type { BasicPage } from "@type/basic";
 import { apiClient } from "@utils/request";
 import { Input, Textarea } from "@pages/Write/Input";
 import styles from "./index.module.css";
-import { useSeo } from "@hooks/use-seo";
+import { useSeo } from "@hooks/useSeo";
 import { toast } from "sonner";
 
 export const CategoriesPage: BasicPage = () => {

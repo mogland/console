@@ -7,7 +7,7 @@ import type { BasicPage } from "@type/basic";
 import { API } from "@utils/request";
 import { TableItem, TableItemValue } from "@pages/Home/universal";
 import styles from "./index.module.css";
-import { useSeo } from "@hooks/use-seo";
+import { useSeo } from "@hooks/useSeo";
 import { MOG_OFFICIAL_SERVICES } from "@constants/services";
 
 interface IStatus {

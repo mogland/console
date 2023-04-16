@@ -17,7 +17,7 @@ import { Modal, ModalBody } from "@components/universal/Modal";
 import { Input, Textarea } from "@pages/Write/Input";
 import { Selects } from "@components/universal/Select";
 import { jump } from "@utils/path";
-import { useSeo } from "@hooks/use-seo";
+import { useSeo } from "@hooks/useSeo";
 
 const tabsList = [{
   name: "待审核",

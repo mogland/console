@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 import { Tags } from "@components/universal/Tags";
 import { Toggle } from "@components/universal/Toggle";
 import { jump } from "@utils/path";
-import { useSeo } from "@hooks/use-seo";
+import { useSeo } from "@hooks/useSeo";
 import { toast } from "sonner";
 
 const tabsAPI = ["/user/master/info", "/configs"]
