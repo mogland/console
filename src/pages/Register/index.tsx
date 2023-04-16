@@ -1,4 +1,4 @@
-import styles from "@pages/Login/index.module.css"
+import styles from "@pages/Login/index.module.css";
 import clsx from "clsx";
 import React, { useEffect, useRef, useState } from "react";
 import type { BasicPage } from "@type/basic";
@@ -10,26 +10,30 @@ import { setCookie } from "@utils/cookie";
 import { jump } from "@utils/path";
 import { useSeo } from "@hooks/use-seo";
 import { toast } from "sonner";
-
-// nickname, description, email, avatar, password, username
+import useSWR from "swr";
+import { useSnapshot } from "valtio";
 
 export const RegisterPage: BasicPage = () => {
-  useSeo("注册")
+  useSeo("注册");
   const navigate = useNavigate();
-  app.showSidebar = false;
   const [loading, setLoading] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
+  const appSnapshot = useSnapshot(app);
 
   useEffect(() => {
-    apiClient("/user/master/info")
-      .then((res) => {
-        if (res) {
-          navigate(jump("/dashboard"));
-        }
-      }).catch(() => {
-        return;
-      })
-  }, [])
+    if (appSnapshot.authenticated) {
+      toast.success("已登录，正在前往仪表盘")
+      navigate(jump("/dashboard"));
+      return;
+    }
+    const { error } = useSWR("/user/master/info");
+    if (!error) {
+      toast.error("已注册，正在前往登录页面")
+      navigate(jump("/login"));
+      return;
+    }
+    app.showSidebar = false;
+  }, []);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -40,10 +44,14 @@ export const RegisterPage: BasicPage = () => {
         .value;
       const password = (form.elements.namedItem("password") as RadioNodeList)!
         .value;
-      const nickname = (form.elements.namedItem("nickname") as RadioNodeList)!.value;
-      const description = (form.elements.namedItem("description") as RadioNodeList)!.value;
+      const nickname = (form.elements.namedItem("nickname") as RadioNodeList)!
+        .value;
+      const description = (form.elements.namedItem(
+        "description"
+      ) as RadioNodeList)!.value;
       const email = (form.elements.namedItem("email") as RadioNodeList)!.value;
-      const avatar = (form.elements.namedItem("avatar") as RadioNodeList)!.value;
+      const avatar = (form.elements.namedItem("avatar") as RadioNodeList)!
+        .value;
       apiClient("/user/register", {
         method: "POST",
         body: {
@@ -56,7 +64,7 @@ export const RegisterPage: BasicPage = () => {
         },
       })
         .then((res) => {
-          setCookie("token", res.token)
+          setCookie("token", res.token);
           toast.success("登录成功, 欢迎回来");
           app.authenticated = true;
           navigate(jump("/dashboard"));
