@@ -16,9 +16,11 @@ export function useAppCheck() {
       path = jump("/status");
     }
   } else {
-    path = jump("/dashboard");
+    if (window.location.pathname == jump("/")) path = jump("/dashboard");
   }
   useEffect(() => {
-    navigate(path);
+    if (path.length) {
+      navigate(path);
+    }
   }, [path, navigate]);
 }
