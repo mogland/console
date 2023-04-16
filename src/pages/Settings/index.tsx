@@ -18,27 +18,28 @@ import { Toggle } from "@components/universal/Toggle";
 import { jump } from "@utils/path";
 import { useSeo } from "@hooks/useSeo";
 import { toast } from "sonner";
+import useSWR from "swr";
 
 const tabsAPI = ["/user/master/info", "/configs"]
 
 export const SettingsPage: BasicPage = () => {
   useSeo("设置")
   const [loading, setLoading] = useState(true);
-  const [data, setData] = useState<any>({});
   const tab = getQueryVariable("tab")
   const [_tabs, _setTabs] = useState(Number((tab === "0" || tab === "1") ? tab : "0"));
   const navigate = useNavigate()
 
   useEffect(() => {
-    // setLoading(true);
     navigate(jump(`/settings?tab=${_tabs}`))
-    apiClient(tabsAPI[_tabs]).then((res) => {
-      setData(res);
-    });
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
   }, [_tabs]);
+
+  const { data } = useSWR(tabsAPI[_tabs])
+  
+  useEffect(() => {
+    if (data) {
+      setLoading(false);
+    }
+  }, [data]);
 
   const UserSetting = () => {
     const [_user, _setUser] = useState(data);
