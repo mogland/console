@@ -6,7 +6,6 @@ import { app } from "./states/app";
 import useSWR from "swr";
 import { InternelServerErrorPage } from "@pages/InternelServerErrorPage";
 import { useAppCheck } from "@hooks/useAppCheck";
-// import { useAppCheck } from "@hooks/useAppCheck";
 
 function App() {
   const appSnapshot = useSnapshot(app);

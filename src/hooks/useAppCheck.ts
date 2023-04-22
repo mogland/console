@@ -1,25 +1,29 @@
 import { app } from "@states/app";
 import { jump } from "@utils/path";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSnapshot } from "valtio";
 import { useInitialData } from "./useInitalData";
 import { useValidateUser } from "./useValidateUser";
 
 export function useAppCheck() {
   const navigate = useNavigate();
-  useInitialData();
-  let path = "";
-  const validateUser = useValidateUser();
-  if (!validateUser.status) {
-    if (validateUser.code === 401) {
-      path = jump("/login");
+  const appSnapshot = useSnapshot(app);
+
+  const path = useMemo(() => {
+    if (!appSnapshot.authenticated) {
       app.authenticated = false;
+      return jump("/login");
+    } else if (window.location.pathname === jump("/")) {
+      return jump("/dashboard");
     } else {
-      path = jump("/status");
+      return "";
     }
-  } else {
-    if (window.location.pathname == jump("/")) path = jump("/dashboard");
-  }
+  }, [appSnapshot.authenticated]);
+
+  useInitialData();
+  useValidateUser();
+
   useEffect(() => {
     if (path.length) {
       navigate(path);
