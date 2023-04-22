@@ -8,20 +8,30 @@ import { apiClient } from "@utils/request";
 import { app } from "@states/app";
 import { setCookie } from "@utils/cookie";
 import { jump } from "@utils/path";
-import { useSeo } from "@hooks/use-seo";
+import { useSeo } from "@hooks/useSeo";
 import { toast } from "sonner";
+import useSWR from "swr";
+import { useSnapshot } from "valtio";
 
 export const Login: BasicPage = () => {
-  useSeo("登录")
+  useSeo("登录");
   const [loading, setLoading] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
   const navigate = useNavigate();
-  app.showSidebar = false;
 
+  const appSnapshot = useSnapshot(app);
+  const { error } = useSWR("/user/master/info");
+  if (error) {
+    toast.error("无用户信息，请注册");
+    navigate(jump("/register"));
+  }
   useEffect(() => {
-    apiClient("/user/master/info").catch(() => {
-      navigate(jump("/register"));
-    })
+    if (appSnapshot.authenticated) {
+      toast.success("已登录，正在前往仪表盘");
+      navigate(jump("/dashboard"));
+      return;
+    }
+    app.showSidebar = false;
   }, []);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -41,11 +51,12 @@ export const Login: BasicPage = () => {
         },
       })
         .then((res) => {
-          setCookie("token", res.token)
+          setCookie("token", res.token);
           toast.success("登录成功, 欢迎回来");
           app.authenticated = true;
+          app.showSidebar = true;
           navigate(jump("/dashboard"));
-          window.location.reload();
+          // window.location.reload();
         })
         .catch((res) => {
           toast.error(`登录失败 - ${res.data.message}`);

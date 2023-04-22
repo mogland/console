@@ -1,9 +1,6 @@
 import { Tab } from "@headlessui/react";
 import tabs from "@components/universal/Tabs/index.module.css";
 import {
-  Clear,
-  Delete,
-  Edit,
   AddOne,
   Detection,
   SendEmail,
@@ -31,8 +28,9 @@ import postStyles from "@pages/Posts/Index/index.module.css";
 import { Input, Textarea } from "@pages/Write/Input";
 import styles from "./index.module.css";
 import { jump } from "@utils/path";
-import { useSeo } from "@hooks/use-seo";
+import { useSeo } from "@hooks/useSeo";
 import { toast } from "sonner";
+import { ActionButton, ActionButtons } from "@components/widgets/ActionButtons";
 
 const FriendsStatus = ["Approved", "Pending", "Spam", "Trash"];
 const FriendsFormFront = [
@@ -77,7 +75,7 @@ const FriendsFormBack = [
 ];
 
 export const FriendsPage: BasicPage = () => {
-  useSeo("朋友 · 列表")
+  useSeo("朋友 · 列表");
   const [loading, setLoading] = useState(true);
   const [inSideLoading, setInSideLoading] = useState(true);
   const [select, setSelect] = useState<string[]>([]);
@@ -150,12 +148,12 @@ export const FriendsPage: BasicPage = () => {
                   setInSideLoading(false);
                 });
               });
-            }
+            };
             toast.promise(request, {
               loading: "正在提交",
               success: "提交成功",
               error: "提交失败",
-            })
+            });
           }}
           options={{
             confirmText: "提交",
@@ -334,60 +332,38 @@ export const FriendsPage: BasicPage = () => {
           <div className={postStyles.head}>
             <span className={postStyles.headTitle}>朋友 · 列表</span>
             <div>
-              {(select.length && (
-                <button
-                  className={postStyles.button}
-                  onClick={() => {
-                    setSelect([]);
-                    const items = document.querySelectorAll(
-                      `.${postStyles.select}`
-                    );
-                    items.forEach((item) => {
-                      item.classList.remove(postStyles.select);
-                    });
-                  }}
-                >
-                  <Clear />
-                </button>
-              )) ||
-                null}
-              {(select.length && (
-                <button
-                  className={postStyles.button}
-                  onClick={(e) => {
-                    if (
-                      e.currentTarget.classList.contains(postStyles.confrim)
-                    ) {
-                      const handler = Promise.all(
-                        select.map((item) => {
-                          return apiClient(`/post/${item}`, {
-                            method: "DELETE",
-                          });
-                        })
-                      )
-                      toast.promise(handler, {
-                        loading: "正在删除",
-                        success: "删除成功",
-                        error: "删除失败",
+              <ActionButtons
+                selectedClassName={postStyles.select}
+                setSelect={setSelect}
+                selected={select}
+                editAction={() => {
+                  setShowEditModal(true);
+                }}
+                deleteFunction={() => {
+                  const handler = Promise.all(
+                    select.map((item) => {
+                      return apiClient(`/post/${item}`, {
+                        method: "DELETE",
                       });
-                      setFriends(friends.filter((item) => !select.includes(item.id)));
-                      setSelect([]);
-                    } else {
-                      e.currentTarget.classList.add(postStyles.confrim);
-                    }
-                  }}
-                >
-                  <Delete />
-                </button>
-              )) ||
-                null}
+                    })
+                  );
+                  toast.promise(handler, {
+                    loading: "正在删除",
+                    success: "删除成功",
+                    error: "删除失败",
+                  });
+                  setFriends(
+                    friends.filter((item) => !select.includes(item.id))
+                  );
+                  setSelect([]);
+                }}
+              />
               {(select.length && tab == 1 && (
-                <button
-                  className={postStyles.button}
-                  onClick={(e) => {
-                    if (
-                      e.currentTarget.classList.contains(postStyles.confrim)
-                    ) {
+                <>
+                  <ActionButton
+                    label="通过友链"
+                    icon={<CheckSmall />}
+                    action={() => {
                       select.forEach((item) => {
                         apiClient(`/friends/status/${item}`, {
                           method: "PATCH",
@@ -400,47 +376,35 @@ export const FriendsPage: BasicPage = () => {
                         friends.filter((item) => !select.includes(item.id))
                       );
                       setSelect([]);
-                    } else {
-                      e.currentTarget.classList.add(postStyles.confrim);
-                    }
-                  }}
-                >
-                  <CheckSmall />
-                </button>
+                    }}
+                  />
+                </>
               )) ||
                 null}
               {(select.length && tab == 0 && (
-                <button
-                  className={postStyles.button}
-                  onClick={(e) => {
-                    if (
-                      e.currentTarget.classList.contains(postStyles.confrim)
-                    ) {
-                      select.forEach((item) => {
-                        apiClient(`/friends/status/${item}`, {
-                          method: "PATCH",
-                          body: {
-                            status: 1,
-                          },
-                        });
+                <ActionButton
+                  label="重审友链"
+                  icon={<CloseSmall />}
+                  action={() => {
+                    select.forEach((item) => {
+                      apiClient(`/friends/status/${item}`, {
+                        method: "PATCH",
+                        body: {
+                          status: 1,
+                        },
                       });
-                      setFriends(
-                        friends.filter((item) => !select.includes(item.id))
-                      );
-                      setSelect([]);
-                    } else {
-                      e.currentTarget.classList.add(postStyles.confrim);
-                    }
+                    });
+                    setFriends(
+                      friends.filter((item) => !select.includes(item.id))
+                    );
+                    setSelect([]);
                   }}
-                >
-                  <CloseSmall />
-                </button>
+                />
               )) ||
                 null}
               {(select.length && (
-                <button
-                  className={postStyles.button}
-                  onClick={() => {
+                <ActionButton
+                  action={() => {
                     window.open(
                       `mailto:${select
                         .map((item) => {
@@ -449,75 +413,71 @@ export const FriendsPage: BasicPage = () => {
                         .join(",")}`
                     );
                   }}
-                >
-                  <SendEmail />
-                </button>
+                  label="发送邮件"
+                  icon={<SendEmail />}
+                />
               )) ||
                 null}
               {(select.length && (
-                <button
-                  className={postStyles.button}
-                  onClick={() => {
-                    toast("正在重新自动检查是否互链, 结果仅供参考");
-                    select.forEach((item) => {
-                      apiClient(`/friends/${item}/check`).then((res) => {
-                        setFriends(
-                          friends.map((i) => {
-                            if (i.id === item) {
-                              return {
-                                ...i,
-                                auto_check: res.data,
-                              };
+                <ActionButton
+                  label="检查互链"
+                  icon={<Redo />}
+                  action={() => {
+                    toast.promise(
+                      Promise.all(
+                        select.map((item) => {
+                          return apiClient(`/friends/${item}/check`).then(
+                            (res) => {
+                              setFriends(
+                                friends.map((i) => {
+                                  if (i.id === item) {
+                                    return {
+                                      ...i,
+                                      auto_check: res.data,
+                                    };
+                                  }
+                                  return i;
+                                })
+                              );
                             }
-                            return i;
-                          })
-                        );
-                        toast("检查完成");
-                      });
-                    });
+                          );
+                        })
+                      ),
+                      {
+                        loading: "正在重新自动检查互链",
+                        success: "检查完成",
+                        error: "检查出错",
+                      }
+                    );
                   }}
-                >
-                  <Redo />
-                </button>
+                />
               )) ||
                 null}
-              {(select.length === 1 && (
-                <button
-                  className={postStyles.button}
-                  onClick={() => {
-                    setShowEditModal(true);
-                  }}
-                >
-                  <Edit />
-                </button>
-              )) ||
-                null}
-              <button
-                className={postStyles.button}
-                onClick={() => {
+              <ActionButton
+                label="新增友链"
+                icon={<AddOne />}
+                action={() => {
                   setShowEditModal(true);
                 }}
-              >
-                <AddOne />
-              </button>
+              />
               {tab == 0 && (
                 <>
-                  <button
-                    className={postStyles.button}
-                    onClick={() => {
-                      toast.promise(
-                        apiClient("/friends/feeds"), {
-                          loading: "正在申请抓取订阅",
-                          success: "已申请抓取活动",
-                          error: "申请抓取失败",
-                      })
+                  <ActionButton
+                    label="抓取订阅"
+                    icon={<Rss />}
+                    action={() => {
+                      toast.promise(apiClient("/friends/feeds"), {
+                        loading: "正在申请抓取订阅",
+                        success: "已申请抓取活动",
+                        error: "申请抓取失败",
+                      });
                     }}
-                  >
-                    <Rss />
-                  </button>
-                  <button
-                    className={postStyles.button}
-                    onClick={() => {
+                  />
+
+                  <ActionButton
+                    label="存活性检查"
+                    icon={<Detection />}
+                    action={() => {
                       const request = async () => {
                         return await apiClient("/friends/alive").then((res) => {
                           res.data.forEach((item) => {
@@ -533,16 +493,14 @@ export const FriendsPage: BasicPage = () => {
                             }
                           });
                         });
-                      }
+                      };
                       toast.promise(request, {
-                        loading: "正在检查",
-                        success: `检查完成`,
-                        error: "检查失败",
-                      })
+                        loading: "正在检查存活性",
+                        success: `存活性检查完成`,
+                        error: "存活性检查失败",
+                      });
                     }}
-                  >
-                    <Detection />
-                  </button>
+                  />
                 </>
               )}
             </div>
@@ -557,16 +515,32 @@ export const FriendsPage: BasicPage = () => {
           }}
         >
           <Tab.List className={tabs.tabList}>
-            <Tab className={({ selected }) => clsx(tabs.tab, selected && tabs.selected)}>
+            <Tab
+              className={({ selected }) =>
+                clsx(tabs.tab, selected && tabs.selected)
+              }
+            >
               已通过
             </Tab>
-            <Tab className={({ selected }) => clsx(tabs.tab, selected && tabs.selected)}>
+            <Tab
+              className={({ selected }) =>
+                clsx(tabs.tab, selected && tabs.selected)
+              }
+            >
               待审核
             </Tab>
-            <Tab className={({ selected }) => clsx(tabs.tab, selected && tabs.selected)}>
+            <Tab
+              className={({ selected }) =>
+                clsx(tabs.tab, selected && tabs.selected)
+              }
+            >
               垃圾友链
             </Tab>
-            <Tab className={({ selected }) => clsx(tabs.tab, selected && tabs.selected)}>
+            <Tab
+              className={({ selected }) =>
+                clsx(tabs.tab, selected && tabs.selected)
+              }
+            >
               回收站
             </Tab>
           </Tab.List>

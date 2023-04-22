@@ -11,7 +11,7 @@ import {
 } from "@pages/Home/universal";
 import styles from "../Index/index.module.css";
 import pageStyles from "./index.module.css";
-import { useSeo } from "@hooks/use-seo";
+import { useSeo } from "@hooks/useSeo";
 
 export const FriendsPosts: BasicPage = () => {
   useSeo("好友动态")

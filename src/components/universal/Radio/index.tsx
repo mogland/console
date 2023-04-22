@@ -46,7 +46,7 @@ export const Radio = (props: RadioProps) => {
               onChange={handleChange}
               {...rest}
             />
-            <span className={styles.check}></span>
+            <span className={styles.check} />
             <span className={styles.name}>{item.name}</span>
           </label>
         ))}

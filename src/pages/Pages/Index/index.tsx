@@ -1,4 +1,4 @@
-import { AddOne, Clear, Delete, Edit } from "@icon-park/react";
+import { AddOne } from "@icon-park/react";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -12,10 +12,11 @@ import {
   TableItemValue,
 } from "@pages/Home/universal";
 import styles from "../../Posts/Index/index.module.css";
-import { useSeo } from "@hooks/use-seo";
+import { useSeo } from "@hooks/useSeo";
+import { ActionButton, ActionButtons } from "@components/widgets/ActionButtons";
 
 export const PagesIndex: BasicPage = () => {
-  useSeo("页面 · 列表")
+  useSeo("页面 · 列表");
   const [loading, setLoading] = useState(true);
   const [select, setSelect] = useState<string[]>([]); // 选择的页面
   const navigate = useNavigate();
@@ -47,65 +48,28 @@ export const PagesIndex: BasicPage = () => {
             <div className={styles.head}>
               <span>页面 · 列表</span>
               <div>
-                {(select.length && (
-                  <button
-                    className={styles.button}
-                    onClick={() => {
-                      setSelect([]);
-                      const items = document.querySelectorAll(".item");
-                      items.forEach((item) => {
-                        item.classList.remove(styles.select);
+                <ActionButtons
+                  selectedClassName={styles.select}
+                  setSelect={setSelect}
+                  selected={select}
+                  editAction={() => {
+                    navigate(`/write/page?id=${select[0]}`);
+                  }}
+                  deleteFunction={() => {
+                    select.forEach((item) => {
+                      apiClient(`/page/${item}`, {
+                        method: "DELETE",
                       });
-                    }}
-                  >
-                    <Clear />
-                  </button>
-                )) ||
-                  null}
-                {(select.length && (
-                  <button
-                    className={styles.button}
-                    onClick={(e) => {
-                      if (e.currentTarget.classList.contains(styles.confrim)) {
-                        // select.forEach((item) => {
-                        //   apiClient(`/page/${item}`, {
-                        //     method: "DELETE",
-                        //   })
-                        // })
-                        setSelect([]);
-                        document
-                          .querySelectorAll(`.${styles.select}`)
-                          .forEach((item) => {
-                            item.remove();
-                          });
-                      } else {
-                        e.currentTarget.classList.add(styles.confrim);
-                      }
-                    }}
-                  >
-                    <Delete />
-                  </button>
-                )) ||
-                  null}
-                {(select.length === 1 && (
-                  <button
-                    className={styles.button}
-                    onClick={() => {
-                      navigate(`/write/page?id=${select[0]}`);
-                    }}
-                  >
-                    <Edit />
-                  </button>
-                )) ||
-                  null}
-                <button
-                  className={styles.button}
-                  onClick={() => {
+                    });
+                  }}
+                />
+                <ActionButton
+                  icon={<AddOne />}
+                  label="新建页面"
+                  action={() => {
                     navigate("/write/page");
                   }}
-                >
-                  <AddOne />
-                </button>
+                />
               </div>
             </div>
           </Title>

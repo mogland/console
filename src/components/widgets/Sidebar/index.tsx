@@ -10,7 +10,6 @@ import {
   MenuFoldOne,
   MenuUnfoldOne,
   OpenDoor,
-  Page,
   Setting,
   Theme,
 } from "@icon-park/react";
@@ -29,6 +28,8 @@ import { useNavigate } from "react-router-dom";
 import { apiClient } from "@utils/request";
 import { removeCookie } from "@utils/cookie";
 import { jump } from "@utils/path";
+import { mutate } from "swr";
+import { toast } from "sonner";
 
 const Links = () => {
   const authenticated = useSnapshot(app).authenticated;
@@ -49,12 +50,6 @@ const Links = () => {
       })}
     >
       <SidebarItem icon={HomeTwo({})} title="仪表盘" href={jump("/dashboard")} />
-      <SidebarItem
-        icon={Page({})}
-        title="前往站点"
-        href={"https://github.com"}
-        outside
-      />
       <Space height={20} />
       <SidebarItem icon={Editor({})} title="文章" href={jump("/posts")} />
       <SidebarItem
@@ -92,6 +87,8 @@ const Links = () => {
             removeCookie("token")
             app.authenticated = false;
             navigate(jump("/login"))
+            mutate("/user/check")
+            toast("退出成功")
           }).catch((e) => {
             console.log(e)
           })

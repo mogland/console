@@ -4,43 +4,45 @@ import type { BasicPage } from "@type/basic";
 import styles from "./index.module.css";
 import { Tab } from "@headlessui/react";
 import { useEffect, useState } from "react";
-import { apiClient } from "@utils/request";
 import { Loading } from "@components/universal/Loading";
 import { GridContainer, Widget, TableContainer, TableItem } from "./universal";
 import { useNavigate } from "react-router-dom";
-import { useSeo } from "@hooks/use-seo";
+import { useSeo } from "@hooks/useSeo";
+import { useHomeAggregateData } from "@hooks/useHomeAggregateData";
+
+interface IHomeTotal {
+  posts: {
+    data: any[];
+    pagination: {
+      total: number;
+      [key: string]: number | boolean;
+    };
+  };
+  comments: {
+    data: any[];
+    pagination: {
+      total: number;
+      [key: string]: number | boolean;
+    };
+  };
+  pages: {
+    data: any[];
+    pagination: {
+      total: number;
+      [key: string]: number | boolean;
+    };
+  };
+  friends: {
+    [key: string]: number;
+  };
+}
 
 export const Home: BasicPage = () => {
-  useSeo("仪表盘")
+  useSeo("仪表盘");
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  const [total, setTotal] = useState<{
-    posts: {
-      data: any[];
-      pagination: {
-        total: number;
-        [key: string]: number | boolean;
-      };
-    };
-    comments: {
-      data: any[];
-      pagination: {
-        total: number;
-        [key: string]: number | boolean;
-      };
-    };
-    pages: {
-      data: any[];
-      pagination: {
-        total: number;
-        [key: string]: number | boolean;
-      };
-    };
-    friends: {
-      [key: string]: number;
-    };
-  }>({
+  const [total, setTotal] = useState<IHomeTotal>({
     posts: {
       data: [],
       pagination: {
@@ -66,33 +68,37 @@ export const Home: BasicPage = () => {
     },
   });
 
+  const {
+    friendsPending,
+    friendsApproved,
+    friendsTrash,
+    posts,
+    comments,
+    pages,
+  } = useHomeAggregateData();
   useEffect(() => {
-    Promise.all([
-      apiClient("/friends/all", { query: { status: 0 } }), // pending
-      apiClient("/friends/all", { query: { status: 1 } }), // approved
-      apiClient("/friends/all", { query: { status: 3 } }), // trash
-      apiClient("/post", { query: { size: 5 } }),
-      apiClient("/comments", { query: { size: 5 } }).then(async (res) => {
-        for (let i = 0; i < res.data.length; i++) {
-          res.data[i].post = await apiClient(`/post/${res.data[i].pid}`);
-        }
-        return res;
-      }),
-      apiClient("/page"),
-    ]).then((res) => {
+    if (
+      friendsPending &&
+      friendsApproved &&
+      friendsTrash &&
+      posts &&
+      comments &&
+      pages
+    ) {
       setTotal({
-        posts: res[3],
-        comments: res[4],
-        pages: res[5],
+        posts,
+        comments,
+        pages,
         friends: {
-          approved: res[0]?.data.length,
-          pending: res[1]?.data.length,
-          trash: res[2]?.data.length,
+          approved: friendsApproved.data.length,
+          pending: friendsPending.data.length,
+          trash: friendsTrash.data.length,
         },
       });
       setLoading(false);
-    });
-  }, []);
+    }
+  }, [friendsPending, friendsApproved, friendsTrash, posts, comments, pages]);
+  
 
   return (
     <div>

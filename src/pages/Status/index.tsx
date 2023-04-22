@@ -7,7 +7,8 @@ import type { BasicPage } from "@type/basic";
 import { API } from "@utils/request";
 import { TableItem, TableItemValue } from "@pages/Home/universal";
 import styles from "./index.module.css";
-import { useSeo } from "@hooks/use-seo";
+import { useSeo } from "@hooks/useSeo";
+import { MOG_OFFICIAL_SERVICES } from "@constants/services";
 
 interface IStatus {
   status: "Operational" | "Down";
@@ -26,49 +27,11 @@ const Status: React.FC<IStatus> = (props) => {
 
 export const StatusPage: BasicPage = () => {
   useSeo("服务 · 状态")
-  const services = [
-    {
-      name: "核心网关层",
-      url: "",
-    },
-    {
-      name: "用户服务",
-      url: "user",
-    },
-    {
-      name: "文章服务",
-      url: "post",
-    },
-    {
-      name: "页面服务",
-      url: "page",
-    },
-    {
-      name: "分类服务",
-      url: "category",
-    },
-    {
-      name: "评论服务",
-      url: "comments",
-    },
-    {
-      name: "友链服务",
-      url: "friends",
-    },
-    {
-      name: "通知服务",
-      url: "notification",
-    },
-    {
-      name: "主题服务",
-      url: "themes",
-    }
-  ];
   const [statuses, setStatuses] = useState<{
     [key: string]: "Operational" | "Down";
   }>({});
   const [loading, setLoading] = useState(true);
-
+  const services = MOG_OFFICIAL_SERVICES;
   const fetchStatus = async () => {
     await Promise.all(
       services.map(async (service) => {
