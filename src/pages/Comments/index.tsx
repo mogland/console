@@ -9,11 +9,8 @@ import { useNavigate } from "react-router-dom";
 import { apiClient } from "@utils/request";
 import { Title } from "@components/universal/Title";
 import {
-  Clear,
-  Delete,
   CheckSmall,
   CloseSmall,
-  Edit,
   Redo,
 } from "@icon-park/react";
 import { mailAvatar } from "@utils/avatar";
@@ -22,6 +19,7 @@ import { useSeo } from "@hooks/useSeo";
 import { CommentsList, EditModal } from "./component";
 import useSWR from "swr";
 import useSWRMutation from "swr/mutation";
+import { ActionButton, ActionButtons } from "@components/widgets/ActionButtons";
 
 const tabsList = [
   {
@@ -52,13 +50,12 @@ export const CommentsPage: BasicPage = () => {
   const [showEditModal, setShowEditModal] = useState(false);
   // const [inSideLoading, setInSideLoading] = useState(true);
 
-  const { data, mutate } = useSWR<any>(
-    `/comments?status=${tab}&page=${page}`
-  );
+  const { data, mutate } = useSWR<any>(`/comments?status=${tab}&page=${page}`);
 
   useEffect(() => {
     navigate(jump(`/comments?status=${tab}&page=${page}`));
     mutate();
+    setSelect([]);
   }, [page, tab]);
 
   const handleDelete = () => {
@@ -111,82 +108,45 @@ export const CommentsPage: BasicPage = () => {
           <div className={postStyles.head}>
             <span className={postStyles.headTitle}>评论 · 列表</span>
             <div style={{ height: "20px" }}>
-              {(select.length && (
-                <button
-                  className={postStyles.button}
-                  onClick={() => {
-                    setSelect([]);
-                    const items = document.querySelectorAll(
-                      `.${postStyles.select}`
-                    );
-                    items.forEach((item) => {
-                      item.classList.remove(postStyles.select);
-                    });
-                  }}
-                >
-                  <Clear />
-                </button>
-              )) ||
-                null}
-              {(select.length && (
-                <button
-                  className={postStyles.button}
-                  onClick={async (e) => {
-                    if (
-                      e.currentTarget.classList.contains(postStyles.confrim)
-                    ) {
-                      handleUpdateStatus(3);
-                    } else {
-                      e.currentTarget.classList.add(postStyles.confrim);
-                    }
-                  }}
-                >
-                  <Delete />
-                </button>
-              )) ||
-                null}
+              <ActionButtons
+                selectedClassName={postStyles.select}
+                setSelect={setSelect}
+                selected={select}
+                editAction={() => {
+                  setShowEditModal(true);
+                }}
+                deleteFunction={() => {
+                  handleUpdateStatus(3);
+                }}
+              />
               {(select.length && tab === 3 && (
-                <button
-                  className={postStyles.button}
-                  onClick={() => {
+                <ActionButton
+                  label="重审评论"
+                  icon={<Redo />}
+                  action={() => {
                     handleUpdateStatus(0);
                   }}
-                >
-                  <Redo />
-                </button>
+                />
               )) ||
                 null}
               {(select.length && tab !== 1 && (
-                <button
-                  className={postStyles.button}
-                  onClick={() => {
+                <ActionButton
+                  label="通过"
+                  icon={<CheckSmall />}
+                  action={() => {
                     handleUpdateStatus(1);
                   }}
-                >
-                  <CheckSmall />
-                </button>
+                />
               )) ||
                 null}
               {(select.length && tab !== 2 && (
-                <button
-                  className={postStyles.button}
-                  onClick={() => {
+                <ActionButton
+                  label="拒绝"
+                  icon={<CloseSmall />}
+                  action={() => {
                     handleUpdateStatus(2);
                   }}
-                >
-                  <CloseSmall />
-                </button>
-              )) ||
-                null}
-              {(select.length === 1 && (
-                <button
-                  className={postStyles.button}
-                  onClick={() => {
-                    setShowEditModal(true);
-                  }}
-                >
-                  <Edit />
-                </button>
+                />
               )) ||
                 null}
             </div>

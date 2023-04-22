@@ -1,5 +1,5 @@
 import { Disclosure } from "@headlessui/react"
-import { PropsWithChildren } from "react"
+import type { PropsWithChildren } from "react"
 import styles from "./index.module.css"
 
 interface ICollapse {

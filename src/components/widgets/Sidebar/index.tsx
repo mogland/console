@@ -10,7 +10,6 @@ import {
   MenuFoldOne,
   MenuUnfoldOne,
   OpenDoor,
-  Page,
   Setting,
   Theme,
 } from "@icon-park/react";

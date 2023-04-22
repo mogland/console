@@ -1,4 +1,4 @@
-import { AddOne, Clear, Delete, Edit } from "@icon-park/react";
+import { AddOne } from "@icon-park/react";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +13,7 @@ import {
 } from "@pages/Home/universal";
 import styles from "./index.module.css";
 import { useSeo } from "@hooks/useSeo";
+import { ActionButton, ActionButtons } from "@components/widgets/ActionButtons";
 
 export const PostsIndex: BasicPage = () => {
   useSeo("文章 · 列表");
@@ -47,65 +48,28 @@ export const PostsIndex: BasicPage = () => {
             <div className={styles.head}>
               <span className={styles.headTitle}>文章 · 列表</span>
               <div>
-                {(select.length && (
-                  <button
-                    className={styles.button}
-                    onClick={() => {
-                      setSelect([]);
-                      const items = document.querySelectorAll(".item");
-                      items.forEach((item) => {
-                        item.classList.remove(styles.select);
+                <ActionButtons
+                  selectedClassName={styles.select}
+                  setSelect={setSelect}
+                  selected={select}
+                  editAction={() => {
+                    navigate(`/write/post?id=${select[0]}`);
+                  }}
+                  deleteFunction={() => {
+                    select.forEach((item) => {
+                      apiClient(`/post/${item}`, {
+                        method: "DELETE",
                       });
-                    }}
-                  >
-                    <Clear />
-                  </button>
-                )) ||
-                  null}
-                {(select.length && (
-                  <button
-                    className={styles.button}
-                    onClick={(e) => {
-                      if (e.currentTarget.classList.contains(styles.confrim)) {
-                        // select.forEach((item) => {
-                        //   apiClient(`/post/${item}`, {
-                        //     method: "DELETE",
-                        //   })
-                        // })
-                        setSelect([]);
-                        document
-                          .querySelectorAll(`.${styles.select}`)
-                          .forEach((item) => {
-                            item.remove();
-                          });
-                      } else {
-                        e.currentTarget.classList.add(styles.confrim);
-                      }
-                    }}
-                  >
-                    <Delete />
-                  </button>
-                )) ||
-                  null}
-                {(select.length === 1 && (
-                  <button
-                    className={styles.button}
-                    onClick={() => {
-                      navigate(`/write/post?id=${select[0]}`);
-                    }}
-                  >
-                    <Edit />
-                  </button>
-                )) ||
-                  null}
-                <button
-                  className={styles.button}
-                  onClick={() => {
+                    });
+                  }}
+                />
+                <ActionButton
+                  icon={<AddOne />}
+                  label="新建文章"
+                  action={() => {
                     navigate("/write/post");
                   }}
-                >
-                  <AddOne />
-                </button>
+                />
               </div>
             </div>
           </Title>
