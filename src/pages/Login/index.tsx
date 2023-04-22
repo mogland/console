@@ -54,8 +54,9 @@ export const Login: BasicPage = () => {
           setCookie("token", res.token);
           toast.success("登录成功, 欢迎回来");
           app.authenticated = true;
+          app.showSidebar = true;
           navigate(jump("/dashboard"));
-          window.location.reload();
+          // window.location.reload();
         })
         .catch((res) => {
           toast.error(`登录失败 - ${res.data.message}`);

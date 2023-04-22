@@ -1,7 +1,8 @@
 import { toast } from "sonner";
-import { proxy, subscribe, useSnapshot } from "valtio";
+import { proxy, subscribe } from "valtio";
 import { MOG_OFFICIAL_SERVICES } from "@constants/services";
 export const app = proxy({
+  token: null as string | null,
   showSidebar: false,
   authenticated: false,
   // if there is an error, it will be stored here ( just use in init phase )

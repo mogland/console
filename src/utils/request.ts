@@ -13,3 +13,9 @@ export const apiClient = ofetch.create({
   //   toast.error(`${error.response._data.message}`)
   // },
 });
+
+export const fetch = (url: RequestInfo) => {
+  const getToken = getCookie("token");
+  const headers = { Authorization: `Bearer ${getToken}`, token: getToken || "" };
+  return apiClient(url, { headers });
+};

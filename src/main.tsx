@@ -5,7 +5,7 @@ import App from "./App";
 import "@icon-park/react/styles/index.css";
 import "./index.css";
 import { SWRConfig } from "swr";
-import { apiClient } from "@utils/request";
+import { fetch } from "@utils/request";
 import { Toaster } from "sonner"
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
@@ -13,7 +13,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <BrowserRouter>
       <SWRConfig
         value={{
-          fetcher: apiClient,
+          fetcher: fetch,
         }}
       >
         <Toaster
