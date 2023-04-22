@@ -18,7 +18,7 @@ import { Space } from "@components/universal/Space";
 import { useSeo } from "@hooks/useSeo";
 import { toast } from "sonner";
 
-const LIST = "https://ghproxy.com/https://raw.githubusercontent.com/mogland/awesome-mog/main/production-awesome-list/themes.json";
+const LIST = "https://raw.githubusercontent.com/mogland/awesome-mog/main/production-awesome-list/themes.json";
 
 export const ThemesPage: BasicPage = () => {
   useSeo("主题")
@@ -52,14 +52,12 @@ export const ThemesPage: BasicPage = () => {
       handleLocalData(),
       fetch(LIST, {
         method: "GET",
-        referrer: "https://ghproxy.com",
       })
         .then((res) => res.json())
         .then((res) => {
           for (let i = 0; i < res.length; i++) {
-            fetch(`https://ghproxy.com/https://raw.githubusercontent.com/${res[i].repo}/main/config.yaml`, {
+            fetch(`https://raw.githubusercontent.com/${res[i].repo}/main/config.yaml`, {
               method: "GET",
-              referrer: "https://ghproxy.com",
             })
               .then((yaml) => yaml.text())
               .then((yaml) => {
