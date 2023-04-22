@@ -51,12 +51,6 @@ const Links = () => {
       })}
     >
       <SidebarItem icon={HomeTwo({})} title="仪表盘" href={jump("/dashboard")} />
-      <SidebarItem
-        icon={Page({})}
-        title="前往站点"
-        href={"https://github.com"}
-        outside
-      />
       <Space height={20} />
       <SidebarItem icon={Editor({})} title="文章" href={jump("/posts")} />
       <SidebarItem
