@@ -53,7 +53,7 @@ export const CommentsPage: BasicPage = () => {
   // const [inSideLoading, setInSideLoading] = useState(true);
 
   const { data, mutate } = useSWR<any>(
-    `/comments?status=${status}&page=${page}`
+    `/comments?status=${tab}&page=${page}`
   );
 
   useEffect(() => {
