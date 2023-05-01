@@ -84,6 +84,12 @@
   margin-bottom: 0.5rem;
 }
 
+.modalBody a {
+  @apply text-sm text-blue-500 underline;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
 .double-click {
   background-color: red !important;
 }
