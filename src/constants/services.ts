@@ -34,5 +34,9 @@ export const MOG_OFFICIAL_SERVICES = [
   {
     name: "主题服务",
     url: "themes",
+  },
+  {
+    name: "储藏服务",
+    url: "store",
   }
 ];
