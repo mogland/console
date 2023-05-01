@@ -19,6 +19,7 @@ import { jump } from "@utils/path";
 import { useSeo } from "@hooks/useSeo";
 import { toast } from "sonner";
 import useSWR from "swr";
+import { Space } from "@components/universal/Space";
 
 const tabsAPI = ["/user/master/info", "/configs"];
 
@@ -262,6 +263,20 @@ export const SettingsPage: BasicPage = () => {
               type="password"
             />
           </Collapse>
+          <Collapse title="迁移与备份">
+            <ModalBody>
+              导出备份文件, 此操作将会导出文章、页面、评论、用户与友链信息
+            </ModalBody>
+            <Button onClick={handleExportData}>导出</Button>
+            <ModalBody>导入备份文件, 此操作将会与现有信息合并</ModalBody>
+            <Button onClick={handleImportData}>导入</Button>
+            <Space height={20} />
+            <ModalBody>
+              如果您对此功能尚不熟悉，请前往
+              <a href="https://mog.js.org/docs/migrate/backup">文档</a>
+              阅读后使用
+            </ModalBody>
+          </Collapse>
         </CollapseContainer>
 
         <Button
@@ -331,3 +346,50 @@ export const SettingsPage: BasicPage = () => {
     </>
   );
 };
+
+function handleExportData() {
+  const handler = apiClient("/migrate/export").then((res) => {
+    const blob = new Blob([JSON.stringify(res)], {
+      type: "application/json",
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "mog.json";
+    a.click();
+    URL.revokeObjectURL(url);
+    return res;
+  })
+  toast.promise(handler, {
+    loading: "正在导出",
+    success: "导出成功",
+    error: (data) => `导出失败 - ${data.message}`,
+  });
+}
+
+function handleImportData() {
+  const input = document.createElement("input");
+  input.type = "file";
+  input.accept = "application/json";
+  input.onchange = (e: any) => {
+    const file = e.target.files[0];
+    if (!file) {
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      const data = JSON.parse(e.target.result as string);
+      const handler = apiClient("/migrate/import", {
+        method: "POST",
+        body: JSON.stringify(data),
+      });
+      toast.promise(handler, {
+        loading: "正在导入",
+        success: "导入成功",
+        error: (data) => `导入失败 - ${data.message}`,
+      });
+    };
+    reader.readAsText(file);
+  }
+  input.click();
+}

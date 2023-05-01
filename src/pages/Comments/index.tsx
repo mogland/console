@@ -8,11 +8,7 @@ import { getQueryVariable } from "@utils/url";
 import { useNavigate } from "react-router-dom";
 import { apiClient } from "@utils/request";
 import { Title } from "@components/universal/Title";
-import {
-  CheckSmall,
-  CloseSmall,
-  Redo,
-} from "@icon-park/react";
+import { CheckSmall, CloseSmall, Redo } from "@icon-park/react";
 import { mailAvatar } from "@utils/avatar";
 import { jump } from "@utils/path";
 import { useSeo } from "@hooks/useSeo";
@@ -20,6 +16,7 @@ import { CommentsList, EditModal } from "./component";
 import useSWR from "swr";
 import useSWRMutation from "swr/mutation";
 import { ActionButton, ActionButtons } from "@components/widgets/ActionButtons";
+import { Button } from "@components/universal/Button";
 
 const tabsList = [
   {
@@ -188,11 +185,19 @@ export const CommentsPage: BasicPage = () => {
       </div>
       <div className={postStyles.nav}>
         {(data?.pagination.has_prev_page && (
-          <button className={postStyles.button}>上一页</button>
+          <Button 
+          onClick={() => {
+            navigate(jump(`/comments?status=${tab}&page=${page - 1}`));
+          }}
+          >上一页</Button>
         )) ||
           null}
         {(data?.pagination.has_next_page && (
-          <button className={postStyles.button}>下一页</button>
+          <Button
+          onClick={() => {
+            navigate(jump(`/comments?status=${tab}&page=${page + 1}`));
+          }}
+          >下一页</Button>
         )) ||
           null}
       </div>
