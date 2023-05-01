@@ -3,6 +3,7 @@ import {
   Comment,
   Dashboard,
   Editor,
+  FolderFocusOne,
   FriendsCircle,
   HomeTwo,
   Login,
@@ -76,6 +77,7 @@ const Links = () => {
       <Space height={20} />
       <SidebarItem icon={Theme({})} title="主题" href={jump("/themes")} />
       <SidebarItem icon={Setting({})} title="系统设置" href={jump("/settings")} />
+      <SidebarItem icon={FolderFocusOne({})} title="文件管理" href={jump("/files")} />
       <SidebarItem icon={Dashboard({})} title="服务状态" href={jump("/status")} />
       <Space height={30} />
       <span
