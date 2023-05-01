@@ -15,7 +15,7 @@ export const apiClient = ofetch.create({
 });
 
 export const fetch = (url: RequestInfo) => {
-  const getToken = getCookie("token");
-  const headers = { Authorization: `Bearer ${getToken}`, token: getToken || "" };
+  const getToken = getCookie("token") || "";
+  const headers = { Authorization: `Bearer ${getToken}`, token: getToken };
   return apiClient(url, { headers });
 };

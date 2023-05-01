@@ -76,6 +76,7 @@ export const Home: BasicPage = () => {
     comments,
     pages,
   } = useHomeAggregateData();
+
   useEffect(() => {
     if (
       friendsPending &&

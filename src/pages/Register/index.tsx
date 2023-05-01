@@ -20,19 +20,19 @@ export const RegisterPage: BasicPage = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const appSnapshot = useSnapshot(app);
 
+  const { error } = useSWR("/user/master/info");
+  if (!error) {
+    toast.error("已注册，正在前往登录页面");
+    navigate(jump("/login"));
+    app.showSidebar = false;
+  }
+
   useEffect(() => {
     if (appSnapshot.authenticated) {
-      toast.success("已登录，正在前往仪表盘")
+      toast.success("已登录，正在前往仪表盘");
       navigate(jump("/dashboard"));
       return;
     }
-    const { error } = useSWR("/user/master/info");
-    if (!error) {
-      toast.error("已注册，正在前往登录页面")
-      navigate(jump("/login"));
-      return;
-    }
-    app.showSidebar = false;
   }, []);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
