@@ -18,8 +18,10 @@ import { Toggle } from "@components/universal/Toggle";
 import { jump } from "@utils/path";
 import { useSeo } from "@hooks/useSeo";
 import { toast } from "sonner";
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import { Space } from "@components/universal/Space";
+import { app } from "@states/app";
+import { removeCookie } from "@utils/cookie";
 
 const tabsAPI = ["/user/master/info", "/configs"];
 
@@ -125,7 +127,7 @@ export const SettingsPage: BasicPage = () => {
               }}
             />
             <Input
-              value={_user?.password || ""}
+              value={_user?.password}
               type="password"
               style={{
                 backgroundColor: "var(--background-color-primary)",
@@ -151,6 +153,13 @@ export const SettingsPage: BasicPage = () => {
                     error: "保存失败",
                   }
                 );
+                if (_user.password) {
+                  removeCookie("token");
+                  app.authenticated = false;
+                  navigate(jump("/login"));
+                  mutate("/user/check");
+                  toast("您修改了密码，请重新登录");
+                }
               }}
             >
               保存
@@ -359,7 +368,7 @@ function handleExportData() {
     a.click();
     URL.revokeObjectURL(url);
     return res;
-  })
+  });
   toast.promise(handler, {
     loading: "正在导出",
     success: "导出成功",
@@ -390,6 +399,6 @@ function handleImportData() {
       });
     };
     reader.readAsText(file);
-  }
+  };
   input.click();
 }
