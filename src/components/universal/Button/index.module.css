@@ -3,6 +3,7 @@
   color: var(--modal-text-color);
   background-color: var(--modal-background-color) !important;
   transition: background-color 0.2s ease;
+  user-select: none;
 }
 
 .button:hover {
