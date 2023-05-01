@@ -9,6 +9,7 @@ import { GridContainer, Widget, TableContainer, TableItem } from "./universal";
 import { useNavigate } from "react-router-dom";
 import { useSeo } from "@hooks/useSeo";
 import { useHomeAggregateData } from "@hooks/useHomeAggregateData";
+import { Footer } from "@components/widgets/Footer";
 
 interface IHomeTotal {
   posts: {
@@ -250,6 +251,7 @@ export const Home: BasicPage = () => {
           </Tab.Group>
         </Widget>
       </div>
+      <Footer />
     </div>
   );
 };

@@ -6,6 +6,8 @@ import { app } from "./states/app";
 import useSWR from "swr";
 import { InternelServerErrorPage } from "@pages/InternelServerErrorPage";
 import { useAppCheck } from "@hooks/useAppCheck";
+import { useEffect } from "react";
+import pack from "../package.json";
 
 function App() {
   const appSnapshot = useSnapshot(app);
@@ -24,6 +26,10 @@ function App() {
   }
 
   useAppCheck();
+
+  useEffect(() => {
+    window.version = pack.version;
+  }, [])
   
   return (
     <>
