@@ -252,7 +252,7 @@ export const EditorPage: BasicPage = () => {
       <div className={clsx("loading", !loading && "loaded")}>
         <div className={styles.container}>
           <form className={styles.form} ref={formRef}>
-            <input
+            {/* <input
               onChange={(e) => {
                 setData({ ...data, title: e.target.value });
               }}
@@ -270,9 +270,11 @@ export const EditorPage: BasicPage = () => {
               name="slug"
               placeholder="Slug"
               defaultValue={data?.slug}
-            />
+            /> */}
             {!loading && (
               <MarkdownEditor
+                id={data?.id || undefined}
+                title={data?.title || ""}
                 initialValue={data?.text || " "}
                 height="calc(100vh - 200px)"
                 onChange={(value: string | undefined) => {
