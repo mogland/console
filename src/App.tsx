@@ -6,13 +6,21 @@ import { app } from "./states/app";
 import useSWR from "swr";
 import { InternelServerErrorPage } from "@pages/InternelServerErrorPage";
 import { useAppCheck } from "@hooks/useAppCheck";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import pack from "../package.json";
+import { Toaster } from "sonner";
 
 function App() {
   const appSnapshot = useSnapshot(app);
 
   const { error: gatewayError } = useSWR("/ping");
+  const [theme, setTheme] = useState("light");
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      setTheme("dark");
+    }
+  }, []);
 
   if (gatewayError) {
     return (
@@ -29,10 +37,11 @@ function App() {
 
   useEffect(() => {
     window.version = pack.version;
-  }, [])
-  
+  }, []);
+
   return (
     <>
+      <Toaster theme={theme as any} richColors />
       <div className={clsx("app")}>
         {appSnapshot.showSidebar && <Sidebar />}
         <div className="inner">

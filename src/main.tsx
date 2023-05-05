@@ -6,7 +6,6 @@ import "@icon-park/react/styles/index.css";
 import "./index.css";
 import { SWRConfig } from "swr";
 import { fetch } from "@utils/request";
-import { Toaster } from "sonner"
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -16,9 +15,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           fetcher: fetch,
         }}
       >
-        <Toaster
-          richColors
-        />
         <App />
       </SWRConfig>
     </BrowserRouter>
