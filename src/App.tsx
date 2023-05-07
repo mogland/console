@@ -12,9 +12,7 @@ import pack from "../package.json";
 function App() {
   const appSnapshot = useSnapshot(app);
 
-  const { error: gatewayError } = useSWR("/ping");
-
-  if (gatewayError) {
+  if (appSnapshot.gatewayError) {
     return (
       <InternelServerErrorPage
         title={"Mog Gateway 错误"}

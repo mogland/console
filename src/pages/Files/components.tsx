@@ -41,17 +41,44 @@ export const Item = (
     }
   }, [props]);
 
+  const [clickCount, setClickCount] = useState(1);
+  const doubleOrOneClick = (callback: () => void) => {
+    return () => {
+      setClickCount(clickCount + 1);
+      
+      const timer = setTimeout(() => {
+        if (clickCount === 1) {
+          props.onClick?.();
+        } else if (clickCount > 1) {
+          callback();
+        }
+        setClickCount(1);
+      }, 200);
+
+      return () => clearTimeout(timer);
+    };
+  };
+
   const handleOnClick = () => {
     if (props.type === "directory") {
-      navgative(`/files?path=${props.path}/${props.name}`);
+      // navgative(`/files?path=${props.path}/${props.name}`);
+      // props.onClick?.();
+      doubleOrOneClick(() => {
+        navgative(`/files?path=${props.path}/${props.name}`);
+      })();
     } else {
       // window.open(`${API}/store/raw/${props.path}/${props.name}`);
-      props.onClick?.();
+      doubleOrOneClick(() => {
+        window.open(`${API}/store/raw/${props.path}/${props.name}`);
+      })();
     }
   };
 
   return (
-    <div className={clsx(styles.itemContainer, props.className)} onClick={handleOnClick}>
+    <div
+      className={clsx(styles.itemContainer, props.className)}
+      onClick={handleOnClick}
+    >
       <div className={styles.item}>
         <div className={styles.itemIcon}>{icon}</div>
         <div className={styles.itemInfo}>
