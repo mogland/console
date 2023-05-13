@@ -128,7 +128,7 @@ export const FriendsPage: BasicPage = () => {
           onConfirm={() => {
             const REQUEST = {
               method: select[0] ? "PUT" : "POST",
-              URL: select[0] ? jump(`/friends/${select[0]}`) : jump("/friends"),
+              URL: select[0] ? `/friends/${select[0]}` : "/friends",
               title: select[0] ? "修改成功" : "添加成功",
             };
             const request = async () => {
