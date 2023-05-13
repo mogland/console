@@ -342,7 +342,7 @@ export const FriendsPage: BasicPage = () => {
                 deleteFunction={() => {
                   const handler = Promise.all(
                     select.map((item) => {
-                      return apiClient(`/post/${item}`, {
+                      return apiClient(`/friends/${item}`, {
                         method: "DELETE",
                       });
                     })
