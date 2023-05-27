@@ -9,6 +9,7 @@ export const app = proxy({
   // example: ["user", "comments"] --  means there is an error in user and comments service
   // Gateway's error will not be stored here, it will turn to Internal Server Error Page directly
   error: [] as any[],
+  gatewayError: false,
 });
 
 subscribe(app.error, (state) => {

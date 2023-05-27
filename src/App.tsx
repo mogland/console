@@ -12,7 +12,6 @@ import { Toaster } from "sonner";
 
 function App() {
   const appSnapshot = useSnapshot(app);
-
   const { error: gatewayError } = useSWR("/ping");
   const [theme, setTheme] = useState("light");
 

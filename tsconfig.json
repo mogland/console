@@ -27,6 +27,7 @@
       "@states/*": ["src/states/*"],
       "@hooks/*": ["src/hooks/*"],
       "@constants/*": ["src/constants/*"],
+      "@libs/*": ["src/libs/*"],
     }
   },
   "include": ["src"],

@@ -1,0 +1,83 @@
+.container {
+  margin-top: 30px;
+  display: flex;
+}
+
+.itemContainer {
+  cursor: pointer;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  margin: 0 10px;
+  height: 200px;
+  width: 200px;
+  background-color: var(--background-color-primary);
+  border-radius: 10px;
+  transition: background-color .2s ease-in-out;
+  padding: 10px;
+
+}
+
+
+@media screen and (max-width: 768px) {
+  .container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 0px;
+    margin-left: -14px;
+  }
+}
+
+.itemContainer:hover {
+  background-color: var(--background-color-secondary);
+}
+
+.itemIcon {
+  height: 130px;
+  width: 130px;
+  font-size: 50px;
+  color: var(--text-color-primary);
+  background-color: var(--background-color-secondary);
+  border-radius: 10px;
+  padding: 13px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.itemInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 150px;
+  text-align: left;
+}
+
+.itemSize {
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: var(--text-color-primary);
+}
+
+.breadcrumb {
+  display: inline-block;
+  margin: 0 10px;
+  font-size: 0.85rem;
+}
+
+.breadcrumbItem {
+  color: var(--text-color-primary);
+  cursor: pointer;
+  margin-right: 2px;
+}
+
+.selected {
+  background-color: var(--background-color-quaternary) !important;
+}

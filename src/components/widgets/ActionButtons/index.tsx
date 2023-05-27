@@ -6,7 +6,7 @@ interface ActionButtonsProps {
   selectedClassName: string
   setSelect: (value: React.SetStateAction<any>) => void
   selected: any[]
-  editAction: (event: React.MouseEvent<HTMLButtonElement>) => void
+  editAction?: (event: React.MouseEvent<HTMLButtonElement>) => void
   deleteFunction: (e) => void
 }
 
@@ -51,6 +51,7 @@ export const ActionButtons = (props: ActionButtonsProps) => {
   }
 
   const EditButton = () => {
+    if (!editAction) return null
     return (
       <ActionButton
         icon={<Edit />}
