@@ -16,6 +16,7 @@ export default defineConfig({
       "@states": path.resolve(__dirname, "src/states"),
       "@hooks": path.resolve(__dirname, "src/hooks"),
       "@constants": path.resolve(__dirname, "src/constants"),
+      "@libs": path.resolve(__dirname, "src/libs"),
     },
   },
 });

@@ -4,6 +4,8 @@ import { API } from "@utils/request";
 import { FileMusic, FileText, FolderOpen, Notes } from "@icon-park/react";
 import { useNavigate } from "react-router-dom";
 import clsx from "clsx";
+import { dialog } from "@libs/dialogs";
+import { calculateMousePosition } from "@utils/mouse";
 
 export interface FileItemProps {
   name: string;
@@ -20,6 +22,7 @@ export const Item = (
 ) => {
   const [icon, setIcon] = useState<React.ReactNode>(<></>);
   const navgative = useNavigate();
+  const { open, close, isOpen } = dialog.useDialog('fileContextMenu', {})
 
   useEffect(() => {
     if (props.type === "image") {
@@ -59,6 +62,20 @@ export const Item = (
     };
   };
 
+  const contextMenu = (e: React.MouseEvent<MouseEvent>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const { x, y } = calculateMousePosition(e)
+    open({
+      position: {
+        x,
+        y,
+      },
+      path: `${props.path}`,
+      name: `${props.name}`,
+    })
+  }
+
   const handleOnClick = () => {
     if (props.type === "directory") {
       // navgative(`/files?path=${props.path}/${props.name}`);
@@ -69,7 +86,7 @@ export const Item = (
     } else {
       // window.open(`${API}/store/raw/${props.path}/${props.name}`);
       doubleOrOneClick(() => {
-        window.open(`${API}/store/raw/${props.path}/${props.name}`);
+        window.open(`${API}/store/raw${props.path}/${props.name}`);
       })();
     }
   };
@@ -78,6 +95,7 @@ export const Item = (
     <div
       className={clsx(styles.itemContainer, props.className)}
       onClick={handleOnClick}
+      onContextMenu={contextMenu as any}
     >
       <div className={styles.item}>
         <div className={styles.itemIcon}>{icon}</div>

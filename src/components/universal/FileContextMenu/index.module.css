@@ -1,0 +1,46 @@
+.contextMenu {
+  position: absolute;
+  /* padding: 10px 30px; */
+  background-color: var(--background-color);
+  /* box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2); */
+  border: 1px solid var(--background-color-secondary);
+  border-radius: 15px;
+  flex-direction: column;
+  animation: fadeIn 0.1s ease-in-out;
+}
+
+.action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px 30px;
+  transition: background-color 0.1s ease-in-out;
+}
+
+.action:first-child {
+  border-top-left-radius: 13px;
+  border-top-right-radius: 13px;
+}
+
+.action:last-child {
+  border-bottom-left-radius: 13px;
+  border-bottom-right-radius: 13px;
+}
+
+.action:hover {
+  background-color: var(--background-color-secondary);
+}
+
+.icon {
+  margin-right: 15px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
