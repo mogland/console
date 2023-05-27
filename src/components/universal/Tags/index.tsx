@@ -66,7 +66,7 @@ export const Tags: React.FC<TagsProp> = (props) => {
             <Input
               styles={tagStyles}
               ref={inputRef}
-              key={tag}
+              key={`${tag}-${index}`}
               style={{ width: 78 }}
               defaultValue={inputValue}
               onChange={handleInputChange}
@@ -79,7 +79,7 @@ export const Tags: React.FC<TagsProp> = (props) => {
         }
 
         return (
-          <Tag closable key={tag} onClose={() => handleClose(tag)} styles={tagStyles}>
+          <Tag closable key={`${tag}-${index}`} onClose={() => handleClose(tag)} styles={tagStyles}>
             {tag}
           </Tag>
         );

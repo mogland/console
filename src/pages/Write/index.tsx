@@ -33,7 +33,6 @@ export const EditorPage: BasicPage = () => {
   const serverSnapshot = useSnapshot(server);
 
   useSeo(`${data?.title ? data.title : "新建"}${type === "page" ? "页面" : "文章"}`);
-
   useEffect(() => {
     if (!id) {
       setData({});
@@ -65,7 +64,7 @@ export const EditorPage: BasicPage = () => {
               method: data.id ? "PUT" : "POST",
               body: JSON.stringify({
                 ...data,
-                categoryId: data.category_id.value,
+                categoryId: data.category_id,
                 category: undefined,
               }),
             }).then(() => {
@@ -183,7 +182,7 @@ export const EditorPage: BasicPage = () => {
                 onChange={(value) => {
                   setData({
                     ...data,
-                    category_id: value,
+                    category_id: value.value,
                   });
                 }}
               />
