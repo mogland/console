@@ -13,17 +13,17 @@ import { FileContextMenu } from "@components/universal/FileContextMenu";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>
-      <SWRConfig
-        value={{
-          fetcher: fetch,
-        }}
-      >
-        <DialogProvider dialogs={dialogs}>
+      <DialogProvider dialogs={dialogs}>
+        <SWRConfig
+          value={{
+            fetcher: fetch,
+          }}
+        >
           <FileContextMenu />
           <App />
-        </DialogProvider>
-        <App />
-      </SWRConfig>
+          <App />
+        </SWRConfig>
+      </DialogProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
