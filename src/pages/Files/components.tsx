@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import styles from "./index.module.css";
-import { API } from "@utils/request";
+import { API, apiClient } from "@utils/request";
 import { FileMusic, FileText, FolderOpen, Notes } from "@icon-park/react";
 import { useNavigate } from "react-router-dom";
 import clsx from "clsx";
 import { dialog } from "@libs/dialogs";
 import { calculateMousePosition } from "@utils/mouse";
+import { Editable } from "@components/universal/Editable";
+import { toast } from "sonner";
 
 export interface FileItemProps {
   name: string;
@@ -21,8 +23,9 @@ export const Item = (
   }
 ) => {
   const [icon, setIcon] = useState<React.ReactNode>(<></>);
+  const [rename, setRename] = useState(false);
   const navgative = useNavigate();
-  const { open, close, isOpen } = dialog.useDialog('fileContextMenu', {})
+  const { open } = dialog.useDialog('fileContextMenu', {})
 
   useEffect(() => {
     if (props.type === "image") {
@@ -62,6 +65,10 @@ export const Item = (
     };
   };
 
+  const onRename = () => {
+    setRename(true);
+  }
+
   const contextMenu = (e: React.MouseEvent<MouseEvent>) => {
     e.preventDefault();
     e.stopPropagation();
@@ -73,6 +80,8 @@ export const Item = (
       },
       path: `${props.path}`,
       name: `${props.name}`,
+      onRename,
+      isFile: props.type !== "directory"
     })
   }
 
@@ -100,7 +109,22 @@ export const Item = (
       <div className={styles.item}>
         <div className={styles.itemIcon}>{icon}</div>
         <div className={styles.itemInfo}>
-          {props.name} <span className={styles.itemSize}>{props.size}</span>
+          <Editable value={props.name} enable={rename} onChange={(value) => {
+            setRename(false)
+            console.log(value);
+            toast.promise(apiClient("/store/rename", {
+              method: "PATCH",
+              body: {
+                oldPath: `${props.path}/${props.name}`,
+                newPath: `${props.path}/${value}`,
+              }
+            }), {
+              loading: "正在重命名",
+              success: "重命名成功",
+              error: "重命名失败",
+            })
+          }} />
+          <span className={styles.itemSize}>{props.size}</span>
         </div>
       </div>
     </div>

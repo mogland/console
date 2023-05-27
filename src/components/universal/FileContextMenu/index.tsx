@@ -3,16 +3,10 @@ import styles from "./index.module.css";
 import clsx from "clsx";
 import { useEffect, useRef } from "react";
 import {
-  Copy,
   Delete,
   Download,
-  EditName,
-  Label,
-  LinkBreak,
   LinkOne,
-  Move,
   MoveOne,
-  Open,
   Pencil,
   Share,
 } from "@icon-park/react";
@@ -20,8 +14,10 @@ import { API, apiClient } from "@utils/request";
 import path from "path";
 import { toast } from "sonner";
 import { ofetch } from "ofetch";
+import { useNavigate } from "react-router-dom";
 
 export const FileContextMenu = () => {
+  const navgative = useNavigate();
   const { isOpen, handleClose, props } =
     dialog.useDialogController("fileContextMenu");
   const ref = useRef<HTMLDivElement>(null);
@@ -39,7 +35,11 @@ export const FileContextMenu = () => {
   }, []);
 
   const handleOpen = () => {
-    window.open(`${API}/store/raw${props.path}/${props.name}`);
+    if (props.isFile) {
+      window.open(`${API}/store/raw${props.path}/${props.name}`);
+    } else {
+      navgative(`/files?path=${props.path}/${props.name}`);
+    }
   };
 
   const handleDownload = async () => {
@@ -48,7 +48,7 @@ export const FileContextMenu = () => {
     const blob = await ofetch(`${url}/${props.name}`, {
       method: "GET",
       responseType: "blob",
-      });
+    });
     const a = document.createElement("a");
     a.href = window.URL.createObjectURL(blob);
     a.download = props.name;
@@ -82,13 +82,17 @@ export const FileContextMenu = () => {
   const handleCopy = () => {
     toast.promise(
       Promise.all([
-        navigator.clipboard.writeText(`${API}/store/raw${props.path}/${props.name}`)
-      ]), {
+        navigator.clipboard.writeText(
+          `${API}/store/raw${props.path}/${props.name}`
+        ),
+      ]),
+      {
         loading: "正在复制",
         success: "复制成功",
         error: "复制失败",
-      })
-  }
+      }
+    );
+  };
 
   return (
     <div
@@ -104,12 +108,16 @@ export const FileContextMenu = () => {
       <button className={clsx(styles.action)} onClick={handleOpen}>
         <Share className={clsx(styles.icon)} /> 打开
       </button>
-      <button className={clsx(styles.action)} onClick={handleDownload}>
-        <Download className={clsx(styles.icon)} /> 下载
-      </button>
-      <button className={clsx(styles.action)} onClick={handleCopy}>
-        <LinkOne className={clsx(styles.icon)} /> 外链
-      </button>
+      {props.isFile && (
+        <button className={clsx(styles.action)} onClick={handleDownload}>
+          <Download className={clsx(styles.icon)} /> 下载
+        </button>
+      )}
+      {props.isFile && (
+        <button className={clsx(styles.action)} onClick={handleCopy}>
+          <LinkOne className={clsx(styles.icon)} /> 外链
+        </button>
+      )}
       <button className={clsx(styles.action)} onClick={handleRename}>
         <Pencil className={clsx(styles.icon)} /> 命名
       </button>

@@ -6,6 +6,7 @@ export const dialogs = createDialogs({
     name: "",
     position: { x: 0, y: 0 },
     onRename: () => {},
+    isFile: true,
   },
 });
 
