@@ -23,6 +23,7 @@ import { SettingsPage } from "../pages/Settings";
 import { StatusPage } from "../pages/Status";
 import { EditorPage } from "../pages/Write";
 import { FilesPage } from "@pages/Files";
+import { SchedulePage } from "@pages/Schedule";
 
 export const AppRouter = () => {
   return (
@@ -47,6 +48,7 @@ export const AppRouter = () => {
       <Route path={jump("/themes")}  element={<ThemesPage />} />
       <Route path={jump("/settings")}  element={<SettingsPage />} />
       <Route path={jump("/files")}  element={<FilesPage />} />
+      <Route path={jump("/schedule")}  element={<SchedulePage />} />
       <Route path={jump("/status")}  element={<StatusPage />} />
 
       <Route path={jump("/*")}  element={<NotFoundPage />} />
