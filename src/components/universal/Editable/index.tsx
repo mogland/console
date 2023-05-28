@@ -35,6 +35,7 @@ export const Editable = (props: {
           style={{
             textAlign: "center",
             borderRadius: "5px",
+            backgroundColor: "var(--background-color)",
           }}
           ref={inputRef}
           value={value}
@@ -44,7 +45,7 @@ export const Editable = (props: {
         />
       ) : (
         <span>
-          {props.value}
+          {value}
         </span>
       )}
     </div>
