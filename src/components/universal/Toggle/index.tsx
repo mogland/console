@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Switch } from "@headlessui/react";
 import clsx from "clsx";
 import styles from "./index.module.css";
@@ -21,6 +21,10 @@ export const Toggle: React.FC<SwitchProps> = ({
 }) => {
   const [state, setState] = useState(checked || value || false);
   const [enter, setEnter] = useState(false);
+
+  useEffect(() => {
+    setState(checked || value || false);
+  }, [checked, value]);
 
   const handleChange = () => {
     setState(!state);
