@@ -21,7 +21,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         >
           <FileContextMenu />
           <App />
-          <App />
         </SWRConfig>
       </DialogProvider>
     </BrowserRouter>
