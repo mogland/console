@@ -11,6 +11,7 @@ import {
   MenuFoldOne,
   MenuUnfoldOne,
   OpenDoor,
+  Schedule,
   Setting,
   Theme,
 } from "@icon-park/react";
@@ -78,6 +79,7 @@ const Links = () => {
       <SidebarItem icon={Theme({})} title="主题" href={jump("/themes")} />
       <SidebarItem icon={Setting({})} title="系统设置" href={jump("/settings")} />
       <SidebarItem icon={FolderFocusOne({})} title="文件管理" href={jump("/files")} />
+      <SidebarItem icon={Schedule({})} title="定时任务" href={jump("/schedule")} />
       <SidebarItem icon={Dashboard({})} title="服务状态" href={jump("/status")} />
       <Space height={30} />
       <span

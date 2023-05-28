@@ -10,6 +10,7 @@ export interface InputInterface {
   disabled?: boolean;
   children?: React.ReactNode;
   className?: string;
+  width?: string;
   [key: string]: any;
 }
 
@@ -25,6 +26,7 @@ export const Input: React.FC<InputInterface> = ({ label, value, onChange, oneLin
         className={styles.passwordInput}
         type={type || "text"}
         value={value}
+        style={{ width: props.width }}
         onChange={(e) => {
           onChange?.(e.target.value);
         }}

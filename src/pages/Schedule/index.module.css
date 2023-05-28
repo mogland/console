@@ -1,0 +1,9 @@
+.selected {
+  background-color: var(--background-color-quaternary) !important;
+}
+
+.error {
+  color: var(--text-color-primary);
+  font-size: 12px;
+  font-family: monospace;
+}

@@ -11,7 +11,7 @@ import clsx from "clsx";
 import { ActionButton, ActionButtons } from "@components/widgets/ActionButtons";
 import { apiClient } from "@utils/request";
 import { toast } from "sonner";
-import { AddOne, Upload } from "@icon-park/react";
+import { Upload } from "@icon-park/react";
 
 export const FilesPage: BasicPage = () => {
   useSeo("文件 · 管理");
