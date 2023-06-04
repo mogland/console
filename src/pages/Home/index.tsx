@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { useSeo } from "@hooks/useSeo";
 import { useHomeAggregateData } from "@hooks/useHomeAggregateData";
 import { Footer } from "@components/widgets/Footer";
+import { jump } from "@utils/path";
 
 interface IHomeTotal {
   posts: {
@@ -206,7 +207,7 @@ export const Home: BasicPage = () => {
                       <TableItem
                         header={["TITLE", "DATE", "READ"]}
                         onClick={() => {
-                          navigate(`/write/post?id=${item.id}`);
+                          navigate(jump(`/write/post?id=${item.id}`))
                         }}
                         style={{ cursor: "pointer" }}
                         key={index}

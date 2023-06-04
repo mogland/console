@@ -15,6 +15,7 @@ import { useSeo } from "@hooks/useSeo";
 import { toast } from "sonner";
 import useSWR from "swr";
 import { ActionButton, ActionButtons } from "@components/widgets/ActionButtons";
+import { jump } from "@utils/path";
 
 export const CategoriesPage: BasicPage = () => {
   useSeo("分类 & 标签");
@@ -438,7 +439,7 @@ const modal = (data, navigate, onClose) => {
             key={item.id}
             className={styles.modalItem}
             onClick={() => {
-              navigate(`/write/post?id=${item.id}`);
+              navigate(jump(`/write/post?id=${item.id}`));
             }}
           >
             <h1>{item.title}</h1>

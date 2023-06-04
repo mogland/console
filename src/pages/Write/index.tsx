@@ -20,6 +20,7 @@ import styles from "./index.module.css";
 import { Input, Textarea } from "./Input";
 import { useSeo } from "@hooks/useSeo";
 import { toast } from "sonner";
+import { jump } from "@utils/path";
 
 export const EditorPage: BasicPage = () => {
   const [loading, setLoading] = useState(true);
@@ -51,7 +52,7 @@ export const EditorPage: BasicPage = () => {
         setLoading(false);
       })
       .catch(() => {
-        navigate(`/${type}s`);
+        navigate(jump(`/${type}s`));
       });
   }, [type, id]);
 
@@ -68,7 +69,7 @@ export const EditorPage: BasicPage = () => {
                 category: undefined,
               }),
             }).then(() => {
-              navigate(`/${type}s`);
+              navigate(jump(`/${type}s`));
             });
             toast.promise(handler, {
               loading: "正在保存",

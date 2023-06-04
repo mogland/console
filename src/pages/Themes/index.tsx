@@ -22,6 +22,7 @@ import { Space } from "@components/universal/Space";
 import { useSeo } from "@hooks/useSeo";
 import { toast } from "sonner";
 import useSWR from "swr";
+import { jump } from "@utils/path";
 
 const LIST =
   "https://raw.githubusercontent.com/mogland/awesome-mog/main/production-awesome-list/themes.json";
@@ -101,7 +102,7 @@ export const ThemesPage: BasicPage = () => {
 
   const navigate = useNavigate();
   useEffect(() => {
-    navigate(`/themes?tab=${tab}`);
+    navigate(jump(`/themes?tab=${tab}`));
   }, [tab]);
 
   const InstallButton = ({

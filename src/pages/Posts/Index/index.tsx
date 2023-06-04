@@ -14,6 +14,7 @@ import {
 import styles from "./index.module.css";
 import { useSeo } from "@hooks/useSeo";
 import { ActionButton, ActionButtons } from "@components/widgets/ActionButtons";
+import { jump } from "@utils/path";
 
 export const PostsIndex: BasicPage = () => {
   useSeo("文章 · 列表");
@@ -53,7 +54,7 @@ export const PostsIndex: BasicPage = () => {
                   setSelect={setSelect}
                   selected={select}
                   editAction={() => {
-                    navigate(`/write/post?id=${select[0]}`);
+                    navigate(jump(`/write/post?id=${select[0]}`));
                   }}
                   deleteFunction={() => {
                     select.forEach((item) => {
@@ -67,7 +68,7 @@ export const PostsIndex: BasicPage = () => {
                   icon={<AddOne />}
                   label="新建文章"
                   action={() => {
-                    navigate("/write/post");
+                    navigate(jump("/write/post"));
                   }}
                 />
               </div>
