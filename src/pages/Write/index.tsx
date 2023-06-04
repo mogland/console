@@ -273,8 +273,9 @@ export const EditorPage: BasicPage = () => {
             {!loading && (
               <MarkdownEditor
                 initialValue={data?.text || " "}
-                height="calc(100vh - 200px)"
                 onChange={(value: string | undefined) => {
+                  console.log(value);
+                  
                   setData({
                     ...data,
                     text: value,
