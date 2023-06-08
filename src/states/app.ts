@@ -3,6 +3,7 @@ import { proxy, subscribe } from "valtio";
 import { MOG_OFFICIAL_SERVICES } from "@constants/services";
 export const app = proxy({
   token: null as string | null,
+  theme: "light" as "light" | "dark",
   showSidebar: false,
   authenticated: false,
   // if there is an error, it will be stored here ( just use in init phase )

@@ -17,6 +17,8 @@
     "dist"
   ],
   "dependencies": {
+    "@blocknote/core": "^0.8.0",
+    "@blocknote/react": "^0.8.0",
     "@headlessui/react": "^1.7.13",
     "@icon-park/react": "^1.4.2",
     "echarts": "^5.4.2",

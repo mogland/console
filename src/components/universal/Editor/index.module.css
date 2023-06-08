@@ -1,4 +1,16 @@
 .editor {
-  margin-top: 50px;
+  margin-top: 20px;
+}
 
+.editor>div>div {
+  padding-inline: 0;
+}
+
+.editor a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.editor a:hover {
+  text-decoration: underline;
 }
