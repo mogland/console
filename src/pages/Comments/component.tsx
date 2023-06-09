@@ -1,7 +1,6 @@
 import postStyles from "@pages/Posts/Index/index.module.css";
 import styles from "./index.module.css";
 import { Modal, ModalBody } from "@components/universal/Modal";
-import { Selects } from "@components/universal/Select";
 import {
   TableContainer,
   TableItem,
@@ -13,6 +12,7 @@ import clsx from "clsx";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import useSWR from "swr";
 import useSWRMutation from "swr/mutation";
+import { Select } from "@components/widgets/ThemeComponent/ThemeSelect";
 
 interface EditModalProps {
   tabsList: {
@@ -93,20 +93,21 @@ export const EditModal: React.FC<EditModalProps> = ({
         onConfirm={handleConfirm}
       >
         <ModalBody>状态</ModalBody>
-        <Selects
-          value={tabsList.map((item) => {
+        <Select 
+        onChange={(e) => {
+          setData({
+            ..._data,
+            status: Number(e),
+          });
+        }}
+          value={String(_data?.status)}
+          data={tabsList.map((item) => {
             return {
-              name: item.name,
-              value: item.status,
+              label: item.name,
+              value: String(item.status),
             };
           })}
-          onChange={(e) => {
-            setData({
-              ..._data,
-              status: Number(e),
-            });
-          }}
-          selected={_data?.status}
+          placeholder="请选择状态"
         />
         <Input
           value={_data?.author}
