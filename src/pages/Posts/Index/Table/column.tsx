@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import type { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, Copy, Delete, Edit, MoreHorizontal } from "lucide-react";
+import { Copy, Delete, Edit, MoreHorizontal } from "lucide-react";
 
 import { Button } from "@components/ui/button";
 import {
@@ -146,6 +146,7 @@ export const postsListColumns: ColumnDef<PostsListColumns>[] = [
             <DropdownMenuItem
               onClick={() => {
                 navigator.clipboard.writeText(post.title);
+                toast.success("已复制到剪贴板");
               }}
             >
               <Copy className="mr-2 h-4 w-4" />
