@@ -3,7 +3,6 @@ import clsx from "clsx";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSnapshot } from "valtio";
-import { DatePick } from "@components/universal/DatePick";
 import { MarkdownEditor } from "@components/universal/Editor";
 import { FloatBtn, FloatBtnContainer } from "@components/universal/FloatBtn";
 import { Loading } from "@components/universal/Loading";
@@ -21,6 +20,7 @@ import { Input, Textarea } from "./Input";
 import { useSeo } from "@hooks/useSeo";
 import { toast } from "sonner";
 import { jump } from "@utils/path";
+import { DatePicker } from "@components/ui/date-picker";
 
 export const EditorPage: BasicPage = () => {
   const [loading, setLoading] = useState(true);
@@ -190,7 +190,7 @@ export const EditorPage: BasicPage = () => {
             </>
           )}
           <ModalBody>发布日期</ModalBody>
-          <DatePick
+          {/* <DatePick
             value={data?.created}
             onChange={(value) => {
               setData({
@@ -202,6 +202,15 @@ export const EditorPage: BasicPage = () => {
               position: "absolute",
               top: "100px",
               left: "220px",
+            }}
+          /> */}
+          <DatePicker 
+            day={new Date(data?.created)}
+            onChange={(value) => {
+              setData({
+                ...data,
+                created: value,
+              });
             }}
           />
           {type === "post" && (
