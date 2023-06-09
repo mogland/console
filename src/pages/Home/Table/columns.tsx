@@ -1,3 +1,4 @@
+import { DataTableColumnHeader } from "@components/ui/data-table-column-header";
 import type { ColumnDef } from "@tanstack/react-table"
 import { useNavigate } from "react-router-dom";
 

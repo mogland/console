@@ -6,15 +6,12 @@ import { Loading } from "@components/universal/Loading";
 import { Title } from "@components/universal/Title";
 import type { BasicPage } from "@type/basic";
 import { apiClient } from "@utils/request";
-import {
-  TableContainer,
-  TableItem,
-  TableItemValue,
-} from "@pages/Home/universal";
 import styles from "./index.module.css";
 import { useSeo } from "@hooks/useSeo";
 import { ActionButton, ActionButtons } from "@components/widgets/ActionButtons";
 import { jump } from "@utils/path";
+import { PostsListDataTable } from "./Table/data-table";
+import { postsListColumns } from "./Table/column";
 
 export const PostsIndex: BasicPage = () => {
   useSeo("文章 · 列表");
@@ -74,53 +71,7 @@ export const PostsIndex: BasicPage = () => {
               </div>
             </div>
           </Title>
-          <TableContainer
-            className={styles.table}
-            style={{ marginTop: "20px" }}
-            headerStyle={{ width: "150%" }}
-            header={["TITLE", "DATE", "CATEGORY", "TAGS", "READ", "LIKE"]}
-          >
-            {data.data.map((item, index) => {
-              return (
-                <TableItem
-                  onClick={(e) => {
-                    if (e.currentTarget.classList.contains(styles.select)) {
-                      setSelect(select.filter((i) => i !== item.id));
-                    } else {
-                      setSelect([...select, item.id]);
-                    }
-                    e.currentTarget.classList.toggle(styles.select);
-                  }}
-                  header={["TITLE", "DATE", "CATEGORY", "TAGS", "READ", "LIKE"]}
-                  className={clsx(styles.tableItem, "item")}
-                  key={index}
-                >
-                  <TableItemValue> {item.title} </TableItemValue>
-                  <TableItemValue>
-                    {" "}
-                    {item.created.split("T")[0]}{" "}
-                  </TableItemValue>
-                  <TableItemValue> {item.category.name} </TableItemValue>
-                  <TableItemValue>
-                    {" "}
-                    {item.tags?.join(",") || ""}{" "}
-                  </TableItemValue>
-                  <TableItemValue> {item.count.read} </TableItemValue>
-                  <TableItemValue> {item.count.like} </TableItemValue>
-                </TableItem>
-              );
-            })}
-          </TableContainer>
-          <div className={styles.nav}>
-            {(data.pagination.has_prev_page && (
-              <button className={styles.button}>上一页</button>
-            )) ||
-              null}
-            {(data.pagination.has_next_page && (
-              <button className={styles.button}>下一页</button>
-            )) ||
-              null}
-          </div>
+          <PostsListDataTable columns={postsListColumns} data={data.data} />
         </div>
       </div>
     </>
