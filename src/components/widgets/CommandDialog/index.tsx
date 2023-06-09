@@ -1,15 +1,6 @@
 "use client"
 
 import {
-  Calculator,
-  Calendar,
-  CreditCard,
-  Settings,
-  Smile,
-  User,
-} from "lucide-react"
-
-import {
   CommandDialog as CommandDialogPrimitive,
   CommandEmpty,
   CommandGroup,
@@ -17,13 +8,15 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-  CommandShortcut,
 } from "@components/ui/command"
 import { useEffect, useState } from "react"
+import { SIDEBAR } from "../../../sidebar"
+import { useSnapshot } from "valtio"
+import { server } from "@states/app"
 
 export function CommandDialog() {
   const [open, setOpen] = useState(false)
-
+  const serverSnapshot = useSnapshot(server)
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.key === "k" && e.metaKey) {
@@ -41,37 +34,39 @@ export function CommandDialog() {
         <CommandInput placeholder="Type a command or search..." />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
-          <CommandGroup heading="Suggestions">
-            <CommandItem>
-              <Calendar className="mr-2 h-4 w-4" />
-              <span>Calendar</span>
-            </CommandItem>
-            <CommandItem>
-              <Smile className="mr-2 h-4 w-4" />
-              <span>Search Emoji</span>
-            </CommandItem>
-            <CommandItem>
-              <Calculator className="mr-2 h-4 w-4" />
-              <span>Calculator</span>
-            </CommandItem>
+          <CommandGroup heading="Pages">
+            {
+              SIDEBAR.map((item) => (
+                <>
+                  {item.map((item) => (
+                    <>
+                      <CommandItem key={item.title}>
+                        <span>{item.title} <code className="text-gray-400">{item.path}</code></span>
+                      </CommandItem>
+                      {
+                        item.subItems?.map((item) => (
+                          <CommandItem key={item.title}>
+                            <span>{item.title} <code className="text-gray-400">{item.path}</code></span>
+                          </CommandItem>
+                        ))
+                      }
+                    </>
+                  ))}
+                </>
+              ))
+            }
           </CommandGroup>
           <CommandSeparator />
-          <CommandGroup heading="Settings">
-            <CommandItem>
-              <User className="mr-2 h-4 w-4" />
-              <span>Profile</span>
-              <CommandShortcut>⌘P</CommandShortcut>
-            </CommandItem>
-            <CommandItem>
-              <CreditCard className="mr-2 h-4 w-4" />
-              <span>Billing</span>
-              <CommandShortcut>⌘B</CommandShortcut>
-            </CommandItem>
-            <CommandItem>
-              <Settings className="mr-2 h-4 w-4" />
-              <span>Settings</span>
-              <CommandShortcut>⌘S</CommandShortcut>
-            </CommandItem>
+          <CommandGroup heading="Category">
+            {
+              server.categories.map((category) => (
+                <>
+                  <CommandItem key={category.name}>
+                    <span>{category.name} <code className="text-gray-400">{category.slug}</code></span>
+                  </CommandItem>
+                </>
+              ))
+            }
           </CommandGroup>
         </CommandList>
       </CommandDialogPrimitive>
