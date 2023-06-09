@@ -3,7 +3,6 @@ import clsx from "clsx";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSnapshot } from "valtio";
-import { DatePick } from "@components/universal/DatePick";
 import { MarkdownEditor } from "@components/universal/Editor";
 import { FloatBtn, FloatBtnContainer } from "@components/universal/FloatBtn";
 import { Loading } from "@components/universal/Loading";
@@ -21,6 +20,7 @@ import { Input, Textarea } from "./Input";
 import { useSeo } from "@hooks/useSeo";
 import { toast } from "sonner";
 import { jump } from "@utils/path";
+import { DatePicker } from "@components/ui/date-picker";
 
 export const EditorPage: BasicPage = () => {
   const [loading, setLoading] = useState(true);
@@ -33,7 +33,9 @@ export const EditorPage: BasicPage = () => {
   const id = getQueryVariable("id");
   const serverSnapshot = useSnapshot(server);
 
-  useSeo(`${data?.title ? data.title : "新建"}${type === "page" ? "页面" : "文章"}`);
+  useSeo(
+    `${data?.title ? data.title : "新建"}${type === "page" ? "页面" : "文章"}`
+  );
   useEffect(() => {
     if (!id) {
       setData({});
@@ -61,14 +63,17 @@ export const EditorPage: BasicPage = () => {
       <FloatBtnContainer>
         <FloatBtn
           onClick={() => {
-            const handler = apiClient(`${data.id ? `/${type}/${data.id}` : `/${type}`}`, {
-              method: data.id ? "PUT" : "POST",
-              body: JSON.stringify({
-                ...data,
-                categoryId: data.category_id,
-                category: undefined,
-              }),
-            }).then(() => {
+            const handler = apiClient(
+              `${data.id ? `/${type}/${data.id}` : `/${type}`}`,
+              {
+                method: data.id ? "PUT" : "POST",
+                body: JSON.stringify({
+                  ...data,
+                  categoryId: data.category_id,
+                  category: undefined,
+                }),
+              }
+            ).then(() => {
               navigate(jump(`/${type}s`));
             });
             toast.promise(handler, {
@@ -190,7 +195,7 @@ export const EditorPage: BasicPage = () => {
             </>
           )}
           <ModalBody>发布日期</ModalBody>
-          <DatePick
+          {/* <DatePick
             value={data?.created}
             onChange={(value) => {
               setData({
@@ -202,6 +207,15 @@ export const EditorPage: BasicPage = () => {
               position: "absolute",
               top: "100px",
               left: "220px",
+            }}
+          /> */}
+          <DatePicker
+            day={data?.created ? new Date(data?.created) : undefined}
+            onChange={(value) => {
+              setData({
+                ...data,
+                created: value,
+              });
             }}
           />
           {type === "post" && (
