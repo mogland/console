@@ -33,7 +33,9 @@ export const EditorPage: BasicPage = () => {
   const id = getQueryVariable("id");
   const serverSnapshot = useSnapshot(server);
 
-  useSeo(`${data?.title ? data.title : "新建"}${type === "page" ? "页面" : "文章"}`);
+  useSeo(
+    `${data?.title ? data.title : "新建"}${type === "page" ? "页面" : "文章"}`
+  );
   useEffect(() => {
     if (!id) {
       setData({});
@@ -61,14 +63,17 @@ export const EditorPage: BasicPage = () => {
       <FloatBtnContainer>
         <FloatBtn
           onClick={() => {
-            const handler = apiClient(`${data.id ? `/${type}/${data.id}` : `/${type}`}`, {
-              method: data.id ? "PUT" : "POST",
-              body: JSON.stringify({
-                ...data,
-                categoryId: data.category_id,
-                category: undefined,
-              }),
-            }).then(() => {
+            const handler = apiClient(
+              `${data.id ? `/${type}/${data.id}` : `/${type}`}`,
+              {
+                method: data.id ? "PUT" : "POST",
+                body: JSON.stringify({
+                  ...data,
+                  categoryId: data.category_id,
+                  category: undefined,
+                }),
+              }
+            ).then(() => {
               navigate(jump(`/${type}s`));
             });
             toast.promise(handler, {
@@ -204,8 +209,8 @@ export const EditorPage: BasicPage = () => {
               left: "220px",
             }}
           /> */}
-          <DatePicker 
-            day={new Date(data?.created)}
+          <DatePicker
+            day={data?.created ? new Date(data?.created) : undefined}
             onChange={(value) => {
               setData({
                 ...data,
