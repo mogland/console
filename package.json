@@ -19,6 +19,7 @@
   "dependencies": {
     "@headlessui/react": "^1.7.13",
     "@icon-park/react": "^1.4.2",
+    "@radix-ui/react-checkbox": "^1.0.4",
     "@radix-ui/react-dropdown-menu": "^2.0.5",
     "@radix-ui/react-popover": "^1.0.6",
     "@radix-ui/react-select": "^1.2.2",
