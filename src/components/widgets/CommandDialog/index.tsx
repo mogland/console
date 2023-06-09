@@ -7,11 +7,9 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-  CommandSeparator,
 } from "@components/ui/command";
 import { useEffect, useState } from "react";
 import { SIDEBAR } from "../../../sidebar";
-import { useSnapshot } from "valtio";
 import { server } from "@states/app";
 
 export function CommandDialog() {
@@ -67,9 +65,7 @@ export function CommandDialog() {
           <CommandGroup heading="Category">
             {server.categories.map((category, index) => (
               <>
-                <CommandItem 
-                value={"/categories"}
-                key={index}>
+                <CommandItem value={"/categories"} key={index}>
                   <span
                     onClick={() => {
                       console.log(category);

@@ -37,7 +37,7 @@ const CommandDialog = ({
   children,
   onCommandKeyDownCapture,
   ...props
-}: CommandDialogProps & React.PropsWithChildren<typeof Command>) => {
+}: CommandDialogProps) => {
   const navigate = useNavigate();
   const [value, setValue] = useState("");
   const onValueChange = (value: string) => {
