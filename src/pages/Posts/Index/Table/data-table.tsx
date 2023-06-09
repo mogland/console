@@ -1,7 +1,6 @@
 "use client";
 import type {
   ColumnDef,
-  PaginationState,
   SortingState,
   VisibilityState,
 } from "@tanstack/react-table";
