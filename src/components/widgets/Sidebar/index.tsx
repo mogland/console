@@ -1,19 +1,8 @@
 import {
-  CategoryManagement,
-  Comment,
-  Dashboard,
-  Editor,
-  FolderFocusOne,
-  FriendsCircle,
-  HomeTwo,
   Login,
   Logout,
   MenuFoldOne,
   MenuUnfoldOne,
-  OpenDoor,
-  Schedule,
-  Setting,
-  Theme,
 } from "@icon-park/react";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
@@ -32,11 +21,12 @@ import { removeCookie } from "@utils/cookie";
 import { jump } from "@utils/path";
 import { mutate } from "swr";
 import { toast } from "sonner";
+import { SIDEBAR } from "../../../sidebar";
 
 const Links = () => {
   const authenticated = useSnapshot(app).authenticated;
   const [disabled, setDisabled] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (authenticated) {
@@ -51,51 +41,48 @@ const Links = () => {
         [styles.disabled]: disabled,
       })}
     >
-      <SidebarItem icon={HomeTwo({})} title="仪表盘" href={jump("/dashboard")} />
-      <Space height={20} />
-      <SidebarItem icon={Editor({})} title="文章" href={jump("/posts")} />
-      <SidebarItem
-        title="写文章"
-        href={jump("/write/post")}
-        sub
-      />
-      <SidebarItem title="朋友动态" href={jump("/posts/friends")} sub />
-      <Space height={20} />
-      <SidebarItem icon={OpenDoor({})} title="页面" href={jump("/pages")} />
-      <SidebarItem
-        title="新增页面"
-        href={jump("/write/page")}
-        sub
-      />
-      <Space height={20} />
-      <SidebarItem icon={Comment({})} title="评论" href={jump("/comments")} />
-      <SidebarItem
-        icon={CategoryManagement({})}
-        title="分类标签"
-        href={jump("/categories")}
-      />
-      <SidebarItem icon={FriendsCircle({})} title="朋友们" href={jump("/friends")} />
-      <Space height={20} />
-      <SidebarItem icon={Theme({})} title="主题" href={jump("/themes")} />
-      <SidebarItem icon={Setting({})} title="系统设置" href={jump("/settings")} />
-      <SidebarItem icon={FolderFocusOne({})} title="文件管理" href={jump("/files")} />
-      <SidebarItem icon={Schedule({})} title="定时任务" href={jump("/schedule")} />
-      <SidebarItem icon={Dashboard({})} title="服务状态" href={jump("/status")} />
+      {SIDEBAR.map((item, index) => (
+        <>
+          {item.map((item) => (
+            <>
+              <SidebarItem
+                icon={item.icon({})}
+                title={item.title}
+                href={jump(item.path)}
+                key={item.title}
+              />
+              {
+                item.subItems?.map((item) => (
+                  <SidebarItem
+                    title={item.title}
+                    href={jump(item.path)}
+                    key={item.title}
+                    sub
+                  />
+                ))
+              }
+            </>
+          ))}
+          <Space key={index} height={20} />
+        </>
+      ))}
       <Space height={30} />
       <span
         className={clsx(itemStyle.item, styles.item)}
         onClick={() => {
           apiClient("/user/logout", {
             method: "POST",
-          }).then(() => {
-            removeCookie("token")
-            app.authenticated = false;
-            navigate(jump("/login"))
-            mutate("/user/check")
-            toast("退出成功")
-          }).catch((e) => {
-            console.log(e)
           })
+            .then(() => {
+              removeCookie("token");
+              app.authenticated = false;
+              navigate(jump("/login"));
+              mutate("/user/check");
+              toast("退出成功");
+            })
+            .catch((e) => {
+              console.log(e);
+            });
         }}
       >
         <div className={itemStyle.icon}>
