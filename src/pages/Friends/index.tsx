@@ -14,7 +14,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Loading } from "@components/universal/Loading";
 import { Modal, ModalBody } from "@components/universal/Modal";
-import { Selects } from "@components/universal/Select";
 import { Title } from "@components/universal/Title";
 import type { BasicPage } from "@type/basic";
 import { apiClient } from "@utils/request";
@@ -31,6 +30,7 @@ import { jump } from "@utils/path";
 import { useSeo } from "@hooks/useSeo";
 import { toast } from "sonner";
 import { ActionButton, ActionButtons } from "@components/widgets/ActionButtons";
+import { Select } from "@components/widgets/ThemeComponent/ThemeSelect";
 
 const FriendsStatus = ["Approved", "Pending", "Spam", "Trash"];
 const FriendsFormFront = [
@@ -163,11 +163,12 @@ export const FriendsPage: BasicPage = () => {
             <span style={{ marginRight: "1rem" }}>
               <ModalBody>友链状态</ModalBody>
             </span>
-            <Selects
-              value={FriendsStatus.map((i, index) => {
+            
+            <Select 
+              data={FriendsStatus.map((i, index) => {
                 return {
-                  name: i,
-                  value: index,
+                  label: i,
+                  value: String(index),
                 };
               })}
               onChange={(e) => {
@@ -176,12 +177,8 @@ export const FriendsPage: BasicPage = () => {
                   status: e,
                 });
               }}
-              selected={
-                item.status && {
-                  name: FriendsStatus[item.status],
-                  value: item.status,
-                }
-              }
+              value={String(item.status)}
+              placeholder="请选择友链状态"
             />
           </div>
           {FriendsFormFront.map((i) => {
@@ -229,26 +226,23 @@ export const FriendsPage: BasicPage = () => {
             <span style={{ marginRight: "1rem" }}>
               <ModalBody>订阅类型</ModalBody>
             </span>
-            <Selects
-              value={["rss", "atom"].map((i) => {
+            
+            <Select
+              data={["rss", "atom"].map((i) => {
                 return {
-                  name: i,
+                  label: i,
                   value: i,
                 };
               })}
-              selected={
-                item.feed_type && {
-                  name: item.feed_type,
-                  value: item.feed_type,
-                }
-              }
+              value={item.feed_type}
               onChange={(e) => {
                 setItem({
                   ...item,
-                  feed_type: e.value,
-                  feedType: e.value,
+                  feed_type: e,
+                  feedType: e,
                 });
               }}
+              placeholder="请选择订阅类型"
             />
           </div>
           {FriendsFormBack.map((i) => {

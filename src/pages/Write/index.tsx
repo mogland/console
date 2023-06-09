@@ -7,7 +7,6 @@ import { MarkdownEditor } from "@components/universal/Editor";
 import { FloatBtn, FloatBtnContainer } from "@components/universal/FloatBtn";
 import { Loading } from "@components/universal/Loading";
 import { Modal, ModalBody } from "@components/universal/Modal";
-import { Selects } from "@components/universal/Select";
 import { Tags } from "@components/universal/Tags";
 import { Toggle } from "@components/universal/Toggle";
 import { server } from "@states/app";
@@ -21,6 +20,7 @@ import { useSeo } from "@hooks/useSeo";
 import { toast } from "sonner";
 import { jump } from "@utils/path";
 import { DatePicker } from "@components/ui/date-picker";
+import { Select } from "@components/widgets/ThemeComponent/ThemeSelect";
 
 export const EditorPage: BasicPage = () => {
   const [loading, setLoading] = useState(true);
@@ -174,23 +174,21 @@ export const EditorPage: BasicPage = () => {
           {type === "post" && (
             <>
               <ModalBody>文章分类</ModalBody>
-              <Selects
-                value={serverSnapshot.categories.map((item) => {
+              <Select
+                data={serverSnapshot.categories.map((item) => {
                   return {
-                    name: item.name,
-                    value: item.id,
+                    label: item.name,
+                    value: String(item.status),
                   };
                 })}
-                selected={{
-                  name: data?.category?.name,
-                  value: data?.category?.id,
-                }}
+                value={data?.category_id}
                 onChange={(value) => {
                   setData({
                     ...data,
-                    category_id: value.value,
+                    category_id: value,
                   });
                 }}
+                placeholder="请选择分类"
               />
             </>
           )}

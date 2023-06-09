@@ -14,12 +14,12 @@ import {
 import { ActionButton, ActionButtons } from "@components/widgets/ActionButtons";
 import { toast } from "sonner";
 import { apiClient } from "@utils/request";
-import { Add, Cpu, Fire, Power } from "@icon-park/react";
+import { Add, Fire, Power } from "@icon-park/react";
 import { Modal, ModalBody } from "@components/universal/Modal";
 import { Input, Textarea } from "@pages/Write/Input";
-import { Selects } from "@components/universal/Select";
 import { Toggle } from "@components/universal/Toggle";
 import { Collapse, CollapseContainer } from "@components/universal/Collapse";
+import { Select } from "@components/widgets/ThemeComponent/ThemeSelect";
 
 const ScheduleType = {
   url: "访问 URL",
@@ -193,13 +193,20 @@ export const SchedulePage: BasicPage = () => {
               });
             }}
           />
-          <Selects
-            label="任务类型"
-            value={Object.keys(ScheduleType).map((i) => ({
-              name: ScheduleType[i],
+          <ModalBody>任务类型</ModalBody>
+          <Select 
+            data={Object.keys(ScheduleType).map((i) => ({
+              label: ScheduleType[i],
               value: i,
             }))}
-            selected={item?.type ? ScheduleType[item?.type] : ScheduleType.url}
+            value={item?.type || "url"}
+            onChange={(e) => {
+              setItem({
+                ...(item as any),
+                type: e,
+              });
+            }}
+            placeholder="请选择任务类型"
           />
           <Textarea
             label="任务操作参数 (optional)"
@@ -212,15 +219,20 @@ export const SchedulePage: BasicPage = () => {
               });
             }}
           />
-          <Selects
-            label="任务后续"
-            value={Object.keys(ScheduleAfter).map((i) => ({
-              name: ScheduleAfter[i],
+          <ModalBody>任务后续</ModalBody>
+          <Select 
+            data={Object.keys(ScheduleAfter).map((i) => ({
+              label: ScheduleAfter[i],
               value: i,
             }))}
-            selected={
-              item?.after ? ScheduleAfter[item?.after] : ScheduleAfter.none
-            }
+            value={item?.after || "none"}
+            onChange={(e) => {
+              setItem({
+                ...(item as any),
+                after: e,
+              });
+            }}
+            placeholder="请选择任务后续"
           />
           <Textarea
             label="任务后续操作参数 (optional)"
