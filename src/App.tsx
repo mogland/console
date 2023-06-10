@@ -9,6 +9,7 @@ import { useAppCheck } from "@hooks/useAppCheck";
 import { useEffect, useState } from "react";
 import pack from "../package.json";
 import { Toaster } from "sonner";
+import { CommandDialog } from "@components/widgets/CommandDialog";
 
 function App() {
   const appSnapshot = useSnapshot(app);
@@ -46,6 +47,7 @@ function App() {
         <div className="inner">
           <AppRouter />
         </div>
+        <CommandDialog />
       </div>
     </>
   );
