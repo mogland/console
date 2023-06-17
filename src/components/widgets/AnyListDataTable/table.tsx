@@ -42,7 +42,7 @@ export interface AnyListDataTableProps<TData, TValue> {
     total_page: number;
     current_page: number;
   }
-  deletePath: string;
+  deletePath?: string;
 }
 
 export function AnyListDataTable<TData, TValue>({

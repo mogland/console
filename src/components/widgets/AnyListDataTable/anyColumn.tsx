@@ -86,6 +86,20 @@ export function genereateCreatedColumn<T>(): ColumnDef<T> {
   };
 }
 
+export function genereateModifiedColumn<T>(): ColumnDef<T> {
+  return {
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Modified" />
+    ),
+    accessorKey: "mofified",
+    cell: ({ row }) => {
+      return (
+        <div>{new Date((row.original as any).modified).toLocaleString()}</div>
+      );
+    },
+  };
+}
+
 export function generatePostsAndPagesActionsColumn<T>(
   type: "post" | "page"
 ): ColumnDef<T & {
