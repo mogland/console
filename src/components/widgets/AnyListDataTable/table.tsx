@@ -33,7 +33,7 @@ import { toast } from "sonner";
 import { apiClient } from "@utils/request";
 import { useNavigate } from "react-router-dom";
 
-interface DataTableProps<TData, TValue> {
+export interface AnyListDataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   header?: React.ReactNode;
@@ -51,8 +51,9 @@ export function AnyListDataTable<TData, TValue>({
   header,
   pagination,
   deletePath
-}: DataTableProps<TData, TValue>) {
+}: AnyListDataTableProps<TData, TValue>) {
   const navigate = useNavigate();
+  const currentPath = window.location.pathname.split("/")[1];
   const [sorting, setSorting] = useState<SortingState>([]);
   const [rowSelection, setRowSelection] = useState({});
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
@@ -184,7 +185,7 @@ export function AnyListDataTable<TData, TValue>({
           variant="outline"
           size="sm"
           onClick={() => {
-            navigate(`/posts?page=${pagination.current_page - 1}`);
+            navigate(`/${currentPath}?page=${pagination.current_page - 1}`);
           }}
           disabled={!(pagination.current_page <= pagination.total_page && pagination.current_page > 1)}
         >
@@ -194,7 +195,7 @@ export function AnyListDataTable<TData, TValue>({
           variant="outline"
           size="sm"
           onClick={() => {
-            navigate(`/posts?page=${pagination.current_page + 1}`);
+            navigate(`/${currentPath}?page=${pagination.current_page + 1}`);
           }}
           disabled={!(pagination.current_page < pagination.total_page) || pagination.total_page === 1}
         >
