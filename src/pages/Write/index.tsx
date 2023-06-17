@@ -178,7 +178,7 @@ export const EditorPage: BasicPage = () => {
                 data={serverSnapshot.categories.map((item) => {
                   return {
                     label: item.name,
-                    value: String(item.status),
+                    value: String(item.id),
                   };
                 })}
                 value={data?.category_id}
