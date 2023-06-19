@@ -146,13 +146,13 @@ export function generatePostsAndPagesActionsColumn<T>(
     title: string;
   }
 > {
-  const navigate = useNavigate();
   return generateAnyActionsColumn({
     menus: [
       {
         title: "编辑",
         icon: <Edit className="mr-2 h-4 w-4" />,
         onClick: (post) => {
+          const navigate = useNavigate();
           navigate(`/write/${type}?id=${post.id}`);
         },
       },
