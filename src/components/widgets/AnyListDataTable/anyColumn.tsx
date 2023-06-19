@@ -100,17 +100,17 @@ export function genereateModifiedColumn<T>(): ColumnDef<T> {
   };
 }
 
-export function generatePostsAndPagesActionsColumn<T>(
-  type: "post" | "page"
-): ColumnDef<T & {
-  id: string;
-  title: string;
-}> {
+export function generateAnyActionsColumn<T>(props: {
+  menus: {
+    title: string;
+    onClick?: (row: T) => void;
+    icon?: React.ReactNode;
+  }[];
+}): ColumnDef<T & { id: string }> {
   return {
     id: "Actions",
     cell({ row }) {
       const post = row.original;
-      const navigate = useNavigate();
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -120,44 +120,66 @@ export function generatePostsAndPagesActionsColumn<T>(
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuItem
-              onClick={() => {
-                navigate(`/write/${type}?id=${post.id}`);
-              }}
-            >
-              <Edit className="mr-2 h-4 w-4" /> 编辑
-              {type === "post" ? "文章" : "页面"}
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={() => {
-                toast.promise(
-                  apiClient(`/${type}/${post.id}`, {
-                    method: "DELETE",
-                  }),
-                  {
-                    loading: `正在删除${type === "post" ? "文章" : "页面"}...`,
-                    success: `已删除${type === "post" ? "文章" : "页面"}`,
-                    error: `删除${type === "post" ? "文章" : "页面"}失败`,
-                  }
-                );
-              }}
-            >
-              <Delete className="mr-2 h-4 w-4" />
-              删除{type === "post" ? "文章" : "页面"}
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem
-              onClick={() => {
-                navigator.clipboard.writeText(post.title);
-                toast.success("已复制到剪贴板");
-              }}
-            >
-              <Copy className="mr-2 h-4 w-4" />
-              复制{type === "post" ? "文章" : "页面"}标题
-            </DropdownMenuItem>
+            {props.menus.map((menu, index) => (
+              <DropdownMenuItem
+                key={index}
+                onClick={() => {
+                  menu.onClick?.(post);
+                }}
+              >
+                {menu.icon}
+                {menu.title}
+              </DropdownMenuItem>
+            ))}
           </DropdownMenuContent>
         </DropdownMenu>
       );
     },
   };
+}
+
+export function generatePostsAndPagesActionsColumn<T>(
+  type: "post" | "page"
+): ColumnDef<
+  T & {
+    id: string;
+    title: string;
+  }
+> {
+  const navigate = useNavigate();
+  return generateAnyActionsColumn({
+    menus: [
+      {
+        title: "编辑",
+        icon: <Edit className="mr-2 h-4 w-4" />,
+        onClick: (post) => {
+          navigate(`/write/${type}?id=${post.id}`);
+        },
+      },
+      {
+        title: "删除",
+        icon: <Delete className="mr-2 h-4 w-4" />,
+        onClick: (post) => {
+          toast.promise(
+            apiClient(`/${type}/${post.id}`, {
+              method: "DELETE",
+            }),
+            {
+              loading: `正在删除${type === "post" ? "文章" : "页面"}...`,
+              success: `已删除${type === "post" ? "文章" : "页面"}`,
+              error: `删除${type === "post" ? "文章" : "页面"}失败`,
+            }
+          );
+        },
+      },
+      {
+        title: "复制标题",
+        icon: <Copy className="mr-2 h-4 w-4" />,
+        onClick: (post) => {
+          navigator.clipboard.writeText(post.title);
+          toast.success("已复制到剪贴板");
+        },
+      },
+    ],
+  });
 }
