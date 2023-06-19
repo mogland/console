@@ -112,11 +112,11 @@ export function FriendsListDataTable<TData, TValue>({
                   const tasks = Promise.all(
                     table.getFilteredSelectedRowModel().rows.map((row) => {
                       return apiClient(`/friends/status/${row.id}`, {
-                          method: "PATCH",
-                          body: {
-                            status: 0,
-                          },
-                        });
+                        method: "PATCH",
+                        body: {
+                          status: 0,
+                        },
+                      });
                     })
                   ).then(() => {
                     table.resetRowSelection();
@@ -138,11 +138,11 @@ export function FriendsListDataTable<TData, TValue>({
                   const tasks = Promise.all(
                     table.getFilteredSelectedRowModel().rows.map((row) => {
                       return apiClient(`/friends/status/${row.id}`, {
-                          method: "PATCH",
-                          body: {
-                            status: 1,
-                          },
-                        });
+                        method: "PATCH",
+                        body: {
+                          status: 1,
+                        },
+                      });
                     })
                   ).then(() => {
                     table.resetRowSelection();
@@ -163,12 +163,10 @@ export function FriendsListDataTable<TData, TValue>({
                 onClick={() => {
                   const tasks = Promise.all(
                     table.getFilteredSelectedRowModel().rows.map((row) => {
-                      return apiClient(`/friends/${row.id}/check`).then(
-                        () => {
-                          table.resetRowSelection();
-                          table.resetSorting();
-                        }
-                      );
+                      return apiClient(`/friends/${row.id}/check`).then(() => {
+                        table.resetRowSelection();
+                        table.resetSorting();
+                      });
                     })
                   ).then(() => {
                     table.resetRowSelection();
@@ -236,6 +234,7 @@ export function FriendsListDataTable<TData, TValue>({
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
+                  aria-label={(row.original as any).id}
                   data-state={row.getIsSelected() && "selected"}
                 >
                   {row.getVisibleCells().map((cell) => (
