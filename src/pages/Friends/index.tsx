@@ -31,6 +31,8 @@ import { useSeo } from "@hooks/useSeo";
 import { toast } from "sonner";
 import { ActionButton, ActionButtons } from "@components/widgets/ActionButtons";
 import { Select } from "@components/widgets/ThemeComponent/ThemeSelect";
+import { FriendsListDataTable } from "./Table/data-table";
+import { friendsListColumns } from "./Table/column";
 
 const FriendsStatus = ["Approved", "Pending", "Spam", "Trash"];
 const FriendsFormFront = [
@@ -273,45 +275,11 @@ export const FriendsPage: BasicPage = () => {
     return (
       <div>
         <Loading loading={inSideLoading} />
-        <>
-          <TableContainer
-            header={["NAME", "DESCRIPTION", "EMAIL", "GROUP", "AUTOCHECK"]}
-          >
-            {friends?.map((item, index) => {
-              return (
-                <TableItem
-                  header={[
-                    "NAME",
-                    "DESCRIPTION",
-                    "EMAIL",
-                    "GROUP",
-                    "AUTOCHECK",
-                  ]}
-                  key={index}
-                  onClick={(e) => {
-                    if (e.currentTarget.classList.contains(postStyles.select)) {
-                      setSelect(select.filter((i) => i !== item.id));
-                    } else {
-                      setSelect([...select, item.id]);
-                    }
-                  }}
-                  aria-label={item.id}
-                  className={
-                    (select.includes(item.id) && postStyles.select) || ""
-                  }
-                >
-                  <TableItemValue>{item.name}</TableItemValue>
-                  <TableItemValue>{item.desc}</TableItemValue>
-                  <TableItemValue>{item.email}</TableItemValue>
-                  <TableItemValue>{item.group}</TableItemValue>
-                  <TableItemValue>
-                    {item.auto_check ? "已互链" : "疑似不存在"}
-                  </TableItemValue>
-                </TableItem>
-              );
-            })}
-          </TableContainer>
-        </>
+        <FriendsListDataTable 
+          columns={friendsListColumns}
+          data={friends}
+          deletePath="/friends"
+        />
       </div>
     );
   };
@@ -326,127 +294,6 @@ export const FriendsPage: BasicPage = () => {
           <div className={postStyles.head}>
             <span className={postStyles.headTitle}>朋友 · 列表</span>
             <div>
-              <ActionButtons
-                selectedClassName={postStyles.select}
-                setSelect={setSelect}
-                selected={select}
-                editAction={() => {
-                  setShowEditModal(true);
-                }}
-                deleteFunction={() => {
-                  const handler = Promise.all(
-                    select.map((item) => {
-                      return apiClient(`/friends/${item}`, {
-                        method: "DELETE",
-                      });
-                    })
-                  );
-                  toast.promise(handler, {
-                    loading: "正在删除",
-                    success: "删除成功",
-                    error: "删除失败",
-                  });
-                  setFriends(
-                    friends.filter((item) => !select.includes(item.id))
-                  );
-                  setSelect([]);
-                }}
-              />
-              {(select.length && tab == 1 && (
-                <>
-                  <ActionButton
-                    label="通过友链"
-                    icon={<CheckSmall />}
-                    action={() => {
-                      select.forEach((item) => {
-                        apiClient(`/friends/status/${item}`, {
-                          method: "PATCH",
-                          body: {
-                            status: 0,
-                          },
-                        });
-                      });
-                      setFriends(
-                        friends.filter((item) => !select.includes(item.id))
-                      );
-                      setSelect([]);
-                    }}
-                  />
-                </>
-              )) ||
-                null}
-              {(select.length && tab == 0 && (
-                <ActionButton
-                  label="重审友链"
-                  icon={<CloseSmall />}
-                  action={() => {
-                    select.forEach((item) => {
-                      apiClient(`/friends/status/${item}`, {
-                        method: "PATCH",
-                        body: {
-                          status: 1,
-                        },
-                      });
-                    });
-                    setFriends(
-                      friends.filter((item) => !select.includes(item.id))
-                    );
-                    setSelect([]);
-                  }}
-                />
-              )) ||
-                null}
-              {(select.length && (
-                <ActionButton
-                  action={() => {
-                    window.open(
-                      `mailto:${select
-                        .map((item) => {
-                          return friends.find((i) => i.id === item)?.email;
-                        })
-                        .join(",")}`
-                    );
-                  }}
-                  label="发送邮件"
-                  icon={<SendEmail />}
-                />
-              )) ||
-                null}
-              {(select.length && (
-                <ActionButton
-                  label="检查互链"
-                  icon={<Redo />}
-                  action={() => {
-                    toast.promise(
-                      Promise.all(
-                        select.map((item) => {
-                          return apiClient(`/friends/${item}/check`).then(
-                            (res) => {
-                              setFriends(
-                                friends.map((i) => {
-                                  if (i.id === item) {
-                                    return {
-                                      ...i,
-                                      auto_check: res.data,
-                                    };
-                                  }
-                                  return i;
-                                })
-                              );
-                            }
-                          );
-                        })
-                      ),
-                      {
-                        loading: "正在重新自动检查互链",
-                        success: "检查完成",
-                        error: "检查出错",
-                      }
-                    );
-                  }}
-                />
-              )) ||
-                null}
               <ActionButton
                 label="新增友链"
                 icon={<AddOne />}
