@@ -1,6 +1,6 @@
 import styles from "@pages/Login/index.module.css";
 import clsx from "clsx";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { BasicPage } from "@type/basic";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
