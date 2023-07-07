@@ -1,7 +1,7 @@
 import { ofetch } from "ofetch";
 import { getCookie } from "./cookie";
 
-export const API = window.MOG_API || "http://127.0.0.1:2330/api";
+export const API = window.MOG_API || "http://127.0.0.1:2330";
 
 export const apiClient = ofetch.create({
   baseURL: API,

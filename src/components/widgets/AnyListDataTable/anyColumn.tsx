@@ -38,33 +38,36 @@ export function generateSelectColumn<T>(): ColumnDef<T> {
 /**
  * @description Generate a DataTable column definition for a title column.
  * @param {object} props - The props object.
+ * @param {string} props.key - The key of the column.
  * @param {function} props.clickHref - The click href. (id: string) => string
  * @returns {object} A DataTable column definition.
  */
 export function generateTitleColumn<T>(props: {
+  key?: string;
+  idKey?: string;
   clickHref: (id: string) => string;
 }): ColumnDef<
   T & {
-    id: string;
-    title: string;
+    id?: string;
+    title?: string;
   }
 > {
   return {
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Title" />
     ),
-    accessorKey: "title",
+    accessorKey: props.key || "title",
     cell: ({ row }) => {
       const navigate = useNavigate();
       return (
         <a
-          href={`${props.clickHref(row.original.id)}`}
+          href={`${props.clickHref(row.original[props.idKey || "id"])}`}
           onClick={(e) => {
             e.preventDefault();
-            navigate(`${props.clickHref(row.original.id)}`);
+            navigate(`${props.clickHref(row.original[props.idKey || "id"])}`);
           }}
         >
-          {row.original.title}
+          {row.original[props.key || "title"]}
         </a>
       );
     },
@@ -105,7 +108,7 @@ export function generateAnyActionsColumn<T>(props: {
     onClick?: (row: T) => void;
     icon?: React.ReactNode;
   }[];
-}): ColumnDef<T & { id: string }> {
+}): ColumnDef<T> {
   return {
     id: "Actions",
     cell({ row }) {
