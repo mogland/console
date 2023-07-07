@@ -16,7 +16,10 @@ import { CommentsList, EditModal } from "./component";
 import useSWR from "swr";
 import useSWRMutation from "swr/mutation";
 import { ActionButton, ActionButtons } from "@components/widgets/ActionButtons";
-import { Button } from "@components/universal/Button";
+import { CommentsTable } from "./Table/data-table";
+import { commentsListColumns } from "./Table/column";
+import { Button } from "@components/ui/button";
+import { _private } from "@states/private";
 
 const tabsList = [
   {
@@ -105,47 +108,13 @@ export const CommentsPage: BasicPage = () => {
           <div className={postStyles.head}>
             <span className={postStyles.headTitle}>评论 · 列表</span>
             <div style={{ height: "20px" }}>
-              <ActionButtons
-                selectedClassName={postStyles.select}
-                setSelect={setSelect}
-                selected={select}
-                editAction={() => {
-                  setShowEditModal(true);
-                }}
-                deleteFunction={() => {
-                  handleUpdateStatus(3);
-                }}
-              />
-              {(select.length && tab === 3 && (
-                <ActionButton
-                  label="重审评论"
-                  icon={<Redo />}
-                  action={() => {
-                    handleUpdateStatus(0);
-                  }}
-                />
-              )) ||
-                null}
-              {(select.length && tab !== 1 && (
-                <ActionButton
-                  label="通过"
-                  icon={<CheckSmall />}
-                  action={() => {
-                    handleUpdateStatus(1);
-                  }}
-                />
-              )) ||
-                null}
-              {(select.length && tab !== 2 && (
-                <ActionButton
-                  label="拒绝"
-                  icon={<CloseSmall />}
-                  action={() => {
-                    handleUpdateStatus(2);
-                  }}
-                />
-              )) ||
-                null}
+              <Button
+                variant="outline"
+                className={clsx("ml-auto", "mr-2")}
+                onClick={() => (_private.showModal = true)}
+              >
+                新建
+              </Button>
             </div>
           </div>
         </Title>
@@ -170,13 +139,10 @@ export const CommentsPage: BasicPage = () => {
           <Tab.Panels>
             {tabsList.map((tab, index) => (
               <Tab.Panel key={index}>
-                <CommentsList
-                  comments={data as any}
-                  // inSideLoading={inSideLoading}
-                  select={select}
-                  setSelect={setSelect}
-                  jump={jump}
-                  mailAvatar={mailAvatar}
+                <CommentsTable
+                  columns={commentsListColumns}
+                  data={data?.data}
+                  pagination={data?.pagination}
                 />
               </Tab.Panel>
             ))}
@@ -185,19 +151,23 @@ export const CommentsPage: BasicPage = () => {
       </div>
       <div className={postStyles.nav}>
         {(data?.pagination.has_prev_page && (
-          <Button 
-          onClick={() => {
-            navigate(jump(`/comments?status=${tab}&page=${page - 1}`));
-          }}
-          >上一页</Button>
+          <Button
+            onClick={() => {
+              navigate(jump(`/comments?status=${tab}&page=${page - 1}`));
+            }}
+          >
+            上一页
+          </Button>
         )) ||
           null}
         {(data?.pagination.has_next_page && (
           <Button
-          onClick={() => {
-            navigate(jump(`/comments?status=${tab}&page=${page + 1}`));
-          }}
-          >下一页</Button>
+            onClick={() => {
+              navigate(jump(`/comments?status=${tab}&page=${page + 1}`));
+            }}
+          >
+            下一页
+          </Button>
         )) ||
           null}
       </div>
