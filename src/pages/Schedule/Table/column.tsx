@@ -5,7 +5,7 @@ import {
   generateTitleColumn,
 } from "@components/widgets/AnyListDataTable/anyColumn";
 import { _private } from "@states/private";
-import { ColumnDef } from "@tanstack/react-table";
+import type { ColumnDef } from "@tanstack/react-table";
 import { apiClient } from "@utils/request";
 import { Asterisk, Delete, Edit, PlayCircle } from "lucide-react";
 import { toast } from "sonner";
