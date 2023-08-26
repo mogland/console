@@ -29,7 +29,6 @@ import { Button } from "@components/ui/button";
 
 export const SchedulePage: BasicPage = () => {
   useSeo("计划任务");
-  const [select, setSelect] = useState<string[]>([]);
   const { data, isLoading, mutate } = useSWR<{
     data: ScheduleItemProps[];
   }>("/schedule");

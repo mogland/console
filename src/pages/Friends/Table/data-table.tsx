@@ -71,7 +71,7 @@ export function FriendsListDataTable<TData, TValue>({
     <div>
       <div className="flex items-center py-4 place-content-between">
         <Input
-          placeholder="Filter links..."
+          placeholder="过滤链接..."
           value={(table.getColumn("link")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn("link")?.setFilterValue(event.target.value)
@@ -253,7 +253,7 @@ export function FriendsListDataTable<TData, TValue>({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                  无内容
                 </TableCell>
               </TableRow>
             )}

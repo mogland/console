@@ -1,15 +1,8 @@
 import { Loading } from "@components/universal/Loading";
 import { Title } from "@components/universal/Title";
-import {
-  TableContainer,
-  TableItem,
-  TableItemValue,
-} from "@pages/Home/universal";
 import type { BasicPage } from "@type/basic";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
-import postStyle from "@pages/Posts/Index/index.module.css";
-import { fetch } from "ofetch";
 import { Tab } from "@headlessui/react";
 import tabs from "@components/universal/Tabs/index.module.css";
 import styles from "./index.module.css";
@@ -23,33 +16,28 @@ import { useSeo } from "@hooks/useSeo";
 import { toast } from "sonner";
 import useSWR from "swr";
 import { jump } from "@utils/path";
-
-const LIST =
-  "https://raw.githubusercontent.com/mogland/awesome-mog/main/production-awesome-list/themes.json";
+import { ThemesListDataTable } from "./Table/data-table";
+import { ThemesListColumns } from "./Table/column";
+import { useSnapshot } from "valtio";
+import { _private } from "@states/private";
 
 export const ThemesPage: BasicPage = () => {
   useSeo("主题");
   const _tab = Number(getQueryVariable("tab") || 0);
   const [tab, setTab] = useState<number>(_tab);
   const [loading, setLoading] = useState(false);
-  const [id, setId] = useState<string | undefined>();
-  const [data, setData] = useState<
-    {
-      repo: string;
-      description: string;
-      id: string;
-    }[]
-  >([]);
+  // const [id, setId] = useState<string | undefined>();
+  const { showModal, modalDataId, refreshData } = useSnapshot(_private);
 
   const { data: localData, mutate: themeMutate } = useSWR<
     {
       data: {
         id: string;
         name: string;
-        active?: boolean;
-        package?: string;
-        version?: string;
-        config?: any;
+        active: boolean;
+        package: string;
+        version: string;
+        config: any;
         path: string;
       }[]
     }
@@ -62,144 +50,22 @@ export const ThemesPage: BasicPage = () => {
   useEffect(() => {
     Promise.all([
       handleLocalData(),
-      fetch(LIST, {
-        method: "GET",
-      })
-        .then((res) => res.json())
-        .then((res) => {
-          for (let i = 0; i < res.length; i++) {
-            fetch(
-              `https://raw.githubusercontent.com/${res[i].repo}/main/config.yaml`,
-              {
-                method: "GET",
-              }
-            )
-              .then((yaml) => yaml.text())
-              .then((yaml) => {
-                // 匹配 id
-                const id = yaml.match(/id: (.*)/)?.[1];
-                if (!id) {
-                  return;
-                }
-                setData((prev) => {
-                  return [
-                    ...prev.filter((item) => item.id !== id),
-                    {
-                      repo: res[i].repo,
-                      description: res[i].description,
-                      id,
-                    },
-                  ];
-                });
-              });
-          }
-        })
-        .then(() => {
-          setLoading(false);
-        }),
-    ]);
+    ]).then(() => {
+      setLoading(false);
+    });
   }, []);
+
+  useEffect(() => {
+    if (refreshData) {      
+      handleLocalData();
+      _private.refreshData = false;
+    }
+  }, [refreshData]);
 
   const navigate = useNavigate();
   useEffect(() => {
     navigate(jump(`/themes?tab=${tab}`));
   }, [tab]);
-
-  const InstallButton = ({
-    repo,
-    disabled,
-  }: {
-    repo: string;
-    disabled?: boolean;
-  }) => {
-    return (
-      <button
-        disabled={disabled}
-        className={clsx(styles.button, styles.button4, styles.small)}
-        onClick={(e) => {
-          const handler = apiClient(`/themes/manager/download`, {
-            query: {
-              url: `https://github.com/${repo}/archive/refs/heads/main.zip`,
-            },
-          }).then(() => {
-            handleLocalData();
-            e.currentTarget.innerHTML = "已安装";
-            e.currentTarget.disabled = true;
-            return true;
-          });
-          toast.promise(handler, {
-            loading: "安装中",
-            success: "安装成功",
-            error: "安装失败",
-          });
-        }}
-      >
-        {disabled ? "已安装" : "安装"}
-      </button>
-    );
-  };
-
-  const UninstallButton = ({ id }: { id: string }) => {
-    return (
-      <button
-        className={clsx(styles.button, styles.button3, styles.small)}
-        onClick={(e) => {
-          e.preventDefault();
-          apiClient(`/themes/${id}`, {
-            method: "DELETE",
-            query: {
-              id,
-            },
-          }).then(() => {
-            handleLocalData();
-          });
-        }}
-      >
-        卸载
-      </button>
-    );
-  };
-
-  const ActiveButton = ({ id, active }: { id: string; active?: boolean }) => {
-    return (
-      <button
-        disabled={active}
-        className={clsx(styles.button, styles.button2, styles.small)}
-        onClick={(e) => {
-          const handler = apiClient(`/themes/${id}`, {
-            method: "PATCH",
-            query: {
-              id,
-            },
-          }).then(() => {
-            handleLocalData();
-            e.currentTarget.innerHTML = "已启用";
-            e.currentTarget.disabled = true;
-          });
-          toast.promise(handler, {
-            loading: "启用中",
-            success: "启用成功",
-            error: "启用失败",
-          });
-        }}
-      >
-        {active ? "已启用" : "启用"}
-      </button>
-    );
-  };
-
-  const SettingButton = ({ id }: { id: string }) => {
-    return (
-      <button
-        className={clsx(styles.button, styles.button2, styles.small)}
-        onClick={() => {
-          setId(id);
-        }}
-      >
-        设置
-      </button>
-    );
-  };
 
   const Setting = ({ id }: { id: string }) => {
     // const data = localData.find((item) => item.id === id);
@@ -217,7 +83,8 @@ export const ThemesPage: BasicPage = () => {
         <Modal
           title="主题设置"
           onClose={() => {
-            setId(undefined);
+            _private.showModal = false;
+            _private.modalDataId = "";
           }}
           type="confirm"
           size="lg"
@@ -235,7 +102,8 @@ export const ThemesPage: BasicPage = () => {
               success: "保存成功",
               error: "保存失败",
             });
-            setId(undefined);
+            _private.showModal = false;
+            _private.modalDataId = "";
           }}
         >
           {loading && (
@@ -298,110 +166,17 @@ export const ThemesPage: BasicPage = () => {
           </Tab.List>
           <Tab.Panels>
             <Tab.Panel>
-              <TableContainer
-                className={postStyle.table}
-                style={{ marginTop: "20px" }}
-                header={["NAME", "DESCRIPTION", "ID", "AUTHOR", "ACTIONS"]}
-                headerStyle={{ gridTemplateColumns: "1fr 1fr 1fr 1fr 2fr" }}
-              >
-                {localData?.data.map((item, index) => {
-                  return (
-                    <TableItem
-                      header={[
-                        "NAME",
-                        "DESCRIPTION",
-                        "ID",
-                        "AUTHOR",
-                        "ACTIONS",
-                      ]}
-                      className={clsx(postStyle.tableItem, "item")}
-                      style={{
-                        width: "100%",
-                        cursor: "pointer",
-                        gridTemplateColumns: "1fr 1fr 1fr 1fr 2fr",
-                      }}
-                      key={index}
-                    >
-                      <TableItemValue>{item.name}</TableItemValue>
-                      <TableItemValue>
-                        {(item.config &&
-                          JSON.parse(item.config)?.description) ||
-                          "无描述"}
-                      </TableItemValue>
-                      <TableItemValue>{item.id}</TableItemValue>
-                      <TableItemValue>
-                        {(item.config && JSON.parse(item.config)?.author) ||
-                          "未知"}
-                      </TableItemValue>
-                      <TableItemValue>
-                        <ActiveButton id={item.id} active={item.active} />
-                        <SettingButton id={item.id} />
-                        <UninstallButton id={item.id} />
-                      </TableItemValue>
-                    </TableItem>
-                  );
-                })}
-              </TableContainer>
+              <ThemesListDataTable 
+                columns={ThemesListColumns}
+                data={localData?.data || []}
+              />
             </Tab.Panel>
             <Tab.Panel>
-              <TableContainer
-                className={postStyle.table}
-                style={{ marginTop: "20px" }}
-                headerStyle={{
-                  width: "100%",
-                  gridTemplateColumns: "1fr 2fr 1fr 1fr 1fr",
-                }}
-                header={["REPO", "DESCRIPTION", "ID", "AUTHOR", "ACTIONS"]}
-              >
-                {data.map((item, index) => {
-                  return (
-                    <TableItem
-                      header={[
-                        "REPO",
-                        "DESCRIPTION",
-                        "ID",
-                        "AUTHOR",
-                        "ACTIONS",
-                      ]}
-                      className={clsx(postStyle.tableItem, "item")}
-                      style={{
-                        width: "100%",
-                        cursor: "pointer",
-                        gridTemplateColumns: "1fr 2fr 1fr 1fr 1fr",
-                      }}
-                      key={index}
-                    >
-                      <TableItemValue>
-                        <a
-                          href={`https://github.com/${item.repo}`}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          {item.repo?.split("/")?.[1]}
-                        </a>
-                      </TableItemValue>
-                      <TableItemValue>{item.description}</TableItemValue>
-                      <TableItemValue>{item.id}</TableItemValue>
-                      <TableItemValue>
-                        @{item.repo?.split("/")?.[0]}
-                      </TableItemValue>
-                      <TableItemValue>
-                        <InstallButton
-                          repo={item.repo}
-                          disabled={
-                            localData?.data.some &&
-                            localData?.data.some((local) => local.id === item.id)
-                          }
-                        />
-                      </TableItemValue>
-                    </TableItem>
-                  );
-                })}
-              </TableContainer>
+              尚未上线
             </Tab.Panel>
           </Tab.Panels>
         </Tab.Group>
-        {id && <Setting id={id} />}
+        {showModal && modalDataId && <Setting id={modalDataId} />}
       </div>
     </>
   );
