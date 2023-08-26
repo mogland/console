@@ -14,9 +14,11 @@ export const app = proxy({
 
 subscribe(app.error, (state) => {
   if (state.length > 0) {
-    const allServices = MOG_OFFICIAL_SERVICES
+    const allServices = MOG_OFFICIAL_SERVICES;
     for (let i = 0; i < state.length; i++) {
-      const service = allServices.find((s) => s.url === state[i][2]!.toString());
+      const service = allServices.find(
+        (s) => s.url === state[i][2]!.toString()
+      );
       if (service) {
         toast.error(`${service.name} 出现故障`);
       } else {
@@ -25,7 +27,7 @@ subscribe(app.error, (state) => {
       app.error = app.error.filter((e) => e !== state[i]);
     }
   }
-})
+});
 
 export const server = proxy({
   categories: [] as any[],

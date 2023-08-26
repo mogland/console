@@ -74,8 +74,7 @@ interface ActionButtonProps {
 }
 
 export const ActionButton = (props: ActionButtonProps) => {
-  const { label, action, className, doubleConfirm, doubleConfirmLabel } =
-    props;
+  const { label, action, className, doubleConfirm, doubleConfirmLabel } = props;
 
   return (
     <Button

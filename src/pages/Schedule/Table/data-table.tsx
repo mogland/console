@@ -5,7 +5,7 @@ export function ScheduleDataTable<TData, TValue>({
   columns,
   data,
   header,
-  pagination
+  pagination,
 }: AnyListDataTableProps<TData, TValue>) {
   return (
     <AnyListDataTable
@@ -15,5 +15,5 @@ export function ScheduleDataTable<TData, TValue>({
       pagination={pagination}
       deletePath="/page"
     />
-  )
-};
+  );
+}

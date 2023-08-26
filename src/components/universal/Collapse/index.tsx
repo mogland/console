@@ -1,11 +1,11 @@
-import { Disclosure } from "@headlessui/react"
-import type { PropsWithChildren } from "react"
-import styles from "./index.module.css"
+import { Disclosure } from "@headlessui/react";
+import type { PropsWithChildren } from "react";
+import styles from "./index.module.css";
 
 interface ICollapse {
-  title: string
-  children: React.ReactNode
-  open?: boolean
+  title: string;
+  children: React.ReactNode;
+  open?: boolean;
 }
 
 export const Collapse: React.FC<ICollapse> = (props) => {
@@ -18,13 +18,9 @@ export const Collapse: React.FC<ICollapse> = (props) => {
         {props.children}
       </Disclosure.Panel>
     </Disclosure>
-  )
-}
+  );
+};
 
 export const CollapseContainer: React.FC<PropsWithChildren> = (props) => {
-  return (
-    <div className={styles.container}>
-      {props.children}
-    </div>
-  )
-}
+  return <div className={styles.container}>{props.children}</div>;
+};

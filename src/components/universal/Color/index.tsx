@@ -1,4 +1,4 @@
-import styles from "./index.module.css"
+import styles from "./index.module.css";
 import { ModalBody } from "../Modal";
 
 export interface ColorProps {
@@ -22,4 +22,4 @@ export const Color = (props: ColorProps) => {
       />
     </div>
   );
-}
+};

@@ -1,4 +1,7 @@
-import { generateSelectColumn, genereateCreatedColumn } from "@components/widgets/AnyListDataTable/anyColumn";
+import {
+  generateSelectColumn,
+  genereateCreatedColumn,
+} from "@components/widgets/AnyListDataTable/anyColumn";
 import type { ColumnDef } from "@tanstack/react-table";
 
 export type FriendsListColumns = {
@@ -38,11 +41,7 @@ export const friendsListColumns: ColumnDef<FriendsListColumns>[] = [
     header: "Email",
     accessorKey: "email",
     cell: ({ row }) => {
-      return (
-        <a href={`mailto:${row.original.email}`}>
-          {row.original.email}
-        </a>
-      );
+      return <a href={`mailto:${row.original.email}`}>{row.original.email}</a>;
     },
   },
   {
@@ -54,12 +53,9 @@ export const friendsListColumns: ColumnDef<FriendsListColumns>[] = [
     accessorKey: "auto_check",
     cell: ({ row }) => {
       return (
-        <span>
-          {row.original.auto_check ? "互链 ✅" : "疑似未互链 ❌"}
-        </span>
+        <span>{row.original.auto_check ? "互链 ✅" : "疑似未互链 ❌"}</span>
       );
-    }
+    },
   },
   genereateCreatedColumn<FriendsListColumns>(),
-  
-]
+];

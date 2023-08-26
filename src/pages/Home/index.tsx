@@ -106,7 +106,7 @@ export const Home: BasicPage = () => {
       <Loading loading={loading} />
       <div className={clsx("loading", !loading && "loaded")}>
         <Title>仪表盘</Title>
-        <div 
+        <div
         // className={clsx("flex", "justify-between")}
         >
           <div>

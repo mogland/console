@@ -1,4 +1,4 @@
-import type { AnyListDataTableProps} from "@components/widgets/AnyListDataTable/table";
+import type { AnyListDataTableProps } from "@components/widgets/AnyListDataTable/table";
 import { AnyListDataTable } from "@components/widgets/AnyListDataTable/table";
 
 export function ThemesListDataTable<TData, TValue>({

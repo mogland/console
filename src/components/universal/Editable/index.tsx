@@ -16,7 +16,7 @@ export const Editable = (props: {
     if (props.enable) {
       inputRef.current?.focus();
     }
-  }, [props.enable])
+  }, [props.enable]);
 
   const handleBlur = () => {
     props.onChange(value);
@@ -44,9 +44,7 @@ export const Editable = (props: {
           onKeyDown={handleKeyDown}
         />
       ) : (
-        <span>
-          {value}
-        </span>
+        <span>{value}</span>
       )}
     </div>
   );

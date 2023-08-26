@@ -6,10 +6,8 @@ import useSWR from "swr";
 import { Loading } from "@components/universal/Loading";
 import clsx from "clsx";
 import { Title } from "@components/universal/Title";
-import { ActionButton, ActionButtons } from "@components/widgets/ActionButtons";
 import { toast } from "sonner";
 import { apiClient } from "@utils/request";
-import { Add, Fire, Power } from "@icon-park/react";
 import { Modal, ModalBody } from "@components/universal/Modal";
 import { Input, Textarea } from "@pages/Write/Input";
 import { Toggle } from "@components/universal/Toggle";
@@ -18,13 +16,8 @@ import { Select } from "@components/widgets/ThemeComponent/ThemeSelect";
 import { useSnapshot } from "valtio";
 import { _private } from "@states/private";
 import { ScheduleDataTable } from "./Table/data-table";
-import type {
-  ScheduleItemProps} from "./Table/column";
-import {
-  ScheduleAfter,
-  ScheduleColumns,
-  ScheduleType,
-} from "./Table/column";
+import type { ScheduleItemProps } from "./Table/column";
+import { ScheduleAfter, ScheduleColumns, ScheduleType } from "./Table/column";
 import { Button } from "@components/ui/button";
 
 export const SchedulePage: BasicPage = () => {
@@ -252,7 +245,6 @@ export const SchedulePage: BasicPage = () => {
     <>
       <Loading loading={isLoading} />
       <div className={clsx("loading", !isLoading && "loaded")}>
-
         <ScheduleDataTable
           columns={ScheduleColumns}
           data={data?.data || []}

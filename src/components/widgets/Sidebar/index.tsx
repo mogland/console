@@ -1,9 +1,4 @@
-import {
-  Login,
-  Logout,
-  MenuFoldOne,
-  MenuUnfoldOne,
-} from "@icon-park/react";
+import { Login, Logout, MenuFoldOne, MenuUnfoldOne } from "@icon-park/react";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 import { Space } from "@components/universal/Space";
@@ -51,16 +46,14 @@ const Links = () => {
                 href={jump(item.path)}
                 key={item.title}
               />
-              {
-                item.subItems?.map((item) => (
-                  <SidebarItem
-                    title={item.title}
-                    href={jump(item.path)}
-                    key={item.title}
-                    sub
-                  />
-                ))
-              }
+              {item.subItems?.map((item) => (
+                <SidebarItem
+                  title={item.title}
+                  href={jump(item.path)}
+                  key={item.title}
+                  sub
+                />
+              ))}
             </>
           ))}
           <Space key={index} height={20} />

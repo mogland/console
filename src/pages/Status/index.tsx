@@ -26,7 +26,7 @@ const Status: React.FC<IStatus> = (props) => {
 };
 
 export const StatusPage: BasicPage = () => {
-  useSeo("服务 · 状态")
+  useSeo("服务 · 状态");
   const [statuses, setStatuses] = useState<{
     [key: string]: "Operational" | "Down";
   }>({});
@@ -36,7 +36,10 @@ export const StatusPage: BasicPage = () => {
     await Promise.all(
       services.map(async (service) => {
         const res = await ofetch
-          .raw(`${service.url ? `/${service.url}` : ""}/ping`, { baseURL: API, retry: false })
+          .raw(`${service.url ? `/${service.url}` : ""}/ping`, {
+            baseURL: API,
+            retry: false,
+          })
           .catch(() => ({ status: 500 }));
         setStatuses((prev) => ({
           ...prev,

@@ -29,34 +29,30 @@ export const ThemesPage: BasicPage = () => {
   // const [id, setId] = useState<string | undefined>();
   const { showModal, modalDataId, refreshData } = useSnapshot(_private);
 
-  const { data: localData, mutate: themeMutate } = useSWR<
-    {
-      data: {
-        id: string;
-        name: string;
-        active: boolean;
-        package: string;
-        version: string;
-        config: any;
-        path: string;
-      }[]
-    }
-  >("/themes");
+  const { data: localData, mutate: themeMutate } = useSWR<{
+    data: {
+      id: string;
+      name: string;
+      active: boolean;
+      package: string;
+      version: string;
+      config: any;
+      path: string;
+    }[];
+  }>("/themes");
 
   const handleLocalData = async () => {
     themeMutate();
   };
 
   useEffect(() => {
-    Promise.all([
-      handleLocalData(),
-    ]).then(() => {
+    Promise.all([handleLocalData()]).then(() => {
       setLoading(false);
     });
   }, []);
 
   useEffect(() => {
-    if (refreshData) {      
+    if (refreshData) {
       handleLocalData();
       _private.refreshData = false;
     }
@@ -166,14 +162,12 @@ export const ThemesPage: BasicPage = () => {
           </Tab.List>
           <Tab.Panels>
             <Tab.Panel>
-              <ThemesListDataTable 
+              <ThemesListDataTable
                 columns={ThemesListColumns}
                 data={localData?.data || []}
               />
             </Tab.Panel>
-            <Tab.Panel>
-              尚未上线
-            </Tab.Panel>
+            <Tab.Panel>尚未上线</Tab.Panel>
           </Tab.Panels>
         </Tab.Group>
         {showModal && modalDataId && <Setting id={modalDataId} />}

@@ -98,7 +98,7 @@ export const ScheduleColumns: ColumnDef<ScheduleColumns>[] = [
               success: "删除成功",
               error: "删除失败",
             }
-          )
+          );
         },
       },
       {
@@ -114,7 +114,7 @@ export const ScheduleColumns: ColumnDef<ScheduleColumns>[] = [
               success: "运行成功",
               error: "运行失败",
             }
-          )
+          );
         },
       },
       {
@@ -130,10 +130,9 @@ export const ScheduleColumns: ColumnDef<ScheduleColumns>[] = [
               success: "切换成功",
               error: "切换失败",
             }
-          )
+          );
         },
       },
-      
     ],
   }),
 ];

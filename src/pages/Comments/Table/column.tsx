@@ -1,5 +1,8 @@
-import { generateSelectColumn, genereateCreatedColumn } from "@components/widgets/AnyListDataTable/anyColumn";
-import { ColumnDef } from "@tanstack/react-table";
+import {
+  generateSelectColumn,
+  genereateCreatedColumn,
+} from "@components/widgets/AnyListDataTable/anyColumn";
+import type { ColumnDef } from "@tanstack/react-table";
 import { mailAvatar } from "@utils/avatar";
 
 export interface CommentReaction {
@@ -60,23 +63,15 @@ export const commentsListColumns: ColumnDef<CommentsListColumns>[] = [
     header: "Email",
     accessorKey: "email",
     cell: ({ row }) => {
-      return (
-        <a href={`mailto:${row.original.email}`}>
-          {row.original.email}
-        </a>
-      );
+      return <a href={`mailto:${row.original.email}`}>{row.original.email}</a>;
     },
   },
   {
     header: "Origin",
     accessorKey: "origin",
     cell: ({ row }) => {
-      return (
-        <span>
-          {row.original.origin?.title}
-        </span>
-      )
-    }
+      return <span>{row.original.origin?.title}</span>;
+    },
   },
   genereateCreatedColumn<CommentsListColumns>(),
 ];

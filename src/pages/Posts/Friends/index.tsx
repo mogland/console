@@ -14,7 +14,7 @@ import pageStyles from "./index.module.css";
 import { useSeo } from "@hooks/useSeo";
 
 export const FriendsPosts: BasicPage = () => {
-  useSeo("好友动态")
+  useSeo("好友动态");
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState<{
     data: any[];

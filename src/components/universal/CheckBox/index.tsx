@@ -1,10 +1,11 @@
-import styles from "./index.module.css"
+import styles from "./index.module.css";
 import { useState, useEffect } from "react";
 import { ModalBody } from "../Modal";
 
 export interface CheckBoxProps {
-  selected?: any[] // 选中的值
-  value: { // 选项
+  selected?: any[]; // 选中的值
+  value: {
+    // 选项
     name: string;
     key: string;
     value: any;
@@ -34,7 +35,7 @@ export const CheckBox = (props: CheckBoxProps) => {
       setChecked(checked.filter((item: any) => item !== value));
     }
     onChange(checked);
-  };  
+  };
 
   return (
     <>

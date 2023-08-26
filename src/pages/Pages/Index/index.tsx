@@ -49,9 +49,7 @@ export const PagesIndex: BasicPage = () => {
             pagination={data.pagination}
             header={
               <>
-                <Title>
-                页面 · 列表
-                </Title>
+                <Title>页面 · 列表</Title>
                 <Button
                   variant="outline"
                   className={clsx("ml-auto", "mr-2")}

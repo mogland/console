@@ -1,14 +1,6 @@
 import { Tab } from "@headlessui/react";
 import tabs from "@components/universal/Tabs/index.module.css";
-import {
-  AddOne,
-  Detection,
-  SendEmail,
-  CheckSmall,
-  CloseSmall,
-  Redo,
-  Rss,
-} from "@icon-park/react";
+import { AddOne, Detection, Rss } from "@icon-park/react";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -18,18 +10,14 @@ import { Title } from "@components/universal/Title";
 import type { BasicPage } from "@type/basic";
 import { apiClient } from "@utils/request";
 import { getQueryVariable } from "@utils/url";
-import {
-  TableContainer,
-  TableItem,
-  TableItemValue,
-} from "@pages/Home/universal";
+
 import postStyles from "@pages/Posts/Index/index.module.css";
 import { Input, Textarea } from "@pages/Write/Input";
 import styles from "./index.module.css";
 import { jump } from "@utils/path";
 import { useSeo } from "@hooks/useSeo";
 import { toast } from "sonner";
-import { ActionButton, ActionButtons } from "@components/widgets/ActionButtons";
+import { ActionButton } from "@components/widgets/ActionButtons";
 import { Select } from "@components/widgets/ThemeComponent/ThemeSelect";
 import { FriendsListDataTable } from "./Table/data-table";
 import { friendsListColumns } from "./Table/column";
@@ -165,8 +153,8 @@ export const FriendsPage: BasicPage = () => {
             <span style={{ marginRight: "1rem" }}>
               <ModalBody>友链状态</ModalBody>
             </span>
-            
-            <Select 
+
+            <Select
               data={FriendsStatus.map((i, index) => {
                 return {
                   label: i,
@@ -228,7 +216,7 @@ export const FriendsPage: BasicPage = () => {
             <span style={{ marginRight: "1rem" }}>
               <ModalBody>订阅类型</ModalBody>
             </span>
-            
+
             <Select
               data={["rss", "atom"].map((i) => {
                 return {
@@ -275,7 +263,7 @@ export const FriendsPage: BasicPage = () => {
     return (
       <div>
         <Loading loading={inSideLoading} />
-        <FriendsListDataTable 
+        <FriendsListDataTable
           columns={friendsListColumns}
           data={friends}
           deletePath="/friends"

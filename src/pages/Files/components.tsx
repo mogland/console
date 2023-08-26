@@ -25,7 +25,7 @@ export const Item = (
   const [icon, setIcon] = useState<React.ReactNode>(<></>);
   const [rename, setRename] = useState(false);
   const navgative = useNavigate();
-  const { open } = dialog.useDialog('fileContextMenu', {})
+  const { open } = dialog.useDialog("fileContextMenu", {});
 
   useEffect(() => {
     if (props.type === "image") {
@@ -51,7 +51,7 @@ export const Item = (
   const doubleOrOneClick = (callback: () => void) => {
     return () => {
       setClickCount(clickCount + 1);
-      
+
       const timer = setTimeout(() => {
         if (clickCount === 1) {
           props.onClick?.();
@@ -67,12 +67,12 @@ export const Item = (
 
   const onRename = () => {
     setRename(true);
-  }
+  };
 
   const contextMenu = (e: React.MouseEvent<MouseEvent>) => {
     e.preventDefault();
     e.stopPropagation();
-    const { x, y } = calculateMousePosition(e)
+    const { x, y } = calculateMousePosition(e);
     open({
       position: {
         x,
@@ -81,9 +81,9 @@ export const Item = (
       path: `${props.path}`,
       name: `${props.name}`,
       onRename,
-      isFile: props.type !== "directory"
-    })
-  }
+      isFile: props.type !== "directory",
+    });
+  };
 
   const handleOnClick = () => {
     if (props.type === "directory") {
@@ -109,21 +109,28 @@ export const Item = (
       <div className={styles.item}>
         <div className={styles.itemIcon}>{icon}</div>
         <div className={styles.itemInfo}>
-          <Editable value={props.name} enable={rename} onChange={(value) => {
-            setRename(false)
-            console.log(value);
-            toast.promise(apiClient("/store/rename", {
-              method: "PATCH",
-              body: {
-                oldPath: `${props.path}/${props.name}`,
-                newPath: `${props.path}/${value}`,
-              }
-            }), {
-              loading: "正在重命名",
-              success: "重命名成功",
-              error: "重命名失败",
-            })
-          }} />
+          <Editable
+            value={props.name}
+            enable={rename}
+            onChange={(value) => {
+              setRename(false);
+              console.log(value);
+              toast.promise(
+                apiClient("/store/rename", {
+                  method: "PATCH",
+                  body: {
+                    oldPath: `${props.path}/${props.name}`,
+                    newPath: `${props.path}/${value}`,
+                  },
+                }),
+                {
+                  loading: "正在重命名",
+                  success: "重命名成功",
+                  error: "重命名失败",
+                }
+              );
+            }}
+          />
           <span className={styles.itemSize}>{props.size}</span>
         </div>
       </div>
