@@ -1,6 +1,6 @@
 import { useEffect, useCallback, useMemo } from "react";
 
-interface SeoProps {  
+interface SeoProps {
   title?: string;
   description?: string;
   image?: string;
@@ -9,9 +9,9 @@ interface SeoProps {
 }
 
 export function useSeo(props: SeoProps | string) {
-  const { title } = typeof props === 'string' ? { title: props } : props;
-  const siteName = 'Mog Console';
-  const siteDescription = 'The Powerfull Console for Mog System';
+  const { title } = typeof props === "string" ? { title: props } : props;
+  const siteName = "Mog Console";
+  const siteDescription = "The Powerfull Console for Mog System";
 
   const seo = useMemo(() => {
     return {

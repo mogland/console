@@ -6,51 +6,26 @@ import useSWR from "swr";
 import { Loading } from "@components/universal/Loading";
 import clsx from "clsx";
 import { Title } from "@components/universal/Title";
-import {
-  TableContainer,
-  TableItem,
-  TableItemValue,
-} from "@pages/Home/universal";
-import { ActionButton, ActionButtons } from "@components/widgets/ActionButtons";
 import { toast } from "sonner";
 import { apiClient } from "@utils/request";
-import { Add, Fire, Power } from "@icon-park/react";
 import { Modal, ModalBody } from "@components/universal/Modal";
 import { Input, Textarea } from "@pages/Write/Input";
 import { Toggle } from "@components/universal/Toggle";
 import { Collapse, CollapseContainer } from "@components/universal/Collapse";
 import { Select } from "@components/widgets/ThemeComponent/ThemeSelect";
-
-const ScheduleType = {
-  url: "访问 URL",
-  event: "广播事件",
-};
-
-const ScheduleAfter = {
-  none: "无",
-  store: "存储",
-  url: "访问 URL",
-};
-
-interface ScheduleItemProps {
-  token: string;
-  name: string;
-  description: string;
-  cron: string;
-  next: string;
-  type: keyof typeof ScheduleType;
-  after: keyof typeof ScheduleAfter;
-  error: object[];
-  running: boolean;
-}
+import { useSnapshot } from "valtio";
+import { _private } from "@states/private";
+import { ScheduleDataTable } from "./Table/data-table";
+import type { ScheduleItemProps } from "./Table/column";
+import { ScheduleAfter, ScheduleColumns, ScheduleType } from "./Table/column";
+import { Button } from "@components/ui/button";
 
 export const SchedulePage: BasicPage = () => {
   useSeo("计划任务");
-  const [select, setSelect] = useState<string[]>([]);
   const { data, isLoading, mutate } = useSWR<{
     data: ScheduleItemProps[];
   }>("/schedule");
-  const [showEditModal, setShowEditModal] = useState(false);
+  const privateSnapshot = useSnapshot(_private);
 
   useEffect(() => {
     mutate();
@@ -79,15 +54,17 @@ export const SchedulePage: BasicPage = () => {
       action: {},
     });
 
-    const selectItem = data?.data.find((i) => i.token === select[0]);
-    console.log(select);
+    const selectItem = data?.data.find(
+      (i) => i.token === privateSnapshot.modalDataId
+    );
 
     useEffect(() => {
-      if (select[0]) {
-        console.log(select[0]);
-        apiClient(`/schedule/${select[0]}`).then((itemDetailData) => {
-          setItem(itemDetailData);
-        });
+      if (privateSnapshot.modalDataId) {
+        apiClient(`/schedule/${privateSnapshot.modalDataId}`).then(
+          (itemDetailData) => {
+            setItem(itemDetailData);
+          }
+        );
       }
     }, []);
 
@@ -102,8 +79,7 @@ export const SchedulePage: BasicPage = () => {
             cancel: true,
           }}
           onClose={() => {
-            setShowEditModal(false);
-            setSelect([]);
+            _private.showModal = false;
           }}
           onConfirm={() => {
             if (!item) {
@@ -194,7 +170,7 @@ export const SchedulePage: BasicPage = () => {
             }}
           />
           <ModalBody>任务类型</ModalBody>
-          <Select 
+          <Select
             data={Object.keys(ScheduleType).map((i) => ({
               label: ScheduleType[i],
               value: i,
@@ -220,7 +196,7 @@ export const SchedulePage: BasicPage = () => {
             }}
           />
           <ModalBody>任务后续</ModalBody>
-          <Select 
+          <Select
             data={Object.keys(ScheduleAfter).map((i) => ({
               label: ScheduleAfter[i],
               value: i,
@@ -247,7 +223,7 @@ export const SchedulePage: BasicPage = () => {
           />
           <CollapseContainer>
             <Collapse title="任务错误日志">
-                <div className="max-h-[400px] overflow-y-scroll">
+              <div className="max-h-[400px] overflow-y-scroll">
                 {item?.error.length ? (
                   item?.error?.map((v: any, index) => (
                     <div key={index} className={styles.error}>
@@ -257,7 +233,7 @@ export const SchedulePage: BasicPage = () => {
                 ) : (
                   <ModalBody>暂无错误报告</ModalBody>
                 )}
-                </div>
+              </div>
             </Collapse>
           </CollapseContainer>
         </Modal>
@@ -269,123 +245,33 @@ export const SchedulePage: BasicPage = () => {
     <>
       <Loading loading={isLoading} />
       <div className={clsx("loading", !isLoading && "loaded")}>
-        <Title>
-          <div className={clsx("flex", "justify-between")}>
-            <div>计划任务</div>
-            <div>
-              <ActionButtons
-                selectedClassName={styles.selected}
-                selected={select}
-                setSelect={setSelect}
-                editAction={() => {
-                  setShowEditModal(true);
-                }}
-                deleteFunction={async () => {
-                  toast.promise(
-                    Promise.all(
-                      select.map(async (item) => {
-                        await apiClient(`/schedule/${item}`, {
-                          method: "DELETE",
-                        });
-                      })
-                    ),
-                    {
-                      loading: "正在删除",
-                      success: "删除成功",
-                      error: "删除失败",
-                    }
-                  );
-                }}
-              />
-              {select.length === 1 && (
-                <>
-                  <ActionButton
-                    label={"开关"}
-                    icon={<Power />}
-                    action={() => {
-                      toast.promise(
-                        apiClient(`/schedule/${select[0]}`, {
-                          method: "PATCH",
-                        }).then(() => {
-                          mutate();
-                        }),
-                        {
-                          loading: "正在切换",
-                          success: "切换成功",
-                          error: "切换失败",
-                        }
-                      );
-                    }}
-                  />
-                  <ActionButton
-                    label="立即执行"
-                    icon={<Fire />}
-                    action={() => {
-                      toast.promise(
-                        apiClient(`/schedule/${select[0]}/run`, {
-                          method: "GET",
-                        }),
-                        {
-                          loading: "正在执行",
-                          success: "执行成功",
-                          error: "执行失败",
-                        }
-                      );
-                    }}
-                  />
-                </>
-              )}
-              <ActionButton
-                label="新建任务"
-                icon={<Add />}
-                action={() => {
-                  setSelect([]);
-                  setShowEditModal(true);
-                }}
-              />
-            </div>
-          </div>
-        </Title>
-
-        <TableContainer
-          style={{ marginTop: "20px" }}
-          header={[
-            "任务名",
-            "任务描述",
-            "Cron 表达式",
-            "下一次执行",
-            "任务状态",
-          ]}
-        >
-          {data?.data.map((item, index) => {
-            return (
-              <TableItem
-                key={index}
-                header={["NAME", "DESCRIPTION", "CRON", "NEXT", "RUNNING"]}
-                onClick={() => {
-                  if (select.includes(item.token)) {
-                    setSelect(select.filter((i) => i !== item.token));
-                  } else {
-                    setSelect([...select, item.token]);
-                  }
-                }}
-                className={clsx(select.includes(item.token) && styles.selected)}
+        <ScheduleDataTable
+          columns={ScheduleColumns}
+          data={data?.data || []}
+          pagination={{
+            total: 0,
+            total_page: 0,
+            current_page: 0,
+          }}
+          header={
+            <>
+              <Title>
+                <div className={styles.head}>
+                  <span className={styles.headTitle}>计划任务</span>
+                </div>
+              </Title>
+              <Button
+                variant="outline"
+                className={clsx("ml-auto", "mr-2")}
+                onClick={() => (_private.showModal = true)}
               >
-                <TableItemValue>{item.name}</TableItemValue>
-                <TableItemValue>{item.description}</TableItemValue>
-                <TableItemValue>{item.cron}</TableItemValue>
-                <TableItemValue>
-                  {new Date(item.next).toLocaleDateString()}
-                </TableItemValue>
-                <TableItemValue>
-                  {item.running ? "激活" : "停止"}
-                </TableItemValue>
-              </TableItem>
-            );
-          })}
-        </TableContainer>
+                新建
+              </Button>
+            </>
+          }
+        />
       </div>
-      {showEditModal && <EditModal />}
+      {privateSnapshot.showModal && <EditModal />}
     </>
   );
 };

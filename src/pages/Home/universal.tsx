@@ -97,9 +97,11 @@ export const TableItemValue = ({
 }: {
   children: React.ReactNode;
   className?: string;
-  [key: string]: any
+  [key: string]: any;
 }) => {
   return (
-    <span className={clsx(styles.tableItemTitle, className)} {...props}>{children}</span>
+    <span className={clsx(styles.tableItemTitle, className)} {...props}>
+      {children}
+    </span>
   );
 };

@@ -256,34 +256,38 @@ export const CategoriesPage: BasicPage = () => {
                         e.currentTarget.classList.contains(styles.confrim) &&
                         select.length === 2
                       ) {
-                        toast.promise(apiClient(`/category/merge`, {
-                          method: "POST",
-                          body: JSON.stringify({
-                            from:
-                              select[0].type === "category"
-                                ? select[0].id
-                                : select[0].name,
-                            to:
-                              select[1].type === "category"
-                                ? select[1].id
-                                : select[1].name,
-                            type: select[0].type === "category" ? 0 : 1,
-                          }),
-                        }).then(() => {
-                          setSelect([]);
-                          handleRemoveSelect();
-                          Promise.all([mutateCategories(), mutateTags()]).then(
-                            () => {
+                        toast.promise(
+                          apiClient(`/category/merge`, {
+                            method: "POST",
+                            body: JSON.stringify({
+                              from:
+                                select[0].type === "category"
+                                  ? select[0].id
+                                  : select[0].name,
+                              to:
+                                select[1].type === "category"
+                                  ? select[1].id
+                                  : select[1].name,
+                              type: select[0].type === "category" ? 0 : 1,
+                            }),
+                          }).then(() => {
+                            setSelect([]);
+                            handleRemoveSelect();
+                            Promise.all([
+                              mutateCategories(),
+                              mutateTags(),
+                            ]).then(() => {
                               if (!categoriesError)
                                 server.categories = categories.data || [];
                               if (!tagsError) server.tags = tags.data || [];
-                            }
-                          );
-                        }), {
-                          loading: "正在合并",
-                          success: "合并成功",
-                          error: "合并失败",
-                        })
+                            });
+                          }),
+                          {
+                            loading: "正在合并",
+                            success: "合并成功",
+                            error: "合并失败",
+                          }
+                        );
                       } else {
                         e.currentTarget.classList.add(styles.confrim);
                         if (select.length === 1) {

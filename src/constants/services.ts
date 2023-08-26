@@ -38,5 +38,5 @@ export const MOG_OFFICIAL_SERVICES = [
   {
     name: "储藏服务",
     url: "store",
-  }
+  },
 ];

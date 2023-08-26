@@ -79,13 +79,22 @@ export const Tags: React.FC<TagsProp> = (props) => {
         }
 
         return (
-          <Tag closable key={`${tag}-${index}`} onClose={() => handleClose(tag)} styles={tagStyles}>
+          <Tag
+            closable
+            key={`${tag}-${index}`}
+            onClose={() => handleClose(tag)}
+            styles={tagStyles}
+          >
             {tag}
           </Tag>
         );
       })}
       {!inputVisible && (
-        <NewTag onClick={showInput} className={styles.newTag} styles={tagStyles}>
+        <NewTag
+          onClick={showInput}
+          className={styles.newTag}
+          styles={tagStyles}
+        >
           <Plus /> New Tag
         </NewTag>
       )}
@@ -108,23 +117,29 @@ export const Input = forwardRef<
 
   return (
     <div className={styles.suggestContainer}>
-      <input className={styles.input} ref={ref} {...rest} style={props.styles} />
+      <input
+        className={styles.input}
+        ref={ref}
+        {...rest}
+        style={props.styles}
+      />
       <div className={styles.suggest}>
-        {autoComplete && tags
-          .map((tag) => (
-            <div
-              style={props.styles}
-              key={tag.name}
-              className={styles.input}
-              onMouseDown={() => {
-                // use mousedown instead of click to prevent input blur
-                props.onAutoComplete?.(tag.name);
-              }}
-            >
-              {tag.name}
-            </div>
-          ))
-          .sort((a, b) => b.props.children.length - a.props.children.length)}
+        {autoComplete &&
+          tags
+            .map((tag) => (
+              <div
+                style={props.styles}
+                key={tag.name}
+                className={styles.input}
+                onMouseDown={() => {
+                  // use mousedown instead of click to prevent input blur
+                  props.onAutoComplete?.(tag.name);
+                }}
+              >
+                {tag.name}
+              </div>
+            ))
+            .sort((a, b) => b.props.children.length - a.props.children.length)}
       </div>
     </div>
   );
@@ -151,7 +166,8 @@ export const Tag: React.FC<PropsWithChildren & TagProps> = (props) => {
 };
 
 const NewTag: React.FC<
-  PropsWithChildren & React.HTMLAttributes<HTMLDivElement> & { styles?: React.CSSProperties }
+  PropsWithChildren &
+    React.HTMLAttributes<HTMLDivElement> & { styles?: React.CSSProperties }
 > = (props) => {
   const { onClick, children, styles } = props;
   return (

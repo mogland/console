@@ -1,17 +1,17 @@
-import { useState, useEffect } from "react"
-import { ModalBody } from "../Modal"
-import styles from "./index.module.css"
+import { useState, useEffect } from "react";
+import { ModalBody } from "../Modal";
+import styles from "./index.module.css";
 
 export interface RadioProps {
-  selected?: any
+  selected?: any;
   value: {
-    name: string
-    key: string
-    value: any
-  }[]
-  onChange: (checked: any) => void
-  label?: string
-  [key: string]: any
+    name: string;
+    key: string;
+    value: any;
+  }[];
+  onChange: (checked: any) => void;
+  label?: string;
+  [key: string]: any;
 }
 
 /**
@@ -19,18 +19,18 @@ export interface RadioProps {
  * @param props
  */
 export const Radio = (props: RadioProps) => {
-  const { selected, value, onChange, label, ...rest } = props
-  const [checked, setChecked] = useState<any>(selected)
+  const { selected, value, onChange, label, ...rest } = props;
+  const [checked, setChecked] = useState<any>(selected);
 
   useEffect(() => {
-    setChecked(selected)
-  }, [selected])
+    setChecked(selected);
+  }, [selected]);
 
   const handleChange = (e: any) => {
-    const { value } = e.target
-    setChecked(value)
-    onChange(value)
-  }
+    const { value } = e.target;
+    setChecked(value);
+    onChange(value);
+  };
 
   return (
     <>
@@ -52,5 +52,5 @@ export const Radio = (props: RadioProps) => {
         ))}
       </div>
     </>
-  )
-}
+  );
+};

@@ -1,6 +1,11 @@
 import type { ColumnDef } from "@tanstack/react-table";
 
-import { generatePostsAndPagesActionsColumn, generateSelectColumn, generateTitleColumn, genereateCreatedColumn } from "@components/widgets/AnyListDataTable/anyColumn";
+import {
+  generatePostsAndPagesActionsColumn,
+  generateSelectColumn,
+  generateTitleColumn,
+  genereateCreatedColumn,
+} from "@components/widgets/AnyListDataTable/anyColumn";
 
 export type PostsListColumns = {
   id: string;

@@ -1,9 +1,9 @@
 import { app } from "@states/app";
 
 export function getCookie(key: string) {
-  const cookies = document.cookie.split(';');
+  const cookies = document.cookie.split(";");
   const cookie = cookies.find((c) => c.trim().startsWith(`${key}=`));
-  const d = cookie ? cookie.split('=')[1] : null;
+  const d = cookie ? cookie.split("=")[1] : null;
   app.token = d;
   return d;
 }

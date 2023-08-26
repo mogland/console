@@ -1,4 +1,3 @@
-import { apiClient } from "@utils/request";
 import useSWR from "swr";
 import { app } from "@states/app";
 
@@ -26,7 +25,7 @@ export function useHomeAggregateData() {
   const { data: comments } = useSWR("/comments?size=5", {
     onError(_err, _key, _config) {
       app.error.push("comments");
-    }
+    },
   });
   const { data: pages } = useSWR("/page", {
     onError(_err, _key, _config) {

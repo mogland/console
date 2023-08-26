@@ -9,7 +9,7 @@ import {
   Schedule,
   Setting,
   Theme,
-  Comment
+  Comment,
 } from "@icon-park/react";
 
 export const SIDEBAR = [

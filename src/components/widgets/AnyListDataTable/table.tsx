@@ -33,16 +33,16 @@ import { toast } from "sonner";
 import { apiClient } from "@utils/request";
 import { useNavigate } from "react-router-dom";
 
-interface DataTableProps<TData, TValue> {
+export interface AnyListDataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   header?: React.ReactNode;
-  pagination: {
+  pagination?: {
     total: number;
     total_page: number;
     current_page: number;
-  }
-  deletePath: string;
+  };
+  deletePath?: string;
 }
 
 export function AnyListDataTable<TData, TValue>({
@@ -50,9 +50,10 @@ export function AnyListDataTable<TData, TValue>({
   data,
   header,
   pagination,
-  deletePath
-}: DataTableProps<TData, TValue>) {
+  deletePath,
+}: AnyListDataTableProps<TData, TValue>) {
   const navigate = useNavigate();
+  const currentPath = window.location.pathname.split("/")[1];
   const [sorting, setSorting] = useState<SortingState>([]);
   const [rowSelection, setRowSelection] = useState({});
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
@@ -77,33 +78,31 @@ export function AnyListDataTable<TData, TValue>({
       <div className="flex items-center py-4">
         {header}
 
-        {
-          table.getFilteredSelectedRowModel().rows.length ? (
-            <Button
-              variant="outline"
-              className={clsx("mr-2")}
-              onClick={() => {
-                const tasks = Promise.all(
-                  table.getFilteredSelectedRowModel().rows.map((row) => {
-                    return apiClient(`/${deletePath}/${row.id}`, {
-                      method: "DELETE",
-                    });
-                  })
-                ).then(() => {
-                  table.resetRowSelection();
-                  table.resetSorting();
+        {table.getFilteredSelectedRowModel().rows.length ? (
+          <Button
+            variant="outline"
+            className={clsx("mr-2")}
+            onClick={() => {
+              const tasks = Promise.all(
+                table.getFilteredSelectedRowModel().rows.map((row) => {
+                  return apiClient(`/${deletePath}/${row.id}`, {
+                    method: "DELETE",
+                  });
                 })
-                toast.promise(tasks, {
-                  loading: "正在删除",
-                  success: "删除成功",
-                  error: "删除失败",
-                })
-              }}
-            >
-              删除
-            </Button>
-          ) : null
-        }
+              ).then(() => {
+                table.resetRowSelection();
+                table.resetSorting();
+              });
+              toast.promise(tasks, {
+                loading: "正在删除",
+                success: "删除成功",
+                error: "删除失败",
+              });
+            }}
+          >
+            删除
+          </Button>
+        ) : null}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline">展示列</Button>
@@ -172,35 +171,45 @@ export function AnyListDataTable<TData, TValue>({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                  无内容
                 </TableCell>
               </TableRow>
             )}
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => {
-            navigate(`/posts?page=${pagination.current_page - 1}`);
-          }}
-          disabled={!(pagination.current_page <= pagination.total_page && pagination.current_page > 1)}
-        >
-          Previous
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => {
-            navigate(`/posts?page=${pagination.current_page + 1}`);
-          }}
-          disabled={!(pagination.current_page < pagination.total_page) || pagination.total_page === 1}
-        >
-          Next
-        </Button>
-      </div>
+      {pagination ? (
+        <div className="flex items-center justify-end space-x-2 py-4">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              navigate(`/${currentPath}?page=${pagination.current_page - 1}`);
+            }}
+            disabled={
+              !(
+                pagination.current_page <= pagination.total_page &&
+                pagination.current_page > 1
+              )
+            }
+          >
+            Previous
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              navigate(`/${currentPath}?page=${pagination.current_page + 1}`);
+            }}
+            disabled={
+              !(pagination.current_page < pagination.total_page) ||
+              pagination.total_page === 1
+            }
+          >
+            Next
+          </Button>
+        </div>
+      ) : null}
     </div>
   );
 }

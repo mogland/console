@@ -14,7 +14,17 @@ export interface InputInterface {
   [key: string]: any;
 }
 
-export const Input: React.FC<InputInterface> = ({ label, value, onChange, oneLine, type, disabled, children, className, ...props }) => {
+export const Input: React.FC<InputInterface> = ({
+  label,
+  value,
+  onChange,
+  oneLine,
+  type,
+  disabled,
+  children,
+  className,
+  ...props
+}) => {
   return (
     <div className={clsx({ [styles.toggleGroup]: oneLine }, className)}>
       <span className={clsx({ [styles.toggleGroupTitle]: oneLine })}>
@@ -45,7 +55,14 @@ export interface TextareaProps {
   [key: string]: any;
 }
 
-export const Textarea: React.FC<TextareaProps> = ({ label, value, onChange, placeholder, className, ...rest }) => {
+export const Textarea: React.FC<TextareaProps> = ({
+  label,
+  value,
+  onChange,
+  placeholder,
+  className,
+  ...rest
+}) => {
   return (
     <>
       <ModalBody>{label}</ModalBody>

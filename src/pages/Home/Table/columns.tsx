@@ -1,4 +1,4 @@
-import type { ColumnDef } from "@tanstack/react-table"
+import type { ColumnDef } from "@tanstack/react-table";
 import { useNavigate } from "react-router-dom";
 
 export type RecentPost = {
@@ -7,7 +7,7 @@ export type RecentPost = {
   category: {
     id: string;
     name: string;
-  }
+  };
   count: {
     read: number;
     like: number;
@@ -30,7 +30,7 @@ export const recentlyPostColumns: ColumnDef<RecentPost>[] = [
         >
           {row.original.title}
         </a>
-      )
+      );
     },
   },
   {
@@ -45,4 +45,4 @@ export const recentlyPostColumns: ColumnDef<RecentPost>[] = [
     header: "Like",
     accessorKey: "count.like",
   },
-]
+];

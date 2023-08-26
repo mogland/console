@@ -8,7 +8,7 @@ function getCategoryData() {
     return;
   }
   // console.log(data);
-  
+
   server.categories = data?.data || [];
   return;
 }
