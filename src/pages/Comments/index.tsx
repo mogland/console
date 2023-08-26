@@ -141,35 +141,13 @@ export const CommentsPage: BasicPage = () => {
               <Tab.Panel key={index}>
                 <CommentsTable
                   columns={commentsListColumns}
-                  data={data?.data}
+                  data={data?.data || []}
                   pagination={data?.pagination}
                 />
               </Tab.Panel>
             ))}
           </Tab.Panels>
         </Tab.Group>
-      </div>
-      <div className={postStyles.nav}>
-        {(data?.pagination.has_prev_page && (
-          <Button
-            onClick={() => {
-              navigate(jump(`/comments?status=${tab}&page=${page - 1}`));
-            }}
-          >
-            上一页
-          </Button>
-        )) ||
-          null}
-        {(data?.pagination.has_next_page && (
-          <Button
-            onClick={() => {
-              navigate(jump(`/comments?status=${tab}&page=${page + 1}`));
-            }}
-          >
-            下一页
-          </Button>
-        )) ||
-          null}
       </div>
       {showEditModal && (
         <EditModal
