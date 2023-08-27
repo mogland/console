@@ -106,6 +106,7 @@ export function generateAnyActionsColumn<T>(props: {
   menus: {
     title: string;
     onClick?: (row: T) => void;
+    href?: (row: T) => string;
     icon?: React.ReactNode;
   }[];
 }): ColumnDef<T> {
@@ -113,6 +114,7 @@ export function generateAnyActionsColumn<T>(props: {
     id: "Actions",
     cell({ row }) {
       const post = row.original;
+      const navigate = useNavigate();
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -127,6 +129,9 @@ export function generateAnyActionsColumn<T>(props: {
                 key={index}
                 onClick={() => {
                   menu.onClick?.(post);
+                  if (menu.href) {
+                    navigate(menu.href(post));
+                  }
                 }}
               >
                 {menu.icon}
@@ -153,10 +158,7 @@ export function generatePostsAndPagesActionsColumn<T>(
       {
         title: "编辑",
         icon: <Edit className="mr-2 h-4 w-4" />,
-        onClick: (post) => {
-          const navigate = useNavigate();
-          navigate(`/write/${type}?id=${post.id}`);
-        },
+        href: (post) => `/write/${type}?id=${post.id}`,
       },
       {
         title: "删除",
