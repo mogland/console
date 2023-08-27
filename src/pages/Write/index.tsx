@@ -15,12 +15,14 @@ import { apiClient } from "@utils/request";
 import { getQueryVariable } from "@utils/url";
 import { Fields } from "./fields";
 import styles from "./index.module.css";
-import { Input, Textarea } from "./Input";
+import { Input } from "./Input";
+import { Textarea } from "@components/ui/textarea";
 import { useSeo } from "@hooks/useSeo";
 import { toast } from "sonner";
 import { jump } from "@utils/path";
 import { DatePicker } from "@components/ui/date-picker";
 import { Select } from "@components/widgets/ThemeComponent/ThemeSelect";
+import { Label } from "@components/ui/label";
 
 export const EditorPage: BasicPage = () => {
   const [loading, setLoading] = useState(true);
@@ -229,8 +231,8 @@ export const EditorPage: BasicPage = () => {
                   });
                 }}
               />
+              <Label>文章摘要</Label>
               <Textarea
-                label="文章摘要"
                 value={data?.summary}
                 onChange={(e) => {
                   setData({

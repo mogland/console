@@ -6,7 +6,8 @@ import clsx from "clsx";
 import { useEffect, useState } from "react";
 import { Loading } from "@components/universal/Loading";
 import { ModalBody } from "@components/universal/Modal";
-import { Input, Textarea } from "@pages/Write/Input";
+import { Input } from "@pages/Write/Input";
+import { Textarea } from "@components/ui/textarea";
 import { apiClient } from "@utils/request";
 import styles from "./index.module.css";
 import { Button } from "@components/universal/Button";
@@ -22,6 +23,7 @@ import useSWR, { mutate } from "swr";
 import { Space } from "@components/universal/Space";
 import { app } from "@states/app";
 import { removeCookie } from "@utils/cookie";
+import { Label } from "@components/ui/label";
 
 const tabsAPI = ["/user/master/info", "/configs"];
 
@@ -114,9 +116,9 @@ export const SettingsPage: BasicPage = () => {
             />
           </div>
           <div>
+            <Label>个人简介</Label>
             <Textarea
               value={_user?.description}
-              label="个人简介"
               style={{
                 backgroundColor: "var(--background-color-primary)",
                 width: "100%",
@@ -202,9 +204,9 @@ export const SettingsPage: BasicPage = () => {
                 _setData({ ..._data, seo: { ..._data?.seo, title: e } });
               }}
             />
+            <Label>站点描述</Label>
             <Textarea
               style={{ backgroundColor: "var(--background-color-primary)" }}
-              label="站点描述"
               value={_data?.seo?.description}
               onChange={(e) => {
                 _setData({ ..._data, seo: { ..._data?.seo, description: e } });

@@ -9,7 +9,8 @@ import { Title } from "@components/universal/Title";
 import { toast } from "sonner";
 import { apiClient } from "@utils/request";
 import { Modal, ModalBody } from "@components/universal/Modal";
-import { Input, Textarea } from "@pages/Write/Input";
+import { Input } from "@pages/Write/Input";
+import { Textarea } from "@components/ui/textarea";
 import { Toggle } from "@components/universal/Toggle";
 import { Collapse, CollapseContainer } from "@components/ui/Collapse";
 import { Select } from "@components/widgets/ThemeComponent/ThemeSelect";
@@ -19,6 +20,7 @@ import { ScheduleDataTable } from "./Table/data-table";
 import type { ScheduleItemProps } from "./Table/column";
 import { ScheduleAfter, ScheduleColumns, ScheduleType } from "./Table/column";
 import { Button } from "@components/ui/button";
+import { Label } from "@components/ui/label";
 
 export const SchedulePage: BasicPage = () => {
   useSeo("计划任务");
@@ -184,8 +186,9 @@ export const SchedulePage: BasicPage = () => {
             }}
             placeholder="请选择任务类型"
           />
+
+          <Label>任务操作参数 (optional)</Label>
           <Textarea
-            label="任务操作参数 (optional)"
             value={JSON.stringify(item?.action) || ""}
             style={{ fontFamily: "monospace", minHeight: "100px" }}
             onChange={(e) => {
@@ -210,8 +213,8 @@ export const SchedulePage: BasicPage = () => {
             }}
             placeholder="请选择任务后续"
           />
+          <Label>任务后续操作参数 (optional)</Label>
           <Textarea
-            label="任务后续操作参数 (optional)"
             value={JSON.stringify(item?.after_action) || ""}
             style={{ fontFamily: "monospace", minHeight: "100px" }}
             onChange={(e) => {
