@@ -10,7 +10,7 @@ import { Input, Textarea } from "@pages/Write/Input";
 import { apiClient } from "@utils/request";
 import styles from "./index.module.css";
 import { Button } from "@components/universal/Button";
-import { Collapse, CollapseContainer } from "@components/universal/Collapse";
+import { Collapse, CollapseContainer } from "@components/ui/Collapse";
 import { getQueryVariable } from "@utils/url";
 import { useNavigate } from "react-router-dom";
 import { Tags } from "@components/universal/Tags";

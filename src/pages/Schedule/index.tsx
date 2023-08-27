@@ -11,7 +11,7 @@ import { apiClient } from "@utils/request";
 import { Modal, ModalBody } from "@components/universal/Modal";
 import { Input, Textarea } from "@pages/Write/Input";
 import { Toggle } from "@components/universal/Toggle";
-import { Collapse, CollapseContainer } from "@components/universal/Collapse";
+import { Collapse, CollapseContainer } from "@components/ui/Collapse";
 import { Select } from "@components/widgets/ThemeComponent/ThemeSelect";
 import { useSnapshot } from "valtio";
 import { _private } from "@states/private";

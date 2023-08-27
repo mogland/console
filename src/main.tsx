@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import "@icon-park/react/styles/index.css";
 import "./index.css";
+import "./style.css";
 import { SWRConfig } from "swr";
 import { fetch } from "@utils/request";
 import { DialogProvider } from "react-hook-dialog";
