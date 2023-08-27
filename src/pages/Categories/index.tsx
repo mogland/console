@@ -9,13 +9,15 @@ import { Title } from "@components/universal/Title";
 import { server } from "@states/app";
 import type { BasicPage } from "@type/basic";
 import { apiClient } from "@utils/request";
-import { Input, Textarea } from "@pages/Write/Input";
+import { Input } from "@pages/Write/Input";
 import styles from "./index.module.css";
 import { useSeo } from "@hooks/useSeo";
 import { toast } from "sonner";
 import useSWR from "swr";
 import { ActionButton, ActionButtons } from "@components/widgets/ActionButtons";
 import { jump } from "@utils/path";
+import { Textarea } from "@components/ui/textarea";
+import { Label } from "@components/ui/label";
 
 export const CategoriesPage: BasicPage = () => {
   useSeo("分类 & 标签");
@@ -201,15 +203,17 @@ export const CategoriesPage: BasicPage = () => {
           label={`${modalCreateData.type === "tag" ? "标签" : "分类"}图标`}
           type="text"
         />
+        <Label>
+          {`${modalCreateData.type === "tag" ? "标签" : "分类"}描述`}
+        </Label>
         <Textarea
           value={modalCreateData.description || ""}
           onChange={(e) => {
             setModalCreateData({
               ...modalCreateData,
-              description: e,
+              description: e.currentTarget.value,
             });
           }}
-          label={`${modalCreateData.type === "tag" ? "标签" : "分类"}描述`}
         />
       </Modal>
     );

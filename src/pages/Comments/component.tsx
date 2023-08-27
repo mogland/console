@@ -6,13 +6,15 @@ import {
   TableItem,
   TableItemValue,
 } from "@pages/Home/universal";
-import { Input, Textarea } from "@pages/Write/Input";
+import { Input } from "@components/ui/input";
+import { Textarea } from "@components/ui/textarea";
 import { apiClient } from "@utils/request";
 import clsx from "clsx";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import useSWR from "swr";
 import useSWRMutation from "swr/mutation";
 import { Select } from "@components/widgets/ThemeComponent/ThemeSelect";
+import { Label } from "@components/ui/label";
 
 interface EditModalProps {
   tabsList: {
@@ -108,6 +110,7 @@ export const EditModal: React.FC<EditModalProps> = ({
           })}
           placeholder="请选择状态"
         />
+        <Label>作者</Label>
         <Input
           value={_data?.author}
           onChange={(e) => {
@@ -116,8 +119,9 @@ export const EditModal: React.FC<EditModalProps> = ({
               author: e,
             });
           }}
-          label="作者"
         />
+
+        <Label>邮箱</Label>
         <Input
           value={_data?.email}
           onChange={(e) => {
@@ -126,8 +130,9 @@ export const EditModal: React.FC<EditModalProps> = ({
               email: e,
             });
           }}
-          label="邮箱"
         />
+
+        <Label>内容</Label>
         <Textarea
           value={_data?.text}
           onChange={(e) => {
@@ -136,7 +141,6 @@ export const EditModal: React.FC<EditModalProps> = ({
               text: e,
             });
           }}
-          label="内容"
         />
       </Modal>
     </>

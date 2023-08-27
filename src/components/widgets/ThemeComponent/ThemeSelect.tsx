@@ -19,7 +19,7 @@ export interface SelectProps {
 export const Select: React.FC<SelectProps> = (props) => (
   <UISelect value={props.value} onValueChange={props.onChange}>
     <SelectTrigger className="bg-[var(--background-color)]">
-      <SelectValue placeholder="请选择分类" />
+      <SelectValue placeholder={props.placeholder} />
     </SelectTrigger>
     <SelectContent>
       {props.data.map((item) => {

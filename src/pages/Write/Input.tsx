@@ -45,37 +45,3 @@ export const Input: React.FC<InputInterface> = ({
     </div>
   );
 };
-
-export interface TextareaProps {
-  label: string;
-  value: string;
-  onChange?: (value: string) => void;
-  placeholder?: string;
-  className?: string;
-  [key: string]: any;
-}
-
-export const Textarea: React.FC<TextareaProps> = ({
-  label,
-  value,
-  onChange,
-  placeholder,
-  className,
-  ...rest
-}) => {
-  return (
-    <>
-      <ModalBody>{label}</ModalBody>
-      <textarea
-        {...rest}
-        className={clsx(styles.summary, className)}
-        name={label}
-        placeholder={placeholder}
-        defaultValue={value}
-        onChange={(e) => {
-          onChange?.(e.target.value);
-        }}
-      />
-    </>
-  );
-};

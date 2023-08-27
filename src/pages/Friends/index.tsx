@@ -12,7 +12,8 @@ import { apiClient } from "@utils/request";
 import { getQueryVariable } from "@utils/url";
 
 import postStyles from "@pages/Posts/Index/index.module.css";
-import { Input, Textarea } from "@pages/Write/Input";
+import { Input } from "@pages/Write/Input";
+import { Textarea } from "@components/ui/textarea";
 import styles from "./index.module.css";
 import { jump } from "@utils/path";
 import { useSeo } from "@hooks/useSeo";
@@ -21,6 +22,7 @@ import { ActionButton } from "@components/widgets/ActionButtons";
 import { Select } from "@components/widgets/ThemeComponent/ThemeSelect";
 import { FriendsListDataTable } from "./Table/data-table";
 import { friendsListColumns } from "./Table/column";
+import { Label } from "@components/ui/label";
 
 const FriendsStatus = ["Approved", "Pending", "Spam", "Trash"];
 const FriendsFormFront = [
@@ -190,8 +192,8 @@ export const FriendsPage: BasicPage = () => {
               />
             );
           })}
+          <Label>站点描述</Label>
           <Textarea
-            label="站点描述"
             value={item.desc}
             onChange={(e) => {
               setItem({
