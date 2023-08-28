@@ -9,15 +9,24 @@ import { Title } from "@components/universal/Title";
 import { server } from "@states/app";
 import type { BasicPage } from "@type/basic";
 import { apiClient } from "@utils/request";
-import { Input } from "@pages/Write/Input";
 import styles from "./index.module.css";
 import { useSeo } from "@hooks/useSeo";
 import { toast } from "sonner";
 import useSWR from "swr";
 import { ActionButton, ActionButtons } from "@components/widgets/ActionButtons";
 import { jump } from "@utils/path";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@components/ui/dialog";
+import { Input } from "@components/ui/input";
 import { Textarea } from "@components/ui/textarea";
 import { Label } from "@components/ui/label";
+import { Button } from "@components/ui/button";
 
 export const CategoriesPage: BasicPage = () => {
   useSeo("分类 & 标签");
@@ -96,129 +105,138 @@ export const CategoriesPage: BasicPage = () => {
     mutate: mutateTags,
   } = useSWR<any>("/category?type=Tag");
 
-  const addModal = () => {
-    const handleConfirm = async () => {
-      setLoading(true);
-      try {
-        await apiClient(
-          `/category${`${modalCreateData.id ? `/${modalCreateData.id}` : ""}`}`,
-          {
-            method: `${modalCreateData.id ? "PUT" : "POST"}`,
-            body: JSON.stringify({
-              name: modalCreateData.name,
-              slug: modalCreateData.slug,
-              icon: modalCreateData.icon,
-              description: modalCreateData.description,
-              type: modalCreateData.type === "tag" ? 1 : 0,
-            }),
-          }
-        );
-        setModalActive(false);
-        setModalCreateData({
-          name: "",
-          slug: "",
-          icon: "",
-          description: "",
-        });
-        console.log(modalCreateData.id);
-        handleRemoveSelect();
-        await Promise.all([mutateCategories(), mutateTags()]);
-        if (!categoriesError) server.categories = categories.data || [];
-        if (!tagsError) server.tags = tags.data || [];
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    return (
-      <Modal
-        title={`${modalCreateData.id ? "编辑" : "新增"}分类`}
-        onClose={() => {
-          setModalActive(false);
-          setModalCreateData({
-            name: "",
-            slug: "",
-            icon: "",
-            description: "",
-          });
-          handleRemoveSelect();
-        }}
-        doubleClick={{
-          cancel: modalCreateData.name ? true : false,
-        }}
-        type="confirm"
-        options={{
-          confirmText: "提交",
-        }}
-        onConfirm={handleConfirm}
-        onCancel={() => {
-          setModalActive(false);
-          setModalCreateData({
-            name: "",
-            slug: "",
-            icon: "",
-            description: "",
-          });
-          const items = document.querySelectorAll(`.${styles.select}`);
-          items.forEach((item) => {
-            item.classList.remove(styles.select);
-          });
-          setSelect([]);
-        }}
-      >
-        <Input
-          value={modalCreateData.name}
-          onChange={(e) => {
-            setModalCreateData({
-              ...modalCreateData,
-              name: e,
-            });
-          }}
-          label={`${modalCreateData.type === "tag" ? "标签" : "分类"}名称`}
-          type="text"
-        />
-        {modalCreateData.type === "tag" ? null : (
-          <Input
-            value={modalCreateData.slug}
-            onChange={(e) => {
-              setModalCreateData({
-                ...modalCreateData,
-                slug: e,
-              });
-            }}
-            label="分类别名"
-            type="text"
-          />
-        )}
-        <Input
-          value={modalCreateData.icon || ""}
-          onChange={(e) => {
-            setModalCreateData({
-              ...modalCreateData,
-              icon: e,
-            });
-          }}
-          label={`${modalCreateData.type === "tag" ? "标签" : "分类"}图标`}
-          type="text"
-        />
-        <Label>
-          {`${modalCreateData.type === "tag" ? "标签" : "分类"}描述`}
-        </Label>
-        <Textarea
-          value={modalCreateData.description || ""}
-          onChange={(e) => {
-            setModalCreateData({
-              ...modalCreateData,
-              description: e.currentTarget.value,
-            });
-          }}
-        />
-      </Modal>
-    );
+  const handleConfirm = async () => {
+    setLoading(true);
+    try {
+      await apiClient(
+        `/category${`${modalCreateData.id ? `/${modalCreateData.id}` : ""}`}`,
+        {
+          method: `${modalCreateData.id ? "PUT" : "POST"}`,
+          body: JSON.stringify({
+            name: modalCreateData.name,
+            slug: modalCreateData.slug,
+            icon: modalCreateData.icon,
+            description: modalCreateData.description,
+            type: modalCreateData.type === "tag" ? 1 : 0,
+          }),
+        }
+      );
+      setModalActive(false);
+      setModalCreateData({
+        name: "",
+        slug: "",
+        icon: "",
+        description: "",
+      });
+      console.log(modalCreateData.id);
+      handleRemoveSelect();
+      await Promise.all([mutateCategories(), mutateTags()]);
+      if (!categoriesError) server.categories = categories.data || [];
+      if (!tagsError) server.tags = tags.data || [];
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
+  const AddDialog = () => {
+    return (
+      <Dialog
+        defaultOpen={false}
+        open={modalActive}
+        onOpenChange={(open) => {
+          setModalActive(open);
+          if (!open) setSelect([]);
+        }}
+      >
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>
+              {modalCreateData.id ? "编辑" : "新增"}分类
+            </DialogTitle>
+            <DialogDescription>
+              在这里修改分类信息. 请注意, 一旦修改分类别名, 之前的链接将会失效
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label className="text-right">
+                {modalCreateData.type === "tag" ? "标签" : "分类"}名称
+              </Label>
+              <Input
+                className="col-span-3"
+                value={modalCreateData.name}
+                onChange={(e) => {
+                  setModalCreateData({
+                    ...modalCreateData,
+                    name: e.currentTarget.value,
+                  });
+                }}
+                type="text"
+              />
+
+              {modalCreateData.type === "tag" ? null : (
+                <>
+                  <Label className="text-right">分类别名</Label>
+                  <Input
+                    className="col-span-3"
+                    value={modalCreateData.slug}
+                    onChange={(e) => {
+                      setModalCreateData({
+                        ...modalCreateData,
+                        slug: e.currentTarget.value,
+                      });
+                    }}
+                    type="text"
+                  />
+                </>
+              )}
+
+              <Label className="text-right">
+                {modalCreateData.type === "tag" ? "标签" : "分类"}图标
+              </Label>
+              <Input
+                className="col-span-3"
+                value={modalCreateData.icon || ""}
+                onChange={(e) => {
+                  setModalCreateData({
+                    ...modalCreateData,
+                    icon: e.currentTarget.value,
+                  });
+                }}
+                type="text"
+              />
+
+              <Label className="text-right">
+                {modalCreateData.type === "tag" ? "标签" : "分类"}描述
+              </Label>
+              <Textarea
+                className="col-span-3"
+                value={modalCreateData.description || ""}
+                onChange={(e) => {
+                  setModalCreateData({
+                    ...modalCreateData,
+                    description: e.target.value,
+                  });
+                }}
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button
+              type="submit"
+              onClick={() => {
+                handleConfirm();
+              }}
+            >
+              保存
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    );
+  };
   return (
     <div>
       <Loading loading={loading} />
@@ -426,7 +444,7 @@ export const CategoriesPage: BasicPage = () => {
       </div>
 
       {modalData && modal(modalData, navigate, handleModalClose)}
-      {modalActive && addModal()}
+      <AddDialog />
     </div>
   );
 };
