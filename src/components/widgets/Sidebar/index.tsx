@@ -17,6 +17,7 @@ import { jump } from "@utils/path";
 import { mutate } from "swr";
 import { toast } from "sonner";
 import { SIDEBAR } from "../../../sidebar";
+import { ModeToggle } from "../ModeToggle";
 
 const Links = () => {
   const authenticated = useSnapshot(app).authenticated;
@@ -60,6 +61,7 @@ const Links = () => {
         </>
       ))}
       <Space height={30} />
+      <ModeToggle />
       <span
         className={clsx(itemStyle.item, styles.item)}
         onClick={() => {

@@ -28,6 +28,7 @@
       "@hooks/*": ["src/hooks/*"],
       "@constants/*": ["src/constants/*"],
       "@libs/*": ["src/libs/*"],
+      "@contexts/*": ["src/contexts/*"],
     }
   },
   "include": ["src"],

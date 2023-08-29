@@ -10,6 +10,7 @@ import { fetch } from "@utils/request";
 import { DialogProvider } from "react-hook-dialog";
 import { dialogs } from "./libs/dialogs";
 import { FileContextMenu } from "@components/universal/FileContextMenu";
+import { ThemeProvider } from "./contexts/theme-provider";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -20,8 +21,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             fetcher: fetch,
           }}
         >
-          <FileContextMenu />
-          <App />
+          <ThemeProvider defaultTheme="dark" storageKey="console-ui-theme">
+            <FileContextMenu />
+            <App />
+          </ThemeProvider>
         </SWRConfig>
       </DialogProvider>
     </BrowserRouter>

@@ -17,6 +17,7 @@ export default defineConfig({
       "@hooks": path.resolve(__dirname, "src/hooks"),
       "@constants": path.resolve(__dirname, "src/constants"),
       "@libs": path.resolve(__dirname, "src/libs"),
+      "@contexts": path.resolve(__dirname, "src/contexts"),
     },
   },
 });
