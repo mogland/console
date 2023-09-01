@@ -17,6 +17,7 @@ import { CommentsTable } from "./Table/data-table";
 import { commentsListColumns } from "./Table/column";
 import { Button } from "@components/ui/button";
 import { _private } from "@states/private";
+import { useSnapshot } from "valtio";
 
 const tabsList = [
   {
@@ -43,25 +44,14 @@ export const CommentsPage: BasicPage = () => {
   const navigate = useNavigate();
   const [tab, setTab] = useState(status ? Number(status) : 0);
 
-  const [select, setSelect] = useState<string[]>([]);
-  const [showEditModal, setShowEditModal] = useState(false);
-  // const [inSideLoading, setInSideLoading] = useState(true);
+  const { showModal } = useSnapshot(_private);
 
   const { data, mutate } = useSWR<any>(`/comments?status=${tab}&page=${page}`);
 
   useEffect(() => {
     navigate(jump(`/comments?status=${tab}&page=${page}`));
     mutate();
-    setSelect([]);
   }, [page, tab]);
-
-  const handleDelete = () => {
-    setSelect([]);
-    mutate((prev) => ({
-      data: prev.data.filter((item) => !select.includes(item.id)),
-      pagination: prev.pagination,
-    }));
-  };
 
   const { trigger: updateStatus } = useSWRMutation(
     `/comments/`,
@@ -84,16 +74,6 @@ export const CommentsPage: BasicPage = () => {
       });
     }
   );
-
-  const handleUpdateStatus = (status: number) => {
-    select.forEach((item) => {
-      updateStatus({
-        item,
-        status,
-      });
-    });
-    handleDelete();
-  };
 
   return (
     <>
@@ -146,12 +126,9 @@ export const CommentsPage: BasicPage = () => {
           </Tab.Panels>
         </Tab.Group>
       </div>
-      {showEditModal && (
+      {showModal && (
         <EditModal
-          tabsList={tabsList}
-          select={select}
-          setShowEditModal={setShowEditModal}
-          setSelect={setSelect}
+          status={tabsList}
           setComments={(comments) => {
             mutate((prev) => ({
               data: comments.data,

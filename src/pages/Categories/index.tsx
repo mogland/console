@@ -442,37 +442,7 @@ export const CategoriesPage: BasicPage = () => {
           );
         })}
       </div>
-
-      {modalData && modal(modalData, navigate, handleModalClose)}
       <AddDialog />
     </div>
-  );
-};
-
-const modal = (data, navigate, onClose) => {
-  return (
-    <Modal
-      title={`相关文章`}
-      size={"md"}
-      options={{
-        cancelText: "关闭",
-      }}
-      onClose={onClose}
-    >
-      {data.map((item) => {
-        return (
-          <div
-            key={item.id}
-            className={styles.modalItem}
-            onClick={() => {
-              navigate(jump(`/write/post?id=${item.id}`));
-            }}
-          >
-            <h1>{item.title}</h1>
-            <p>点击前往编辑页</p>
-          </div>
-        );
-      })}
-    </Modal>
   );
 };

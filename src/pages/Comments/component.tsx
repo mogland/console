@@ -15,22 +15,19 @@ import useSWR from "swr";
 import useSWRMutation from "swr/mutation";
 import { Select } from "@components/widgets/ThemeComponent/ThemeSelect";
 import { Label } from "@components/ui/label";
+import { Dialog, DialogHeader } from "@components/ui/dialog";
+import { useSnapshot } from "valtio";
+import { _private } from "@states/private";
+import { DialogContent } from "@radix-ui/react-dialog";
 
 interface EditModalProps {
-  tabsList: {
+  status: {
     name: string;
     status: number;
   }[];
-  select: string[];
-  setShowEditModal: (show: boolean) => void;
-  setSelect: React.Dispatch<React.SetStateAction<string[]>>;
-  setComments: (comments: any) => void;
-  // setInSideLoading: (loading: boolean) => void;
-  tab: number;
-  page: number;
 }
 
-export const EditModal: React.FC<EditModalProps> = ({
+export const EditModal: React.FC<any> = ({
   tabsList,
   select,
   setShowEditModal,
@@ -147,126 +144,36 @@ export const EditModal: React.FC<EditModalProps> = ({
   );
 };
 
-interface CommentsListProps {
-  comments: {
-    data: {
-      id: string;
-      author: string;
-      email: string;
-      text: string;
-      parent?: {
-        author: string;
-        created: string;
-        text: string;
-      };
-      post: {
-        id: string;
-        title: string;
-      };
-      created: string;
-    }[];
-  };
-  // inSideLoading: boolean;
-  select: string[];
-  setSelect: React.Dispatch<React.SetStateAction<string[]>>;
-  jump: (path: string) => void;
-  mailAvatar: (email: string) => string;
-}
-
-export const CommentsList: React.FC<CommentsListProps> = ({
-  comments,
-  // inSideLoading,
-  select,
-  setSelect,
-  jump,
-  mailAvatar,
-}) => {
-  const header = useMemo(() => ["AUTHOR", "CONTENT", "ORIGIN", "DATE"], []);
-  const handleItemClick = useCallback(
-    (item: { id: string }) => {
-      if (select.includes(item.id)) {
-        setSelect(select.filter((i) => i !== item.id));
-      } else {
-        setSelect([...select, item.id]);
-      }
-    },
-    [select, setSelect]
+export const _EditModal: React.FC<EditModalProps> = (props) => {
+  const { showModal, modalDataId } = useSnapshot(_private);
+  const { data } = useSWR(`/comments/${modalDataId}`);
+  const { trigger } = useSWRMutation(
+    `/comments/${modalDataId}`,
+    (key: string, { arg }: { arg: string }) => {
+      return apiClient(key, {
+        method: "PUT",
+        body: JSON.stringify(arg),
+      });
+    }
   );
 
+  const handleConfirm = async () => {
+    await trigger(data);
+    _private.showModal = false;
+    _private.modalDataId = "";
+  };
+
   return (
-    <>
-      {/* <Loading loading={inSideLoading} /> */}
-      <div
-      // className={clsx("loading", !inSideLoading && "loaded")}
-      >
-        <TableContainer
-          header={header}
-          headerStyle={{
-            gridTemplateColumns: "1fr 2fr 2fr 2fr",
-          }}
-        >
-          {comments?.data &&
-            comments?.data.map((item) => {
-              const tableItemHeader = ["AUTHOR", "CONTENT", "ORIGIN", "DATE"];
-              const tableItemStyle = {
-                gridTemplateColumns: "1fr 2fr 2fr 2fr",
-              };
-              const isItemSelected = select.includes(item.id);
-              const className = clsx(isItemSelected && postStyles.select);
-              const postTitle = item.post?.title;
-              const createdTime = new Date(item.created).toLocaleString();
-              const replyAuthor = item.parent?.author;
-              const replyCreatedTime = item.parent?.created.split("T")[0];
-              const replyText = item.parent?.text;
-              return (
-                <TableItem
-                  key={item.id}
-                  style={tableItemStyle}
-                  aria-label={item.id}
-                  className={className}
-                  header={tableItemHeader}
-                  onClick={() => handleItemClick(item)}
-                >
-                  <TableItemValue>
-                    <div style={{ display: "flex", alignItems: "center" }}>
-                      <img
-                        src={mailAvatar(item.email)}
-                        alt={item.author}
-                        style={{
-                          width: "30px",
-                          height: "30px",
-                          borderRadius: "50%",
-                          marginRight: "10px",
-                        }}
-                      />
-                      {item.author}
-                    </div>
-                  </TableItemValue>
-                  <TableItemValue>
-                    {item.text}
-                    {item.parent && (
-                      <div className={styles.reply}>
-                        <div className={styles.replyAuthor}>
-                          {replyAuthor} 在 {replyCreatedTime} 说：
-                        </div>
-                        <div className={styles.replyContent}>{replyText}</div>
-                      </div>
-                    )}
-                  </TableItemValue>
-                  <TableItemValue
-                    onClick={() => {
-                      jump(`/write/post?id=${item.post?.id}`);
-                    }}
-                    style={{ cursor: "pointer" }}
-                  >
-                    {postTitle}
-                  </TableItemValue>
-                  <TableItemValue>{createdTime}</TableItemValue>
-                </TableItem>
-              );
-            })}
-        </TableContainer>
-      </div>
-    </>
+    <Dialog
+      open={showModal}
+      onOpenChange={(e) => {
+        _private.showModal = e;
+      }}
+      defaultOpen={false}
+    >
+      <DialogContent>
+        <DialogHeader>编辑评论</DialogHeader>
+      </DialogContent>
+    </Dialog>
   );
 };

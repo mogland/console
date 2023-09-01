@@ -1,9 +1,12 @@
 import {
+  generateAnyActionsColumn,
   generateSelectColumn,
   genereateCreatedColumn,
 } from "@components/widgets/AnyListDataTable/anyColumn";
+import { _private } from "@states/private";
 import type { ColumnDef } from "@tanstack/react-table";
 import { mailAvatar } from "@utils/avatar";
+import { Edit } from "lucide-react";
 
 export interface CommentReaction {
   like: number;
@@ -74,4 +77,16 @@ export const commentsListColumns: ColumnDef<CommentsListColumns>[] = [
     },
   },
   genereateCreatedColumn<CommentsListColumns>(),
+  generateAnyActionsColumn<CommentsListColumns>({
+    menus: [
+      {
+        title: "修改",
+        onClick: (row) => {
+            _private.showModal = true
+            _private.modalDataId = row.id
+        },
+        icon: <Edit className="mr-2 h-4 w-4" />,
+      }
+    ],
+  }),
 ];
