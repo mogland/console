@@ -137,7 +137,8 @@ export const Sidebar: React.FC = () => {
           <div className={styles.headerInner}>
             <div className={styles.logo}>Mog</div>
             <div className={styles.search} onClick={() => setFloat(!float)}>
-              {!isMobile && (float ? <MenuFoldOne /> : <MenuUnfoldOne />)}
+              {/* {!isMobile && } */}
+              {float ? <MenuFoldOne /> : <MenuUnfoldOne />}
             </div>
           </div>
         </div>

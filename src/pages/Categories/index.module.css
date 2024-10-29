@@ -13,7 +13,7 @@
 }
 
 .add {
-  background-color: var(--background-color);
+  background-color: var(--background-color-primary);
 }
 
 .count {
@@ -43,7 +43,7 @@
 
 
 .add:hover {
-  background-color: var(--background-color-primary);
+  background-color: var(--background-color-secondary);
 }
 
 .group {
