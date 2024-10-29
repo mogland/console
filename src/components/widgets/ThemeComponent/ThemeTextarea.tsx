@@ -1,4 +1,5 @@
-import { Textarea, TextareaProps } from "@components/ui/textarea";
+import type { TextareaProps } from "@components/ui/textarea";
+import { Textarea } from "@components/ui/textarea";
 import { Label } from "@components/ui/label";
 
 export const ThemeTextarea: React.FC<

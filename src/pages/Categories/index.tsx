@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSnapshot } from "valtio";
 import { Loading } from "@components/universal/Loading";
-import { Modal } from "@components/universal/Modal";
 import { Title } from "@components/universal/Title";
 import { server } from "@states/app";
 import type { BasicPage } from "@type/basic";
@@ -14,7 +13,6 @@ import { useSeo } from "@hooks/useSeo";
 import { toast } from "sonner";
 import useSWR from "swr";
 import { ActionButton, ActionButtons } from "@components/widgets/ActionButtons";
-import { jump } from "@utils/path";
 import {
   Dialog,
   DialogContent,

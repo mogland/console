@@ -1,16 +1,10 @@
-import postStyles from "@pages/Posts/Index/index.module.css";
-import styles from "./index.module.css";
 import { Modal, ModalBody } from "@components/universal/Modal";
-import {
-  TableContainer,
-  TableItem,
-  TableItemValue,
-} from "@pages/Home/universal";
+
+
 import { Input } from "@components/ui/input";
 import { Textarea } from "@components/ui/textarea";
 import { apiClient } from "@utils/request";
-import clsx from "clsx";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import useSWR from "swr";
 import useSWRMutation from "swr/mutation";
 import { Select } from "@components/widgets/ThemeComponent/ThemeSelect";
